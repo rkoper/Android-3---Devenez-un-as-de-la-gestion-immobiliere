@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/square_grey"
+    android:layout_width="400dp"
+    android:layout_height="400dp"
+    android:gravity="center"
+    tools:context=".controller.activity.MainActivity">
+
+    <EditText
+        android:id="@+id/dialog_photoinfo_edittext"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/square_grey"
+        android:gravity="center"
+        android:hint="Info info"
+        android:textSize="50dp"
+        android:textAlignment="gravity"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:padding="3dp"
+        android:textColor="@color/colorD"
+        android:theme="@style/MyEditTextStyle2" />
+</androidx.constraintlayout.widget.ConstraintLayout>

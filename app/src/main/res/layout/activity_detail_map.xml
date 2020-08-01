@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorD"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <fragment
+        android:background="@color/colorB"
+        android:id="@+id/activity_detail_map_view"
+        app:layout_constraintTop_toTopOf="parent"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/gline"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fb_pharmacy_float"
+        app:backgroundTint="@color/colorB"
+        android:src="@drawable/hospital_yellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:tint="@color/colorBlue"
+        android:elevation="5dp"
+        app:maxImageSize="40dp"
+        app:layout_constraintTop_toTopOf="@+id/gline"
+        app:layout_constraintBottom_toBottomOf="@+id/gline"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/fb_school_float"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fb_school_float"
+        app:backgroundTint="@color/colorB"
+        android:src="@drawable/school_yellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:tint="@color/colorYellow"
+        android:elevation="5dp"
+        app:maxImageSize="40dp"
+        app:layout_constraintTop_toTopOf="@+id/gline"
+        app:layout_constraintBottom_toBottomOf="@+id/gline"
+        app:layout_constraintLeft_toRightOf="@+id/fb_pharmacy_float"
+        app:layout_constraintRight_toLeftOf="@+id/fb_market_float" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fb_market_float"
+        app:backgroundTint="@color/colorB"
+        android:src="@drawable/market_yellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:tint="@color/colorRed"
+        android:elevation="5dp"
+        app:maxImageSize="40dp"
+        app:layout_constraintTop_toTopOf="@+id/gline"
+        app:layout_constraintBottom_toBottomOf="@+id/gline"
+        app:layout_constraintRight_toLeftOf="@+id/fb_park_float"
+        app:layout_constraintLeft_toRightOf="@+id/fb_school_float" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fb_park_float"
+        app:backgroundTint="@color/colorB"
+        android:src="@drawable/park_yellow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:tint="@color/colorGreen"
+
+        android:elevation="5dp"
+        app:maxImageSize="40dp"
+        app:layout_constraintTop_toTopOf="@+id/gline"
+        app:layout_constraintBottom_toBottomOf="@+id/gline"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/fb_market_float" />
+
+    <FrameLayout
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorB"
+        android:id="@+id/activity_detail_map_RV1"
+        android:layout_height="0dp"
+        android:layout_width="0dp"
+        app:layout_constraintTop_toTopOf="@id/gline"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/activity_detail_map_RVok"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="40dp"
+        android:background="@color/colorTransparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gline"
+        app:layout_constraintRight_toRightOf="parent"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/detail_map_fb_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="1dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/colorB"
+        android:scaleType="centerCrop"
+        android:src="@drawable/house_grey"
+        app:maxImageSize="36dp"
+        app:tint="@color/colorD"
+        tools:targetApi="lollipop" />
+</androidx.constraintlayout.widget.ConstraintLayout>

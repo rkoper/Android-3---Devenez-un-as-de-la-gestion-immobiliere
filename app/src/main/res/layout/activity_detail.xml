@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/colorD"
+    android:layout_height="match_parent"
+    tools:context=".controller.activity.DetailActivity">
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      android:layout_width="wrap_content"
+      android:layout_marginEnd="2dp"
+      android:layout_marginTop="2dp"
+      android:layout_height="wrap_content"
+      app:backgroundTint="@color/colorB"
+      android:src="@drawable/edit_yellow"
+      app:tint="@color/colorD"
+      android:elevation="5dp"
+      app:maxImageSize="48dp"
+      android:id="@+id/a_detail_fb_update"
+      tools:ignore="VectorDrawableCompat"
+      tools:targetApi="lollipop"
+      android:visibility="visible"/>
+  <fragment
+      android:id="@+id/fragment_main_detail"
+      android:name="com.sofianem.realestatemanager.controller.fragment.DetailFragment"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:layout_marginBottom="20dp"
+      android:layout_height="0dp"
+      android:layout_width="0dp" />
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/detail_fb_home"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      android:layout_marginBottom="1dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:backgroundTint="@color/colorB"
+      android:scaleType="centerCrop"
+      android:src="@drawable/house_grey"
+      app:maxImageSize="36dp"
+      app:tint="@color/colorD"
+      tools:targetApi="lollipop" />
+</androidx.constraintlayout.widget.ConstraintLayout>

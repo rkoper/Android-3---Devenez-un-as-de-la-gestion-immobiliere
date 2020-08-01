@@ -1,0 +1,220 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="TxtViewPrincipal" parent="@style/TextAppearance.AppCompat">
+        <item name="android:textSize">17sp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLength">30</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textColorHint">@color/colorBlack</item>
+    </style>
+
+    <style name="TxtViewYellow" parent="@style/TxtViewPrincipal">
+        <item name="android:textSize">13sp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textColor">@color/colorD</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="EditTXTCreate" parent="@style/TxtViewYellow">
+        <item name="android:ellipsize">end</item>
+        <item name="android:paddingStart">3dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:textColor">@color/colorD</item>
+        <item name="android:background">@color/colorB</item>
+    </style>
+
+    <style name="EditTXTCal" parent="@style/TxtViewYellow">
+        <item name="android:ellipsize">end</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:textColor">@color/colorD</item>
+        <item name="android:background">@color/colorB</item>
+    </style>
+
+    <style name="EditTXTdetail" parent="@style/TxtViewPrincipal">
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:background">@color/colorD</item>
+    </style>
+
+    <style name="EditTXTdetailv2" parent="@style/TxtViewPrincipal">
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:textColor">@color/colorD</item>
+    </style>
+    <style name="EditTXTdetailv3" parent="@style/TxtViewPrincipal">
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:textColor">@color/colorD</item>
+    </style>
+
+
+    <style name="MyEditTextStyle2" parent="@style/TxtViewYellow">
+        <item name="android:layout_margin">5dp</item>
+        <item name="colorControlActivated">#F9AA33</item>
+        <item name="colorControlNormal">#F9AA33</item>
+        <item name="android:paddingStart">3dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLength">30</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textColorHint">#F9AA33</item>
+        <item name="colorControlHighlight">#F9AA33</item>
+    </style>
+
+    <style name="MyEdittextStyle2" parent="@style/TxtViewYellow">
+        <item name="android:layout_margin">5dp</item>
+        <item name="colorControlActivated">#FFFFFF</item>
+        <item name="colorControlNormal">#FFFFFF</item>
+        <item name="android:paddingStart">3dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLength">30</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textColorHint">#FFFFFF</item>
+        <item name="colorControlHighlight">#FFFFFF</item>
+    </style>
+
+    <style name="MyEditTextStyle3" parent="@style/TxtViewYellow">
+        <item name="android:layout_margin">1dp</item>
+        <item name="colorControlActivated">#F9AA33</item>
+        <item name="colorControlNormal">#F9AA33</item>
+        <item name="android:textSize">15sp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLength">30</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColorHint">#F9AA33</item>
+        <item name="colorControlHighlight">#F9AA33</item>
+    </style>
+
+    <style name="MyEditTextStyle4" parent="@style/TxtViewYellow">
+        <item name="android:textSize">15sp</item>
+        <item name="fontFamily">@font/montserrat</item>
+    </style>
+
+    <style name="MyEdittextStyle5" parent="@style/TxtViewYellow">
+        <item name="colorControlActivated">#F9AA33</item>
+        <item name="colorControlNormal">#F9AA33</item>
+        <item name="android:paddingStart">3dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLength">30</item>
+        <item name="android:gravity">bottom</item>
+        <item name="android:textColorHint">#F9AA33</item>
+        <item name="colorControlHighlight">#F9AA33</item>
+    </style>
+
+    <style name="MyEdittextStyle6" parent="@style/TxtViewYellow">
+        <item name="colorControlActivated">#F9AA33</item>
+        <item name="colorControlNormal">#F9AA33</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLength">30</item>
+        <item name="android:gravity">bottom</item>
+        <item name="android:textColorHint">#F9AA33</item>
+        <item name="colorControlHighlight">#F9AA33</item>
+    </style>
+
+    <style name="YellowCheck">
+        <item name="colorAccent">#F9AA33</item>
+    </style>
+
+    <style name="ThemeOverlay.MySwitchCompat" parent="">
+        <item name="colorControlActivated">@color/colorYellow</item>
+        <item name="colorSwitchThumbNormal">@color/colorYellow</item>
+        <item name="android:colorForeground">#42221f1f</item>
+    </style>
+
+
+    <style name="Switch" parent="Theme.AppCompat.Light.NoActionBar">
+        ...
+        <!-- Active thumb color & Active track color(30% transparency) -->
+        <item name="colorControlActivated">@color/colorYellow</item>
+        <!-- Inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/colorYellow</item>
+        <!-- Inactive track color(30% transparency) -->
+        <item name="android:colorForeground">@color/colorYellow</item>
+        ...
+    </style>
+
+    <!-- Dialog for Lottie Animation -->
+
+    <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@drawable/round_yellow</item>
+        <item name="android:backgroundStacked">#F9AA32</item>
+        <item name="android:colorBackground">#F9AA34</item>
+        <item name="android:backgroundSplit">#F9AA35</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:textColor">#232F34</item>
+        <item name="android:textSize">17sp</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLength">30</item>
+    </style>
+
+    <style name="MyAppThemeCalendar" parent="Theme.AppCompat.Light.Dialog">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorAccent">#F9AA32</item>
+        <item name="android:minDate">01/01/2020</item>
+        <item name="colorControlActivated">#232F34</item>
+        <item name="colorControlHighlight">#232F34</item>
+        <item name="android:background">#F9AA33</item>
+        <item name="android:backgroundStacked">#F9AA32</item>
+        <item name="android:colorBackground">#F9AA34</item>
+        <item name="android:backgroundSplit">#F9AA35</item>
+        <item name="android:buttonBarStyle">@style/Widget.AppCompat.Button.Borderless</item>
+
+    </style>
+
+</resources>

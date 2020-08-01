@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.sofianem.realestatemanager">
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.ACTION_IMAGE_CAPTURE"/>
+    <uses-permission android:name="android.permission.IMAGE_CAPTURE"/>
+
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
+
+    <application
+       android:label="Real Estate Manager"
+        android:allowBackup="true"
+        android:roundIcon="@mipmap/icon_estate"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MaterialComponents"
+        android:name="com.sofianem.realestatemanager.utils.MyApplication"
+          android:hardwareAccelerated="false"
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+
+
+        tools:targetApi="q">
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyByK0jz-yxjpZFX88W8zjzTwtzMtkPYC4w" />
+
+
+
+        <activity android:name="com.sofianem.realestatemanager.controller.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".controller.activity.CreateActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name="com.sofianem.realestatemanager.controller.activity.DetailActivity" />
+        <activity android:name="com.sofianem.realestatemanager.controller.activity.UpdateActivity" />
+        <activity android:name="com.sofianem.realestatemanager.controller.activity.SearchActivity" />
+        <activity android:name="com.sofianem.realestatemanager.controller.activity.PlacesActivity" />
+        <activity android:name="com.sofianem.realestatemanager.controller.activity.CalculatorActivity" />
+        <activity android:name="com.sofianem.realestatemanager.controller.activity.MapActivity"
+            android:hardwareAccelerated="false"/>
+
+        <provider
+            android:authorities="${applicationId}.fileprovider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_providers" />
+        </provider>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.android.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <provider
+            android:name="com.sofianem.realestatemanager.providers.ItemContentProvider"
+            android:authorities="com.sofianem.realestatemanager.providers"
+            android:exported="true"/>
+
+
+
+
+
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+    </application>
+
+
+
+
+
+
+</manifest>

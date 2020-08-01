@@ -1,0 +1,343 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorB"
+    tools:context="com.sofianem.realestatemanager.controller.activity.CalculatorActivity"
+    tools:ignore="ExtraText">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/cal_guide_A1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/cal_guide_A2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.14" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/cal_guide_A3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.21" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/al_guide_A4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.23" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/cal_guide_B1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.27" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/cal_guide_B2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.31" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/cal_guide_B3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.38" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/al_guide_B4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/cal_guide_C1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.44" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/cal_guide_C2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.48" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/cal_guide_C3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/al_guide_C4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.57" />
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/cal_guide_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.6" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/cal_guide_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/cal_guide_55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/cal_guide_6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/cal_guide_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/cal_guide_11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/cal_guide_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/cal_guide_13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.6" />
+
+
+    <TextView
+        android:id="@+id/cal_txt_calculator"
+        style="@style/EditTXTCal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="Loan Calculator "
+        android:textStyle="bold"
+        android:textColor="@color/colorYellow"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cal_guide_A1"
+        app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
+        app:layout_constraintRight_toRightOf="@+id/cal_guide_11"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/cal_txt_amount"
+        style="@style/MyEdittextStyle6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loan Amount"
+        app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
+        app:layout_constraintRight_toRightOf="@+id/cal_guide_11"
+        app:layout_constraintTop_toTopOf="@+id/cal_guide_A1" />
+
+
+
+
+    <TextView
+        android:id="@+id/cal_ed_amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/EditTXTCal"
+        android:paddingTop="5dp"
+        android:text=""
+        app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
+        app:layout_constraintRight_toRightOf="@+id/cal_guide_11"
+        app:layout_constraintBottom_toBottomOf="@+id/al_guide_A4" />
+
+
+    <TextView
+        android:id="@+id/cal_txt_rate"
+        style="@style/MyEdittextStyle6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loan Rate"
+        app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
+        app:layout_constraintRight_toRightOf="@+id/cal_guide_11"
+        app:layout_constraintTop_toTopOf="@+id/cal_guide_B1" />
+
+
+
+
+
+    <TextView
+        android:text=""
+        android:id="@+id/cal_ed_rate"
+        style="@style/EditTXTCal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
+        app:layout_constraintRight_toRightOf="@+id/cal_guide_11"
+        app:layout_constraintBottom_toBottomOf="@+id/al_guide_B4" />
+
+    <TextView
+        style="@style/MyEdittextStyle6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Loan Term"
+        app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
+        app:layout_constraintRight_toRightOf="@+id/cal_guide_11"
+        app:layout_constraintTop_toTopOf="@+id/cal_guide_C1" />
+
+
+    <TextView
+        android:id="@+id/cal_ed_term"
+        style="@style/EditTXTCal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
+        app:layout_constraintRight_toRightOf="@+id/cal_guide_11"
+        app:layout_constraintBottom_toBottomOf="@+id/al_guide_C4" />
+
+
+    <ImageButton
+        android:id="@+id/cal_txt_button"
+        style="@style/EditTXTCal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/check_yellow"
+        android:paddingStart="50dp"
+        android:text="Calculate"
+        app:layout_constraintBottom_toBottomOf="@+id/cal_guide_5"
+        app:layout_constraintLeft_toLeftOf="@+id/cal_guide_12"
+        app:layout_constraintRight_toRightOf="@+id/cal_guide_13"
+        app:layout_constraintTop_toTopOf="@+id/cal_guide_4" />
+
+    <TextView
+        android:id="@+id/cal_txt_result"
+        style="@style/EditTXTCal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:textSize="40dp"
+        android:text="Result"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/cal_txt_month"
+        app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
+        app:layout_constraintRight_toRightOf="@+id/cal_guide_11"
+        app:layout_constraintTop_toTopOf="@+id/cal_guide_5" />
+    <TextView
+        android:id="@+id/cal_txt_month"
+        android:visibility="invisible"
+        style="@style/EditTXTCal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textSize="20dp"
+        android:text="/ month"
+        app:layout_constraintBottom_toBottomOf="@+id/cal_guide_6"
+        app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
+        app:layout_constraintRight_toRightOf="@+id/cal_guide_11"
+        app:layout_constraintTop_toBottomOf="@+id/cal_guide_55" />
+    <com.appyvet.materialrangebar.RangeBar
+        android:id="@+id/cal_rangebar_amount"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cal_guide_A3"
+        app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
+        app:layout_constraintRight_toRightOf="@+id/cal_guide_11"
+        app:layout_constraintTop_toTopOf="@+id/cal_guide_A2"
+        app:mrb_connectingLineColor="@color/colorYellow"
+        app:mrb_pinRadius="0dp"
+        app:mrb_rangeBar="false"
+        android:visibility="visible"
+        app:mrb_rightThumbColor="@color/colorYellow"
+        app:mrb_thumbSize="10dp"
+        app:mrb_tickEnd="300"
+        app:mrb_tickInterval="5"
+        app:mrb_tickStart="10" />
+
+    <com.appyvet.materialrangebar.RangeBar
+        android:id="@+id/cal_rangebar_rate"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/cal_guide_B3"
+        app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
+        app:layout_constraintRight_toRightOf="@+id/cal_guide_11"
+        app:layout_constraintTop_toTopOf="@+id/cal_guide_B2"
+        app:mrb_connectingLineColor="@color/colorYellow"
+        app:mrb_pinRadius="0dp"
+        app:mrb_rangeBar="false"
+        app:mrb_rightThumbColor="@color/colorYellow"
+        app:mrb_thumbSize="10dp"
+        app:mrb_tickEnd="11"
+        app:mrb_tickInterval="0.1"
+        app:mrb_tickStart="0" />
+
+    <com.appyvet.materialrangebar.RangeBar
+        android:id="@+id/cal_rangebar_term"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/cal_guide_C3"
+        app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
+        app:layout_constraintRight_toRightOf="@+id/cal_guide_11"
+        app:layout_constraintTop_toTopOf="@+id/cal_guide_C2"
+        app:mrb_connectingLineColor="@color/colorYellow"
+        app:mrb_pinRadius="0dp"
+        app:mrb_rangeBar="false"
+        app:mrb_rightThumbColor="@color/colorYellow"
+        app:mrb_thumbSize="10dp"
+        app:mrb_tickEnd="400"
+        app:mrb_tickInterval="6"
+        app:mrb_tickStart="1" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/colorD"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/cal_fb_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="1dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/colorB"
+        android:scaleType="centerCrop"
+        android:src="@drawable/house_grey"
+        app:maxImageSize="36dp"
+        app:tint="@color/colorD"
+        tools:targetApi="lollipop" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorD">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide1"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.17"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide2"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.333"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide3"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.55"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide4"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/activity_main_floating_maps"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/guide1"
+        app:layout_constraintRight_toRightOf="@id/guide1"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        app:backgroundTint="@color/colorB"
+        android:src="@drawable/map_yellow"
+        app:tint="@color/colorD"
+        app:maxImageSize="36dp"
+        tools:ignore="VectorDrawableCompat"
+        tools:targetApi="lollipop" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/activity_main_floating_cal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guide2"
+        app:layout_constraintRight_toRightOf="@+id/guide2"
+        android:layout_marginBottom="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/colorB"
+        android:src="@drawable/mathematics"
+        app:tint="@color/colorD"
+        android:elevation="20dp"
+        app:maxImageSize="36dp"
+        tools:ignore="VectorDrawableCompat"
+        tools:targetApi="lollipop" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/activity_main_floating_home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guide3"
+        app:layout_constraintRight_toRightOf="@+id/guide3"
+        android:layout_marginBottom="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        app:backgroundTint="@color/colorB"
+        android:src="@drawable/house_grey"
+        app:tint="@color/colorD"
+        app:maxImageSize="36dp"
+        tools:ignore="VectorDrawableCompat"
+        tools:targetApi="lollipop" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/activity_main_floating_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guide2"
+        app:layout_constraintRight_toRightOf="@+id/guide2"
+        android:layout_marginBottom="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/colorB"
+        android:src="@drawable/add_yellow"
+        app:tint="@color/colorD"
+        android:elevation="20dp"
+        app:maxImageSize="48dp"
+        tools:ignore="VectorDrawableCompat"
+        tools:targetApi="lollipop" />
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/activity_main_floating_search"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/guide4"
+        app:layout_constraintRight_toRightOf="@id/guide4"
+        android:layout_marginBottom="5dp"
+        android:layout_width="wrap_content"
+        android:elevation="5dp"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/colorB"
+        android:layout_marginStart="50dp"
+        android:src="@drawable/search_yellow"
+        app:tint="@color/colorD"
+        app:maxImageSize="36dp"
+        tools:ignore="VectorDrawableCompat"
+        tools:targetApi="lollipop" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/activity_main_floating_update"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@id/guide4"
+        app:layout_constraintRight_toRightOf="@id/guide4"
+        android:layout_marginBottom="5dp"
+        android:layout_width="wrap_content"
+        android:elevation="5dp"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/colorB"
+        android:layout_marginStart="50dp"
+        android:src="@drawable/search_yellow"
+        app:tint="@color/colorD"
+        app:maxImageSize="36dp"
+        tools:ignore="VectorDrawableCompat"
+        tools:targetApi="lollipop" />
+
+
+        <LinearLayout
+            android:background="@color/colorD"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <fragment
+                android:layout_marginTop="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="1dp"
+                android:id="@+id/fragmentMain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:name="com.sofianem.realestatemanager.controller.fragment.MainFragment"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp" >
+
+            </fragment>
+            <fragment
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="1dp"
+                android:id="@+id/fragment_main_detail"
+                android:layout_weight="1"
+                android:name="com.sofianem.realestatemanager.controller.fragment.DetailFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/fragmentA"
+                app:layout_constraintTop_toBottomOf="@+id/activity_main_toolbar" />
+        </LinearLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_margin="9dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
