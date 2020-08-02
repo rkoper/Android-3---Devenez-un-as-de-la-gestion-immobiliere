@@ -7,22 +7,24 @@
     android:background="@color/colorD"
     android:layout_height="match_parent"
     tools:context=".controller.activity.DetailActivity">
-  <com.google.android.material.floatingactionbutton.FloatingActionButton
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintRight_toRightOf="parent"
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/act_detail_guideline1"
       android:layout_width="wrap_content"
-      android:layout_marginEnd="2dp"
-      android:layout_marginTop="2dp"
       android:layout_height="wrap_content"
-      app:backgroundTint="@color/colorB"
-      android:src="@drawable/edit_yellow"
-      app:tint="@color/colorD"
-      android:elevation="5dp"
-      app:maxImageSize="48dp"
-      android:id="@+id/a_detail_fb_update"
-      tools:ignore="VectorDrawableCompat"
-      tools:targetApi="lollipop"
-      android:visibility="visible"/>
+      android:orientation="horizontal"
+      app:layout_constraintGuide_percent="0.06" />
+
+  <androidx.constraintlayout.widget.Guideline
+      android:id="@+id/act_detail_guideline2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      app:layout_constraintGuide_percent="0.9" />
+
+
+
+
   <fragment
       android:id="@+id/fragment_main_detail"
       android:name="com.sofianem.realestatemanager.controller.fragment.DetailFragment"
@@ -33,17 +35,79 @@
       android:layout_marginBottom="20dp"
       android:layout_height="0dp"
       android:layout_width="0dp" />
+
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/detail_fb_map"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toLeftOf="@+id/detail_fb_cal"
+      android:layout_marginBottom="1dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:backgroundTint="@color/colorB"
+      android:scaleType="centerCrop"
+      android:src="@drawable/map_yellow"
+      app:maxImageSize="36dp"
+      app:tint="@color/colorD"
+      tools:targetApi="lollipop" />
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/detail_fb_cal"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toRightOf="@id/detail_fb_map"
+      app:layout_constraintRight_toLeftOf="@id/detail_fb_home"
+      android:layout_marginBottom="1dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:backgroundTint="@color/colorB"
+      android:scaleType="centerCrop"
+      android:src="@drawable/mathematics"
+      app:maxImageSize="36dp"
+      app:tint="@color/colorD"
+      tools:targetApi="lollipop" />
+
   <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/detail_fb_home"
       app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintLeft_toRightOf="@id/detail_fb_cal"
+      app:layout_constraintRight_toLeftOf="@id/detail_fb_edit"
       android:layout_marginBottom="1dp"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       app:backgroundTint="@color/colorB"
       android:scaleType="centerCrop"
       android:src="@drawable/house_grey"
+      app:maxImageSize="36dp"
+      app:tint="@color/colorD"
+      tools:targetApi="lollipop" />
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/detail_fb_edit"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toRightOf="@id/detail_fb_home"
+      app:layout_constraintRight_toLeftOf="@id/detail_fb_search"
+      android:layout_marginBottom="1dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:backgroundTint="@color/colorB"
+      android:scaleType="centerCrop"
+      android:src="@drawable/edit_yellow"
+      app:maxImageSize="36dp"
+      app:tint="@color/colorD"
+      tools:targetApi="lollipop" />
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/detail_fb_search"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toRightOf="@id/detail_fb_edit"
+      app:layout_constraintRight_toRightOf="parent"
+      android:layout_marginBottom="1dp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:backgroundTint="@color/colorB"
+      android:scaleType="centerCrop"
+      android:src="@drawable/search_yellow"
       app:maxImageSize="36dp"
       app:tint="@color/colorD"
       tools:targetApi="lollipop" />

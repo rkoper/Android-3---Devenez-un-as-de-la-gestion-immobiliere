@@ -10,6 +10,7 @@ import com.sofianem.realestatemanager.controller.activity.MainActivity.Companion
 import com.sofianem.realestatemanager.controller.fragment.DetailFragment
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 class DetailActivity : AppCompatActivity() {
 
@@ -24,14 +25,33 @@ class DetailActivity : AppCompatActivity() {
         fragmentMainDetail?.displayDetails(id)
 
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-        mMyViewModel.retrieveData().observe(this, androidx.lifecycle.Observer { a_detail_fb_update.isVisible = it[id-1].status == "ok" })
+        mMyViewModel.retrieveData().observe(this, androidx.lifecycle.Observer { detail_fb_edit.isVisible = it[id-1].status == "ok" })
 
         onclickUpdate(id)
         onClickHome()
+        onClickMap()
+        onClickSearch()
+        onClickCAl()
     }
 
+    private fun onClickSearch() {
+        detail_fb_search.setOnClickListener {
+            val intent = Intent(this, SearchActivity::class.java)
+            startActivity(intent) } }
+
+
+    private fun onClickMap() {
+        detail_fb_map.setOnClickListener {
+            val intent = Intent(this, MapActivity::class.java)
+            startActivity(intent) } }
+
+    private fun onClickCAl() {
+        detail_fb_cal.setOnClickListener {
+            val intent = Intent(this, CalculatorActivity::class.java)
+            startActivity(intent) } }
+
     private fun onclickUpdate(id: Int) {
-        a_detail_fb_update.setOnClickListener {
+        detail_fb_edit.setOnClickListener {
             val intent = Intent(this, UpdateActivity::class.java)
             intent.putExtra(ID, id)
             startActivity(intent) } }

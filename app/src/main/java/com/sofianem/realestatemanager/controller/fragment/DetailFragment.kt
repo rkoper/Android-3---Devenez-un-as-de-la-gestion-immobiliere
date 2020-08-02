@@ -45,7 +45,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        detail_cache.isVisible = true
+     //   detail_cache.isVisible = true
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         updateNbPhoto() }
 
@@ -57,7 +57,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
 
 
     fun displayDetails(id: Int) {
-        detail_cache.isVisible = false
+   //     detail_cache.isVisible = false
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         mMyViewModel.retrieveData().observe(viewLifecycleOwner, Observer {
 

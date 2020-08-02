@@ -63,18 +63,25 @@
             app:layout_constraintGuide_percent="0.22" />
 
         <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/create_guideline22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.24" />
+
+        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/create_guideline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.3" />
+            app:layout_constraintGuide_percent="0.33" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/create_guideline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.4" />
+            app:layout_constraintGuide_percent="0.41" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/create_guideline5"
@@ -117,7 +124,17 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.85" />
 
-
+        <TextView
+            android:id="@+id/a_create_tx_pric"
+            style="@style/MyEdittextStyle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="Price"
+            app:layout_constraintLeft_toLeftOf="@+id/a_create_rangebar_price"
+            app:layout_constraintRight_toRightOf="@+id/a_create_rangebar_price"
+            app:layout_constraintBottom_toBottomOf="@+id/create_guidelinePrice" />
         <com.appyvet.materialrangebar.RangeBar
             android:id="@+id/a_create_rangebar_price"
             android:layout_width="0dp"
@@ -134,19 +151,6 @@
             app:mrb_tickEnd="300"
             app:mrb_tickInterval="5"
             app:mrb_tickStart="10" />
-
-        <TextView
-            android:id="@+id/a_create_tx_pric"
-            style="@style/MyEdittextStyle2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="Price"
-            app:layout_constraintLeft_toLeftOf="@+id/a_create_rangebar_price"
-            app:layout_constraintRight_toRightOf="@+id/a_create_rangebar_price"
-            app:layout_constraintBottom_toBottomOf="@+id/create_guidelinePrice" />
-
         <com.appyvet.materialrangebar.RangeBar
             android:id="@+id/a_create_rangebar_surface"
             android:layout_width="0dp"
@@ -177,11 +181,11 @@
             app:layout_constraintRight_toRightOf="@+id/a_create_rangebar_surface"/>
 
         <fragment android:id="@+id/autocomplete_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
             android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
             app:layout_constraintBottom_toTopOf="@+id/create_guideline3"
-            app:layout_constraintTop_toTopOf="@+id/create_guideline2"
+            app:layout_constraintTop_toTopOf="@+id/create_guideline22"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" >
 
@@ -197,8 +201,8 @@
             android:hint="Adress"
             android:importantForAutofill="no"
             android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/create_guideline3"
-            app:layout_constraintTop_toTopOf="@+id/create_guideline2"
+            app:layout_constraintTop_toTopOf="@+id/create_guideline22"
+            app:layout_constraintBottom_toBottomOf="@+id/create_guideline3"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
