@@ -21,6 +21,8 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         val id = intent.getIntExtra(ID, 1)
+        println("---------      3   id    ------->" + id)
+
         val fragmentMainDetail = supportFragmentManager.findFragmentById(R.id.fragment_main_detail) as DetailFragment?
         fragmentMainDetail?.displayDetails(id)
 

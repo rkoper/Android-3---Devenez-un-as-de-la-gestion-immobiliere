@@ -29,19 +29,36 @@ class PlacesListAdapter(
         holder.name.text = mListName[position]
         holder.distance.text = mListDistance[position] + " m"
 
-        if (mType =="park" ) { holder.colorLeft.setBackgroundColor(Color.GREEN)}
-        if (mType =="supermarket" ) {  holder.colorLeft.setBackgroundColor(Color.RED)}
-        if (mType == "primary_school" ) {  holder.colorLeft.setBackgroundColor(Color.YELLOW)}
-        if (mType == "pharmacy") { holder.colorLeft.setBackgroundColor(Color.BLUE)}
+        if (mType =="park" ) { goGreen(holder) }
+        if (mType =="supermarket" ) { goRed(holder) }
+        if (mType == "primary_school" ) { goYellow(holder) }
+        if (mType == "pharmacy") { goBlue(holder) }
  }
+
+    private fun goRed(holder: PlaceViewHolder) {
+       holder.colorTop.setBackgroundColor(Color.RED) ; holder.colorRight.setBackgroundColor(Color.RED) ; holder.colorBottom.setBackgroundColor(Color.RED) }
+
+    private fun goGreen(holder: PlaceViewHolder) {
+       holder.colorTop.setBackgroundColor(Color.GREEN) ; holder.colorRight.setBackgroundColor(Color.GREEN) ; holder.colorBottom.setBackgroundColor(Color.GREEN) }
+
+    private fun goBlue(holder: PlaceViewHolder) {
+       holder.colorTop.setBackgroundColor(Color.BLUE) ; holder.colorRight.setBackgroundColor(Color.BLUE) ; holder.colorBottom.setBackgroundColor(Color.BLUE) }
+
+    private fun goYellow(holder: PlaceViewHolder) {
+       holder.colorTop.setBackgroundColor(Color.YELLOW); holder.colorRight.setBackgroundColor(Color.YELLOW) ; holder.colorBottom.setBackgroundColor(Color.YELLOW) }
 
 
     class PlaceViewHolder(placeItem: View) : RecyclerView.ViewHolder(placeItem) {
-        var name: TextView;  var distance: TextView;  var colorLeft : LinearLayout
+        var name: TextView;  var distance: TextView
+        var colorTop : LinearLayout ;  var colorRight : LinearLayout  ; var colorBottom : LinearLayout
         init { placeItem.isClickable = false
             name = placeItem.findViewById(com.sofianem.realestatemanager.R.id.nameof)
             distance = placeItem.findViewById(com.sofianem.realestatemanager.R.id.distance)
-            colorLeft = placeItem.findViewById(com.sofianem.realestatemanager.R.id.clForColor)
+            colorTop = placeItem.findViewById(com.sofianem.realestatemanager.R.id.llc1)
+            colorRight = placeItem.findViewById(com.sofianem.realestatemanager.R.id.llc3)
+            colorBottom = placeItem.findViewById(com.sofianem.realestatemanager.R.id.llc4)
         }
     }
 }
+
+

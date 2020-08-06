@@ -61,14 +61,15 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 val markerOptions = MarkerOptions()
                 markerOptions.position(location)
                 markerOptions.snippet(estate.id.toString())
-                println("---------->" + estate.id)
+                println("---------   1   estate.id    ------->" + estate.id)
                 markerOptions.icon(BitmapDescriptorFactory.fromResource(com.sofianem.realestatemanager.R.drawable.home))
                 mItemMarker = mMap.addMarker(markerOptions)
                 mMap.setOnMarkerClickListener { m -> onMarkerClick(m) } } }) }
 
 
     private fun onMarkerClick(m: Marker): Boolean {
-        val mId: Int = mItemMarker!!.snippet.toInt() - 1
+        val mId: Int = mItemMarker!!.snippet.toInt()
+        println("---------   2   mId    ------->" + mId)
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("id", mId)
         startActivity(intent)

@@ -124,6 +124,27 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.85" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/create_guidelineA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.07" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/create_guidelineB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.93" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/create_guidelineC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.93" />
+
         <TextView
             android:id="@+id/a_create_tx_pric"
             style="@style/MyEdittextStyle2"
@@ -143,10 +164,10 @@
             app:layout_constraintLeft_toRightOf="@+id/create_guideline8"
             app:layout_constraintRight_toRightOf="@+id/create_guideline9"
             app:layout_constraintBottom_toTopOf="@id/a_create_tx_surface"
-            app:mrb_connectingLineColor="@color/colorYellow"
+            app:mrb_connectingLineColor="@color/colorD"
             app:mrb_pinRadius="0dp"
             app:mrb_rangeBar="false"
-            app:mrb_rightThumbColor="@color/colorYellow"
+            app:mrb_rightThumbColor="@color/colorD"
             app:mrb_thumbSize="10dp"
             app:mrb_tickEnd="300"
             app:mrb_tickInterval="5"
@@ -155,10 +176,10 @@
             android:id="@+id/a_create_rangebar_surface"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:mrb_connectingLineColor="@color/colorYellow"
+            app:mrb_connectingLineColor="@color/colorD"
             app:mrb_pinRadius="0dp"
             app:mrb_rangeBar="false"
-            app:mrb_rightThumbColor="@color/colorYellow"
+            app:mrb_rightThumbColor="@color/colorD"
             app:mrb_thumbSize="10dp"
             app:mrb_tickEnd="3000"
             app:mrb_tickInterval="50"
@@ -299,30 +320,27 @@
             app:layout_constraintTop_toBottomOf="@+id/create_guideline6"
             app:layout_constraintBottom_toBottomOf="@+id/create_guideline7"
             android:layout_height="0dp"
-            android:background="@drawable/round_grey"
             android:orientation="horizontal"/>
-
 
         <EditText
             android:id="@+id/a_create_description"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintTop_toBottomOf="@+id/create_guideline7"
-            app:layout_constraintLeft_toLeftOf="@id/create_guideline8"
-            app:layout_constraintRight_toRightOf="@+id/create_guideline9"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@drawable/square_grey"
+            app:layout_constraintLeft_toLeftOf="@id/create_guidelineA"
+            app:layout_constraintRight_toRightOf="@+id/create_guidelineB"
+            app:layout_constraintBottom_toBottomOf="@+id/create_guidelineC"
             android:elevation="5dp"
             android:gravity="start"
-            android:justificationMode="inter_word"
             android:hint="Description"
-            android:textAlignment="gravity"
+            android:justificationMode="inter_word"
             android:maxLength="1000"
             android:maxLines="10"
-            android:padding="3dp"
-            android:layout_marginTop="15dp"
+            android:textAlignment="gravity"
             android:textColor="@color/colorD"
             android:theme="@style/MyEditTextStyle2" />
+
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/photoUpload"
             android:layout_width="wrap_content"

@@ -18,13 +18,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.3" />
+            app:layout_constraintGuide_percent="0.02" />
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideli2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.07" />
+            app:layout_constraintGuide_percent="0.005" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideli3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.98" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideli4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.995" />
         <LinearLayout
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -61,16 +73,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="distance : "/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/llc1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/guideli1"
+            android:background="@color/colorD" />
         <LinearLayout
             android:orientation="vertical"
-            android:id="@+id/clForColor"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="@+id/guideli2"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/guideli1"
-            android:background="@drawable/triangle"
+            android:id="@+id/llc3"
             android:layout_width="0dp"
-            android:layout_height="0dp" />
+            android:layout_height="match_parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/guideli2"
+            android:background="@color/colorD" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/llc4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintLeft_toLeftOf="@+id/guideli4"
+            app:layout_constraintRight_toRightOf="parent"
+            android:background="@color/colorD" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

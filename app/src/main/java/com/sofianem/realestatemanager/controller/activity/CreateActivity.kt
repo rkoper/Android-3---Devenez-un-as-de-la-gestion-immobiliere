@@ -36,6 +36,7 @@ import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.android.synthetic.main.dialog_custom_layout.view.*
+import kotlinx.android.synthetic.main.dialog_description.view.*
 import kotlinx.android.synthetic.main.dialog_layout.view.*
 import kotlinx.android.synthetic.main.dialog_number_picker.*
 import java.io.ByteArrayOutputStream
@@ -76,7 +77,6 @@ class CreateActivity : AppCompatActivity() {
 
     private fun createData(listImage_path: MutableList<String?>, listimageDescription: MutableList<String?>) {
         activity_saveData_floating.setOnClickListener {
-            mDescription =  a_create_description.text.toString()
             mStatus = "ok"
             if (mAddress == "Adress" ||  mAddress == "-" ||  mAddress == "") {Toast.makeText(this, "Please add address...", Toast.LENGTH_SHORT).show()}
             else { Toast.makeText(this, "Saving...", Toast.LENGTH_SHORT).show()
@@ -85,74 +85,6 @@ class CreateActivity : AppCompatActivity() {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent) } }
     }
-
-
-
-      /*
-      private fun savePlace() {
-
-
-
-            val listPlaceRespForPark = mMyViewModel.getNearbyPlacesForPark(id, location)
-            listPlaceRespForPark.observe(this, androidx.lifecycle.Observer { it1 ->
-                val listPlacePark = it1?.placesList1
-                listPlacePark?.forEach { place1 -> initNearbyPlaces(place1, id, location) }
-            })
-
-            val listPlaceRespForSchool = mMyViewModel.getNearbyPlacesForSchool(id, location)
-            listPlaceRespForSchool.observe(this, androidx.lifecycle.Observer { it2 ->
-                val listPlaceSchool = it2?.placesList2
-                listPlaceSchool?.forEach { place2 ->
-                    initNearbyPlaces(place2, id, location)
-                }
-            })
-
-            val listPlaceRespForPharmacy = mMyViewModel.getNearbyPlacesForPharmacy(id, location)
-            listPlaceRespForPharmacy.observe(this, androidx.lifecycle.Observer { it3 ->
-                val listPlacePharmacy = it3?.placesList3
-                listPlacePharmacy?.forEach { place3 -> initNearbyPlaces(place3, id, location) }
-            })
-
-            val listPlaceRespForMarket = mMyViewModel.getNearbyPlacesForMarket(id, location)
-            listPlaceRespForMarket.observe(this, androidx.lifecycle.Observer { it4 ->
-                val listPlacePlace = it4?.placesList4
-                listPlacePlace?.forEach { place4 -> initNearbyPlaces(place4, id, location) }
-            })
-        }
-
-
-        private fun initNearbyPlaces(
-            place: Place,
-            id: Int,
-            loc: String
-        ) {
-            val np = NearbyPlaces()
-            val curLat = Utils.currentLat(loc)
-            val curLng = Utils.currentLng(loc)
-            val distance = Utils.calculateDistance(
-                curLat,
-                curLng,
-                place.geometry.location.lat,
-                place.geometry.location.lng
-            ).roundToInt()
-
-
-            if (place.types[0] == "park" || place.types[1] == "park") {
-                np.placetype = "park"
-            }
-
-
-            np.placeLocation =
-                (place.geometry.location.lat.toString() + "," + place.geometry.location.lng.toString())
-            np.placeMasterId = id
-            np.placeName = place.name
-            //   np.placetype = place.types[0]
-            np.placeDistance = distance
-
-            mMyViewModel.saveNearby(np)
-        }
-
-        */
 
     private fun loadItem() {
         loadCity()
@@ -164,8 +96,12 @@ class CreateActivity : AppCompatActivity() {
         loadAddress()
         loadType()
         loadSurface()
+        loadDescription()
     }
 
+    private fun loadDescription() {
+        mDescription =  a_create_description.text.toString()
+    }
 
     private fun loadType() {
         a_create_ed_type.setOnClickListener {
@@ -173,7 +109,7 @@ class CreateActivity : AppCompatActivity() {
             with(mBuilder) {
                 setItems(listType) { dialog, i ->
                     a_create_ed_type.text = listType[i]
-                    mType = a_create_ed_type.text.toString().trim() //
+                    mType = a_create_ed_type.text.toString().trim()
                     dialog.dismiss() }
                 val mDialog = mBuilder.create()
                 mDialog.show() } } }
@@ -290,8 +226,7 @@ class CreateActivity : AppCompatActivity() {
             if ( Utils.CheckCamera(this) != PackageManager.PERMISSION_GRANTED) { Utils.askForCamera(this) }
             else { capturePhoto() } }
 
-        mDialogView.dialog_cancel.setOnClickListener {
-            mAlertDialog.run { dismiss() }
+        mDialogView.dialog_cancel.setOnClickListener { mAlertDialog.run { dismiss() }
             Toast.makeText(applicationContext, "cancelled", Toast.LENGTH_SHORT).show() } }
 
 
@@ -299,8 +234,7 @@ class CreateActivity : AppCompatActivity() {
         val capturedImage = File(externalCacheDir, FILE_NAME)
         if (capturedImage.exists()) { capturedImage.delete() }
         capturedImage.createNewFile()
-        mUri = if (Build.VERSION.SDK_INT >= 24) {
-            FileProvider.getUriForFile(this, PATH_PROVIDER, capturedImage) }
+        mUri = if (Build.VERSION.SDK_INT >= 24) { FileProvider.getUriForFile(this, PATH_PROVIDER, capturedImage) }
         else { Uri.fromFile(capturedImage) }
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri)
@@ -322,7 +256,6 @@ class CreateActivity : AppCompatActivity() {
             if (cursor.moveToFirst()) { path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA)) }
             cursor.close() }
         return path!! }
-
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -360,7 +293,6 @@ class CreateActivity : AppCompatActivity() {
                     renderImage(imagePath)
                     createAlertDialog(imagePath) } } }
 
-
     private fun createAlertDialog(imagePath: String?) {
             mListImagePath.add(imagePath)
         val mDialogViewForImageInfo = LayoutInflater.from(this).inflate(R.layout.dialog_custom_layout, null)
@@ -377,20 +309,16 @@ class CreateActivity : AppCompatActivity() {
 
     private fun createRV(listimagePath: MutableList<String?>, listimageDescription: MutableList<String?>) {
         create_recyclerview.layoutManager = GridLayoutManager(applicationContext, 6)
-        create_recyclerview.adapter =
-            CreateAdapter(listimagePath, listimageDescription, this)
+        create_recyclerview.adapter =  CreateAdapter(listimagePath, listimageDescription, this)
             createData(mListImagePath, listimageDescription) }
-
 
     private fun saveImage(myBitmap: Bitmap) {
         val bytes = ByteArrayOutputStream()
         myBitmap.compress(Bitmap.CompressFormat.PNG, 90, bytes)
         val wallpaperDirectory = File((Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY)
         if (!wallpaperDirectory.exists()) { wallpaperDirectory.mkdirs() }
-        try {
-            val f = Utils.createPathAndSave(wallpaperDirectory,bytes, this )
-            createAlertDialog(f.absolutePath)
-        } catch (e1: IOException) { e1.printStackTrace() } }
+        try { val f = Utils.createPathAndSave(wallpaperDirectory,bytes, this )
+            createAlertDialog(f.absolutePath) } catch (e1: IOException) { e1.printStackTrace() } }
     
     companion object {
         const val IMAGE_DIRECTORY = "/so"

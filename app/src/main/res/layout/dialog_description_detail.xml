@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="400dp"
+    android:layout_height="wrap_content"
+    android:background="@color/colorD"
+    android:gravity="center">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/colorTransparent"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:gravity="center">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideUp1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.1"
+            android:orientation="vertical"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideUp2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.9"
+            android:orientation="vertical"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideUp3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.03"
+            android:orientation="horizontal"/>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideUp4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintGuide_percent="0.97"
+            android:orientation="horizontal"/>
+
+    <TextView
+        app:layout_constraintBottom_toBottomOf="@+id/guideUp4"
+        app:layout_constraintLeft_toLeftOf="@+id/guideUp1"
+        app:layout_constraintRight_toRightOf="@+id/guideUp2"
+        app:layout_constraintTop_toTopOf="@+id/guideUp3"
+        android:id="@+id/dialog_imageview_text"
+        android:text = "Description"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:padding="3dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorD"
+        android:background="@color/colorB"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

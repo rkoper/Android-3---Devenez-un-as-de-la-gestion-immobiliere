@@ -1,11 +1,15 @@
 package com.sofianem.realestatemanager.controller.fragment
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
@@ -22,6 +26,7 @@ import com.sofianem.realestatemanager.data.Model.EstateR
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import kotlinx.android.synthetic.main.fragment_detail.*
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -93,7 +98,12 @@ class DetailFragment : Fragment(), LifecycleObserver {
                   if (lnp.isNotEmpty()){
                   if (lnp[0].placeDistance < 500 && estate[mId].prox_pharmacy == "Estate_pharmacy")
                   {mMyViewModel.UpdateProxPharma("ok", estate[mId].id)}
-          detail_pharmacy_txt.text  = lnp[0].placeDistance.toString() + " m" }})
+
+                 if (lnp[0].placeDistance.toString() == "Estate_pharmacy")
+                 {detail_pharmacy_txt.text = " - "}
+                      else
+                 {
+          detail_pharmacy_txt.text  = lnp[0].placeDistance.toString() + " m" }}})
 
               mMyViewModel.getByIdLocation3(  "primary_school",estate[mId].id).observe(this, Observer { lnp ->
                   if (lnp.isNotEmpty()){
@@ -157,33 +167,53 @@ class DetailFragment : Fragment(), LifecycleObserver {
             val mDisplayDateEnd = sdf.format(Date(it[mId].date_end))
             detail_dateend.text = mDisplayDateEnd.toString() } }
 
-    private fun initPersonn(mId: Int, it: List<EstateR>?) { if (it?.get(mId)!!.personn == "") {   detail_personn.text   = "-"} else { detail_personn.text = it[mId].personn}}
+    private fun initPersonn(mId: Int, it: List<EstateR>?) {
+        if (it?.get(mId)!!.personn == "") {   detail_personn.text   = "-"}
+         else { detail_personn.text = it[mId].personn}}
 
     private fun initAdress(mId: Int, it: List<EstateR>?) { detail_adress.text = it?.get(mId)!!.adress }
 
-    private fun initDescription(mId: Int, it: List<EstateR>?) { if (it?.get(mId)!!.description == "") {   detail_description.text  = "-"} else {  detail_description.text = it[mId].description } }
+    private fun initDescription(mId: Int, it: List<EstateR>?) {
 
-    private fun initRoom(mId: Int, it: List<EstateR>?) { if (it!![mId].number_of_room == 0) {   detail_room.text = "-"} else { detail_room.text = it[mId].number_of_room.toString() } }
+        if (it?.get(mId)!!.description == "") {
+            detail_description.text = "-"
+        } else {
+             detail_description.text = it[mId].description
+            detail_description.setOnClickListener { _ ->
+
+                val mDialogView =
+                    LayoutInflater.from(context).inflate(R.layout.dialog_description_detail, null)
+                mDialogView.requestFocus()
+                val builder = AlertDialog.Builder(this!!.context!!).setView(mDialogView)
+
+                val q: TextView = mDialogView.findViewById(R.id.dialog_imageview_text)
+                q.text = it[mId].description
+
+                builder.show()
+            }
+        }
+    }
+
+    private fun initRoom(mId: Int, it: List<EstateR>?) { if (it!![mId].number_of_room == 0) {   detail_room.text = "-"}
+    else { detail_room.text = it[mId].number_of_room.toString() } }
 
     private fun initCity(mId: Int, it: List<EstateR>?) { detail_city.text = it!![mId].city }
 
     private fun initPrice(mId: Int, itPrice: List<EstateR>?) {
         if (itPrice!![mId].price == 0)
         {   detail_tx_pric.text = "   -   "
-            detail_tx_pric_dollar.setTextColor(resources.getColor(R.color.colorYellowTransp))
-            detail_tx_pric_euro.setTextColor(resources.getColor(R.color.colorYellowTransp))
+            detail_tx_pric_dollar.setTextColor(resources.getColor(R.color.colorPaleBlue))
+            detail_tx_pric_euro.setTextColor(resources.getColor(R.color.colorPaleBlue))
             detail_tx_pric_dollar.isClickable = false
-            detail_tx_pric_euro.isClickable = false
-        }
+            detail_tx_pric_euro.isClickable = false }
 
         else {   loadPriceDollar(itPrice)
-
             detail_tx_pric_euro.setOnClickListener { o ->
                 val value = Utils.convertDollarToEuro(itPrice[mId].price)
                 val displayValue = Utils.addWhiteSpace(value.toString())
                 detail_tx_pric.text = "$displayValue  €"
-                detail_tx_pric_dollar.setTextColor(resources.getColor(R.color.colorYellowTransp))
-                detail_tx_pric_euro.setTextColor(resources.getColor(R.color.colorYellow))
+                detail_tx_pric_dollar.setTextColor(resources.getColor(R.color.colorPaleBlue))
+                detail_tx_pric_euro.setTextColor(resources.getColor(R.color.colorD))
                 detail_tx_pric_dollar.isClickable = true
                 detail_tx_pric_euro.isClickable = false}
 
@@ -194,18 +224,18 @@ class DetailFragment : Fragment(), LifecycleObserver {
     private fun loadPriceDollar(itPrice: List<EstateR>) {
         val displayValue = Utils.addWhiteSpace(itPrice[mId].price.toString())
         detail_tx_pric.text = "$displayValue  $"
-        detail_tx_pric_dollar.setTextColor(resources.getColor(R.color.colorYellow))
+        detail_tx_pric_dollar.setTextColor(resources.getColor(R.color.colorD))
         detail_tx_pric_dollar.isClickable = false
         detail_tx_pric_euro.isClickable = true
-        detail_tx_pric_euro.setTextColor(resources.getColor(R.color.colorYellowTransp))
+        detail_tx_pric_euro.setTextColor(resources.getColor(R.color.colorPaleBlue))
 }
 
 
     private fun initSurface(mId: Int, itSurface: List<EstateR>?) {
         if (itSurface!![mId].surface == 0)
         {   detail_tx_surface.text = "         -         "
-            detail_tx_surface_square.setTextColor(resources.getColor(R.color.colorYellowTransp))
-            detail_tx_surface_m2.setTextColor(resources.getColor(R.color.colorYellowTransp))
+            detail_tx_surface_square.setTextColor(resources.getColor(R.color.colorPaleBlue))
+            detail_tx_surface_m2.setTextColor(resources.getColor(R.color.colorPaleBlue))
             detail_tx_surface_square.isClickable = false
             detail_tx_surface_m2.isClickable = false }
 
@@ -213,8 +243,8 @@ class DetailFragment : Fragment(), LifecycleObserver {
             detail_tx_surface_m2.setOnClickListener { o ->
                 val value = Utils.convertSqTom2(itSurface[mId].surface)
                 detail_tx_surface.text = "$value     m²"
-                detail_tx_surface_square.setTextColor(resources.getColor(R.color.colorYellowTransp))
-                detail_tx_surface_m2.setTextColor(resources.getColor(R.color.colorYellow))
+                detail_tx_surface_square.setTextColor(resources.getColor(R.color.colorPaleBlue))
+                detail_tx_surface_m2.setTextColor(resources.getColor(R.color.colorD))
                 detail_tx_surface_square.isClickable = true
                 detail_tx_surface_m2.isClickable = false}
 
@@ -224,10 +254,10 @@ class DetailFragment : Fragment(), LifecycleObserver {
 
     private fun loadSurfaceSq(itSurface: List<EstateR>) {
         detail_tx_surface.text = itSurface[mId].surface.toString() + "    Sq/ft"
-        detail_tx_surface_square.setTextColor(resources.getColor(R.color.colorYellow))
+        detail_tx_surface_square.setTextColor(resources.getColor(R.color.colorD))
         detail_tx_surface_square.isClickable = false
         detail_tx_surface_m2.isClickable = true
-        detail_tx_surface_m2.setTextColor(resources.getColor(R.color.colorYellowTransp))
+        detail_tx_surface_m2.setTextColor(resources.getColor(R.color.colorPaleBlue))
     }
 
     private fun initType(mId: Int, it: List<EstateR>?) {
@@ -235,7 +265,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
         else { detail_type.text = it[mId].type} }
 
 
-    companion object {
+        companion object {
         const val NEWID = "newId"
         const val LOCATION = "Location"
     }

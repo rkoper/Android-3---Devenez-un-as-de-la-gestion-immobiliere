@@ -102,10 +102,11 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
             finish()} }
 
     private fun loadHouse() {
+        if (mCurrentLocation != ""){
         val mLatLng = Utils.formatLatLng(mCurrentLocation)
         mMarkerOptions.position(mLatLng).title("House").icon(BitmapDescriptorFactory.fromResource(R.mipmap.flaggrey))
         mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 15.0f))
-        mMap?.addMarker(mMarkerOptions) }
+        mMap?.addMarker(mMarkerOptions) }}
     
     private fun loadMap() {
         val mapFragment = supportFragmentManager

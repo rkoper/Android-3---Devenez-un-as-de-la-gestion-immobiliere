@@ -25,5 +25,5 @@
         android:maxLines="1"
         android:padding="3dp"
         android:textColor="@color/colorD"
-        android:theme="@style/MyEditTextStyle2" />
+        android:theme="@style/MyEditTextStyleSearch" />
 </androidx.constraintlayout.widget.ConstraintLayout>
