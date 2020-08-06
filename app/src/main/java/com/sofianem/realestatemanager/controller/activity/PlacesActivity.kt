@@ -51,25 +51,67 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun initfbPark() {
         fb_park_float.setOnClickListener {
-            testOne("park", R.mipmap.flaggreen ) } }
+            initPark("park", R.mipmap.flaggreen ) } }
 
     private fun initfbMarket() {
         fb_market_float.setOnClickListener {
-            testOne("supermarket", R.mipmap.flagred ) } }
+            initMarket("supermarket", R.mipmap.flagred ) } }
 
     private fun initfbSchool() {
         fb_school_float.setOnClickListener {
-            testOne("primary_school", R.mipmap.flagorange ) } }
+            initSchool("primary_school", R.mipmap.flagorange ) } }
 
     private fun initfbPharmacy() {
         fb_pharmacy_float.setOnClickListener {
-            testOne("pharmacy", R.mipmap.flagblue ) } }
+            initPharmacy("pharmacy", R.mipmap.flagblue ) } }
 
 
 
-    private fun testOne(mType1: String, icon: Int) {
+    private fun initPark(mType1: String, icon: Int) {
 
-        mMyViewModel.getByIdLocation(mType1, mId).observe(this, Observer { listNearbyPlaces ->
+        mMyViewModel.getByIdLocationPark(mType1, mId).observe(this, Observer { listNearbyPlaces ->
+            mMap?.clear()
+            listNearbyPlaces?.forEach { np ->
+                println("-------listNearbyPlaces------------" + np.toString() )
+                val location = Utils.formatLatLng(np.placeLocation)
+                val markerO = MarkerOptions()
+                markerO.icon(BitmapDescriptorFactory.fromResource(icon))
+                markerO.position(location).title(np.placeName)
+                mMap?.addMarker(markerO) }
+            mMap?.addMarker(mMarkerOptions)
+            loadRV(listNearbyPlaces, mType1) }) }
+
+    private fun initPharmacy(mType1: String, icon: Int) {
+
+        mMyViewModel.getByIdLocationPharmacy(mType1, mId).observe(this, Observer { listNearbyPlaces ->
+            mMap?.clear()
+            listNearbyPlaces?.forEach { np ->
+                println("-------listNearbyPlaces------------" + np.toString() )
+                val location = Utils.formatLatLng(np.placeLocation)
+                val markerO = MarkerOptions()
+                markerO.icon(BitmapDescriptorFactory.fromResource(icon))
+                markerO.position(location).title(np.placeName)
+                mMap?.addMarker(markerO) }
+            mMap?.addMarker(mMarkerOptions)
+            loadRV(listNearbyPlaces, mType1) }) }
+
+    private fun initSchool(mType1: String, icon: Int) {
+
+        mMyViewModel.getByIdLocationSchool(mType1, mId).observe(this, Observer { listNearbyPlaces ->
+            mMap?.clear()
+            listNearbyPlaces?.forEach { np ->
+                println("-------listNearbyPlaces------------" + np.toString() )
+                val location = Utils.formatLatLng(np.placeLocation)
+                val markerO = MarkerOptions()
+                markerO.icon(BitmapDescriptorFactory.fromResource(icon))
+                markerO.position(location).title(np.placeName)
+                mMap?.addMarker(markerO) }
+            mMap?.addMarker(mMarkerOptions)
+            loadRV(listNearbyPlaces, mType1) }) }
+
+    private fun initMarket(mType1: String, icon: Int) {
+
+        mMyViewModel.getByIdLocationMarket(mType1, mId).observe(this, Observer { listNearbyPlaces ->
             mMap?.clear()
             listNearbyPlaces?.forEach { np ->
                 println("-------listNearbyPlaces------------" + np.toString() )

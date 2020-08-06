@@ -52,7 +52,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent) } }
 
-
     private fun allMarker() {
         mViewModel.retrieveData().observe(this, Observer {
 

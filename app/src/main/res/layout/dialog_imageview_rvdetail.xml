@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/yellow_transparent_inside_rectangle"
     android:layout_width="400dp"
     android:layout_height="400dp"
+    android:background="@color/colorB"
+    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +28,6 @@
 
     <ImageView
         android:layout_marginTop="10dp"
-        android:rotation="90"
         android:background="@color/colorTransparent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -37,7 +36,7 @@
         android:id="@+id/dialog_imageview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/coverd"/>
+        tools:srcCompat="@tools:sample/avatars"/>
 
     <TextView
         android:layout_marginBottom="15dp"
@@ -49,7 +48,7 @@
         android:gravity="center"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/colorB"
+        android:textColor="@color/colorD"
         android:background="@drawable/round_yellow"
         android:layout_width="0dp"
         android:layout_height="50dp"/>
