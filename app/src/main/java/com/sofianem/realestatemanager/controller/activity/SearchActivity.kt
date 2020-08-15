@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.text.format.Time
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProviders
 import com.appyvet.materialrangebar.RangeBar
@@ -65,13 +66,15 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
     private fun searchStatus() {
         search_switch_sold.setOnCheckedChangeListener { c, _ ->
             if (c.isChecked) {
-                a_search_sold_dateBegin.setHintTextColor(Color.WHITE) ; a_search_sold_dateEnd.setHintTextColor(Color.WHITE)
-                a_search_sold_dateBegin.isClickable = true ; a_search_sold_dateEnd.isClickable = true
+                println("-------CHECK---1 --" + c.toString())
+                a_search_sold_dateEnd.isVisible = true
+                a_search_sold_dateBegin.isVisible = true
                 mStatus = "sold" }
 
             if (!c.isChecked) {
-                a_search_sold_dateBegin.setHintTextColor(resources.getColor(R.color.colorB)) ; a_search_sold_dateEnd.setHintTextColor(resources.getColor(R.color.colorB))
-                a_search_sold_dateBegin.isClickable = false ; a_search_sold_dateEnd.isClickable = false
+                println("-------CHECK---2 --" + c.toString())
+                a_search_sold_dateEnd.isVisible = false
+                a_search_sold_dateBegin.isVisible = false
                 mStatus = "ok" } } }
 
 

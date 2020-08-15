@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModelProviders
 import com.sofianem.realestatemanager.R
@@ -30,12 +31,17 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
         onClickMap()
         onClickSearch()
         onClickCAl()
+        onClickHome()
         mListId = intent.getIntegerArrayListExtra("masterId")
         val fragment = MainFragment.newInstance(mListId)
         supportFragmentManager.beginTransaction().replace(R.id.fragmentMain, fragment).commit()
         supportFragmentManager.executePendingTransactions()
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         //  test(id)
+    }
+
+    private fun onClickHome() {
+        activity_main_floating_home.isVisible = false
     }
 
     private fun onClickSearch() {

@@ -246,7 +246,7 @@ object Utils {
             ExifInterface.ORIENTATION_ROTATE_270 -> rotate = 270
             ExifInterface.ORIENTATION_ROTATE_180 -> rotate = 180
             ExifInterface.ORIENTATION_NORMAL -> rotate = 90
-            0 -> rotate = 90
+            0  -> rotate = 90
         }
         val matrix = Matrix()
         matrix.postRotate(rotate.toFloat())
