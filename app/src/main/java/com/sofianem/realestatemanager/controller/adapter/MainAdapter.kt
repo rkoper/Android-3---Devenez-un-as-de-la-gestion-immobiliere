@@ -11,8 +11,8 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sofianem.realestatemanager.R
-import com.sofianem.realestatemanager.data.Model.EstateR
-import com.sofianem.realestatemanager.data.Model.ImageV
+import com.sofianem.realestatemanager.data.model.EstateR
+import com.sofianem.realestatemanager.data.model.ImageV
 import com.sofianem.realestatemanager.utils.MyCommunication
 import com.sofianem.realestatemanager.utils.Utils
 
@@ -47,11 +47,12 @@ class MainAdapter(
 
         holder.tvCity.text = mMyDataset[position].city
 
-            mMyDatasetImage.forEach {
-                if (mMyDataset[position].id == it.masterId) { l.add(it.imageUri)
-                    if (l.size > 1) return@forEach
-                    val p = Utils.rotateImage(it.imageUri)
-                    Glide.with(mContext).load(p).into(holder.tvPhoto) } }
+        mMyDatasetImage.forEach {
+            if (mMyDataset[position].id == it.masterId) { l.add(it.imageUri)
+                if (l.size > 1)
+                return@forEach
+                val p = Utils.rotateImage(it.imageUri)
+                Glide.with(mContext).load(p).into(holder.tvPhoto) } }
 
         holder.setListeners(mMyDataset[position].id, mContext)
         l.clear() }

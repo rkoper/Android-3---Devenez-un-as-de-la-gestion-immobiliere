@@ -17,7 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.adapter.PlacesListAdapter
 import com.sofianem.realestatemanager.controller.fragment.DetailFragment
-import com.sofianem.realestatemanager.data.Model.NearbyPlaces
+import com.sofianem.realestatemanager.data.model.NearbyPlaces
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import kotlinx.android.synthetic.main.activity_detail_map.*
@@ -135,8 +135,8 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
 
             mNewList.add(mNewList.size, np.placeName)
             mNewNewList.add(mNewNewList.size, distance.toString()) }
-            activity_detail_map_RVok.layoutManager = GridLayoutManager(this, 3)
-                activity_detail_map_RVok.adapter = PlacesListAdapter(mNewList, mNewNewList, mType1) }
+        activity_detail_map_RVok.layoutManager = GridLayoutManager(this, 3)
+        activity_detail_map_RVok.adapter = PlacesListAdapter(mNewList, mNewNewList, mType1) }
 
     fun onClickHome() {
         detail_map_fb_home.setOnClickListener { val intent = Intent(this, MainActivity::class.java)
@@ -145,11 +145,11 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun loadHouse() {
         if (mCurrentLocation != ""){
-        val mLatLng = Utils.formatLatLng(mCurrentLocation)
-        mMarkerOptions.position(mLatLng).title("House").icon(BitmapDescriptorFactory.fromResource(R.mipmap.flaggrey))
-        mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 15.0f))
-        mMap?.addMarker(mMarkerOptions) }}
-    
+            val mLatLng = Utils.formatLatLng(mCurrentLocation)
+            mMarkerOptions.position(mLatLng).title("House").icon(BitmapDescriptorFactory.fromResource(R.mipmap.flaggrey))
+            mMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(mLatLng, 15.0f))
+            mMap?.addMarker(mMarkerOptions) }}
+
     private fun loadMap() {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.activity_detail_map_view) as SupportMapFragment

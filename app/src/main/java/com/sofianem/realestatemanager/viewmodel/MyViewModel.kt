@@ -5,10 +5,9 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProviders
 import com.sofianem.realestatemanager.data.DataBase.ImageDatabase
-import com.sofianem.realestatemanager.data.Model.*
-import com.sofianem.realestatemanager.data.Repository.EstateRepo
+import com.sofianem.realestatemanager.data.repository.EstateRepo
+import com.sofianem.realestatemanager.data.model.*
 import com.sofianem.realestatemanager.services.MapService
 import com.sofianem.realestatemanager.utils.GeocoderUtil
 import com.sofianem.realestatemanager.utils.Utils
@@ -79,8 +78,8 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         db.location = location
         GlobalScope.launch {
             mImageDb?.estateDao()?.updateForLoc(location, id)
-                getNearbyPlace1(mId, location) ; getNearbyPlace2(mId, location)
-                getNearbyPlace3(mId, location) ; getNearbyPlace4(mId, location)}
+            getNearbyPlace1(mId, location) ; getNearbyPlace2(mId, location)
+            getNearbyPlace3(mId, location) ; getNearbyPlace4(mId, location)}
         return location
     }
 
@@ -302,19 +301,19 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getByIdLocation2(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
         GlobalScope.launch {
-              val a2 = mImageDb!!.nearbyPlaceDao().getByIdLocation2(type, master_id)
+            val a2 = mImageDb!!.nearbyPlaceDao().getByIdLocation2(type, master_id)
             mAllDataForLoc2.postValue(a2) }
         return mAllDataForLoc2 }
 
     fun getByIdLocation3(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
         GlobalScope.launch {
-              val a3 = mImageDb!!.nearbyPlaceDao().getByIdLocation3(type, master_id)
+            val a3 = mImageDb!!.nearbyPlaceDao().getByIdLocation3(type, master_id)
             mAllDataForLoc3.postValue(a3) }
         return mAllDataForLoc3 }
 
     fun getByIdLocation4(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
         GlobalScope.launch {
-              val a4 = mImageDb!!.nearbyPlaceDao().getByIdLocation4(type, master_id)
+            val a4 = mImageDb!!.nearbyPlaceDao().getByIdLocation4(type, master_id)
             mAllDataForLoc4.postValue(a4) }
         return mAllDataForLoc4 }
 
@@ -323,8 +322,8 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         , nb_photo_max:Int?,  dateSoldBegin: Long?, dateSoldBeginEnd: Long?, status: String?, pharmacy:String?,school:String?,market:String?,park:String? )
             :  List<Int>? {
         GlobalScope.launch { val list = mImageDb?.estateDao()?.getSearchAll(
-                personn, type, surfaceMini, surfaceMax, priceMini, priceMax, roomMini, roomMax, dateCreateBegin, dateCreateEnd, nb_photo_mini, nb_photo_max ,dateSoldBegin, dateSoldBeginEnd, status, pharmacy,school,market,park )
+            personn, type, surfaceMini, surfaceMax, priceMini, priceMax, roomMini, roomMax, dateCreateBegin, dateCreateEnd, nb_photo_mini, nb_photo_max ,dateSoldBegin, dateSoldBeginEnd, status, pharmacy,school,market,park )
             mAllDataForSearch = list }
-       runBlocking { delay(500) }
+        runBlocking { delay(500) }
         return mAllDataForSearch }
 }

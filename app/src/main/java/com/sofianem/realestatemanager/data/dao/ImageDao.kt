@@ -1,7 +1,7 @@
-package com.sofianem.realestatemanager.data.Dao
+package com.sofianem.realestatemanager.data.dao
 
 import androidx.room.*
-import com.sofianem.realestatemanager.data.Model.ImageV
+import com.sofianem.realestatemanager.data.model.ImageV
 
 
 @Dao

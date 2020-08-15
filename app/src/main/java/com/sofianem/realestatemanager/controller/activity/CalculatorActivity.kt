@@ -35,7 +35,7 @@ class CalculatorActivity : AppCompatActivity() {
             override fun onTouchEnded(rangeBar: RangeBar?) {}
             override fun onRangeChangeListener(rangeBar: RangeBar?, leftPinIndex: Int, rightPinIndex: Int, leftPinValue: String?, rightPinValue: String?) {
                 cal_ed_rate.text =  rightPinValue.toString() + " % "
-            rate = rightPinValue!!.toFloat() }
+                rate = rightPinValue!!.toFloat() }
             override fun onTouchStarted(rangeBar: RangeBar?) {} })
 
         cal_rangebar_term.setOnRangeBarChangeListener(object :
@@ -54,14 +54,14 @@ class CalculatorActivity : AppCompatActivity() {
         cal_txt_button.setOnClickListener {
             cal_txt_result.isVisible = true
             cal_txt_month.isVisible = true
-           val resultDisplay =  Utils.calculateLoanAmount(rate, amount, term)
+            val resultDisplay =  Utils.calculateLoanAmount(rate, amount, term)
             cal_txt_result.text = "$resultDisplay $" } }
 
 
     private fun onClickHome() {
         cal_fb_home.setOnClickListener { val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-        finish()} }
+            finish()} }
 
 
 }

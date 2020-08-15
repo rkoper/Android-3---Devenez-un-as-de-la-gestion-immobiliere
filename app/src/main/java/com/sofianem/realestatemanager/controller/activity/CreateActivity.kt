@@ -264,10 +264,10 @@ class CreateActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantedResults)
         when (requestCode) {
             1 -> if (grantedResults.isNotEmpty() && grantedResults[0] == PackageManager.PERMISSION_GRANTED) { openGallery() }
-                else { Toast.makeText(this, "Denied", Toast.LENGTH_SHORT).show() }
+            else { Toast.makeText(this, "Denied", Toast.LENGTH_SHORT).show() }
 
             2 -> if (grantedResults.isNotEmpty() && grantedResults[0] == PackageManager.PERMISSION_GRANTED) { capturePhoto() }
-                else { Toast.makeText(this, "Denied", Toast.LENGTH_SHORT).show() } } }
+            else { Toast.makeText(this, "Denied", Toast.LENGTH_SHORT).show() } } }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -294,7 +294,7 @@ class CreateActivity : AppCompatActivity() {
                     createAlertDialog(imagePath) } } }
 
     private fun createAlertDialog(imagePath: String?) {
-            mListImagePath.add(imagePath)
+        mListImagePath.add(imagePath)
         val mDialogViewForImageInfo = LayoutInflater.from(this).inflate(R.layout.dialog_custom_layout, null)
         var builderForImageInfo = AlertDialog.Builder(this)
         builderForImageInfo.setView(mDialogViewForImageInfo)
@@ -310,7 +310,7 @@ class CreateActivity : AppCompatActivity() {
     private fun createRV(listimagePath: MutableList<String?>, listimageDescription: MutableList<String?>) {
         create_recyclerview.layoutManager = GridLayoutManager(applicationContext, 6)
         create_recyclerview.adapter =  CreateAdapter(listimagePath, listimageDescription, this)
-            createData(mListImagePath, listimageDescription) }
+        createData(mListImagePath, listimageDescription) }
 
     private fun saveImage(myBitmap: Bitmap) {
         val bytes = ByteArrayOutputStream()
@@ -319,7 +319,7 @@ class CreateActivity : AppCompatActivity() {
         if (!wallpaperDirectory.exists()) { wallpaperDirectory.mkdirs() }
         try { val f = Utils.createPathAndSave(wallpaperDirectory,bytes, this )
             createAlertDialog(f.absolutePath) } catch (e1: IOException) { e1.printStackTrace() } }
-    
+
     companion object {
         const val IMAGE_DIRECTORY = "/so"
         const val FILE_NAME = "My_Captured_Photo.jpg"
@@ -333,4 +333,3 @@ class CreateActivity : AppCompatActivity() {
         const val OPERATION_CHOOSE_PHOTO = 2
     }
 }
-

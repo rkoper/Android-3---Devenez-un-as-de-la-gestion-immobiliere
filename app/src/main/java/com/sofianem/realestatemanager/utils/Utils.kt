@@ -27,7 +27,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.sofianem.realestatemanager.R
-import com.sofianem.realestatemanager.data.Model.EstateR
+import com.sofianem.realestatemanager.data.model.EstateR
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -240,15 +240,13 @@ object Utils {
         val bitmap: Bitmap = BitmapFactory.decodeFile(path)
         var rotate = 0
         val exif = ExifInterface(path)
-        val orientation: Int = exif.getAttributeInt(
-            ExifInterface.TAG_ORIENTATION,
-            ExifInterface.ORIENTATION_NORMAL
-        )
+        val orientation: Int = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
         println("- - - -  - - - - orientation- - - - - - - " + orientation)
         when (orientation) {
             ExifInterface.ORIENTATION_ROTATE_270 -> rotate = 270
             ExifInterface.ORIENTATION_ROTATE_180 -> rotate = 180
             ExifInterface.ORIENTATION_NORMAL -> rotate = 90
+            0 -> rotate = 90
         }
         val matrix = Matrix()
         matrix.postRotate(rotate.toFloat())

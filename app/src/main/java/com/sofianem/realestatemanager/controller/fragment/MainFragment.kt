@@ -11,8 +11,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.adapter.MainAdapter
-import com.sofianem.realestatemanager.data.Model.EstateR
-import com.sofianem.realestatemanager.data.Model.ImageV
+import com.sofianem.realestatemanager.data.model.EstateR
+import com.sofianem.realestatemanager.data.model.ImageV
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -70,7 +70,3 @@ class MainFragment : Fragment(), LifecycleObserver {
 
 
 }
-
-
-
-

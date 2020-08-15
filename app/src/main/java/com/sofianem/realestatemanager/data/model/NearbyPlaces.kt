@@ -1,4 +1,4 @@
-package com.sofianem.realestatemanager.data.Model
+package com.sofianem.realestatemanager.data.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

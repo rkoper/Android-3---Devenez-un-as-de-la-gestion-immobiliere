@@ -21,7 +21,7 @@ import com.sofianem.realestatemanager.controller.activity.MainActivity.Companion
 import com.sofianem.realestatemanager.controller.activity.PlacesActivity
 import com.sofianem.realestatemanager.controller.activity.UpdateActivity
 import com.sofianem.realestatemanager.controller.adapter.DetailAdapter
-import com.sofianem.realestatemanager.data.Model.EstateR
+import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import kotlinx.android.synthetic.main.fragment_detail.*
@@ -41,7 +41,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_detail, container, false) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,34 +82,34 @@ class DetailFragment : Fragment(), LifecycleObserver {
     }
 
     private fun updateProxLoc(estate: List<EstateR>, mId: Int) {
-      mMyViewModel.getByIdLocation1(  "park",estate[mId].id).observe(this, Observer { lnp ->
-          if (lnp.isNotEmpty()){
-          if (lnp[0].placeDistance < 500 && estate[mId].prox_park == "Estate_park")
-          {mMyViewModel.UpdateProxPark("ok", estate[mId].id)
-          println(" test ----------park " + lnp[0].placeName + " // " + lnp[0].placeDistance)}
-          detail_park_txt.text  = lnp[0].placeDistance.toString() + " m" }})
+        mMyViewModel.getByIdLocation1(  "park",estate[mId].id).observe(this, Observer { lnp ->
+            if (lnp.isNotEmpty()){
+                if (lnp[0].placeDistance < 500 && estate[mId].prox_park == "Estate_park")
+                {mMyViewModel.UpdateProxPark("ok", estate[mId].id)
+                    println(" test ----------park " + lnp[0].placeName + " // " + lnp[0].placeDistance)}
+                detail_park_txt.text  = lnp[0].placeDistance.toString() + " m" }})
 
-              mMyViewModel.getByIdLocation2(  "pharmacy",estate[mId].id).observe(this, Observer { lnp ->
-                  if (lnp.isNotEmpty()){
-                  if (lnp[0].placeDistance < 500 && estate[mId].prox_pharmacy == "Estate_pharmacy")
-                  {mMyViewModel.UpdateProxPharma("ok", estate[mId].id)}
+        mMyViewModel.getByIdLocation2(  "pharmacy",estate[mId].id).observe(this, Observer { lnp ->
+            if (lnp.isNotEmpty()){
+                if (lnp[0].placeDistance < 500 && estate[mId].prox_pharmacy == "Estate_pharmacy")
+                {mMyViewModel.UpdateProxPharma("ok", estate[mId].id)}
 
-                 if (lnp[0].placeDistance.toString() == "Estate_pharmacy")
-                 {detail_pharmacy_txt.text = " - "}
-                      else {
-          detail_pharmacy_txt.text  = lnp[0].placeDistance.toString() + " m" }}})
+                if (lnp[0].placeDistance.toString() == "Estate_pharmacy")
+                {detail_pharmacy_txt.text = " - "}
+                else {
+                    detail_pharmacy_txt.text  = lnp[0].placeDistance.toString() + " m" }}})
 
-              mMyViewModel.getByIdLocation3(  "primary_school",estate[mId].id).observe(this, Observer { lnp ->
-                  if (lnp.isNotEmpty()){
-                  if (lnp[0].placeDistance < 500 && estate[mId].prox_school == "Estate_school")
-                  {mMyViewModel.UpdateProxSchool("ok", estate[mId].id)}
-          detail_school_txt.text  = lnp[0].placeDistance.toString() + " m" }})
+        mMyViewModel.getByIdLocation3(  "primary_school",estate[mId].id).observe(this, Observer { lnp ->
+            if (lnp.isNotEmpty()){
+                if (lnp[0].placeDistance < 500 && estate[mId].prox_school == "Estate_school")
+                {mMyViewModel.UpdateProxSchool("ok", estate[mId].id)}
+                detail_school_txt.text  = lnp[0].placeDistance.toString() + " m" }})
 
-              mMyViewModel.getByIdLocation4(  "supermarket",estate[mId].id).observe(this, Observer { lnp ->
-                  if (lnp.isNotEmpty()){
-                  if (lnp[0].placeDistance < 500 && estate[mId].prox_market == "Estate_market")
-                  {mMyViewModel.UpdateProxMarket("ok", estate[mId].id)}
-          detail_market_txt.text  = lnp[0].placeDistance.toString() + " m" }})
+        mMyViewModel.getByIdLocation4(  "supermarket",estate[mId].id).observe(this, Observer { lnp ->
+            if (lnp.isNotEmpty()){
+                if (lnp[0].placeDistance < 500 && estate[mId].prox_market == "Estate_market")
+                {mMyViewModel.UpdateProxMarket("ok", estate[mId].id)}
+                detail_market_txt.text  = lnp[0].placeDistance.toString() + " m" }})
     }
 
     private fun setupRecyclerView(mId: Int) {
@@ -157,7 +157,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
 
     private fun initPersonn(mId: Int, it: List<EstateR>?) {
         if (it?.get(mId)!!.personn == "") {   detail_personn.text   = "-"}
-         else { detail_personn.text = it[mId].personn}}
+        else { detail_personn.text = it[mId].personn}}
 
     private fun initAdress(mId: Int, it: List<EstateR>?) { detail_adress.text = it?.get(mId)!!.adress }
 
@@ -166,8 +166,8 @@ class DetailFragment : Fragment(), LifecycleObserver {
         if (it?.get(mId)!!.description == "") {
             detail_description.text = "     -     "
         } else {
-             detail_description.text = it[mId].description
-             detail_description.setOnClickListener { _ ->
+            detail_description.text = it[mId].description
+            detail_description.setOnClickListener { _ ->
                 val mDialogView = LayoutInflater.from(context).inflate(R.layout.dialog_description_detail, null)
                 mDialogView.requestFocus()
                 val builder = AlertDialog.Builder(this!!.context!!).setView(mDialogView)
@@ -200,8 +200,8 @@ class DetailFragment : Fragment(), LifecycleObserver {
                 detail_tx_pric_dollar.isClickable = true
                 detail_tx_pric_euro.isClickable = false}
 
-        detail_tx_pric_dollar.setOnClickListener { o ->
-            loadPriceDollar(itPrice) } }
+            detail_tx_pric_dollar.setOnClickListener { o ->
+                loadPriceDollar(itPrice) } }
     }
 
     private fun loadPriceDollar(itPrice: List<EstateR>) {
@@ -211,7 +211,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
         detail_tx_pric_dollar.isClickable = false
         detail_tx_pric_euro.isClickable = true
         detail_tx_pric_euro.setTextColor(resources.getColor(R.color.colorPaleBlue))
-}
+    }
 
 
     private fun initSurface(mId: Int, itSurface: List<EstateR>?) {
@@ -247,7 +247,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
         if (it?.get(mId)!!.type == "") {   detail_type.text  = "-"}
         else { detail_type.text = it[mId].type} }
 
-        companion object {
+    companion object {
         const val NEWID = "newId"
         const val LOCATION = "Location" }
 

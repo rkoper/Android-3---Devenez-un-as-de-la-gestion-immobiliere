@@ -3,7 +3,7 @@ package com.sofianem.realestatemanager.data.Dao
 import android.database.Cursor
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.sofianem.realestatemanager.data.Model.EstateR
+import com.sofianem.realestatemanager.data.model.EstateR
 
 
 @Dao
@@ -58,7 +58,7 @@ interface EstateDao {
     fun getAllTodoList(): LiveData<List<EstateR>>
     //
     @Query("SELECT Estate_id FROM Estate  WHERE Estate_personn  like :personn AND Estate_type  like :type AND Estate_surface BETWEEN :surfaceMini AND :surfaceMax AND Estate_price BETWEEN :priceMini AND :priceMax AND Estate_number_of_room BETWEEN :roomMini AND :roomMax AND Estate_date_begin BETWEEN :dateCreateBegin AND :dateCreateEnd AND Estate_nb_photo BETWEEN :nb_photo_mini AND :nb_photo_max AND Estate_date_end BETWEEN :dateSoldBegin AND :dateSoldBeginEnd AND Estate_status like :status  AND Estate_pharmacy like :pharmacy  AND Estate_school like :school  AND Estate_market like :market  AND Estate_park like :park ")
-   suspend fun getSearchAll(personn:String?, type:String?, surfaceMini: Int?, surfaceMax: Int?, priceMini: Int?, priceMax: Int?, roomMini: Int?, roomMax: Int?, dateCreateBegin: Long?, dateCreateEnd: Long?, nb_photo_mini: Int?, nb_photo_max: Int?, dateSoldBegin: Long?, dateSoldBeginEnd: Long?,status: String?,pharmacy:String?,school:String?,market:String?,park:String? ): List<Int>
+    suspend fun getSearchAll(personn:String?, type:String?, surfaceMini: Int?, surfaceMax: Int?, priceMini: Int?, priceMax: Int?, roomMini: Int?, roomMax: Int?, dateCreateBegin: Long?, dateCreateEnd: Long?, nb_photo_mini: Int?, nb_photo_max: Int?, dateSoldBegin: Long?, dateSoldBeginEnd: Long?,status: String?,pharmacy:String?,school:String?,market:String?,park:String? ): List<Int>
 
     @Query("SELECT * FROM Estate")
     fun getEstateWithCursor(): Cursor
@@ -78,4 +78,3 @@ interface EstateDao {
     @Update
     fun updateItem(estate: EstateR) :Int
 }
-

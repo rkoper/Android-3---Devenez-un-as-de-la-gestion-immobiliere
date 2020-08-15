@@ -5,20 +5,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.fragment.DetailFragment
 import com.sofianem.realestatemanager.controller.fragment.MainFragment
-import com.sofianem.realestatemanager.data.Model.EstateR
-import com.sofianem.realestatemanager.data.Model.NearbyPlaces
-import com.sofianem.realestatemanager.data.Model.Place
+import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.utils.MyCommunication
-import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_main.*
-import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
 
@@ -41,7 +35,7 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
         supportFragmentManager.beginTransaction().replace(R.id.fragmentMain, fragment).commit()
         supportFragmentManager.executePendingTransactions()
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-      //  test(id)
+        //  test(id)
     }
 
     private fun onClickSearch() {
@@ -81,8 +75,8 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
 
         else  {
             val intent = Intent(this, DetailActivity::class.java)
-               intent.putExtra(ID, id)
-                startActivity(intent)
+            intent.putExtra(ID, id)
+            startActivity(intent)
             test()}
     }
 
@@ -95,7 +89,6 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
             mListData = it
             subscriber_recyclerView.adapter?.notifyDataSetChanged()
         })
-
         mListData?.forEach { estate ->
             if (estate.prox_school == "Estate_school" && estate.prox_park == "Estate_park" && estate.prox_market == "Estate_market" && estate.prox_pharmacy == "Estate_pharmacy") {
                 println(" GO ----------->" + estate.id + "  " + estate.location + "   " + estate.adress)
@@ -110,9 +103,6 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
             }
         }
     }
-
-
-
      */
 
     companion object { const val ID = "id" }

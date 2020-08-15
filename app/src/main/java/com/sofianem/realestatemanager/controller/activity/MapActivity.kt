@@ -125,7 +125,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (mMap != null) { val permission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 if (permission == PackageManager.PERMISSION_GRANTED) { mMap.isMyLocationEnabled = true
-                   uiSettings()} }
+                    uiSettings()} }
 
             else { requestPermissions(mPermissions, PERMISSION_REQUEST)
                 mMap.isMyLocationEnabled = true
@@ -142,16 +142,16 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun buildLocationCallback() {
         mLocationCallback = object : LocationCallback() { override fun onLocationResult(p0: LocationResult?) {
-                mLastLocation = p0!!.locations[p0.locations.size - 1]
-                if (mMarker != null) { mMarker!!.remove() }
-                mLatitude = mLastLocation.latitude
-                mLongitude = mLastLocation.longitude
+            mLastLocation = p0!!.locations[p0.locations.size - 1]
+            if (mMarker != null) { mMarker!!.remove() }
+            mLatitude = mLastLocation.latitude
+            mLongitude = mLastLocation.longitude
 
-                val latlng = LatLng(mLatitude, mLongitude)
-                val markerOptions = MarkerOptions().position(latlng).title("My Position")
-                    .icon(BitmapDescriptorFactory.fromResource(com.sofianem.realestatemanager.R.drawable.target))
-                mMarker = mMap.addMarker(markerOptions)
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15.0f)) } } }
+            val latlng = LatLng(mLatitude, mLongitude)
+            val markerOptions = MarkerOptions().position(latlng).title("My Position")
+                .icon(BitmapDescriptorFactory.fromResource(com.sofianem.realestatemanager.R.drawable.target))
+            mMarker = mMap.addMarker(markerOptions)
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15.0f)) } } }
 
     companion object { private const val PERMISSION_REQUEST: Int = 1000 }
 

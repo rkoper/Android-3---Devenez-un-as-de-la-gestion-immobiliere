@@ -105,8 +105,8 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
         a_search_ed_type.setOnClickListener {
             val mBuilder1 = AlertDialog.Builder(this, R.style.MyDialogTheme)
             with(mBuilder1) { setItems(listType) { _, i ->
-                    a_search_ed_type.text = listType[i]
-                    mType = listType[i] }
+                a_search_ed_type.text = listType[i]
+                mType = listType[i] }
                 val mDialog = mBuilder1.create()
                 mDialog.show() } } }
 
@@ -121,14 +121,14 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
 
             override fun onTouchStarted(rangeBar: RangeBar?) {} }) }
 
-     fun searchPerson() {
-         a_search_ed_personn.setOnClickListener {
+    fun searchPerson() {
+        a_search_ed_personn.setOnClickListener {
             val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTheme)
             with(mBuilder) {
                 setItems(listPerson) { _, i ->
                     a_search_ed_personn.text = listPerson[i]
                     mPerson = listPerson[i]
-                 initSearch() }
+                    initSearch() }
                 val mDialog = mBuilder.create()
                 mDialog.show() } } }
 
@@ -145,7 +145,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
                 mPriceMini = valueLeft.toInt() ; mPriceMax = valueRight.toInt() } }) }
 
 
-     private fun initPreSearch() { initPhoto() ; initMarket() ; initSchool() ; initPark() ; initPharmacy() ; initSearch() }
+    private fun initPreSearch() { initPhoto() ; initMarket() ; initSchool() ; initPark() ; initPharmacy() ; initSearch() }
 
 
     private fun initPhoto() {
@@ -201,16 +201,16 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
             datePicker2.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(resources.getColor(R.color.colorD))
             datePicker2.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(resources.getColor(R.color.colorD))}
 
-            a_search_ed_dateEnd_create.setOnClickListener {
-                mCreateDateEnd = Utils.formatDateV2(Date())
-                val dpd = OnDateSetListener { _, y, m, d -> a_search_ed_dateEnd_create.text = Utils.formatDate(y,m,d)
-                    mCreateDateEnd = Utils.convertToEpoch(Utils.formatDate(y,m,d))}
-                val now = Time()
-                now.setToNow()
-                val datePicker = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
-                datePicker.show()
-                datePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(resources.getColor(R.color.colorD))
-                datePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(resources.getColor(R.color.colorD)) } }
+        a_search_ed_dateEnd_create.setOnClickListener {
+            mCreateDateEnd = Utils.formatDateV2(Date())
+            val dpd = OnDateSetListener { _, y, m, d -> a_search_ed_dateEnd_create.text = Utils.formatDate(y,m,d)
+                mCreateDateEnd = Utils.convertToEpoch(Utils.formatDate(y,m,d))}
+            val now = Time()
+            now.setToNow()
+            val datePicker = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
+            datePicker.show()
+            datePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(resources.getColor(R.color.colorD))
+            datePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(resources.getColor(R.color.colorD)) } }
 
 
     private fun onClickHome() {
@@ -228,8 +228,8 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
                 if (mPerson == "") { mPerson = "%" } ; if (mType == "") { mType = "%" };  if (mStatus == "") { mStatus = "%" };   if (mPharmacy == "") { mPharmacy = "%" }
                 if (mSchool == "") { mSchool = "%" }; if (mMarket == "") { mMarket = "%" }; if (mPark == "") { mPark = "%" }
 
-                 val a  = mMyViewModel.getSearchAll(mPerson, mType, mSurfaceMini, mSurfaceMax, mPriceMini, mPriceMax, mRoomMini,
-                     mRoomMax, mCreateDateBegin, mCreateDateEnd, mPhotoMini, mPhotoMax, mSoldDateBegin, mSoldDateEnd, mStatus, mPharmacy, mSchool, mMarket, mPark)
+                val a  = mMyViewModel.getSearchAll(mPerson, mType, mSurfaceMini, mSurfaceMax, mPriceMini, mPriceMax, mRoomMini,
+                    mRoomMax, mCreateDateBegin, mCreateDateEnd, mPhotoMini, mPhotoMax, mSoldDateBegin, mSoldDateEnd, mStatus, mPharmacy, mSchool, mMarket, mPark)
 
                 a?.forEach { mListAll.add(it) }
 

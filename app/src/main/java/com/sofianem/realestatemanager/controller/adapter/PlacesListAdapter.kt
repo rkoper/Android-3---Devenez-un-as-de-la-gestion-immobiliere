@@ -33,19 +33,19 @@ class PlacesListAdapter(
         if (mType =="supermarket" ) { goRed(holder) }
         if (mType == "primary_school" ) { goYellow(holder) }
         if (mType == "pharmacy") { goBlue(holder) }
- }
+    }
 
     private fun goRed(holder: PlaceViewHolder) {
-       holder.colorTop.setBackgroundColor(Color.RED) ; holder.colorRight.setBackgroundColor(Color.RED) ; holder.colorBottom.setBackgroundColor(Color.RED) }
+        holder.colorTop.setBackgroundColor(Color.RED) ; holder.colorRight.setBackgroundColor(Color.RED) ; holder.colorBottom.setBackgroundColor(Color.RED) }
 
     private fun goGreen(holder: PlaceViewHolder) {
-       holder.colorTop.setBackgroundColor(Color.GREEN) ; holder.colorRight.setBackgroundColor(Color.GREEN) ; holder.colorBottom.setBackgroundColor(Color.GREEN) }
+        holder.colorTop.setBackgroundColor(Color.GREEN) ; holder.colorRight.setBackgroundColor(Color.GREEN) ; holder.colorBottom.setBackgroundColor(Color.GREEN) }
 
     private fun goBlue(holder: PlaceViewHolder) {
-       holder.colorTop.setBackgroundColor(Color.BLUE) ; holder.colorRight.setBackgroundColor(Color.BLUE) ; holder.colorBottom.setBackgroundColor(Color.BLUE) }
+        holder.colorTop.setBackgroundColor(Color.BLUE) ; holder.colorRight.setBackgroundColor(Color.BLUE) ; holder.colorBottom.setBackgroundColor(Color.BLUE) }
 
     private fun goYellow(holder: PlaceViewHolder) {
-       holder.colorTop.setBackgroundColor(Color.YELLOW); holder.colorRight.setBackgroundColor(Color.YELLOW) ; holder.colorBottom.setBackgroundColor(Color.YELLOW) }
+        holder.colorTop.setBackgroundColor(Color.YELLOW); holder.colorRight.setBackgroundColor(Color.YELLOW) ; holder.colorBottom.setBackgroundColor(Color.YELLOW) }
 
 
     class PlaceViewHolder(placeItem: View) : RecyclerView.ViewHolder(placeItem) {
@@ -60,5 +60,3 @@ class PlacesListAdapter(
         }
     }
 }
-
-

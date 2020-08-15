@@ -51,16 +51,15 @@ class DetailAdapter(
         @SuppressLint("ResourceAsColor")
         fun setListeners(position: Int, context: Context, mListImage: MutableList<String?>, listimageDescription: MutableList<String?>)
         { itemView.setOnClickListener {
-                val mDialogView = LayoutInflater.from(it.context).inflate(R.layout.dialog_imageview_rvdetail, null)
-                mDialogView.requestFocus()
-                val builder = AlertDialog.Builder(it.context).setView(mDialogView)
-                val o: ImageView = mDialogView.findViewById(R.id.dialog_imageview)
-                val p = Utils.rotateImage(File(mListImage[position]).absolutePath)
-                o.setImageBitmap(p)
-                val q: TextView = mDialogView.findViewById(R.id.dialog_imageview_text)
-                q.text = listimageDescription[position]
+            val mDialogView = LayoutInflater.from(it.context).inflate(R.layout.dialog_imageview_rvdetail, null)
+            mDialogView.requestFocus()
+            val builder = AlertDialog.Builder(it.context).setView(mDialogView)
+            val o: ImageView = mDialogView.findViewById(R.id.dialog_imageview)
+            val p = Utils.rotateImage(File(mListImage[position]).absolutePath)
+            o.setImageBitmap(p)
+            val q: TextView = mDialogView.findViewById(R.id.dialog_imageview_text)
+            q.text = listimageDescription[position]
 
-                builder.show()
-            } } }
+            builder.show()
+        } } }
 }
-

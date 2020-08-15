@@ -1,7 +1,7 @@
 package com.sofianem.realestatemanager.data.Dao
 
 import androidx.room.*
-import com.sofianem.realestatemanager.data.Model.NearbyPlaces
+import com.sofianem.realestatemanager.data.model.NearbyPlaces
 
 
 @Dao

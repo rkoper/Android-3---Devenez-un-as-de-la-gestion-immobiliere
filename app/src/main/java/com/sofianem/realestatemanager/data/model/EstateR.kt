@@ -1,4 +1,4 @@
-package com.sofianem.realestatemanager.data.Model
+package com.sofianem.realestatemanager.data.model
 
 import android.content.ContentValues
 import android.provider.BaseColumns

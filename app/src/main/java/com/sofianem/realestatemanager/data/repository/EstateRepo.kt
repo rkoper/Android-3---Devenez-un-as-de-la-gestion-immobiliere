@@ -1,11 +1,11 @@
-package com.sofianem.realestatemanager.data.Repository
+package com.sofianem.realestatemanager.data.repository
 
 import android.app.Application
 import android.database.Cursor
 import androidx.lifecycle.LiveData
 import com.sofianem.realestatemanager.data.Dao.EstateDao
 import com.sofianem.realestatemanager.data.DataBase.ImageDatabase
-import com.sofianem.realestatemanager.data.Model.EstateR
+import com.sofianem.realestatemanager.data.model.EstateR
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -13,8 +13,8 @@ import kotlinx.coroutines.runBlocking
 
 open class EstateRepo (application: Application) {
 
-     val estate_Dao: EstateDao
-     val allTodos: LiveData<List<EstateR>>
+    val estate_Dao: EstateDao
+    val allTodos: LiveData<List<EstateR>>
 
     init {
         val database = ImageDatabase.getInstance(application.applicationContext)

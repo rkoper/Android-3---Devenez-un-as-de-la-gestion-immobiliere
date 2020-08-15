@@ -7,7 +7,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.util.Log
 import com.sofianem.realestatemanager.data.DataBase.EstateDatabase
-import com.sofianem.realestatemanager.data.Model.EstateR
+import com.sofianem.realestatemanager.data.model.EstateR
 
 class ItemContentProvider : ContentProvider() {
 

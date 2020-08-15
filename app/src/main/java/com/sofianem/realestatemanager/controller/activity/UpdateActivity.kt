@@ -34,8 +34,8 @@ import com.sofianem.realestatemanager.controller.activity.CreateActivity.Compani
 import com.sofianem.realestatemanager.controller.activity.CreateActivity.Companion.listType
 import com.sofianem.realestatemanager.controller.activity.MainActivity.Companion.ID
 import com.sofianem.realestatemanager.controller.adapter.UploadAdapter
-import com.sofianem.realestatemanager.data.Model.EstateR
-import com.sofianem.realestatemanager.data.Model.ImageV
+import com.sofianem.realestatemanager.data.model.EstateR
+import com.sofianem.realestatemanager.data.model.ImageV
 import com.sofianem.realestatemanager.utils.MyCommunicationV2
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
@@ -131,7 +131,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
         if (iid != null) { var id = iid + 1
             mMyViewModel.retrieveImageData().observe(this, androidx.lifecycle.Observer { it ->
                 it.forEach { value -> if (id == value.masterId) { masterId = value.masterId
-                        listImage_path.add(value.imageUri); listImage_description.add(value.imageDescription);    upload_recyclerview.adapter?.notifyDataSetChanged() } } }) } }
+                    listImage_path.add(value.imageUri); listImage_description.add(value.imageDescription);    upload_recyclerview.adapter?.notifyDataSetChanged() } } }) } }
 
 
     private fun uploadData(est: EstateR) {
@@ -388,7 +388,4 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
 
     }
 }
-
-
-
 

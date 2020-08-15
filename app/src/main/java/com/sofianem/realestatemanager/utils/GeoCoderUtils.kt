@@ -4,7 +4,7 @@ import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import android.widget.Toast
-import com.sofianem.realestatemanager.data.Model.EstateR
+import com.sofianem.realestatemanager.data.model.EstateR
 import java.io.IOException
 
 /**

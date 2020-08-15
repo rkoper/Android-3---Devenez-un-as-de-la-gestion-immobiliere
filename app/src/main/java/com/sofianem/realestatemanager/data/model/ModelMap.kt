@@ -1,4 +1,4 @@
-package com.sofianem.realestatemanager.data.Model
+package com.sofianem.realestatemanager.data.model
 
 import com.google.gson.annotations.SerializedName
 

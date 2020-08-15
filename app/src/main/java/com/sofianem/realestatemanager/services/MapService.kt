@@ -1,9 +1,9 @@
 package com.sofianem.realestatemanager.services
 
-import com.sofianem.realestatemanager.data.Model.PlacesResponse1
-import com.sofianem.realestatemanager.data.Model.PlacesResponse2
-import com.sofianem.realestatemanager.data.Model.PlacesResponse3
-import com.sofianem.realestatemanager.data.Model.PlacesResponse4
+import com.sofianem.realestatemanager.data.model.PlacesResponse1
+import com.sofianem.realestatemanager.data.model.PlacesResponse2
+import com.sofianem.realestatemanager.data.model.PlacesResponse3
+import com.sofianem.realestatemanager.data.model.PlacesResponse4
 import retrofit2.http.GET
 
 

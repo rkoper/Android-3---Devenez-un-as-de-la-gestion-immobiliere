@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.sofianem.realestatemanager.data.Model.NearbyPlaces
 import com.sofianem.realestatemanager.data.Dao.PlaceDao
 import com.sofianem.realestatemanager.data.Dao.EstateDao
-import com.sofianem.realestatemanager.data.Model.EstateR
-import com.sofianem.realestatemanager.data.Dao.ImageDao
-import com.sofianem.realestatemanager.data.Model.ImageV
+import com.sofianem.realestatemanager.data.model.EstateR
+import com.sofianem.realestatemanager.data.dao.ImageDao
+import com.sofianem.realestatemanager.data.model.ImageV
+import com.sofianem.realestatemanager.data.model.NearbyPlaces
 
 @Database(entities = (arrayOf(ImageV::class, EstateR::class, NearbyPlaces::class)), version = 1, exportSchema = false)
 abstract class ImageDatabase : RoomDatabase() {
@@ -23,6 +23,6 @@ abstract class ImageDatabase : RoomDatabase() {
 
         fun getInstance(context: Context): ImageDatabase {
             if (INSTANCE == null) { synchronized(this) { INSTANCE = Room.databaseBuilder(
-                        context.applicationContext, ImageDatabase::class.java, "RealEstateManager.db").build() } }
+                context.applicationContext, ImageDatabase::class.java, "RealEstateManager.db").build() } }
             return INSTANCE as ImageDatabase
         } } }
