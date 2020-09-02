@@ -20,6 +20,7 @@ import com.sofianem.realestatemanager.controller.fragment.DetailFragment
 import com.sofianem.realestatemanager.data.model.NearbyPlaces
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
+import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.activity_detail_map.*
 import kotlin.math.roundToInt
 
@@ -30,6 +31,7 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
     var mId: Int = 0
     var mNewList = arrayListOf<String>()
     private var mNewNewList = arrayListOf<String>()
+    private lateinit var mMyViewModelForPlaces: MyViewModelForPlaces
     private lateinit var mMyViewModel: MyViewModel
     private val mMarkerOptions = MarkerOptions()
 
@@ -39,6 +41,7 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
         mCurrentLocation = intent.getStringExtra(DetailFragment.LOCATION)
         mId = intent.getIntExtra(DetailFragment.NEWID, 1)
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
+        mMyViewModelForPlaces = ViewModelProviders.of(this).get(MyViewModelForPlaces::class.java)
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         initfbPharmacy()
@@ -69,7 +72,7 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun initPark(mType1: String, icon: Int) {
 
-        mMyViewModel.getByIdLocationPark(mType1, mId).observe(this, Observer { listNearbyPlaces ->
+        mMyViewModelForPlaces.getByIdLocationPark(mType1, mId).observe(this, Observer { listNearbyPlaces ->
             mMap?.clear()
             listNearbyPlaces?.forEach { np ->
                 println("-------listNearbyPlaces------------" + np.toString() )
@@ -83,7 +86,7 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun initPharmacy(mType1: String, icon: Int) {
 
-        mMyViewModel.getByIdLocationPharmacy(mType1, mId).observe(this, Observer { listNearbyPlaces ->
+        mMyViewModelForPlaces.getByIdLocationPharmacy(mType1, mId).observe(this, Observer { listNearbyPlaces ->
             mMap?.clear()
             listNearbyPlaces?.forEach { np ->
                 println("-------listNearbyPlaces------------" + np.toString() )
@@ -97,7 +100,7 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun initSchool(mType1: String, icon: Int) {
 
-        mMyViewModel.getByIdLocationSchool(mType1, mId).observe(this, Observer { listNearbyPlaces ->
+        mMyViewModelForPlaces.getByIdLocationSchool(mType1, mId).observe(this, Observer { listNearbyPlaces ->
             mMap?.clear()
             listNearbyPlaces?.forEach { np ->
                 println("-------listNearbyPlaces------------" + np.toString() )
@@ -111,7 +114,7 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun initMarket(mType1: String, icon: Int) {
 
-        mMyViewModel.getByIdLocationMarket(mType1, mId).observe(this, Observer { listNearbyPlaces ->
+        mMyViewModelForPlaces.getByIdLocationMarket(mType1, mId).observe(this, Observer { listNearbyPlaces ->
             mMap?.clear()
             listNearbyPlaces?.forEach { np ->
                 println("-------listNearbyPlaces------------" + np.toString() )

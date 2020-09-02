@@ -35,6 +35,7 @@ import com.sofianem.realestatemanager.controller.adapter.CreateAdapter
 import com.sofianem.realestatemanager.utils.GeocoderUtil
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
+import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.android.synthetic.main.dialog_custom_layout.view.*
 import kotlinx.android.synthetic.main.dialog_description.view.*
@@ -49,6 +50,7 @@ import java.util.*
 class CreateActivity : AppCompatActivity() {
 
     private lateinit var mMyViewModel: MyViewModel
+    private lateinit var mMyViewModelForPlaces: MyViewModelForPlaces
     private var mUri: Uri? = null
     private val mListImagePath: MutableList<String?> = ArrayList()
     private val mListImageDescription: MutableList<String?> = ArrayList()
@@ -71,6 +73,7 @@ class CreateActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create)
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
+        mMyViewModelForPlaces = ViewModelProviders.of(this).get(MyViewModelForPlaces::class.java)
 
       //  mMyViewModel.allWords.observe(this, androidx.lifecycle.Observer { t ->
         //    t.let { println("NEW INSERT" + "TEST ID ---------" + mPom) } })
@@ -103,12 +106,17 @@ class CreateActivity : AppCompatActivity() {
                     listimageDescription)
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent) }
+
+
             mMyViewModel.allWords.observe(this, androidx.lifecycle.Observer { t ->
                 t.let {
                     println("NEW INSERT " + " LOC + ID " + t.size + " " + mGeoLoc )
                     println("NEW INSERT " + " IMAGE + ID " + t.size + " " + listImage_path + "  " + listimageDescription )
 
-                    mMyViewModel.getNearbyPlace1(t.size, mGeoLoc)
+                    mMyViewModelForPlaces.getNearbyPlace1(t.size, mGeoLoc)
+                    mMyViewModelForPlaces.getNearbyPlace2(t.size, mGeoLoc)
+                    mMyViewModelForPlaces.getNearbyPlace3(t.size, mGeoLoc)
+                    mMyViewModelForPlaces.getNearbyPlace4(t.size, mGeoLoc)
 
 
                 } })

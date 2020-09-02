@@ -24,6 +24,7 @@ import com.sofianem.realestatemanager.controller.adapter.DetailAdapter
 import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
+import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.fragment_detail.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -32,7 +33,7 @@ import java.util.*
 
 @Suppress("DEPRECATION")
 class DetailFragment : Fragment(), LifecycleObserver {
-
+    private lateinit var mMyViewModelForPlaces: MyViewModelForPlaces
     private lateinit var mMyViewModel: MyViewModel
     private var mId: Int = 0
     private val mListImagePath: MutableList<String?> = ArrayList()
@@ -47,6 +48,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
+        mMyViewModelForPlaces = ViewModelProviders.of(this).get(MyViewModelForPlaces::class.java)
         updateNbPhoto() }
 
 
@@ -82,33 +84,33 @@ class DetailFragment : Fragment(), LifecycleObserver {
     }
 
     private fun updateProxLoc(estate: List<EstateR>, mId: Int) {
-        mMyViewModel.getByIdLocation1(  "park",estate[mId].id).observe(this, Observer { lnp ->
+        mMyViewModelForPlaces.getByIdLocation1(  "park",estate[mId].id).observe(this, Observer { lnp ->
             if (lnp.isNotEmpty()){
                 if (lnp[0].placeDistance < 500 && estate[mId].prox_park == "Estate_park")
-                {mMyViewModel.UpdateProxPark("ok", estate[mId].id)
+                {mMyViewModelForPlaces.UpdateProxPark("ok", estate[mId].id)
                     println(" test ----------park " + lnp[0].placeName + " // " + lnp[0].placeDistance)}
                 detail_park_txt.text  = lnp[0].placeDistance.toString() + " m" }})
 
-        mMyViewModel.getByIdLocation2(  "pharmacy",estate[mId].id).observe(this, Observer { lnp ->
+        mMyViewModelForPlaces.getByIdLocation2(  "pharmacy",estate[mId].id).observe(this, Observer { lnp ->
             if (lnp.isNotEmpty()){
                 if (lnp[0].placeDistance < 500 && estate[mId].prox_pharmacy == "Estate_pharmacy")
-                {mMyViewModel.UpdateProxPharma("ok", estate[mId].id)}
+                {mMyViewModelForPlaces.UpdateProxPharma("ok", estate[mId].id)}
 
                 if (lnp[0].placeDistance.toString() == "Estate_pharmacy")
                 {detail_pharmacy_txt.text = " - "}
                 else {
                     detail_pharmacy_txt.text  = lnp[0].placeDistance.toString() + " m" }}})
 
-        mMyViewModel.getByIdLocation3(  "primary_school",estate[mId].id).observe(this, Observer { lnp ->
+        mMyViewModelForPlaces.getByIdLocation3(  "primary_school",estate[mId].id).observe(this, Observer { lnp ->
             if (lnp.isNotEmpty()){
                 if (lnp[0].placeDistance < 500 && estate[mId].prox_school == "Estate_school")
-                {mMyViewModel.UpdateProxSchool("ok", estate[mId].id)}
+                {mMyViewModelForPlaces.UpdateProxSchool("ok", estate[mId].id)}
                 detail_school_txt.text  = lnp[0].placeDistance.toString() + " m" }})
 
-        mMyViewModel.getByIdLocation4(  "supermarket",estate[mId].id).observe(this, Observer { lnp ->
+        mMyViewModelForPlaces.getByIdLocation4(  "supermarket",estate[mId].id).observe(this, Observer { lnp ->
             if (lnp.isNotEmpty()){
                 if (lnp[0].placeDistance < 500 && estate[mId].prox_market == "Estate_market")
-                {mMyViewModel.UpdateProxMarket("ok", estate[mId].id)}
+                {mMyViewModelForPlaces.UpdateProxMarket("ok", estate[mId].id)}
                 detail_market_txt.text  = lnp[0].placeDistance.toString() + " m" }})
     }
 
