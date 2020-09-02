@@ -76,7 +76,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
             initLocation(mId, it)
 
             updateProxLoc(it, mId)
-            println("------Detail Prox---------" + it[mId].adress + " ------ " + it[mId].id + " --_school--- " + it[mId].prox_school + " --_market--- " + it[mId].prox_market + " --_park--- " + it[mId].prox_park + " -_pharmacy---- " + it[mId].prox_pharmacy
+            println("Detail Loc" + it[mId].location + "------Detail Prox---------" + it[mId].adress + " ------ " + it[mId].id + " --_school--- " + it[mId].prox_school + " --_market--- " + it[mId].prox_market + " --_park--- " + it[mId].prox_park + " -_pharmacy---- " + it[mId].prox_pharmacy
             ) })
         setupRecyclerView(id)
     }

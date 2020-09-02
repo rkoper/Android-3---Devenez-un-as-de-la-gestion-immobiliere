@@ -3,7 +3,7 @@ package com.sofianem.realestatemanager.data.repository
 import android.app.Application
 import android.database.Cursor
 import androidx.lifecycle.LiveData
-import com.sofianem.realestatemanager.data.Dao.EstateDao
+import com.sofianem.realestatemanager.data.dao.EstateDao
 import com.sofianem.realestatemanager.data.DataBase.ImageDatabase
 import com.sofianem.realestatemanager.data.model.EstateR
 import kotlinx.coroutines.Dispatchers
@@ -14,12 +14,12 @@ import kotlinx.coroutines.runBlocking
 open class EstateRepo (application: Application) {
 
     val estate_Dao: EstateDao
-    val allTodos: LiveData<List<EstateR>>
+
 
     init {
         val database = ImageDatabase.getInstance(application.applicationContext)
         estate_Dao = database!!.estateDao()
-        allTodos = estate_Dao.getAllTodoList()
+        val allTodos: LiveData<List<EstateR>> = estate_Dao.getAllTodoList()
     }
 
     fun updateTodo(todo: EstateR) = runBlocking {
@@ -38,9 +38,6 @@ open class EstateRepo (application: Application) {
         estate_Dao.getEstateWithCursor()
     }
 
-    fun getAllTodoList(): LiveData<List<EstateR>> {
-        return allTodos
-    }
 
     fun getEstateWithCursor(): Cursor? =
         estate_Dao.getEstateWithCursor()

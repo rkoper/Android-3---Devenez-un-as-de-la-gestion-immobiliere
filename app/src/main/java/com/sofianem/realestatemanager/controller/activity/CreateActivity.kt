@@ -32,6 +32,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.adapter.CreateAdapter
+import com.sofianem.realestatemanager.utils.GeocoderUtil
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import kotlinx.android.synthetic.main.activity_create.*
@@ -57,6 +58,7 @@ class CreateActivity : AppCompatActivity() {
     private var mDescription: String = ""
     var mAddress: String = ""
     var mStatus: String = ""
+    var mGeoLoc: String = ""
     private var mPerson: String = ""
     var mPrice: Int = 0
     var mSurface: Int = 0
@@ -69,6 +71,10 @@ class CreateActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create)
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
+
+      //  mMyViewModel.allWords.observe(this, androidx.lifecycle.Observer { t ->
+        //    t.let { println("NEW INSERT" + "TEST ID ---------" + mPom) } })
+
         loadItem()
         OnClick()
         createData(mListImagePath, mListImageDescription)
@@ -80,10 +86,35 @@ class CreateActivity : AppCompatActivity() {
             mStatus = "ok"
             if (mAddress == "Adress" ||  mAddress == "-" ||  mAddress == "") {Toast.makeText(this, "Please add address...", Toast.LENGTH_SHORT).show()}
             else { Toast.makeText(this, "Saving...", Toast.LENGTH_SHORT).show()
-                mPom = mMyViewModel.storeData(mType, mCity, mPrice, mSurface,mNumberOfRoom, mDescription, mAddress,
-                    mStatus, mDateBegin, mDateEnd, mPerson,  listImage_path, listimageDescription, this)
+                mPom = mMyViewModel.storeData(
+                    mType,
+                    mCity,
+                    mPrice,
+                    mSurface,
+                    mNumberOfRoom,
+                    mDescription,
+                    mAddress,
+                    mGeoLoc,
+                    mStatus,
+                    mDateBegin,
+                    mDateEnd,
+                    mPerson,
+                    listImage_path,
+                    listimageDescription)
                 val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent) } }
+                startActivity(intent) }
+            mMyViewModel.allWords.observe(this, androidx.lifecycle.Observer { t ->
+                t.let {
+                    println("NEW INSERT " + " LOC + ID " + t.size + " " + mGeoLoc )
+                    println("NEW INSERT " + " IMAGE + ID " + t.size + " " + listImage_path + "  " + listimageDescription )
+
+                    mMyViewModel.getNearbyPlace1(t.size, mGeoLoc)
+
+
+                } })
+        }
+   
+
     }
 
     private fun loadItem() {
@@ -132,15 +163,24 @@ class CreateActivity : AppCompatActivity() {
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 a_create_ed_adress.text = place.address
-                place.addressComponents?.asList()?.forEach { Log.i("TAG", "type: " + it.types)
+                println( " PLACE _ LAT LNG ------->" + place.latLng)
+                place.addressComponents?.asList()?.forEach { Log.i("TAG", "AutoComplet: " + it.types + " " )
                     if (it.types.contains("street_number")) { streetNumber = it.name }
                     else if (it.types.contains("route")) { route = it.name }
-                    else if (it.types.contains("locality")) { a_create_ed_city.setText(it.name)
+                    else if (it.types.contains("locality")) {
+                        a_create_ed_city.text = it.name
                         mCity = it.name } }
 
-                a_create_ed_adress.text = streetNumber +" " + route
+                a_create_ed_adress.text = "$streetNumber $route"
                 a_create_ed_adress.visibility = View.VISIBLE
-                mAddress = streetNumber +" " +  route }
+                mAddress = "$streetNumber $route"
+
+                mGeoLoc = GeocoderUtil.getlocationForListv2( mAddress, mCity, this@CreateActivity)
+
+                println( " mGeoLoc ------->" + mGeoLoc)
+
+
+            }
             override fun onError(status: Status) { Log.i("TAG", "An error occurred: $mStatus") } })
     }
 

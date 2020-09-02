@@ -25,5 +25,4 @@ interface ImageDao {
     @Query("SELECT * FROM Image where Image_uri like :path")
     fun getByPath(path: String): ImageV
 
-
 }

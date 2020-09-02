@@ -1,4 +1,4 @@
-package com.sofianem.realestatemanager.data.Dao
+package com.sofianem.realestatemanager.data.dao
 
 import android.database.Cursor
 import androidx.lifecycle.LiveData
@@ -14,6 +14,9 @@ interface EstateDao {
 
     @Query("SELECT * FROM Estate")
     fun getAllv2(): List<EstateR>
+
+    @Query("SELECT * FROM Estate")
+    fun getAllv3(): LiveData<List<EstateR>>
 
     @Insert
     fun insert(db: EstateR) : Long
@@ -36,8 +39,8 @@ interface EstateDao {
     @Query("UPDATE Estate SET Estate_nb_photo = :nb_photo WHERE Estate_id = :id")
     fun updateNbPhoto(nb_photo: Int, id: Int)
 
-    @Query("UPDATE Estate SET Estate_location = :location WHERE Estate_id = :id")
-    fun updateForLoc(location: String, id: Int)
+    //@Query("UPDATE Estate SET Estate_location = :location WHERE Estate_id = :id")
+    //fun updateForLoc(location: String, id: Int)
 
     @Query("UPDATE Estate SET Estate_market = :Estate_market WHERE Estate_id = :id")
     fun updateForMarket(Estate_market: String, id: Int)

@@ -43,4 +43,23 @@ object GeocoderUtil {
 
     fun lng(geoL:String) : String  { val lng = geoL.split(",".toRegex()).toTypedArray()
         return lng[1] }
+
+
+    fun getlocationForListv2(adress: String?, city: String?, mContext: Context): String {
+        var errorMessage = ""
+        var geocodeMatches: List<Address>? = null
+
+        try {
+            geocodeMatches = Geocoder(mContext).getFromLocationName(
+                "$adress, $city", 1) } catch (ioException: IOException) { }
+
+        val geoLat: Double? = geocodeMatches?.get(0)?.latitude ; val geoLng: Double? = geocodeMatches?.get(0)?.longitude
+        val geoL: String = (geoLat.toString() + "," + geoLng.toString())
+        return geoL }
+
+    fun latv2(geoL:String) : String  { val lat  = geoL.split(",".toRegex()).toTypedArray()
+        return lat[0] }
+
+    fun lngv2(geoL:String) : String  { val lng = geoL.split(",".toRegex()).toTypedArray()
+        return lng[1] }
 }

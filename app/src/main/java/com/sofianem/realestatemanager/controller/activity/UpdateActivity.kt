@@ -36,6 +36,7 @@ import com.sofianem.realestatemanager.controller.activity.MainActivity.Companion
 import com.sofianem.realestatemanager.controller.adapter.UploadAdapter
 import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.model.ImageV
+import com.sofianem.realestatemanager.utils.GeocoderUtil
 import com.sofianem.realestatemanager.utils.MyCommunicationV2
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
@@ -68,6 +69,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
     var description: String = ""
     var adress: String = ""
     var status: String = "ok"
+    var mGeoLoc: String = ""
     var date_begin: Long = 3
     var date_end: Long = 8888888888
     var personn: String = ""
@@ -138,11 +140,20 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
         activity_upload_saveData_floating.setOnClickListener {
             description = upload_description.text.toString().trim()
 
-            est.type  =          type ; est.status  =          status ; est.city =           city ;
-            est.price =          price ; est.surface =        surface
-            est.number_of_room = number_of_room ; est.description = description.toString()
-            est.date_begin =     date_begin ; est.date_end =       date_end
-            est.personn = personn.toString() ; est.adress = hintAdress.toString()
+            est.type  =          type
+            est.status  =          status
+            est.city =           city
+            est.price =          price
+            est.surface =        surface
+            est.number_of_room = number_of_room
+            est.description = description
+            est.date_begin =     date_begin
+            est.date_end =       date_end
+            est.personn = personn
+            est.adress = hintAdress
+            est.location = mGeoLoc
+
+
 
             mMyViewModel.updateTodo(est)
             val intent = Intent(this, MainActivity::class.java)
@@ -233,7 +244,9 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
                     if (it.types.contains("street_number")) { streetNumber = it.name }
                     else if (it.types.contains("route")) { route = it.name }
                     else if (it.types.contains("locality")) { upload_city.setText(it.name) ; city = it.name } }
-                hintAdress = "$streetNumber $route" }
+                hintAdress = "$streetNumber $route"
+
+                mGeoLoc = GeocoderUtil.getlocationForListv2( hintAdress, city, this@UpdateActivity)}
             override fun onError(p0: Status) {} }) }
 
 

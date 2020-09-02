@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.sofianem.realestatemanager.data.DataBase.EstateDatabase
 import com.sofianem.realestatemanager.data.DataBase.ImageDatabase
 import com.sofianem.realestatemanager.data.repository.EstateRepo
 import com.sofianem.realestatemanager.data.model.*
@@ -51,33 +52,42 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
     lateinit var location: String
     var mNbPhoto = 0
 
+    val allWords: LiveData<List<EstateR>>
+
+    init {
+        allWords = mRepository.estate_Dao.getAllTodoList()
+    }
+
     fun storeData(
-        type: String, city: String, price: Int, surface: Int, number_of_room: Int, description: String, adress: String,
+        type: String, city: String, price: Int, surface: Int, number_of_room: Int, description: String, adress: String, location: String,
         status: String, date_begin: Long, date_end: Long, personn: String, imageUri: MutableList<String?>,
-        imageDescription: MutableList<String?>, mContext: Context
+        imageDescription: MutableList<String?>
     ): Int {
         mNbPhoto = imageUri.size
         val db = EstateR()
         db.type = type ; db.price = price ; db.city = city; db.surface = surface ; db.number_of_room = number_of_room
-        db.description = description ; db.adress = adress ; db.location = "" ; db.status = status
+        db.description = description ; db.adress = adress ; db.location = location ; db.status = status
         db.date_begin = date_begin ; db.date_end = date_end ; db.personn = personn ; db.nb_photo = mNbPhoto
         db.ImageUri = imageUri ; db.ImageDescription = imageDescription
 
         GlobalScope.launch {
             mId = mImageDb?.estateDao()?.insert(db)?.toInt()!!
-            findLocation(mId!!.toInt(), adress, city, db, mContext)
-            storeImageData(mId, imageUri, imageDescription) }
-        runBlocking { delay(900) }
+            //     location = GeocoderUtil.getlocationForList(mId, adress, city, mContext)
+            //   db.location = location
+            //  findLocation(mId!!.toInt(), adress, city, db, mContext)
+            //storeImageData(mId, imageUri, imageDescription) }
+            // runBlocking { delay(900) }
+        }
         return mId
     }
 
     fun findLocation(
         id: Int, adress: String?, city: String?, db: EstateR, mContext: Context
     ): String {
-        location = GeocoderUtil.getlocationForList(id, adress, city, mContext)
-        db.location = location
+     //   location = GeocoderUtil.getlocationForList(id, adress, city, mContext)
+       // db.location = location
         GlobalScope.launch {
-            mImageDb?.estateDao()?.updateForLoc(location, id)
+          //  mImageDb?.estateDao()?.updateForLoc(location, id)
             getNearbyPlace1(mId, location) ; getNearbyPlace2(mId, location)
             getNearbyPlace3(mId, location) ; getNearbyPlace4(mId, location)}
         return location
@@ -168,7 +178,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         GlobalScope.launch { mImageDb?.imageDao()?.updateItem(ig) }
     }
 
-    private fun getNearbyPlace1(id: Int, location: String) {
+     fun getNearbyPlace1(id: Int, location: String) {
         var interceptor = HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build();
@@ -184,9 +194,13 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
             allPlace?.placesList1?.forEach { place -> val np = NearbyPlaces()
                 val curLat = Utils.currentLat(locationForPlace) ; val curLng = Utils.currentLng(locationForPlace)
                 val distance = Utils.calculateDistance(curLat, curLng, place.geometry.location.lat, place.geometry.location.lng).roundToInt()
-                if (place.types[0] == "park" || place.types[1] == "park") { np.placetype = "park" } else { np.placetype = place.types[0] }
+                if (place.types[0] == "park" || place.types[1] == "park")
+                { np.placetype = "park" }
+                else { np.placetype = place.types[0] }
                 np.placeLocation = (place.geometry.location.lat.toString() + "," + place.geometry.location.lng.toString())
-                np.placeMasterId = id; np.placeName = place.name; np.placeDistance = distance
+                np.placeMasterId = id
+                np.placeName = place.name
+                np.placeDistance = distance
                 saveNearby1(np) } } }
 
     private fun getNearbyPlace2(id: Int, location: String) {
