@@ -24,6 +24,7 @@ import com.sofianem.realestatemanager.controller.adapter.DetailAdapter
 import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
+import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.fragment_detail.*
 import java.io.File
@@ -34,6 +35,7 @@ import java.util.*
 @Suppress("DEPRECATION")
 class DetailFragment : Fragment(), LifecycleObserver {
     private lateinit var mMyViewModelForPlaces: MyViewModelForPlaces
+    private lateinit var mMyViewModelForImages: MyViewModelForImages
     private lateinit var mMyViewModel: MyViewModel
     private var mId: Int = 0
     private val mListImagePath: MutableList<String?> = ArrayList()
@@ -49,19 +51,20 @@ class DetailFragment : Fragment(), LifecycleObserver {
         super.onViewCreated(view, savedInstanceState)
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         mMyViewModelForPlaces = ViewModelProviders.of(this).get(MyViewModelForPlaces::class.java)
+        mMyViewModelForImages = ViewModelProviders.of(this).get(MyViewModelForImages::class.java)
         updateNbPhoto() }
 
 
     private fun updateNbPhoto() {
-        mMyViewModel.retrieveData().observe(viewLifecycleOwner, Observer {
+        mMyViewModel.allWords.observe(viewLifecycleOwner, Observer {
             it.forEach {estate ->
-                val nbPhotoList =   mMyViewModel.retrievImagebyMasterID(estate.id)
-                mMyViewModel.UpdateNbPhoto(nbPhotoList.size, estate.id) } }) }
+                val nbPhotoList =   mMyViewModelForImages.retrievImagebyMasterID(estate.id)
+                mMyViewModelForImages.UpdateNbPhoto(nbPhotoList.size, estate.id) } }) }
 
 
     fun displayDetails(id: Int) {
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-        mMyViewModel.retrieveData().observe(viewLifecycleOwner, Observer {
+        mMyViewModel.allWords.observe(viewLifecycleOwner, Observer {
 
             val sdf = SimpleDateFormat("dd/MM/yyyy")
             mId = id - 1
@@ -118,7 +121,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
         mListImageDescription.clear()
         mListImagePath.clear()
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-        mMyViewModel.retrieveImageData().observe(this, Observer { listImage ->
+        mMyViewModelForImages.retrieveImageData().observe(this, Observer { listImage ->
             if (listImage.isNullOrEmpty()) { Toast.makeText(requireContext(), "xxx", Toast.LENGTH_SHORT).show() }
             else { listImage.forEach { value ->
                 if (value.masterId == mId) { mListImagePath.add(value.imageUri)

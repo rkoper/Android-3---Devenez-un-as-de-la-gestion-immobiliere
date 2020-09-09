@@ -1,39 +1,22 @@
 package com.sofianem.realestatemanager.viewmodel
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.sofianem.realestatemanager.data.DataBase.EstateDatabase
-import com.sofianem.realestatemanager.data.DataBase.ImageDatabase
+import com.sofianem.realestatemanager.data.dataBase.ImageDatabase
+import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.repository.EstateRepo
-import com.sofianem.realestatemanager.data.model.*
-import com.sofianem.realestatemanager.services.MapService
-import com.sofianem.realestatemanager.utils.GeocoderUtil
-import com.sofianem.realestatemanager.utils.Utils
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.collections.ArrayList
-import kotlin.math.roundToInt
 
 
 class MyViewModel(application: Application) : AndroidViewModel(application) {
     private val mImageDb: ImageDatabase? = ImageDatabase.getInstance(application)
     private val mAllData = MutableLiveData<List<EstateR>>()
-    private val mAllDatav2 = MutableLiveData<List<EstateR>>()
-    private val mIdLoc = MutableLiveData<List<Int>>()
     private var mAllDataForSearch: List<Int>? = arrayListOf()
-    private val mAllImageData = MutableLiveData<List<ImageV>>()
     private var mDataSearchList: ArrayList<EstateR> = arrayListOf()
     private val mRepository: EstateRepo = EstateRepo(application)
     var mId: Int = 0
@@ -43,7 +26,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
     val allWords: LiveData<List<EstateR>>
 
     init {
-        allWords = mRepository.estate_Dao.getAllTodoList()
+        allWords = mRepository.readAll
     }
 
     fun storeData(
@@ -69,41 +52,20 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         return mId
     }
 
-    fun findLocation(
-        id: Int, adress: String?, city: String?, db: EstateR, mContext: Context
-    ): String {
-     //   location = GeocoderUtil.getlocationForList(id, adress, city, mContext)
-       // db.location = location
+    fun insertTodo(type: String, city: String, price: Int, surface: Int, number_of_room: Int, description: String, adress: String, location: String,
+                       status: String, date_begin: Long, date_end: Long, personn: String, imageUri: MutableList<String?>,
+                       imageDescription: MutableList<String?>){
+        mNbPhoto = imageUri.size
+        val db = EstateR()
+        db.type = type ; db.price = price ; db.city = city; db.surface = surface ; db.number_of_room = number_of_room
+        db.description = description ; db.adress = adress ; db.location = location ; db.status = status
+        db.date_begin = date_begin ; db.date_end = date_end ; db.personn = personn ; db.nb_photo = mNbPhoto
+        db.ImageUri = imageUri ; db.ImageDescription = imageDescription
+
         GlobalScope.launch {
-            //  mImageDb?.estateDao()?.updateForLoc(location, id)
-            // getNearbyPlace1(mId, location) ; getNearbyPlace2(mId, location)
-            //getNearbyPlace3(mId, location) ; getNearbyPlace4(mId, location)}
+           mRepository.insertTodo(db)
         }
-        return location
     }
-
-    private fun storeImageData(
-        mId: Int,
-        listImage: MutableList<String?>,
-        listImageDescription: MutableList<String?>
-    ) { val i = ImageV()
-        GlobalScope.launch {
-            for (n in listImage.indices) {
-                i.imageUri = listImage[n]
-                i.imageDescription = listImageDescription[n]
-                i.masterId = mId
-                mImageDb?.imageDao()?.insertItem(i)
-            } } }
-
-    fun upadeSingleImageData(mId: Int, stringImage: String?, stringeDescription: String?) {
-        val i = ImageV()
-        GlobalScope.launch {
-            i.imageUri = stringImage
-            i.imageDescription = stringeDescription
-            i.masterId = mId
-            mImageDb?.imageDao()?.insertItem(i)
-        } }
-
 
     fun retrieveData(): LiveData<List<EstateR>> {
         GlobalScope.launch {
@@ -112,11 +74,9 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         return mAllData }
 
 
-    fun retrieveImageData(): LiveData<List<ImageV>> {
-        GlobalScope.launch {
-            val listImage = mImageDb?.imageDao()?.getImageAll()
-            mAllImageData.postValue(listImage) }
-        return mAllImageData }
+    //
+
+
 
     fun saveIdData(it: List<Int>): ArrayList<EstateR> {
         it.forEach {
@@ -125,32 +85,12 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
                     mImageDb!!.estateDao().getById(it)) } }
         runBlocking { delay(2000) }; return mDataSearchList }
 
-    fun retrievImagebyMasterID(it: Int): List<ImageV> {
-        var igl: List<ImageV> = arrayListOf()
-        GlobalScope.launch { igl = mImageDb!!.imageDao().retriedImageryMasterID(it) }
-        runBlocking { delay(100) }; return igl }
 
-    fun retrievebyPath(it: String): ImageV {
-        var ig = ImageV()
-        GlobalScope.launch { ig = mImageDb!!.imageDao().getByPath(it) }
-        runBlocking { delay(100) }; return ig }
 
     fun updateTodo(todo: EstateR) {
         mRepository.updateTodo(todo)
     }
 
-    fun deleteImage(ig: ImageV) {
-        GlobalScope.launch { mImageDb?.imageDao()?.deleteItem(ig) }
-    }
-
-    fun UpdateNbPhoto(nb_photo: Int, id: Int) {
-        GlobalScope.launch { mImageDb?.estateDao()?.updateNbPhoto(nb_photo, id) }
-    }
-
-
-    fun UpdateImageDes(ig: ImageV) {
-        GlobalScope.launch { mImageDb?.imageDao()?.updateItem(ig) }
-    }
 
 
     fun getSearchAll(

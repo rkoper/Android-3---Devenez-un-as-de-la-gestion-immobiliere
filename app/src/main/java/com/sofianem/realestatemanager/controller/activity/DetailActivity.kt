@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.activity.MainActivity.Companion.ID
@@ -27,7 +28,7 @@ class DetailActivity : AppCompatActivity() {
         fragmentMainDetail?.displayDetails(id)
 
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-        mMyViewModel.retrieveData().observe(this, androidx.lifecycle.Observer { detail_fb_edit.isVisible = it[id-1].status == "ok" })
+        mMyViewModel.allWords.observe(this, Observer { detail_fb_edit.isVisible = it[id-1].status == "ok" })
 
         onclickUpdate(id)
         onClickHome()

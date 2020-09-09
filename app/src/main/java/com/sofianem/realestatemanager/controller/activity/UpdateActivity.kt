@@ -40,6 +40,7 @@ import com.sofianem.realestatemanager.utils.GeocoderUtil
 import com.sofianem.realestatemanager.utils.MyCommunicationV2
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
+import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
 import kotlinx.android.synthetic.main.activity_upload.*
 import kotlinx.android.synthetic.main.dialog_custom_layout.view.*
 import kotlinx.android.synthetic.main.dialog_layout.view.*
@@ -56,6 +57,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
 
     private lateinit var mMyViewModel: MyViewModel
     private var mUri: Uri? = null
+    private lateinit var mMyViewModelForImages: MyViewModelForImages
     private val OPERATION_CAPTURE_PHOTO = 1
     private val OPERATION_CHOOSE_PHOTO = 2
     private val imagePath: String? = ""
@@ -83,6 +85,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload)
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
+        mMyViewModelForImages = ViewModelProviders.of(this).get(MyViewModelForImages::class.java)
         val iid = intent.getIntExtra(ID, 1)
         val id = iid - 1
 
@@ -95,7 +98,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
     }
 
     private fun retrieveData(id: Int) {
-        mMyViewModel.retrieveData().observe(this, androidx.lifecycle.Observer {list ->
+        mMyViewModel.allWords.observe(this, androidx.lifecycle.Observer {list ->
             var lstEst = list[id]
 
             if (lstEst.type == ""){upload_type.text  = "-"} else { upload_type.text = lstEst.type ; type  = lstEst.type }
@@ -131,7 +134,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
 
     private fun createRV(iid: Int) {
         if (iid != null) { var id = iid + 1
-            mMyViewModel.retrieveImageData().observe(this, androidx.lifecycle.Observer { it ->
+            mMyViewModelForImages.retrieveImageData().observe(this, androidx.lifecycle.Observer { it ->
                 it.forEach { value -> if (id == value.masterId) { masterId = value.masterId
                     listImage_path.add(value.imageUri); listImage_description.add(value.imageDescription);    upload_recyclerview.adapter?.notifyDataSetChanged() } } }) } }
 
@@ -359,7 +362,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
             listImage_description.add(photo_info)
             listImage_path.add(imagePath)
             upload_recyclerview.adapter?.notifyDataSetChanged()
-            if (imagePath != "" && photo_info != "") { mMyViewModel.upadeSingleImageData(mId, imagePath, photo_info) } } }
+            if (imagePath != "" && photo_info != "") { mMyViewModelForImages.upadeSingleImageData(mId, imagePath, photo_info) } } }
 
 
     private fun saveImage(myBitmap: Bitmap) {
@@ -372,12 +375,12 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
 
 
     override fun displayup(path: String) {
-        var a: ImageV = mMyViewModel.retrievebyPath(path)
-        mMyViewModel.deleteImage(a) }
+        var a: ImageV = mMyViewModelForImages.retrievebyPath(path)
+        mMyViewModelForImages.deleteImage(a) }
 
 
     override fun displayupv2(path2: String?) {
-        var b: ImageV = mMyViewModel.retrievebyPath(path2!!)
+        var b: ImageV = mMyViewModelForImages.retrievebyPath(path2!!)
         runBlocking { delay(100) }
         val mDialogViewForImageInfo = LayoutInflater.from(this).inflate(R.layout.dialog_custom_layout, null)
         var builderForImageInfo = AlertDialog.Builder(this)
@@ -387,10 +390,10 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
         mDialogViewForImageInfo.custom_dialog_ok.setOnClickListener { mAlertDialogForImageInfo.dismiss()
             val photo_info: String? = mDialogViewForImageInfo.custom_dialog_txt.text.toString()
             b.imageDescription = photo_info
-            mMyViewModel.UpdateImageDes(b)
+            mMyViewModelForImages.UpdateImageDes(b)
             runBlocking { delay(100) }
             upload_recyclerview.adapter?.notifyDataSetChanged()
-            mMyViewModel.retrieveImageData().observe(this, androidx.lifecycle.Observer {
+            mMyViewModelForImages.retrieveImageData().observe(this, androidx.lifecycle.Observer {
                 listImage_path.clear() ; listImage_description.clear()
                 it.forEach { value ->
                     if (b.masterId == value.masterId) {

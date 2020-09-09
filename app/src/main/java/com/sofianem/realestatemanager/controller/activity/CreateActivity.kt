@@ -35,6 +35,7 @@ import com.sofianem.realestatemanager.controller.adapter.CreateAdapter
 import com.sofianem.realestatemanager.utils.GeocoderUtil
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
+import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.android.synthetic.main.dialog_custom_layout.view.*
@@ -51,6 +52,8 @@ class CreateActivity : AppCompatActivity() {
 
     private lateinit var mMyViewModel: MyViewModel
     private lateinit var mMyViewModelForPlaces: MyViewModelForPlaces
+    private lateinit var mMyViewModelForImages: MyViewModelForImages
+
     private var mUri: Uri? = null
     private val mListImagePath: MutableList<String?> = ArrayList()
     private val mListImageDescription: MutableList<String?> = ArrayList()
@@ -74,6 +77,7 @@ class CreateActivity : AppCompatActivity() {
         setContentView(R.layout.activity_create)
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         mMyViewModelForPlaces = ViewModelProviders.of(this).get(MyViewModelForPlaces::class.java)
+        mMyViewModelForImages = ViewModelProviders.of(this).get(MyViewModelForImages::class.java)
 
       //  mMyViewModel.allWords.observe(this, androidx.lifecycle.Observer { t ->
         //    t.let { println("NEW INSERT" + "TEST ID ---------" + mPom) } })
@@ -89,7 +93,7 @@ class CreateActivity : AppCompatActivity() {
             mStatus = "ok"
             if (mAddress == "Adress" ||  mAddress == "-" ||  mAddress == "") {Toast.makeText(this, "Please add address...", Toast.LENGTH_SHORT).show()}
             else { Toast.makeText(this, "Saving...", Toast.LENGTH_SHORT).show()
-                mPom = mMyViewModel.storeData(
+                mMyViewModel.insertTodo(
                     mType,
                     mCity,
                     mPrice,
@@ -117,6 +121,8 @@ class CreateActivity : AppCompatActivity() {
                     mMyViewModelForPlaces.getNearbyPlace2(t.size, mGeoLoc)
                     mMyViewModelForPlaces.getNearbyPlace3(t.size, mGeoLoc)
                     mMyViewModelForPlaces.getNearbyPlace4(t.size, mGeoLoc)
+
+                    mMyViewModelForImages.storeImageData(t.size, listImage_path, listimageDescription)
 
 
                 } })

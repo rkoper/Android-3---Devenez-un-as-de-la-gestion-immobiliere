@@ -1,4 +1,4 @@
-package com.sofianem.realestatemanager.data.DataBase
+package com.sofianem.realestatemanager.data.dataBase
 
 import android.content.Context
 import androidx.room.Database

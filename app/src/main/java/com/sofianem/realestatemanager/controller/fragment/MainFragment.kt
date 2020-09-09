@@ -14,6 +14,7 @@ import com.sofianem.realestatemanager.controller.adapter.MainAdapter
 import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.model.ImageV
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
+import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
@@ -21,6 +22,7 @@ class MainFragment : Fragment(), LifecycleObserver {
     private var mListId: ArrayList<Int>? = arrayListOf()
     private var mListData: List<EstateR>? = arrayListOf()
     private lateinit var mMyViewModel: MyViewModel
+    private lateinit var mMyViewModelForImages: MyViewModelForImages
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,8 +31,11 @@ class MainFragment : Fragment(), LifecycleObserver {
     ): View? {
         mListId = arguments?.getIntegerArrayList("1111")
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-        mMyViewModel.retrieveData().observe(this, Observer {
+        mMyViewModelForImages = ViewModelProviders.of(this).get(MyViewModelForImages::class.java)
+        mMyViewModel.allWords.observe(this, Observer {
             mListData = it
+//            println(" MAIN FRAGMENT -----1-----" + it[0].adress)
+  //          println(" MAIN FRAGMENT ----2------" +it[1].adress)
             subscriber_recyclerView.adapter?.notifyDataSetChanged()
         })
 
@@ -43,8 +48,8 @@ class MainFragment : Fragment(), LifecycleObserver {
             val t = mMyViewModel.saveIdData(mListId)
             subscriber_recyclerView.adapter = MainAdapter(t, t1, requireContext())
         } else {
-            mMyViewModel.retrieveData().observeForever { dataEstate ->
-                mMyViewModel.retrieveImageData().observe(this, Observer { dataImage ->
+            mMyViewModel.allWords.observeForever { dataEstate ->
+                mMyViewModelForImages.retrieveImageData().observe(this, Observer { dataImage ->
                     subscriber_recyclerView.adapter =
                         MainAdapter(dataEstate, dataImage, requireContext())
                 })

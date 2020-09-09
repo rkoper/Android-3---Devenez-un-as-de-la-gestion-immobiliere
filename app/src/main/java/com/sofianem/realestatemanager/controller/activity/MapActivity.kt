@@ -32,7 +32,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var mLocationRequest: LocationRequest
     private lateinit var mLocationCallback: LocationCallback
-    private lateinit var mViewModel: MyViewModel
+    private lateinit var mMyViewModel: MyViewModel
     private var mLatitude: Double = 0.toDouble()
     private var mLongitude: Double = 0.toDouble()
     private var mMarker: Marker? = null
@@ -42,7 +42,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.sofianem.realestatemanager.R.layout.activity_map)
-        mViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
+        mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         loadMap()
         allMarker()
         onClick() }
@@ -53,8 +53,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             startActivity(intent) } }
 
     private fun allMarker() {
-        mViewModel.retrieveData().observe(this, Observer {
-
+        mMyViewModel.allWords.observe(this, Observer {
             it.forEach { estate ->
                 val location = Utils.formatLatLng(estate.location)
                 val markerOptions = MarkerOptions()

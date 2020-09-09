@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.sofianem.realestatemanager.data.DataBase.ImageDatabase
+import com.sofianem.realestatemanager.data.dataBase.ImageDatabase
 import com.sofianem.realestatemanager.data.model.*
 import com.sofianem.realestatemanager.services.MapService
 import com.sofianem.realestatemanager.utils.Utils
@@ -202,7 +202,7 @@ class MyViewModelForPlaces(application: Application) : AndroidViewModel(applicat
     }
 
     fun UpdateProxPark(park: String, id: Int) {
-        GlobalScope.launch { mImageDb?.estateDao()?.updateForPark(park, id) }
+        GlobalScope.launch { mImageDb?.estateDao()?.updateProxPark(park, id) }
     }
 
     fun UpdateProxSchool(school: String, id: Int) {
