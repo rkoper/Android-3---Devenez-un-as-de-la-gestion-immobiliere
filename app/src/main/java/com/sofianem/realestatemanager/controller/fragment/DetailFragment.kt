@@ -95,7 +95,8 @@ class DetailFragment : Fragment(), LifecycleObserver {
     }
 
     private fun updateProxLoc(estate: List<EstateR>, mId: Int) {
-        mMyViewModelForPlaces.getByIdLocation1(  "park",estate[mId].id).observe(this, Observer { lnp ->
+        mMyViewModelForPlaces.getByIdLocation(  "park",estate[mId].id).observe(this, Observer { lnp ->
+            println(" TEST updateProxLoc -------->>> " + lnp)
             if (lnp.isNotEmpty()){
                 if (lnp[0].placeDistance < 500 && estate[mId].prox_park == "Estate_park")
                 {mMyViewModel.UpdateProxPark("ok", estate[mId].id)

@@ -39,19 +39,8 @@ open class PlaceRepo (application: Application) {
             nearbyPlaceDao.insertLoc4(nearbyPlaces) }
     }
 
-
-
-    fun getByIdLocation2 (type: String, master_id: Int) : LiveData<List<NearbyPlaces>>
-            = nearbyPlaceDao.getByIdLocation2(type, master_id)
-
     fun getByIdLocation1 (type: String, master_id: Int) : LiveData<List<NearbyPlaces>>
             = nearbyPlaceDao.getByIdLocation1(type, master_id)
-
-    fun getByIdLocation3 (type: String, master_id: Int) : LiveData<List<NearbyPlaces>>
-        = nearbyPlaceDao.getByIdLocation3(type, master_id)
-
-    fun getByIdLocation4 (type: String, master_id: Int) : LiveData<List<NearbyPlaces>>
-        = nearbyPlaceDao.getByIdLocation4(type, master_id)
 
     fun getByIdLocation11 (type: String, master_id: Int) : MutableList<NearbyPlaces> = runBlocking {
         var e: MutableList<NearbyPlaces> = arrayListOf()

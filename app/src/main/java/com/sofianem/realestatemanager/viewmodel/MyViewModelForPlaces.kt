@@ -148,21 +148,9 @@ class MyViewModelForPlaces(application: Application) : AndroidViewModel(applicat
 
     fun saveNearby4(np: NearbyPlaces) { mRepositoryPlace.insertLoc4(np) }
 
-    fun getByIdLocationPark(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
+    fun getByIdLocation(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
             val a = mRepositoryPlace.getByIdLocation1(type, master_id)
         return a }
-
-    fun getByIdLocationSchool(type: String, master_id: Int): LiveData<List<NearbyPlaces>>{
-        val b = mRepositoryPlace.getByIdLocation2(type, master_id)
-        return b }
-
-    fun getByIdLocationMarket(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        val c = mRepositoryPlace.getByIdLocation3(type, master_id)
-        return c }
-
-    fun getByIdLocationPharmacy(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        val d = mRepositoryPlace.getByIdLocation4(type, master_id)
-        return d }
 
     fun getByIdLocation1(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
         val a = mRepositoryPlace.getByIdLocation11(type, master_id)
