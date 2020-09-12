@@ -1,5 +1,6 @@
 package com.sofianem.realestatemanager.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.sofianem.realestatemanager.data.model.ImageV
 
@@ -8,7 +9,7 @@ import com.sofianem.realestatemanager.data.model.ImageV
 interface ImageDao {
 
     @Query("SELECT * FROM Image")
-    fun getImageAll(): List<ImageV>
+    fun getImageAll(): LiveData<List<ImageV>>
 
     @Insert
     fun insertItem(imageV: ImageV): Long
@@ -25,4 +26,9 @@ interface ImageDao {
     @Query("SELECT * FROM Image where Image_uri like :path")
     fun getByPath(path: String): ImageV
 
+ //   @Query("DELETE FROM Image where Image_uri like :path")
+   // fun getByPath1(path: String): ImageV
+
+   // @Query("UPDATE Image SET Image_uri = :path")
+  //  fun getByPath2(path: String): ImageV
 }

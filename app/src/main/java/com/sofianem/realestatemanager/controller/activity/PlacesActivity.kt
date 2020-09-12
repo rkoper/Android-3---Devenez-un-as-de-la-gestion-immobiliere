@@ -22,6 +22,8 @@ import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.activity_detail_map.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import kotlin.math.roundToInt
 
 class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -75,7 +77,6 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
         mMyViewModelForPlaces.getByIdLocationPark(mType1, mId).observe(this, Observer { listNearbyPlaces ->
             mMap?.clear()
             listNearbyPlaces?.forEach { np ->
-                println("-------listNearbyPlaces------------" + np.toString() )
                 val location = Utils.formatLatLng(np.placeLocation)
                 val markerO = MarkerOptions()
                 markerO.icon(BitmapDescriptorFactory.fromResource(icon))
@@ -89,7 +90,6 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
         mMyViewModelForPlaces.getByIdLocationPharmacy(mType1, mId).observe(this, Observer { listNearbyPlaces ->
             mMap?.clear()
             listNearbyPlaces?.forEach { np ->
-                println("-------listNearbyPlaces------------" + np.toString() )
                 val location = Utils.formatLatLng(np.placeLocation)
                 val markerO = MarkerOptions()
                 markerO.icon(BitmapDescriptorFactory.fromResource(icon))
@@ -99,25 +99,22 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
             loadRV(listNearbyPlaces, mType1) }) }
 
     private fun initSchool(mType1: String, icon: Int) {
-
-        mMyViewModelForPlaces.getByIdLocationSchool(mType1, mId).observe(this, Observer { listNearbyPlaces ->
+        mMyViewModelForPlaces.getByIdLocationSchool(mType1, mId).observe(this, Observer {listNearbyPlaces->
             mMap?.clear()
             listNearbyPlaces?.forEach { np ->
-                println("-------listNearbyPlaces------------" + np.toString() )
                 val location = Utils.formatLatLng(np.placeLocation)
                 val markerO = MarkerOptions()
                 markerO.icon(BitmapDescriptorFactory.fromResource(icon))
                 markerO.position(location).title(np.placeName)
                 mMap?.addMarker(markerO) }
             mMap?.addMarker(mMarkerOptions)
-            loadRV(listNearbyPlaces, mType1) }) }
+            loadRV(listNearbyPlaces, mType1) })}
 
     private fun initMarket(mType1: String, icon: Int) {
 
         mMyViewModelForPlaces.getByIdLocationMarket(mType1, mId).observe(this, Observer { listNearbyPlaces ->
             mMap?.clear()
             listNearbyPlaces?.forEach { np ->
-                println("-------listNearbyPlaces------------" + np.toString() )
                 val location = Utils.formatLatLng(np.placeLocation)
                 val markerO = MarkerOptions()
                 markerO.icon(BitmapDescriptorFactory.fromResource(icon))

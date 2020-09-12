@@ -6,6 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sofianem.realestatemanager.data.dataBase.ImageDatabase
 import com.sofianem.realestatemanager.data.model.*
+import com.sofianem.realestatemanager.data.repository.ImageRepo
+import com.sofianem.realestatemanager.data.repository.PlaceRepo
 import com.sofianem.realestatemanager.services.MapService
 import com.sofianem.realestatemanager.utils.Utils
 import kotlinx.coroutines.GlobalScope
@@ -33,6 +35,11 @@ class MyViewModelForPlaces(application: Application) : AndroidViewModel(applicat
     private val mAllDataForLoc2 = MutableLiveData<List<NearbyPlaces>>()
     private val mAllDataForLoc3 = MutableLiveData<List<NearbyPlaces>>()
     private val mAllDataForLoc4 = MutableLiveData<List<NearbyPlaces>>()
+
+    private val mRepositoryPlace: PlaceRepo = PlaceRepo(application)
+    val allPlace: LiveData<List<NearbyPlaces>>
+
+    init { allPlace = mRepositoryPlace.readAllPlace }
 
 
     fun getNearbyPlace1(id: Int, location: String) {
@@ -133,87 +140,49 @@ class MyViewModelForPlaces(application: Application) : AndroidViewModel(applicat
 
 
     fun saveNearby1(np: NearbyPlaces) {
-        GlobalScope.launch {
-            mImageDb?.nearbyPlaceDao()?.insertLoc1(np) } }
+        mRepositoryPlace.insertLoc1(np) }
 
-    fun saveNearby2(np: NearbyPlaces) {
-        GlobalScope.launch {
-            mImageDb?.nearbyPlaceDao()?.insertLoc2(np) } }
+    fun saveNearby2(np: NearbyPlaces){ mRepositoryPlace.insertLoc2(np) }
 
-    fun saveNearby3(np: NearbyPlaces) {
-        GlobalScope.launch {
-            mImageDb?.nearbyPlaceDao()?.insertLoc3(np) } }
+    fun saveNearby3(np: NearbyPlaces) { mRepositoryPlace.insertLoc3(np) }
 
-    fun saveNearby4(np: NearbyPlaces) {
-        GlobalScope.launch {
-            mImageDb?.nearbyPlaceDao()?.insertLoc4(np) } }
+    fun saveNearby4(np: NearbyPlaces) { mRepositoryPlace.insertLoc4(np) }
 
     fun getByIdLocationPark(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        GlobalScope.launch {
-            val a = mImageDb!!.nearbyPlaceDao().getByIdLocation1(type, master_id)
-            mAllDataPark.postValue(a) }
-        return mAllDataPark }
+            val a = mRepositoryPlace.getByIdLocation1(type, master_id)
+        return a }
 
-    fun getByIdLocationSchool(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        GlobalScope.launch {
-            val a = mImageDb!!.nearbyPlaceDao().getByIdLocation1(type, master_id)
-            mAllDataSchool.postValue(a) }
-        return mAllDataSchool }
+    fun getByIdLocationSchool(type: String, master_id: Int): LiveData<List<NearbyPlaces>>{
+        val b = mRepositoryPlace.getByIdLocation2(type, master_id)
+        return b }
 
     fun getByIdLocationMarket(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        GlobalScope.launch {
-            val a = mImageDb!!.nearbyPlaceDao().getByIdLocation1(type, master_id)
-            mAllDataMarket.postValue(a) }
-        return mAllDataMarket }
+        val c = mRepositoryPlace.getByIdLocation3(type, master_id)
+        return c }
 
     fun getByIdLocationPharmacy(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        GlobalScope.launch {
-            val a = mImageDb!!.nearbyPlaceDao().getByIdLocation1(type, master_id)
-            mAllDataPharmacy.postValue(a) }
-        return mAllDataPharmacy }
+        val d = mRepositoryPlace.getByIdLocation4(type, master_id)
+        return d }
 
     fun getByIdLocation1(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        GlobalScope.launch {
-            val a1 = mImageDb!!.nearbyPlaceDao().getByIdLocation1(type, master_id)
-            mAllDataForLoc1.postValue(a1) }
+        val a = mRepositoryPlace.getByIdLocation11(type, master_id)
+        mAllDataSchool.postValue(a)
         return mAllDataForLoc1 }
 
     fun getByIdLocation2(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        GlobalScope.launch {
-            val a2 = mImageDb!!.nearbyPlaceDao().getByIdLocation2(type, master_id)
-            mAllDataForLoc2.postValue(a2) }
+        val a = mRepositoryPlace.getByIdLocation21(type, master_id)
+        mAllDataSchool.postValue(a)
         return mAllDataForLoc2 }
 
     fun getByIdLocation3(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        GlobalScope.launch {
-            val a3 = mImageDb!!.nearbyPlaceDao().getByIdLocation3(type, master_id)
-            mAllDataForLoc3.postValue(a3) }
+        val a = mRepositoryPlace.getByIdLocation31(type, master_id)
+        mAllDataSchool.postValue(a)
         return mAllDataForLoc3 }
 
     fun getByIdLocation4(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        GlobalScope.launch {
-            val a4 = mImageDb!!.nearbyPlaceDao().getByIdLocation4(type, master_id)
-            mAllDataForLoc4.postValue(a4) }
+        val a = mRepositoryPlace.getByIdLocation41(type, master_id)
+        mAllDataSchool.postValue(a)
         return mAllDataForLoc4 }
-
-
-    fun UpdateProxPharma(pharmacy: String, id: Int) {
-        GlobalScope.launch { mImageDb?.estateDao()?.updateProxPharma(pharmacy, id) }
-    }
-
-    fun UpdateProxPark(park: String, id: Int) {
-        GlobalScope.launch { mImageDb?.estateDao()?.updateProxPark(park, id) }
-    }
-
-    fun UpdateProxSchool(school: String, id: Int) {
-        GlobalScope.launch { mImageDb?.estateDao()?.updateProxSchool(school, id) }
-    }
-
-    fun UpdateProxMarket(market: String, id: Int) {
-        GlobalScope.launch { mImageDb?.estateDao()?.updateProxMarket(market, id) }
-    }
-
-
 
 
 }

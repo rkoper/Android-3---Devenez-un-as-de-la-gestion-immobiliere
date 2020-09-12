@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.sofianem.realestatemanager.data.Dao.PlaceDao
+import com.sofianem.realestatemanager.data.dao.PlaceDao
 import com.sofianem.realestatemanager.data.dao.EstateDao
 import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.dao.ImageDao

@@ -7,14 +7,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.sofianem.realestatemanager.R.*
 import com.sofianem.realestatemanager.utils.MyCommunicationV2
 import com.sofianem.realestatemanager.utils.Utils
 
 
-class UploadAdapter(var mListPath: MutableList<String?>, var mListDescription: MutableList<String?>, var mContext: Context
+class UploadAdapter(
+    var mListPath: MutableList<String?>,
+    var mListDescription: MutableList<String?>,
+    var mListId: MutableList<Int?>,
+    var mContext: Context
 ) : RecyclerView.Adapter<UploadAdapter.UploadViewHolder>() {
     private val mMyCommunicator = mContext as MyCommunicationV2
 
@@ -41,7 +44,7 @@ class UploadAdapter(var mListPath: MutableList<String?>, var mListDescription: M
 
 
         holder.txtIcon.setOnClickListener {
-            mMyCommunicator.displayupv2(mListPath[position])
+            mMyCommunicator.displayupv2(mListPath[position].toString())
             notifyDataSetChanged() } }
 
 

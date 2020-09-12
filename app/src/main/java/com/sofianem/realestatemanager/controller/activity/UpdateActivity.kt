@@ -22,6 +22,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.appyvet.materialrangebar.RangeBar
@@ -76,6 +77,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
     var date_end: Long = 8888888888
     var personn: String = ""
     var hintAdress: String = ""
+    var listImage_id: MutableList<Int?> = arrayListOf()
     var listImage_path: MutableList<String?> = arrayListOf()
     var listImage_description: MutableList<String?> = arrayListOf()
     var masterId: Int? = 0
@@ -98,6 +100,10 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
     }
 
     private fun retrieveData(id: Int) {
+
+        mMyViewModelForImages.allImage.observe(this, Observer {
+            println(" ALL IMAGE DATA" + it)
+        })
         mMyViewModel.allWords.observe(this, androidx.lifecycle.Observer {list ->
             var lstEst = list[id]
 
@@ -129,14 +135,17 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
     private fun initRV() {
         val layoutManager = GridLayoutManager(this, 3)
         upload_recyclerview.layoutManager = layoutManager
-        upload_recyclerview.adapter = UploadAdapter(listImage_path, listImage_description, this) }
+        upload_recyclerview.adapter = UploadAdapter(listImage_path, listImage_description,listImage_id,  this) }
 
 
     private fun createRV(iid: Int) {
         if (iid != null) { var id = iid + 1
-            mMyViewModelForImages.retrieveImageData().observe(this, androidx.lifecycle.Observer { it ->
+            mMyViewModelForImages.allImage.observe(this, androidx.lifecycle.Observer { it ->
                 it.forEach { value -> if (id == value.masterId) { masterId = value.masterId
-                    listImage_path.add(value.imageUri); listImage_description.add(value.imageDescription);    upload_recyclerview.adapter?.notifyDataSetChanged() } } }) } }
+                    listImage_id.add(value.masterId)
+                    listImage_path.add(value.imageUri)
+                    listImage_description.add(value.imageDescription)
+                    upload_recyclerview.adapter?.notifyDataSetChanged() } } }) } }
 
 
     private fun uploadData(est: EstateR) {
@@ -375,12 +384,15 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
 
 
     override fun displayup(path: String) {
-        var a: ImageV = mMyViewModelForImages.retrievebyPath(path)
-        mMyViewModelForImages.deleteImage(a) }
+        var b: ImageV = mMyViewModelForImages.getByPath(path)
+         mMyViewModelForImages.deleteImage(b) }
 
 
+    /////////////// A TRAVAILLER
     override fun displayupv2(path2: String?) {
-        var b: ImageV = mMyViewModelForImages.retrievebyPath(path2!!)
+        var b: ImageV = mMyViewModelForImages.getByPath(path2!!)
+        println(" IMAGE DESC -1------>" + path2)
+        println(" IMAGE DESC ------->" + b.imageDescription)
         runBlocking { delay(100) }
         val mDialogViewForImageInfo = LayoutInflater.from(this).inflate(R.layout.dialog_custom_layout, null)
         var builderForImageInfo = AlertDialog.Builder(this)
@@ -393,12 +405,13 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
             mMyViewModelForImages.UpdateImageDes(b)
             runBlocking { delay(100) }
             upload_recyclerview.adapter?.notifyDataSetChanged()
-            mMyViewModelForImages.retrieveImageData().observe(this, androidx.lifecycle.Observer {
+            mMyViewModelForImages.allImage.observe(this, androidx.lifecycle.Observer {
                 listImage_path.clear() ; listImage_description.clear()
                 it.forEach { value ->
                     if (b.masterId == value.masterId) {
                         masterId = value.masterId ; listImage_path.add(value.imageUri) ; listImage_description.add(value.imageDescription)
                         upload_recyclerview.adapter?.notifyDataSetChanged() } } }) } }
+
 
     companion object {
 

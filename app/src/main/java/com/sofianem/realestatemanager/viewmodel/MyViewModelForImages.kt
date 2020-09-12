@@ -1,11 +1,14 @@
 package com.sofianem.realestatemanager.viewmodel
 
 import android.app.Application
+import android.media.Image
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sofianem.realestatemanager.data.dataBase.ImageDatabase
 import com.sofianem.realestatemanager.data.model.*
+import com.sofianem.realestatemanager.data.repository.EstateRepo
+import com.sofianem.realestatemanager.data.repository.ImageRepo
 import com.sofianem.realestatemanager.services.MapService
 import com.sofianem.realestatemanager.utils.Utils
 import kotlinx.coroutines.GlobalScope
@@ -22,58 +25,29 @@ import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.math.roundToInt
 
 class MyViewModelForImages(application: Application) : AndroidViewModel(application) {
-    private val mImageDb: ImageDatabase? = ImageDatabase.getInstance(application)
-    private val mAllImageData = MutableLiveData<List<ImageV>>()
+    private val mRepositoryImage: ImageRepo = ImageRepo(application)
+    val allImage: LiveData<List<ImageV>>
 
-     fun storeImageData(
-        mId: Int,
-        listImage: MutableList<String?>,
-        listImageDescription: MutableList<String?>
-    ) { val i = ImageV()
-        GlobalScope.launch {
-            for (n in listImage.indices) {
-                i.imageUri = listImage[n]
-                i.imageDescription = listImageDescription[n]
-                i.masterId = mId
-                mImageDb?.imageDao()?.insertItem(i)
-            } } }
+    init { allImage = mRepositoryImage.readAllImage }
+
+     fun storeImageData(mId: Int, listImage: MutableList<String?>, listImageDescription: MutableList<String?>) {
+         mRepositoryImage.insertImage(mId, listImage, listImageDescription)}
 
     fun upadeSingleImageData(mId: Int, stringImage: String?, stringeDescription: String?) {
-        val i = ImageV()
-        GlobalScope.launch {
-            i.imageUri = stringImage
-            i.imageDescription = stringeDescription
-            i.masterId = mId
-            mImageDb?.imageDao()?.insertItem(i)
-        } }
+        mRepositoryImage.insertItem(mId, stringImage,stringeDescription )}
 
-    fun retrieveImageData(): LiveData<List<ImageV>> {
-        GlobalScope.launch {
-            val listImage = mImageDb?.imageDao()?.getImageAll()
-            mAllImageData.postValue(listImage) }
-        return mAllImageData }
+    fun retrievImagebyMasterID(it: Int): List<ImageV> { return mRepositoryImage.readImageByID(it) }
 
-    fun retrievImagebyMasterID(it: Int): List<ImageV> {
-        var igl: List<ImageV> = arrayListOf()
-        GlobalScope.launch { igl = mImageDb!!.imageDao().retriedImageryMasterID(it) }
-        runBlocking { delay(100) }; return igl }
+    fun getByPath(it: String) : ImageV {  return  mRepositoryImage.getByPath(it) }
 
-    fun retrievebyPath(it: String): ImageV {
-        var ig = ImageV()
-        GlobalScope.launch { ig = mImageDb!!.imageDao().getByPath(it) }
-        runBlocking { delay(100) }; return ig }
+    // delete by path
+ //   fun getByPath1(it: String) {  mRepositoryImage.getByPath1(it) }
 
-    fun deleteImage(ig: ImageV) {
-        GlobalScope.launch { mImageDb?.imageDao()?.deleteItem(ig) }
-    }
+    // update by path
+  //  fun getByPath2(it: String) {  mRepositoryImage.getByPath2(it) }
 
-    fun UpdateNbPhoto(nb_photo: Int, id: Int) {
-        GlobalScope.launch { mImageDb?.estateDao()?.updateNbPhoto(nb_photo, id) }
-    }
+    fun deleteImage(ig: ImageV) { mRepositoryImage.deleteImage(ig) }
 
-
-    fun UpdateImageDes(ig: ImageV) {
-        GlobalScope.launch { mImageDb?.imageDao()?.updateItem(ig) }
-    }
+    fun UpdateImageDes(ig: ImageV) { mRepositoryImage.UpdateImageDes(ig) }
 
 }

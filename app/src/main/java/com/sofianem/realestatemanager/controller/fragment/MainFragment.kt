@@ -49,7 +49,7 @@ class MainFragment : Fragment(), LifecycleObserver {
             subscriber_recyclerView.adapter = MainAdapter(t, t1, requireContext())
         } else {
             mMyViewModel.allWords.observeForever { dataEstate ->
-                mMyViewModelForImages.retrieveImageData().observe(this, Observer { dataImage ->
+                mMyViewModelForImages.allImage.observe(this, Observer { dataImage ->
                     subscriber_recyclerView.adapter =
                         MainAdapter(dataEstate, dataImage, requireContext())
                 })

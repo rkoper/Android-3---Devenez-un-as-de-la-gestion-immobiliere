@@ -52,6 +52,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         mMyViewModelForPlaces = ViewModelProviders.of(this).get(MyViewModelForPlaces::class.java)
         mMyViewModelForImages = ViewModelProviders.of(this).get(MyViewModelForImages::class.java)
+
         updateNbPhoto() }
 
 
@@ -59,7 +60,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
         mMyViewModel.allWords.observe(viewLifecycleOwner, Observer {
             it.forEach {estate ->
                 val nbPhotoList =   mMyViewModelForImages.retrievImagebyMasterID(estate.id)
-                mMyViewModelForImages.UpdateNbPhoto(nbPhotoList.size, estate.id) } }) }
+                mMyViewModel.UpdateNbPhoto(nbPhotoList.size, estate.id) } }) }
 
 
     fun displayDetails(id: Int) {
@@ -81,8 +82,15 @@ class DetailFragment : Fragment(), LifecycleObserver {
             initLocation(mId, it)
 
             updateProxLoc(it, mId)
-            println("Detail Loc" + it[mId].location + "------Detail Prox---------" + it[mId].adress + " ------ " + it[mId].id + " --_school--- " + it[mId].prox_school + " --_market--- " + it[mId].prox_market + " --_park--- " + it[mId].prox_park + " -_pharmacy---- " + it[mId].prox_pharmacy
-            ) })
+
+            mMyViewModelForPlaces.allPlace.observe( this, Observer { lnp ->
+                lnp.forEach {np ->
+                    println(" CHECK LIST PLACE --------->" + np.placeId + "/---Name---/" + np.placeName + "/---Dist---/" + np.placeDistance + "/---type---/" +  np.placetype + "/---M ID ---/" +  np.placeMasterId)
+                }
+            })
+
+        })
+
         setupRecyclerView(id)
     }
 
@@ -90,14 +98,14 @@ class DetailFragment : Fragment(), LifecycleObserver {
         mMyViewModelForPlaces.getByIdLocation1(  "park",estate[mId].id).observe(this, Observer { lnp ->
             if (lnp.isNotEmpty()){
                 if (lnp[0].placeDistance < 500 && estate[mId].prox_park == "Estate_park")
-                {mMyViewModelForPlaces.UpdateProxPark("ok", estate[mId].id)
+                {mMyViewModel.UpdateProxPark("ok", estate[mId].id)
                     println(" test ----------park " + lnp[0].placeName + " // " + lnp[0].placeDistance)}
                 detail_park_txt.text  = lnp[0].placeDistance.toString() + " m" }})
 
         mMyViewModelForPlaces.getByIdLocation2(  "pharmacy",estate[mId].id).observe(this, Observer { lnp ->
             if (lnp.isNotEmpty()){
                 if (lnp[0].placeDistance < 500 && estate[mId].prox_pharmacy == "Estate_pharmacy")
-                {mMyViewModelForPlaces.UpdateProxPharma("ok", estate[mId].id)}
+                {mMyViewModel.UpdateProxPharma("ok", estate[mId].id)}
 
                 if (lnp[0].placeDistance.toString() == "Estate_pharmacy")
                 {detail_pharmacy_txt.text = " - "}
@@ -107,13 +115,13 @@ class DetailFragment : Fragment(), LifecycleObserver {
         mMyViewModelForPlaces.getByIdLocation3(  "primary_school",estate[mId].id).observe(this, Observer { lnp ->
             if (lnp.isNotEmpty()){
                 if (lnp[0].placeDistance < 500 && estate[mId].prox_school == "Estate_school")
-                {mMyViewModelForPlaces.UpdateProxSchool("ok", estate[mId].id)}
+                {mMyViewModel.UpdateProxSchool("ok", estate[mId].id)}
                 detail_school_txt.text  = lnp[0].placeDistance.toString() + " m" }})
 
         mMyViewModelForPlaces.getByIdLocation4(  "supermarket",estate[mId].id).observe(this, Observer { lnp ->
             if (lnp.isNotEmpty()){
                 if (lnp[0].placeDistance < 500 && estate[mId].prox_market == "Estate_market")
-                {mMyViewModelForPlaces.UpdateProxMarket("ok", estate[mId].id)}
+                {mMyViewModel.UpdateProxMarket("ok", estate[mId].id)}
                 detail_market_txt.text  = lnp[0].placeDistance.toString() + " m" }})
     }
 
@@ -121,7 +129,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
         mListImageDescription.clear()
         mListImagePath.clear()
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-        mMyViewModelForImages.retrieveImageData().observe(this, Observer { listImage ->
+        mMyViewModelForImages.allImage.observe(this, Observer { listImage ->
             if (listImage.isNullOrEmpty()) { Toast.makeText(requireContext(), "xxx", Toast.LENGTH_SHORT).show() }
             else { listImage.forEach { value ->
                 if (value.masterId == mId) { mListImagePath.add(value.imageUri)
