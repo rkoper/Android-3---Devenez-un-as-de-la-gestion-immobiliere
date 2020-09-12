@@ -103,7 +103,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
                     println(" test ----------park " + lnp[0].placeName + " // " + lnp[0].placeDistance)}
                 detail_park_txt.text  = lnp[0].placeDistance.toString() + " m" }})
 
-        mMyViewModelForPlaces.getByIdLocation2(  "pharmacy",estate[mId].id).observe(this, Observer { lnp ->
+        mMyViewModelForPlaces.getByIdLocation(  "pharmacy",estate[mId].id).observe(this, Observer { lnp ->
             if (lnp.isNotEmpty()){
                 if (lnp[0].placeDistance < 500 && estate[mId].prox_pharmacy == "Estate_pharmacy")
                 {mMyViewModel.UpdateProxPharma("ok", estate[mId].id)}
@@ -113,13 +113,13 @@ class DetailFragment : Fragment(), LifecycleObserver {
                 else {
                     detail_pharmacy_txt.text  = lnp[0].placeDistance.toString() + " m" }}})
 
-        mMyViewModelForPlaces.getByIdLocation3(  "primary_school",estate[mId].id).observe(this, Observer { lnp ->
+        mMyViewModelForPlaces.getByIdLocation(  "primary_school",estate[mId].id).observe(this, Observer { lnp ->
             if (lnp.isNotEmpty()){
                 if (lnp[0].placeDistance < 500 && estate[mId].prox_school == "Estate_school")
                 {mMyViewModel.UpdateProxSchool("ok", estate[mId].id)}
                 detail_school_txt.text  = lnp[0].placeDistance.toString() + " m" }})
 
-        mMyViewModelForPlaces.getByIdLocation4(  "supermarket",estate[mId].id).observe(this, Observer { lnp ->
+        mMyViewModelForPlaces.getByIdLocation(  "supermarket",estate[mId].id).observe(this, Observer { lnp ->
             if (lnp.isNotEmpty()){
                 if (lnp[0].placeDistance < 500 && estate[mId].prox_market == "Estate_market")
                 {mMyViewModel.UpdateProxMarket("ok", estate[mId].id)}
