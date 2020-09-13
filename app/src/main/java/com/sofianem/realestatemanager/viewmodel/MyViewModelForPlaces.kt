@@ -3,10 +3,15 @@ package com.sofianem.realestatemanager.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.sofianem.realestatemanager.data.dataBase.AllDatabase
 import com.sofianem.realestatemanager.data.model.*
+import com.sofianem.realestatemanager.data.repository.ImageRepo
 import com.sofianem.realestatemanager.data.repository.PlaceRepo
 import com.sofianem.realestatemanager.services.MapService
 import com.sofianem.realestatemanager.utils.Utils
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -17,10 +22,19 @@ import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.math.roundToInt
 
 class MyViewModelForPlaces(application: Application) : AndroidViewModel(application) {
+    private val mImageDb: AllDatabase? = com.sofianem.realestatemanager.data.dataBase.AllDatabase.getInstance(application)
     private val mResponseData1: ArrayList<PlacesResponse1?> = arrayListOf()
     private val mResponseData2: ArrayList<PlacesResponse2?> = arrayListOf()
     private val mResponseData3: ArrayList<PlacesResponse3?> = arrayListOf()
     private val mResponseData4: ArrayList<PlacesResponse4?> = arrayListOf()
+    private val mAllDataPark = MutableLiveData<List<NearbyPlaces>>()
+    private val mAllDataMarket = MutableLiveData<List<NearbyPlaces>>()
+    private val mAllDataSchool = MutableLiveData<List<NearbyPlaces>>()
+    private val mAllDataPharmacy = MutableLiveData<List<NearbyPlaces>>()
+    private val mAllDataForLoc1 = MutableLiveData<List<NearbyPlaces>>()
+    private val mAllDataForLoc2 = MutableLiveData<List<NearbyPlaces>>()
+    private val mAllDataForLoc3 = MutableLiveData<List<NearbyPlaces>>()
+    private val mAllDataForLoc4 = MutableLiveData<List<NearbyPlaces>>()
 
     private val mRepositoryPlace: PlaceRepo = PlaceRepo(application)
     val allPlace: LiveData<List<NearbyPlaces>>
@@ -55,7 +69,7 @@ class MyViewModelForPlaces(application: Application) : AndroidViewModel(applicat
                 np.placeDistance = distance
                 saveNearby1(np) } } }
 
-     fun getNearbyPlace2(id: Int, location: String) {
+    fun getNearbyPlace2(id: Int, location: String) {
         var interceptor = HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build();
@@ -78,7 +92,7 @@ class MyViewModelForPlaces(application: Application) : AndroidViewModel(applicat
                 np.placeMasterId = id; np.placeName = place.name; np.placeDistance = distance
                 saveNearby2(np) } } }
 
-     fun getNearbyPlace3(id: Int, location: String) {
+    fun getNearbyPlace3(id: Int, location: String) {
         var interceptor = HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build();
@@ -101,7 +115,7 @@ class MyViewModelForPlaces(application: Application) : AndroidViewModel(applicat
                 np.placeMasterId = id; np.placeName = place.name; np.placeDistance = distance
                 saveNearby3(np) } } }
 
-     fun getNearbyPlace4(id: Int, location: String) {
+    fun getNearbyPlace4(id: Int, location: String) {
         var interceptor = HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build();
@@ -125,7 +139,8 @@ class MyViewModelForPlaces(application: Application) : AndroidViewModel(applicat
                 saveNearby4(np) } } }
 
 
-    fun saveNearby1(np: NearbyPlaces) { mRepositoryPlace.insertLoc1(np) }
+    fun saveNearby1(np: NearbyPlaces) {
+        mRepositoryPlace.insertLoc1(np) }
 
     fun saveNearby2(np: NearbyPlaces){ mRepositoryPlace.insertLoc2(np) }
 
@@ -134,6 +149,28 @@ class MyViewModelForPlaces(application: Application) : AndroidViewModel(applicat
     fun saveNearby4(np: NearbyPlaces) { mRepositoryPlace.insertLoc4(np) }
 
     fun getByIdLocation(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        return mRepositoryPlace.getByIdLocation1(type, master_id) }
+        val a = mRepositoryPlace.getByIdLocation1(type, master_id)
+        return a }
+
+    fun getByIdLocation1(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
+        val a = mRepositoryPlace.getByIdLocation11(type, master_id)
+        mAllDataSchool.postValue(a)
+        return mAllDataForLoc1 }
+
+    fun getByIdLocation2(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
+        val a = mRepositoryPlace.getByIdLocation21(type, master_id)
+        mAllDataSchool.postValue(a)
+        return mAllDataForLoc2 }
+
+    fun getByIdLocation3(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
+        val a = mRepositoryPlace.getByIdLocation31(type, master_id)
+        mAllDataSchool.postValue(a)
+        return mAllDataForLoc3 }
+
+    fun getByIdLocation4(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
+        val a = mRepositoryPlace.getByIdLocation41(type, master_id)
+        mAllDataSchool.postValue(a)
+        return mAllDataForLoc4 }
+
 
 }
