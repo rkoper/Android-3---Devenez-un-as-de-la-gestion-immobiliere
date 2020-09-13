@@ -53,7 +53,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             startActivity(intent) } }
 
     private fun allMarker() {
-        mMyViewModel.allWords.observe(this, Observer {
+
+        mMyViewModel.allWordsLive.observe(this, Observer {
             it.forEach { estate ->
                 val location = Utils.formatLatLng(estate.location)
                 val markerOptions = MarkerOptions()
@@ -62,7 +63,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 println("---------   1   estate.id    ------->" + estate.id)
                 markerOptions.icon(BitmapDescriptorFactory.fromResource(com.sofianem.realestatemanager.R.drawable.home))
                 mItemMarker = mMap.addMarker(markerOptions)
-                mMap.setOnMarkerClickListener { m -> onMarkerClick(m) } } }) }
+                mMap.setOnMarkerClickListener { m -> onMarkerClick(m) } } })
+
+
+                }
+
 
 
     private fun onMarkerClick(m: Marker): Boolean {

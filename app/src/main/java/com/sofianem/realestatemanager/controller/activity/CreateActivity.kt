@@ -79,8 +79,8 @@ class CreateActivity : AppCompatActivity() {
         mMyViewModelForPlaces = ViewModelProviders.of(this).get(MyViewModelForPlaces::class.java)
         mMyViewModelForImages = ViewModelProviders.of(this).get(MyViewModelForImages::class.java)
 
-      //  mMyViewModel.allWords.observe(this, androidx.lifecycle.Observer { t ->
-        //    t.let { println("NEW INSERT" + "TEST ID ---------" + mPom) } })
+        mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer { t ->
+            t.let { println("NEW INSERT" + "TEST ID ---------" + mPom) } })
 
         loadItem()
         OnClick()
@@ -112,7 +112,7 @@ class CreateActivity : AppCompatActivity() {
                 startActivity(intent) }
 
 
-            mMyViewModel.allWords.observe(this, androidx.lifecycle.Observer { t ->
+            mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer { t ->
                 t.let {
                     println("NEW INSERT " + " LOC + ID " + t.size + " " + mGeoLoc )
                     println("NEW INSERT " + " IMAGE + ID " + t.size + " " + listImage_path + "  " + listimageDescription )
@@ -126,6 +126,8 @@ class CreateActivity : AppCompatActivity() {
 
 
                 } })
+
+
         }
    
 

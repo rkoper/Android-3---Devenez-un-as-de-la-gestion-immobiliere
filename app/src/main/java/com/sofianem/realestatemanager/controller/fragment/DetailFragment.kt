@@ -37,6 +37,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
     private lateinit var mMyViewModelForPlaces: MyViewModelForPlaces
     private lateinit var mMyViewModelForImages: MyViewModelForImages
     private lateinit var mMyViewModel: MyViewModel
+    private lateinit var mEstate : List<EstateR>
     private var mId: Int = 0
     private val mListImagePath: MutableList<String?> = ArrayList()
     private val mListImageDescription: MutableList<String?> = ArrayList()
@@ -57,16 +58,21 @@ class DetailFragment : Fragment(), LifecycleObserver {
 
 
     private fun updateNbPhoto() {
-        mMyViewModel.allWords.observe(viewLifecycleOwner, Observer {
+        /*
+        mMyViewModel.allWordsLive.observe(this, Observer {
             it.forEach {estate ->
                 val nbPhotoList =   mMyViewModelForImages.retrievImagebyMasterID(estate.id)
-                mMyViewModel.UpdateNbPhoto(nbPhotoList.size, estate.id) } }) }
+                mMyViewModel.UpdateNbPhoto(nbPhotoList.size, estate.id) } })
+
+         */
+                }
+
 
 
     fun displayDetails(id: Int) {
-        mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-        mMyViewModel.allWords.observe(viewLifecycleOwner, Observer {
 
+       mMyViewModel.allWordsLive.observe(this, Observer {
+            println("--------IT 2 TIT -------------" )
             val sdf = SimpleDateFormat("dd/MM/yyyy")
             mId = id - 1
             initType(mId, it)
@@ -83,20 +89,14 @@ class DetailFragment : Fragment(), LifecycleObserver {
 
             updateProxLoc(it, mId)
 
-            mMyViewModelForPlaces.allPlace.observe( this, Observer { lnp ->
-                lnp.forEach {np ->
-                    println(" CHECK LIST PLACE --------->" + np.placeId + "/---Name---/" + np.placeName + "/---Dist---/" + np.placeDistance + "/---type---/" +  np.placetype + "/---M ID ---/" +  np.placeMasterId)
-                }
-            })
-
         })
 
+        println("--------IT TI TIT -------------" )
         setupRecyclerView(id)
     }
 
     private fun updateProxLoc(estate: List<EstateR>, mId: Int) {
         mMyViewModelForPlaces.getByIdLocation(  "park",estate[mId].id).observe(this, Observer { lnp ->
-            println(" TEST updateProxLoc -------->>> " + lnp)
             if (lnp.isNotEmpty()){
                 if (lnp[0].placeDistance < 500 && estate[mId].prox_park == "Estate_park")
                 {mMyViewModel.UpdateProxPark("ok", estate[mId].id)
@@ -130,7 +130,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
         mListImageDescription.clear()
         mListImagePath.clear()
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-        mMyViewModelForImages.allImage.observe(this, Observer { listImage ->
+        mMyViewModelForImages.allImageLive.observe(this, Observer { listImage ->
             if (listImage.isNullOrEmpty()) { Toast.makeText(requireContext(), "xxx", Toast.LENGTH_SHORT).show() }
             else { listImage.forEach { value ->
                 if (value.masterId == mId) { mListImagePath.add(value.imageUri)
@@ -237,7 +237,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
             detail_tx_surface_m2.isClickable = false }
         else {
             loadSurfaceSq(itSurface)
-            detail_tx_surface_m2.setOnClickListener { o ->
+            detail_tx_surface_m2.setOnClickListener {
                 val value = Utils.convertSqTom2(itSurface[mId].surface)
                 detail_tx_surface.text = "$value     m²"
                 detail_tx_surface_square.setTextColor(resources.getColor(R.color.colorPaleBlue))
@@ -245,8 +245,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
                 detail_tx_surface_square.isClickable = true
                 detail_tx_surface_m2.isClickable = false}
 
-            detail_tx_surface_square.setOnClickListener { o ->
-                loadSurfaceSq(itSurface) } }
+            detail_tx_surface_square.setOnClickListener { loadSurfaceSq(itSurface) } }
     }
 
     private fun loadSurfaceSq(itSurface: List<EstateR>) {

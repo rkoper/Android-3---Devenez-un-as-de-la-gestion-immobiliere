@@ -11,7 +11,6 @@ import com.sofianem.realestatemanager.controller.activity.MainActivity.Companion
 import com.sofianem.realestatemanager.controller.fragment.DetailFragment
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 class DetailActivity : AppCompatActivity() {
 
@@ -22,19 +21,25 @@ class DetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_detail)
 
         val id = intent.getIntExtra(ID, 1)
-        println("---------      3   id    ------->" + id)
-
-        val fragmentMainDetail = supportFragmentManager.findFragmentById(R.id.fragment_main_detail) as DetailFragment?
-        fragmentMainDetail?.displayDetails(id)
 
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-        mMyViewModel.allWords.observe(this, Observer { detail_fb_edit.isVisible = it[id-1].status == "ok" })
 
+        mMyViewModel.allWordsLive.observe(this, Observer { detail_fb_edit.isVisible = it[id-1].status == "ok" })
+
+
+        initFrag(id)
         onclickUpdate(id)
         onClickHome()
         onClickMap()
         onClickSearch()
         onClickCAl()
+
+
+    }
+
+    private fun initFrag(id: Int) {
+        val fragmentMainDetail = supportFragmentManager.findFragmentById(R.id.fragment_main_detail) as DetailFragment?
+        fragmentMainDetail?.displayDetails(id)
     }
 
     private fun onClickSearch() {

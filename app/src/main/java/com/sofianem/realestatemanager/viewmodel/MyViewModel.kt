@@ -7,15 +7,19 @@ import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.repository.EstateRepo
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 
 class MyViewModel(application: Application) : AndroidViewModel(application) {
     private val mRepository: EstateRepo = EstateRepo(application)
     lateinit var location: String
     var mNbPhoto = 0
-    val allWords: LiveData<List<EstateR>>
+     val allWordsLive: LiveData<List<EstateR>>
 
-    init { allWords = mRepository.readAll }
+    init {
+
+        allWordsLive = mRepository.readAllLive
+    }
 
     fun insertTodo(type: String, city: String, price: Int, surface: Int, number_of_room: Int, description: String, adress: String, location: String,
                        status: String, date_begin: Long, date_end: Long, personn: String, imageUri: MutableList<String?>,
@@ -31,6 +35,10 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun saveIdData(it: List<Int>): ArrayList<EstateR> { return mRepository.readByID(it) }
+
+
+
+    fun readWithID(id : Int): EstateR { return mRepository.readWithID(id) }
 
     fun updateTodo(todo: EstateR) { mRepository.updateTodo(todo) }
 

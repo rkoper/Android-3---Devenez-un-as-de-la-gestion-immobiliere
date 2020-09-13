@@ -12,17 +12,17 @@ import com.sofianem.realestatemanager.data.model.ImageV
 import com.sofianem.realestatemanager.data.model.NearbyPlaces
 
 @Database(entities = (arrayOf(ImageV::class, EstateR::class, NearbyPlaces::class)), version = 1, exportSchema = false)
-abstract class ImageDatabase : RoomDatabase() {
+abstract class AllDatabase : RoomDatabase() {
 
     abstract fun imageDao(): ImageDao
     abstract fun estateDao(): EstateDao
     abstract fun nearbyPlaceDao() : PlaceDao
 
     companion object {
-        private var INSTANCE: ImageDatabase? = null
+        private var INSTANCE: AllDatabase? = null
 
-        fun getInstance(context: Context): ImageDatabase {
+        fun getInstance(context: Context): AllDatabase {
             if (INSTANCE == null) { synchronized(this) { INSTANCE = Room.databaseBuilder(
-                context.applicationContext, ImageDatabase::class.java, "RealEstateManager.db").build() } }
-            return INSTANCE as ImageDatabase
+                context.applicationContext, AllDatabase::class.java, "RealEstateManager.db").build() } }
+            return INSTANCE as AllDatabase
         } } }

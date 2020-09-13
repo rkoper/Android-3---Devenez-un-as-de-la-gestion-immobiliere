@@ -241,7 +241,6 @@ object Utils {
         var rotate = 0
         val exif = ExifInterface(path)
         val orientation: Int = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
-        println("- - - -  - - - - orientation- - - - - - - " + orientation)
         when (orientation) {
             ExifInterface.ORIENTATION_ROTATE_270 -> rotate = 270
             ExifInterface.ORIENTATION_ROTATE_180 -> rotate = 180

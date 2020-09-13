@@ -1,12 +1,9 @@
 package com.sofianem.realestatemanager.data.repository
 
 import android.app.Application
-import android.database.Cursor
 import androidx.lifecycle.LiveData
-import com.sofianem.realestatemanager.data.dao.EstateDao
 import com.sofianem.realestatemanager.data.dao.ImageDao
-import com.sofianem.realestatemanager.data.dataBase.ImageDatabase
-import com.sofianem.realestatemanager.data.model.EstateR
+import com.sofianem.realestatemanager.data.dataBase.AllDatabase
 import com.sofianem.realestatemanager.data.model.ImageV
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -16,11 +13,12 @@ import kotlinx.coroutines.runBlocking
 open class ImageRepo (application: Application) {
 
     val image_Dao: ImageDao
-    var readAllImage: LiveData<List<ImageV>>
+    var readAllImageLive: LiveData<List<ImageV>>
 
-    init { val database = ImageDatabase.getInstance(application.applicationContext)
+    init { val database = AllDatabase.getInstance(application.applicationContext)
         image_Dao = database!!.imageDao()
-        readAllImage = image_Dao.getImageAll() }
+        readAllImageLive = image_Dao.getImageAllLive() }
+
 
 
     fun insertImage(mId: Int, listImage: MutableList<String?>, listImageDescription: MutableList<String?>) = runBlocking {

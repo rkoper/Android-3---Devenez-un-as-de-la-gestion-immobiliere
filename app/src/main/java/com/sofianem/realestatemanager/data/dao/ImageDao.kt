@@ -8,8 +8,10 @@ import com.sofianem.realestatemanager.data.model.ImageV
 @Dao
 interface ImageDao {
 
+   // @Query("SELECT * FROM Image")
+    //fun getImageAll(): List<ImageV>
     @Query("SELECT * FROM Image")
-    fun getImageAll(): LiveData<List<ImageV>>
+    fun getImageAllLive():  LiveData<List<ImageV>>
 
     @Insert
     fun insertItem(imageV: ImageV): Long

@@ -101,10 +101,11 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
 
     private fun retrieveData(id: Int) {
 
-        mMyViewModelForImages.allImage.observe(this, Observer {
+        mMyViewModelForImages.allImageLive.observe(this, Observer {
             println(" ALL IMAGE DATA" + it)
         })
-        mMyViewModel.allWords.observe(this, androidx.lifecycle.Observer {list ->
+        /*
+        mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer {list ->
             var lstEst = list[id]
 
             if (lstEst.type == ""){upload_type.text  = "-"} else { upload_type.text = lstEst.type ; type  = lstEst.type }
@@ -130,7 +131,11 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
 
             uploadData(lstEst)
             OnClick()
-        }) }
+        })
+
+         */
+
+    }
 
     private fun initRV() {
         val layoutManager = GridLayoutManager(this, 3)
@@ -140,7 +145,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
 
     private fun createRV(iid: Int) {
         if (iid != null) { var id = iid + 1
-            mMyViewModelForImages.allImage.observe(this, androidx.lifecycle.Observer { it ->
+            mMyViewModelForImages.allImageLive.observe(this, androidx.lifecycle.Observer { it ->
                 it.forEach { value -> if (id == value.masterId) { masterId = value.masterId
                     listImage_id.add(value.masterId)
                     listImage_path.add(value.imageUri)
@@ -405,7 +410,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationV2 {
             mMyViewModelForImages.UpdateImageDes(b)
             runBlocking { delay(100) }
             upload_recyclerview.adapter?.notifyDataSetChanged()
-            mMyViewModelForImages.allImage.observe(this, androidx.lifecycle.Observer {
+            mMyViewModelForImages.allImageLive.observe(this, androidx.lifecycle.Observer {
                 listImage_path.clear() ; listImage_description.clear()
                 it.forEach { value ->
                     if (b.masterId == value.masterId) {

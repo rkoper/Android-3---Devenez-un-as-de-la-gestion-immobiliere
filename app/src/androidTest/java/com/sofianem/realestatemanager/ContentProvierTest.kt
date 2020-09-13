@@ -3,10 +3,11 @@ package com.sofianem.realestatemanager
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.ContentValues
+import androidx.room.Database
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.sofianem.realestatemanager.data.DataBase.EstateDatabase
+import com.sofianem.realestatemanager.data.dataBase.AllDatabase
 import com.sofianem.realestatemanager.providers.ItemContentProvider
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
@@ -21,7 +22,7 @@ class ContentProvierTest {
 
     @Before
     fun setUp(){
-        Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getInstrumentation().context,EstateDatabase::class.java).allowMainThreadQueries().build()
+        Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getInstrumentation().context,AllDatabase::class.java).allowMainThreadQueries().build()
         mContentResolver = InstrumentationRegistry.getInstrumentation().targetContext.contentResolver }
 
     @Test

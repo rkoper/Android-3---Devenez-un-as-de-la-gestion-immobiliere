@@ -3,15 +3,10 @@ package com.sofianem.realestatemanager.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.sofianem.realestatemanager.data.dataBase.ImageDatabase
 import com.sofianem.realestatemanager.data.model.*
-import com.sofianem.realestatemanager.data.repository.ImageRepo
 import com.sofianem.realestatemanager.data.repository.PlaceRepo
 import com.sofianem.realestatemanager.services.MapService
 import com.sofianem.realestatemanager.utils.Utils
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -26,7 +21,6 @@ class MyViewModelForPlaces(application: Application) : AndroidViewModel(applicat
     private val mResponseData2: ArrayList<PlacesResponse2?> = arrayListOf()
     private val mResponseData3: ArrayList<PlacesResponse3?> = arrayListOf()
     private val mResponseData4: ArrayList<PlacesResponse4?> = arrayListOf()
-
 
     private val mRepositoryPlace: PlaceRepo = PlaceRepo(application)
     val allPlace: LiveData<List<NearbyPlaces>>

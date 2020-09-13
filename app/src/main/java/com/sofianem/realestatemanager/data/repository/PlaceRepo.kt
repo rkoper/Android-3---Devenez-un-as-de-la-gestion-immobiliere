@@ -3,8 +3,7 @@ package com.sofianem.realestatemanager.data.repository
 import android.app.Application
 import androidx.lifecycle.LiveData
 import com.sofianem.realestatemanager.data.dao.PlaceDao
-import com.sofianem.realestatemanager.data.dataBase.ImageDatabase
-import com.sofianem.realestatemanager.data.model.ImageV
+import com.sofianem.realestatemanager.data.dataBase.AllDatabase
 import com.sofianem.realestatemanager.data.model.NearbyPlaces
 import kotlinx.coroutines.*
 
@@ -14,7 +13,7 @@ open class PlaceRepo (application: Application) {
     var readAllPlace: LiveData<List<NearbyPlaces>>
 
     init {
-        val database = ImageDatabase.getInstance(application.applicationContext)
+        val database = AllDatabase.getInstance(application.applicationContext)
         nearbyPlaceDao = database!!.nearbyPlaceDao()
         readAllPlace = nearbyPlaceDao.getPlaceAll()
     }
@@ -41,27 +40,6 @@ open class PlaceRepo (application: Application) {
 
     fun getByIdLocation1 (type: String, master_id: Int) : LiveData<List<NearbyPlaces>>
             = nearbyPlaceDao.getByIdLocation1(type, master_id)
-
-    fun getByIdLocation11 (type: String, master_id: Int) : MutableList<NearbyPlaces> = runBlocking {
-        var e: MutableList<NearbyPlaces> = arrayListOf()
-        GlobalScope.launch(Dispatchers.IO) { e = nearbyPlaceDao.getByIdLocation(type, master_id) }
-        return@runBlocking e }
-
-    fun getByIdLocation21 (type: String, master_id: Int) : MutableList<NearbyPlaces> = runBlocking {
-        var f: MutableList<NearbyPlaces> = arrayListOf()
-        GlobalScope.launch(Dispatchers.IO) { f = nearbyPlaceDao.getByIdLocation(type, master_id) }
-        return@runBlocking f }
-
-    fun getByIdLocation31 (type: String, master_id: Int) : MutableList<NearbyPlaces> = runBlocking {
-        var g: MutableList<NearbyPlaces> = arrayListOf()
-        GlobalScope.launch(Dispatchers.IO) { g = nearbyPlaceDao.getByIdLocation(type, master_id) }
-        return@runBlocking g }
-
-    fun getByIdLocation41 (type: String, master_id: Int) : MutableList<NearbyPlaces> = runBlocking {
-        var h: MutableList<NearbyPlaces> = arrayListOf()
-        GlobalScope.launch(Dispatchers.IO) { h = nearbyPlaceDao.getByIdLocation(type, master_id) }
-        return@runBlocking h }
-
 
 
 }

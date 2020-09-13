@@ -1,34 +1,21 @@
 package com.sofianem.realestatemanager.viewmodel
 
 import android.app.Application
-import android.media.Image
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.sofianem.realestatemanager.data.dataBase.ImageDatabase
 import com.sofianem.realestatemanager.data.model.*
-import com.sofianem.realestatemanager.data.repository.EstateRepo
 import com.sofianem.realestatemanager.data.repository.ImageRepo
-import com.sofianem.realestatemanager.services.MapService
-import com.sofianem.realestatemanager.utils.Utils
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.math.roundToInt
 
 class MyViewModelForImages(application: Application) : AndroidViewModel(application) {
     private val mRepositoryImage: ImageRepo = ImageRepo(application)
-    val allImage: LiveData<List<ImageV>>
+   // val allImage: List<ImageV>
+    val allImageLive: LiveData<List<ImageV>>
 
-    init { allImage = mRepositoryImage.readAllImage }
+    init {
+        //allImage = mRepositoryImage.readAllImage
+        allImageLive = mRepositoryImage.readAllImageLive
+
+    }
 
      fun storeImageData(mId: Int, listImage: MutableList<String?>, listImageDescription: MutableList<String?>) {
          mRepositoryImage.insertImage(mId, listImage, listImageDescription)}

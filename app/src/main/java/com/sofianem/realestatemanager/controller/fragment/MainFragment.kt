@@ -32,13 +32,6 @@ class MainFragment : Fragment(), LifecycleObserver {
         mListId = arguments?.getIntegerArrayList("1111")
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         mMyViewModelForImages = ViewModelProviders.of(this).get(MyViewModelForImages::class.java)
-        mMyViewModel.allWords.observe(this, Observer {
-            mListData = it
-//            println(" MAIN FRAGMENT -----1-----" + it[0].adress)
-  //          println(" MAIN FRAGMENT ----2------" +it[1].adress)
-            subscriber_recyclerView.adapter?.notifyDataSetChanged()
-        })
-
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
@@ -48,14 +41,16 @@ class MainFragment : Fragment(), LifecycleObserver {
             val t = mMyViewModel.saveIdData(mListId)
             subscriber_recyclerView.adapter = MainAdapter(t, t1, requireContext())
         } else {
-            mMyViewModel.allWords.observeForever { dataEstate ->
-                mMyViewModelForImages.allImage.observe(this, Observer { dataImage ->
+     mMyViewModel.allWordsLive.observe(this, Observer { a ->
+                mMyViewModelForImages.allImageLive.observe(this, Observer { dataImage ->
                     subscriber_recyclerView.adapter =
-                        MainAdapter(dataEstate, dataImage, requireContext())
-                })
-            }
-        }
-    }
+                        MainAdapter(a , dataImage, requireContext()) }) })
+
+
+
+
+
+    }}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

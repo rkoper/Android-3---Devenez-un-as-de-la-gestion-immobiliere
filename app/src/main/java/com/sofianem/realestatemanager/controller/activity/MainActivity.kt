@@ -77,13 +77,16 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
             activity_main_floating_update.setOnClickListener {
                 val intent = Intent(this, UpdateActivity::class.java)
                 intent.putExtra(ID, id)
-                startActivity(intent) } }
+                startActivity(intent)
+                finish()} }
 
         else  {
             val intent = Intent(this, DetailActivity::class.java)
             intent.putExtra(ID, id)
             startActivity(intent)
-            test()}
+         //   test()
+            finish()}
+
     }
 
     private fun test() {

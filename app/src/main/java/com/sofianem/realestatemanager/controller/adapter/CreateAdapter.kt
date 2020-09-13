@@ -26,6 +26,7 @@ class CreateAdapter(
 
     override fun onBindViewHolder(holder: CreateViewHolder, position: Int) {
         val p = Utils.rotateImage(mListOfNewImage[position])
+
         holder.tvPhoto.setImageBitmap(p)
         if (mListimageDescription[position].isNullOrBlank()) {
             Toast.makeText(mContext, "no photo", Toast.LENGTH_SHORT).show() }

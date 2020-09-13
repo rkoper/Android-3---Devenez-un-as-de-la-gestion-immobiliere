@@ -225,8 +225,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
         a_search_fb_searchicon.setOnClickListener {
             if (mPerson == "" && mType == "" && mSurfaceMini == -1 && mSurfaceMax == 999999 && mPriceMini == -1 && mPriceMax == 999999999 && mRoomMini == -1
                 && mRoomMax == 99 && mCreateDateBegin.toInt() == 1 && mCreateDateEnd == 88888888870000 && mPhotoMini == -1 && mPhotoMax == 99
-                && mSoldDateBegin.toInt() == 1 && mSoldDateEnd == 88888888870000 && mStatus == "" && mPharmacy == "" && mSchool == "" && mMarket == "" && mPark == "")
-            { mMyViewModel.allWords.observe(this, androidx.lifecycle.Observer { it.forEach { op -> mListAll.add(op.id) } }) }
+                && mSoldDateBegin.toInt() == 1 && mSoldDateEnd == 88888888870000 && mStatus == "" && mPharmacy == "" && mSchool == "" && mMarket == "" && mPark == "") { mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer { it.forEach { op -> mListAll.add(op.id) } }) }
             else {
                 if (mPerson == "") { mPerson = "%" } ; if (mType == "") { mType = "%" };  if (mStatus == "") { mStatus = "%" };   if (mPharmacy == "") { mPharmacy = "%" }
                 if (mSchool == "") { mSchool = "%" }; if (mMarket == "") { mMarket = "%" }; if (mPark == "") { mPark = "%" }

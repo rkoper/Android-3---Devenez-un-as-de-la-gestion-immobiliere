@@ -6,7 +6,7 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
 import android.util.Log
-import com.sofianem.realestatemanager.data.dataBase.ImageDatabase
+import com.sofianem.realestatemanager.data.dataBase.AllDatabase
 import com.sofianem.realestatemanager.data.model.EstateR
 
 class ItemContentProvider : ContentProvider() {
@@ -19,7 +19,7 @@ class ItemContentProvider : ContentProvider() {
     override fun insert(mUri: Uri?, mCValues: ContentValues?): Uri {
         if (context != null && mCValues != null){
             Log.e("EstateContentProvider","ContentValues : $mCValues")
-            val index = ImageDatabase.getInstance(context)?.estateDao()?.insertItem(EstateR.fromContentValues(mCValues))
+            val index = AllDatabase.getInstance(context)?.estateDao()?.insertItem(EstateR.fromContentValues(mCValues))
             if (index != 0L){
                 context.contentResolver.notifyChange(mUri,null)
                 return ContentUris.withAppendedId(mUri, index!!)
@@ -32,7 +32,7 @@ class ItemContentProvider : ContentProvider() {
     override fun query(mUri: Uri?, mArrayOne: Array<out String>?, mArrayTwo: String?, mArrayThree: Array<out String>?, mArrayFour: String?): Cursor? {
         if (context != null){
             val index  = ContentUris.parseId(mUri).toInt()
-            val cursor = ImageDatabase.getInstance(context)?.estateDao()?.getItemsWithCursor(index)
+            val cursor = AllDatabase.getInstance(context)?.estateDao()?.getItemsWithCursor(index)
             cursor?.setNotificationUri(context.contentResolver,mUri)
             return cursor
         }
@@ -46,7 +46,7 @@ class ItemContentProvider : ContentProvider() {
 
     override fun update(mUri: Uri?, mCValues: ContentValues?, mString: String?, mArray: Array<out String>?): Int {
         if (context != null && mCValues != null){
-            val count:Int = ImageDatabase.getInstance(context)?.estateDao()!!.updateItem(EstateR.fromContentValues(mCValues))
+            val count:Int = AllDatabase.getInstance(context)?.estateDao()!!.updateItem(EstateR.fromContentValues(mCValues))
             context.contentResolver.notifyChange(mUri,null)
             return count
         }

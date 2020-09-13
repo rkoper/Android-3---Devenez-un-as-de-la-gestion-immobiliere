@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sofianem.realestatemanager.R
@@ -52,6 +53,7 @@ class MainAdapter(
                 if (l.size > 1)
                 return@forEach
                 val p = Utils.rotateImage(it.imageUri)
+
                 Glide.with(mContext).load(p).into(holder.tvPhoto) } }
 
         holder.setListeners(mMyDataset[position].id, mContext)
