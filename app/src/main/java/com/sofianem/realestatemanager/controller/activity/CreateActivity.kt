@@ -109,7 +109,8 @@ class CreateActivity : AppCompatActivity() {
                     listImage_path,
                     listimageDescription)
                 val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent) }
+                startActivity(intent)
+            finish()}
 
 
             mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer { t ->
@@ -121,6 +122,8 @@ class CreateActivity : AppCompatActivity() {
                     mMyViewModelForPlaces.getNearbyPlace2(t.size, mGeoLoc)
                     mMyViewModelForPlaces.getNearbyPlace3(t.size, mGeoLoc)
                     mMyViewModelForPlaces.getNearbyPlace4(t.size, mGeoLoc)
+
+                    println(" -------PHOTO --2 -----" + listImage_path)
 
                     mMyViewModelForImages.storeImageData(t.size, listImage_path, listimageDescription)
 
@@ -364,6 +367,7 @@ class CreateActivity : AppCompatActivity() {
     private fun createRV(listimagePath: MutableList<String?>, listimageDescription: MutableList<String?>) {
         create_recyclerview.layoutManager = GridLayoutManager(applicationContext, 6)
         create_recyclerview.adapter =  CreateAdapter(listimagePath, listimageDescription, this)
+        println(" ----PHOTO 3 ------" + listimagePath)
         createData(mListImagePath, listimageDescription) }
 
     private fun saveImage(myBitmap: Bitmap) {

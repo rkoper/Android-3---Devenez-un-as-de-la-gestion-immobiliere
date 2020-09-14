@@ -9,7 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.sofianem.realestatemanager.R.*
-import com.sofianem.realestatemanager.utils.MyCommunicationV2
+import com.sofianem.realestatemanager.utils.MyCommunicationForImage
 import com.sofianem.realestatemanager.utils.Utils
 
 
@@ -19,7 +19,7 @@ class UploadAdapter(
     var mListId: MutableList<Int?>,
     var mContext: Context
 ) : RecyclerView.Adapter<UploadAdapter.UploadViewHolder>() {
-    private val mMyCommunicator = mContext as MyCommunicationV2
+    private val mMyCommunicator = mContext as MyCommunicationForImage
 
     override fun getItemCount() = mListDescription.size
 
@@ -30,6 +30,7 @@ class UploadAdapter(
 
     override fun onBindViewHolder(holder: UploadViewHolder, position: Int) {
 
+
         if (mListDescription[position].isNullOrBlank() && mListPath[position].isNullOrBlank()  ) {
             Toast.makeText(mContext, "no photo", Toast.LENGTH_SHORT).show() }
 
@@ -38,14 +39,15 @@ class UploadAdapter(
             holder.tvPhoto.setImageBitmap(p) }
 
         holder.tvIcon.setOnClickListener {
-            mMyCommunicator.displayup(mListPath[position].toString())
-            mListPath.removeAt(position) ;   mListDescription.removeAt(position)
+            mMyCommunicator.deleteImage(mListId[position]!!.toInt())
+          //  mListPath.removeAt(position)
+            //mListDescription.removeAt(position)
             notifyDataSetChanged() }
 
 
         holder.txtIcon.setOnClickListener {
-            mMyCommunicator.displayupv2(mListPath[position].toString())
-            notifyDataSetChanged() } }
+            mMyCommunicator.uploadImage(mListId[position]!!.toInt())
+                notifyDataSetChanged() } }
 
 
     class UploadViewHolder(v: View) : RecyclerView.ViewHolder(v) {

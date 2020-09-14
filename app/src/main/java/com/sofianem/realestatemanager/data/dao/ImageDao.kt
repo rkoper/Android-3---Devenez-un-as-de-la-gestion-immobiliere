@@ -22,8 +22,8 @@ interface ImageDao {
     @Delete
     fun deleteItem (ImageV: ImageV)
 
-    @Query("SELECT * FROM Image where Image_master_id like :id")
-    fun retriedImageryMasterID(id: Int):  List<ImageV>
+    @Query("SELECT * FROM Image where Image_id like :id")
+    fun retriedImagebyID(id: Int):  ImageV
 
     @Query("SELECT * FROM Image where Image_uri like :path")
     fun getByPath(path: String): ImageV

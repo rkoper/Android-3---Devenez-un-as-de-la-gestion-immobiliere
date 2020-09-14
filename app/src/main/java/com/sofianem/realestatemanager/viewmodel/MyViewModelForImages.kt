@@ -23,7 +23,9 @@ class MyViewModelForImages(application: Application) : AndroidViewModel(applicat
     fun upadeSingleImageData(mId: Int, stringImage: String?, stringeDescription: String?) {
         mRepositoryImage.insertItem(mId, stringImage,stringeDescription )}
 
-    fun retrievImagebyMasterID(it: Int): List<ImageV> { return mRepositoryImage.readImageByID(it) }
+    fun retrievImagebyID(it: Int): ImageV {
+        println(" image attribut ------->" + mRepositoryImage.readImageByID(it))
+        return mRepositoryImage.readImageByID(it) }
 
     fun getByPath(it: String) : ImageV {  return  mRepositoryImage.getByPath(it) }
 

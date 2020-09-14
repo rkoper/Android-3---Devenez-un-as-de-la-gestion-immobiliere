@@ -41,10 +41,8 @@ open class ImageRepo (application: Application) {
         image_Dao.insertItem(i) } }
 
 
-    fun readImageByID(i: Int): List<ImageV> = runBlocking {
-        var igl: List<ImageV> = arrayListOf()
-            GlobalScope.launch(Dispatchers.IO) { igl = image_Dao.retriedImageryMasterID(i) }
-        return@runBlocking igl }
+    fun readImageByID(i: Int): ImageV  {
+        return image_Dao.retriedImagebyID(i)}
 
   //  fun getByPath1(s: String) = runBlocking {
     //    GlobalScope.launch(Dispatchers.IO) { image_Dao.getByPath1(s) } }
@@ -61,8 +59,8 @@ open class ImageRepo (application: Application) {
     fun deleteImage(ig: ImageV) = runBlocking {
         GlobalScope.launch(Dispatchers.IO) { image_Dao.deleteItem(ig) } }
 
-    fun UpdateImageDes(ig: ImageV) = runBlocking {
-        this.launch(Dispatchers.IO) {
+    fun UpdateImageDes(ig: ImageV) {
+        GlobalScope.launch(Dispatchers.IO) {
             image_Dao.updateItem(ig)
         }
     }
