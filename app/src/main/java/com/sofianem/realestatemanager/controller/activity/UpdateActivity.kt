@@ -132,6 +132,10 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             } else {
                 upload_personn.text = lstEst.personn; personn = lstEst.personn
             }
+
+            if (lstEst.location != "") { mGeoLoc = lstEst.location}
+
+
             mId = lstEst.id
             upload_city.text = lstEst.city; city = lstEst.city
 
@@ -366,11 +370,14 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                         route = it.name
                     } else if (it.types.contains("locality")) {
                         upload_city.setText(it.name); city = it.name
-                    }
-                }
+                    } }
                 hintAdress = "$streetNumber $route"
 
                 mGeoLoc = GeocoderUtil.getlocationForListv2(hintAdress, city, this@UpdateActivity)
+
+                println( " mGeoLoc ---- 8 --->" + mGeoLoc)
+                println( " mGeoLoc ---- 9 --->" + hintAdress)
+                println( " mGeoLoc ---- 7 --->" + city)
             }
 
             override fun onError(p0: Status) {}

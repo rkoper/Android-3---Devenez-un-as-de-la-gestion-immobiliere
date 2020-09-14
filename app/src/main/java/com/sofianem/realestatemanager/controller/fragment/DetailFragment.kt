@@ -75,6 +75,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
             println("--------IT 2 TIT -------------" )
             val sdf = SimpleDateFormat("dd/MM/yyyy")
             mId = id - 1
+           println("--------geocode search------------" + it)
             initType(mId, it)
             initPrice(mId, it)
             initCity(mId, it)
@@ -147,7 +148,10 @@ class DetailFragment : Fragment(), LifecycleObserver {
     private fun initLocation(mId: Int, it: List<EstateR>?) {
         if (it?.get(mId)!!.location != "null") {
             mLocationForPlace = it[mId].location
+            println(" test map -------OO-----" + mLocationForPlace)
             val locationToDisplay = "https://maps.googleapis.com/maps/api/staticmap?center=$mLocationForPlace&zoom=20&size=2400x1200&maptype=roadmap&markers=color:red%7Clabel:S%7C$mLocationForPlace&key=AIzaSyC-Hromy2t2Pfgd-qlYnDk0SOVdVmctrvc"
+            println(" test map ------------" + locationToDisplay)
+
             Glide.with(this).load(locationToDisplay).into(detail_map)
             detail_map.setOnClickListener {
                 val intent = Intent(activity, PlacesActivity::class.java)
