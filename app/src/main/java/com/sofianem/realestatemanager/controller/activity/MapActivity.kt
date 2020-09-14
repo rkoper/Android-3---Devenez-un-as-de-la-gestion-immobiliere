@@ -56,6 +56,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mMyViewModel.allWordsLive.observe(this, Observer {
             it.forEach { estate ->
+                if (estate.location != "") {
                 val location = Utils.formatLatLng(estate.location)
                 val markerOptions = MarkerOptions()
                 markerOptions.position(location)
@@ -63,7 +64,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 println("---------   1   estate.id    ------->" + estate.id)
                 markerOptions.icon(BitmapDescriptorFactory.fromResource(com.sofianem.realestatemanager.R.drawable.home))
                 mItemMarker = mMap.addMarker(markerOptions)
-                mMap.setOnMarkerClickListener { m -> onMarkerClick(m) } } })
+                mMap.setOnMarkerClickListener { m -> onMarkerClick(m) } } }})
 
 
                 }
