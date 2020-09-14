@@ -33,9 +33,9 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
         onClickCAl()
         onClickHome()
         mListId = intent.getIntegerArrayListExtra("masterId")
-        val fragment = MainFragment.newInstance(mListId)
-        supportFragmentManager.beginTransaction().replace(R.id.fragmentMain, fragment).commit()
-        supportFragmentManager.executePendingTransactions()
+      //  val fragment = MainFragment.newInstance(mListId)
+       // supportFragmentManager.beginTransaction().replace(R.id.fragmentMain, fragment).commit()
+     //   supportFragmentManager.executePendingTransactions()
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         //  test(id)
     }

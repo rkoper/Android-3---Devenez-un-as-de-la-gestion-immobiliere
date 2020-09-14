@@ -21,9 +21,9 @@ open class ImageRepo (application: Application) {
 
 
 
-    fun insertImage(mId: Int, listImage: MutableList<String?>, listImageDescription: MutableList<String?>) = runBlocking {
+    fun insertImage(mId: Int, listImage: MutableList<String?>, listImageDescription: MutableList<String?>) {
         val i = ImageV()
-        this.launch(Dispatchers.IO) {
+        GlobalScope.launch(Dispatchers.IO) {
             for (n in listImage.indices) {
                 i.imageUri = listImage[n]
                 i.imageDescription = listImageDescription[n]
@@ -32,31 +32,16 @@ open class ImageRepo (application: Application) {
             } } }
 
 
-   fun insertItem(mId: Int, stringImage: String?, stringeDescription: String?) = runBlocking {
+   fun insertItem(mId: Int, stringImage: String?, stringeDescription: String?) {
     val i = ImageV()
-    this.launch(Dispatchers.IO) {
+       GlobalScope.launch(Dispatchers.IO) {
         i.imageUri = stringImage
         i.imageDescription = stringeDescription
         i.masterId = mId
         image_Dao.insertItem(i) } }
 
 
-    fun readImageByID(i: Int): ImageV  {
-        return image_Dao.retriedImagebyID(i)}
-
-  //  fun getByPath1(s: String) = runBlocking {
-    //    GlobalScope.launch(Dispatchers.IO) { image_Dao.getByPath1(s) } }
-
-  //  fun getByPath2(s: String) = runBlocking {
-  //      GlobalScope.launch(Dispatchers.IO) { image_Dao.getByPath2(s) } }
-
-    fun getByPath(s: String) : ImageV = runBlocking {
-        var a = ImageV()
-        GlobalScope.launch(Dispatchers.IO) {  a = image_Dao.getByPath(s) }
-        return@runBlocking a
-    }
-
-    fun deleteImage(ig: ImageV) = runBlocking {
+    fun deleteImage(ig: ImageV)  {
         GlobalScope.launch(Dispatchers.IO) { image_Dao.deleteItem(ig) } }
 
     fun UpdateImageDes(ig: ImageV) {

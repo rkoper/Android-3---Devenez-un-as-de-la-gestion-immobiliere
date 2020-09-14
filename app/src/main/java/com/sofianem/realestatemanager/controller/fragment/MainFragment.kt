@@ -15,12 +15,14 @@ import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.model.ImageV
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
+import kotlinx.android.synthetic.main.activity_upload.*
 import kotlinx.android.synthetic.main.fragment_main.*
 
 
 class MainFragment : Fragment(), LifecycleObserver {
     private var mListId: ArrayList<Int>? = arrayListOf()
-    private var mListData: List<EstateR>? = arrayListOf()
+    private var mListData: ArrayList<EstateR>? = arrayListOf()
+    private var mListImage: ArrayList<ImageV>? = arrayListOf()
     private lateinit var mMyViewModel: MyViewModel
     private lateinit var mMyViewModelForImages: MyViewModelForImages
 
@@ -36,25 +38,43 @@ class MainFragment : Fragment(), LifecycleObserver {
     }
 
     private fun setupRecyclerView(mListId: java.util.ArrayList<Int>?) {
+        println(" T ---------------2 -------------")
         val t1 = arrayListOf<ImageV>()
         if (mListId != null) {
             val t = mMyViewModel.saveIdData(mListId)
             subscriber_recyclerView.adapter = MainAdapter(t, t1, requireContext())
         } else {
-     mMyViewModel.allWordsLive.observe(this, Observer { a ->
-                mMyViewModelForImages.allImageLive.observe(this, Observer { dataImage ->
-                    subscriber_recyclerView.adapter =
-                        MainAdapter(a , dataImage, requireContext()) }) })
 
-
-
-
-
+            initDataForRV()
+            initImageForRV()
     }}
+
+    private fun initDataForRV() {
+        mMyViewModel.allWordsLive.observe(this, Observer {listEst ->
+            listEst.forEach { est ->
+                mListData?.add(est)
+                subscriber_recyclerView.adapter?.notifyDataSetChanged()
+
+            }
+        })
+    }
+
+    private fun initImageForRV() {
+        mMyViewModelForImages.allImageLive.observe(this, Observer {listImg ->
+            listImg.forEach { img ->
+                mListImage?.add(img)
+                subscriber_recyclerView.adapter?.notifyDataSetChanged()
+
+            }
+        })
+
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscriber_recyclerView.layoutManager = LinearLayoutManager(activity)
+        subscriber_recyclerView.adapter = MainAdapter(mListData , mListImage, requireContext())
         setupRecyclerView(mListId)
     }
 

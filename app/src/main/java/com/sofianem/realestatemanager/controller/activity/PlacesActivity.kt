@@ -22,8 +22,6 @@ import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.activity_detail_map.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import kotlin.math.roundToInt
 
 class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {

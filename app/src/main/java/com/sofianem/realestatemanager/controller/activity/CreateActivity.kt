@@ -14,6 +14,8 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.text.format.Time
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,6 +25,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.appyvet.materialrangebar.RangeBar
@@ -115,24 +118,13 @@ class CreateActivity : AppCompatActivity() {
 
             mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer { t ->
                 t.let {
-                    println("NEW INSERT " + " LOC + ID " + t.size + " " + mGeoLoc )
-                    println("NEW INSERT " + " IMAGE + ID " + t.size + " " + listImage_path + "  " + listimageDescription )
-
                     mMyViewModelForPlaces.getNearbyPlace1(t.size, mGeoLoc)
                     mMyViewModelForPlaces.getNearbyPlace2(t.size, mGeoLoc)
                     mMyViewModelForPlaces.getNearbyPlace3(t.size, mGeoLoc)
                     mMyViewModelForPlaces.getNearbyPlace4(t.size, mGeoLoc)
 
-                    println(" -------PHOTO --2 -----" + listImage_path)
-
                     mMyViewModelForImages.storeImageData(t.size, listImage_path, listimageDescription)
-
-
-                } })
-        }
-
-
-    }
+                } }) } }
 
     private fun loadItem() {
         loadCity()
@@ -147,9 +139,7 @@ class CreateActivity : AppCompatActivity() {
         loadDescription()
     }
 
-    private fun loadDescription() {
-        mDescription =  a_create_description.text.toString()
-    }
+    private fun loadDescription() { mDescription =  a_create_description.text.toString() }
 
     private fun loadType() {
         a_create_ed_type.setOnClickListener {
@@ -193,13 +183,9 @@ class CreateActivity : AppCompatActivity() {
                 mAddress = "$streetNumber $route"
 
                 mGeoLoc = GeocoderUtil.getlocationForListv2( mAddress, mCity, this@CreateActivity)
-
-                println( " mGeoLoc ------->" + mGeoLoc)
-
-
             }
-            override fun onError(status: Status) { Log.i("TAG", "An error occurred: $mStatus") } })
-    }
+            override fun onError(status: Status) { Log.i("TAG", "An error occurred: $mStatus")
+            } }) }
 
     private fun loadPrice() {
         a_create_rangebar_price.setOnRangeBarChangeListener(object :
@@ -214,8 +200,7 @@ class CreateActivity : AppCompatActivity() {
 
     private fun loadDateEnd() {
         a_create_ed_dateend.setOnClickListener {
-            val dpd =
-                DatePickerDialog.OnDateSetListener { _, y, m, d ->
+            val dpd = DatePickerDialog.OnDateSetListener { _, y, m, d ->
                     a_create_ed_dateend.text =  Utils.formatDate(y,m,d)
                     mDateEnd = Utils.convertToEpoch(Utils.formatDate(y,m,d)) }
             val now = Time()
@@ -227,8 +212,7 @@ class CreateActivity : AppCompatActivity() {
 
     private fun loadDateBegin() {
         a_create_ed_datebegin.setOnClickListener {
-            val dpd =
-                DatePickerDialog.OnDateSetListener { _, y, m, d ->
+            val dpd = DatePickerDialog.OnDateSetListener { _, y, m, d ->
                     a_create_ed_datebegin.text =  Utils.formatDate(y,m,d)
                     mDateBegin =  Utils.convertToEpoch(Utils.formatDate(y,m,d)) }
             val now = Time()
@@ -357,6 +341,21 @@ class CreateActivity : AppCompatActivity() {
         builderForImageInfo.setView(mDialogViewForImageInfo)
         val mAlertDialogForImageInfo = builderForImageInfo.show()
 
+        mDialogViewForImageInfo.custom_dialog_txt.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if (start == 0 )
+                { mDialogViewForImageInfo.custom_dialog_ok.isVisible = false
+                    mDialogViewForImageInfo.custom_dialog_not_ok.isVisible = true}
+                else {
+                    mDialogViewForImageInfo.custom_dialog_ok.isVisible = true
+                    mDialogViewForImageInfo.custom_dialog_not_ok.isVisible = false}
+            } })
+
+        mDialogViewForImageInfo.custom_dialog_not_ok.setOnClickListener {
+            Toast.makeText(this, " Please add description...", Toast.LENGTH_SHORT).show() }
+
         mDialogViewForImageInfo.custom_dialog_ok.setOnClickListener {
             mAlertDialogForImageInfo.dismiss()
             val photoInfo: String? = mDialogViewForImageInfo.custom_dialog_txt.text.toString()
@@ -367,7 +366,6 @@ class CreateActivity : AppCompatActivity() {
     private fun createRV(listimagePath: MutableList<String?>, listimageDescription: MutableList<String?>) {
         create_recyclerview.layoutManager = GridLayoutManager(applicationContext, 6)
         create_recyclerview.adapter =  CreateAdapter(listimagePath, listimageDescription, this)
-        println(" ----PHOTO 3 ------" + listimagePath)
         createData(mListImagePath, listimageDescription) }
 
     private fun saveImage(myBitmap: Bitmap) {

@@ -19,8 +19,8 @@ import com.sofianem.realestatemanager.utils.Utils
 
 
 class MainAdapter(
-    private var mMyDataset: List<EstateR>,
-    private var mMyDatasetImage: List<ImageV>,
+    private var mMyDataset: List<EstateR>?,
+    private var mMyDatasetImage: List<ImageV>?,
     private var mContext: Context) :
 
     RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
@@ -32,31 +32,31 @@ class MainAdapter(
         l.clear()
         return MainViewHolder(v) }
 
-    override fun getItemCount(): Int { return mMyDataset.size }
+    override fun getItemCount(): Int { return mMyDataset?.size!! }
 
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        if (mMyDataset[position].status == "sold")
+        if (mMyDataset!![position].status == "sold")
         {holder.tvSold.isVisible = true}
 
-        if (mMyDataset[position].type == "Type") {holder.tvType.text = "-"}
-        else{ holder.tvType.text = mMyDataset[position].type}
+        if (mMyDataset!![position].type == "Type") {holder.tvType.text = "-"}
+        else{ holder.tvType.text = mMyDataset!![position].type}
 
-        if (mMyDataset[position].price.equals( 0) ) {holder.tvPrice.text = "-"}
-        else{ val mPrice = Utils.addWhiteSpace(mMyDataset[position].price.toString())
+        if (mMyDataset!![position].price.equals( 0) ) {holder.tvPrice.text = "-"}
+        else{ val mPrice = Utils.addWhiteSpace(mMyDataset!![position].price.toString())
             holder.tvPrice.text = mPrice + " $" }
 
-        holder.tvCity.text = mMyDataset[position].city
+        holder.tvCity.text = mMyDataset!![position].city
 
-        mMyDatasetImage.forEach {
-            if (mMyDataset[position].id == it.masterId) { l.add(it.imageUri)
+        mMyDatasetImage!!.forEach {
+            if (mMyDataset!![position].id == it.masterId) { l.add(it.imageUri)
                 if (l.size > 1)
                 return@forEach
                 val p = Utils.rotateImage(it.imageUri)
 
                 Glide.with(mContext).load(p).into(holder.tvPhoto) } }
 
-        holder.setListeners(mMyDataset[position].id, mContext)
+        holder.setListeners(mMyDataset!![position].id, mContext)
         l.clear() }
 
 

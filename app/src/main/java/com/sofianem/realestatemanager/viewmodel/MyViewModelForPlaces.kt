@@ -22,19 +22,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.math.roundToInt
 
 class MyViewModelForPlaces(application: Application) : AndroidViewModel(application) {
-    private val mImageDb: AllDatabase? = com.sofianem.realestatemanager.data.dataBase.AllDatabase.getInstance(application)
     private val mResponseData1: ArrayList<PlacesResponse1?> = arrayListOf()
     private val mResponseData2: ArrayList<PlacesResponse2?> = arrayListOf()
     private val mResponseData3: ArrayList<PlacesResponse3?> = arrayListOf()
     private val mResponseData4: ArrayList<PlacesResponse4?> = arrayListOf()
-    private val mAllDataPark = MutableLiveData<List<NearbyPlaces>>()
-    private val mAllDataMarket = MutableLiveData<List<NearbyPlaces>>()
-    private val mAllDataSchool = MutableLiveData<List<NearbyPlaces>>()
-    private val mAllDataPharmacy = MutableLiveData<List<NearbyPlaces>>()
-    private val mAllDataForLoc1 = MutableLiveData<List<NearbyPlaces>>()
-    private val mAllDataForLoc2 = MutableLiveData<List<NearbyPlaces>>()
-    private val mAllDataForLoc3 = MutableLiveData<List<NearbyPlaces>>()
-    private val mAllDataForLoc4 = MutableLiveData<List<NearbyPlaces>>()
 
     private val mRepositoryPlace: PlaceRepo = PlaceRepo(application)
     val allPlace: LiveData<List<NearbyPlaces>>
@@ -151,26 +142,6 @@ class MyViewModelForPlaces(application: Application) : AndroidViewModel(applicat
     fun getByIdLocation(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
         val a = mRepositoryPlace.getByIdLocation1(type, master_id)
         return a }
-
-    fun getByIdLocation1(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        val a = mRepositoryPlace.getByIdLocation11(type, master_id)
-        mAllDataSchool.postValue(a)
-        return mAllDataForLoc1 }
-
-    fun getByIdLocation2(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        val a = mRepositoryPlace.getByIdLocation21(type, master_id)
-        mAllDataSchool.postValue(a)
-        return mAllDataForLoc2 }
-
-    fun getByIdLocation3(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        val a = mRepositoryPlace.getByIdLocation31(type, master_id)
-        mAllDataSchool.postValue(a)
-        return mAllDataForLoc3 }
-
-    fun getByIdLocation4(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        val a = mRepositoryPlace.getByIdLocation41(type, master_id)
-        mAllDataSchool.postValue(a)
-        return mAllDataForLoc4 }
 
 
 }

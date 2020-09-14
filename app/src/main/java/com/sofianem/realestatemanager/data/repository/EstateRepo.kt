@@ -13,6 +13,7 @@ open class EstateRepo (application: Application) {
 
     private val estate_Dao: EstateDao
     private var mDataSearchList: ArrayList<EstateR> = arrayListOf()
+    private var mAll: ArrayList<EstateR> = arrayListOf()
     private var mAllDataForSearch: List<Int>? = arrayListOf()
     var readAllLive: LiveData<List<EstateR>>
 
@@ -22,32 +23,33 @@ open class EstateRepo (application: Application) {
        readAllLive = estate_Dao.getAllLiveList()
     }
 
-    fun updateTodo(todo: EstateR) = runBlocking {
-        this.launch(Dispatchers.IO) {
+    fun updateTodo(todo: EstateR) {
+        GlobalScope.launch(Dispatchers.IO) {
             estate_Dao.update(todo)
         }
     }
 
+    fun getAll() : ArrayList<EstateR>{
+        GlobalScope.launch(Dispatchers.IO) {
+            val a = estate_Dao.getAll()
+            a.forEach {mAll.add(it)}
 
-        fun insertTodo(todo: EstateR) = runBlocking {
-            this.launch(Dispatchers.IO) {
+        }
+        return mAll
+    }
+
+        fun insertTodo(todo: EstateR) {
+            GlobalScope.launch(Dispatchers.IO) {
                 estate_Dao.insert(todo)
             }
         }
 
 
-        fun readByID(listId: List<Int>): ArrayList<EstateR> = runBlocking {
+        fun readByID(listId: List<Int>): ArrayList<EstateR> {
             listId.forEach { it ->
                 GlobalScope.launch(Dispatchers.IO) { mDataSearchList.add(estate_Dao.getById(it)) }
             }
-            return@runBlocking mDataSearchList
-        }
-
-        fun readWithID(id: Int): EstateR = runBlocking {
-            var listEstate = EstateR()
-            this.launch(Dispatchers.IO) {  listEstate = estate_Dao.readWithID(id) }
-            println(" ----    listEstate ------ " + listEstate)
-            return@runBlocking listEstate
+            return mDataSearchList
         }
 
 
@@ -68,7 +70,7 @@ open class EstateRepo (application: Application) {
                           school: String?,
                           market: String?,
                           park: String?
-        ): List<Int>? = runBlocking {
+        ): List<Int>?  {
 
             mAllDataForSearch = estate_Dao.getSearchAll(
                 personn,
@@ -91,36 +93,36 @@ open class EstateRepo (application: Application) {
                 market,
                 park
             )
-            return@runBlocking mAllDataForSearch
+            return mAllDataForSearch
         }
 
 
-        fun updateNbPhoto(nb_photo: Int, id: Int) = runBlocking {
-            this.launch(Dispatchers.IO) {
+        fun updateNbPhoto(nb_photo: Int, id: Int) {
+            GlobalScope.launch(Dispatchers.IO) {
                 estate_Dao.updateNbPhoto(nb_photo, id)
             }
         }
 
-        fun updateProxPharma(pharmacy: String, id: Int) = runBlocking {
-            this.launch(Dispatchers.IO) {
+        fun updateProxPharma(pharmacy: String, id: Int) {
+            GlobalScope.launch(Dispatchers.IO) {
                 estate_Dao.updateProxPharma(pharmacy, id)
             }
         }
 
-        fun updateProxPark(park: String, id: Int) = runBlocking {
-            this.launch(Dispatchers.IO) {
+        fun updateProxPark(park: String, id: Int) {
+            GlobalScope.launch(Dispatchers.IO) {
                 estate_Dao.updateProxPark(park, id)
             }
         }
 
-        fun updateProxSchool(school: String, id: Int) = runBlocking {
-            this.launch(Dispatchers.IO) {
+        fun updateProxSchool(school: String, id: Int)  {
+            GlobalScope.launch(Dispatchers.IO) {
                 estate_Dao.updateProxSchool(school, id)
             }
         }
 
-        fun updateProxMarket(market: String, id: Int) = runBlocking {
-            this.launch(Dispatchers.IO) {
+        fun updateProxMarket(market: String, id: Int) {
+            GlobalScope.launch(Dispatchers.IO) {
                 estate_Dao.updateProxMarket(market, id)
             }
         }

@@ -5,9 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.repository.EstateRepo
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 
 class MyViewModel(application: Application) : AndroidViewModel(application) {
@@ -36,9 +33,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
 
     fun saveIdData(it: List<Int>): ArrayList<EstateR> { return mRepository.readByID(it) }
 
-
-
-    fun readWithID(id : Int): EstateR { return mRepository.readWithID(id) }
+    fun getAll(): List<EstateR> { return mRepository.getAll() }
 
     fun updateTodo(todo: EstateR) { mRepository.updateTodo(todo) }
 
@@ -47,8 +42,6 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
     return  mRepository.getSearchAll(
         personn, type,surfaceMini,surfaceMax,priceMini,priceMax,roomMini,roomMax,dateCreateBegin,dateCreateEnd,nb_photo_mini,nb_photo_max,dateSoldBegin,dateSoldBeginEnd,status,pharmacy,school,market,park)
     }
-
-    fun UpdateNbPhoto(nb_photo: Int, id: Int) { mRepository.updateNbPhoto(nb_photo, id) }
 
     fun UpdateProxPharma(pharmacy: String, id: Int) { mRepository.updateProxPharma(pharmacy, id) }
 
