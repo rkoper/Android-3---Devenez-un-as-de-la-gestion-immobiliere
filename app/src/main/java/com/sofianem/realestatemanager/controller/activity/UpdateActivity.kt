@@ -17,6 +17,7 @@ import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.format.Time
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -90,9 +91,8 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         mMyViewModelForImages = ViewModelProviders.of(this).get(MyViewModelForImages::class.java)
         mID = intent.getIntExtra(ID, 1)
-        val id = mID - 1
 
-        retrieveData(id)
+        retrieveData(mID)
         initRV()
         createRV(mID)
         saveEntry()
@@ -102,6 +102,9 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
 
     private fun retrieveData(id: Int) {
         mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer { list ->
+            println(" ---------id ----2 -----" + id)
+            println(" ---------id ----3 -----" + list[1])
+            println(" ---------id ----4 -----" + id)
             var lstEst = list[id]
 
             if (lstEst.type == "") { upload_type.text = "-" }
@@ -127,8 +130,8 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             if (lstEst.date_begin.toInt().equals(3)) { upload_datebegin.text = "-" }
             else { date_begin = lstEst.date_begin; upload_datebegin.text = Utils.convertToLocalB(lstEst)}
 
-            if (lstEst.date_end.equals(8888888888)) { upload_dateend.text = "-" }
-            else { date_end = lstEst.date_end; upload_dateend.text = Utils.convertToLocalE(lstEst); cancel_button_upload.isVisible = true }
+            if (lstEst.date_end == 8888888888) { upload_dateend.isChecked = false}
+            else { upload_dateend.isChecked = true}
 
 
             mId = lstEst.id
@@ -138,6 +141,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             city = lstEst.city
 
             hintAdress = lstEst.adress
+            upload_adress.text = hintAdress
 
             upload_tx_pric.setOnClickListener { upload_rangebar_price.visibility = View.VISIBLE }
             upload_tx_surface.setOnClickListener { upload_rangebar_surface.visibility = View.VISIBLE }
@@ -222,7 +226,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTheme)
             with(mBuilder) {
                 setItems(listPerson) { dialog, i ->
-                    upload_personn.setText(listPerson[i])
+                    upload_personn.text = listPerson[i]
                     personn = upload_personn.text.toString().trim()
                     dialog.dismiss()
                 }
@@ -244,24 +248,25 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
         } }
 
     private fun load_date_end() {
-        upload_dateend.setOnClickListener {
-            val dpd =
-                DatePickerDialog.OnDateSetListener { view, y, m, d ->
-                    upload_dateend.text = Utils.formatDate(y, m, d)
-                    date_end = Utils.convertToEpoch(Utils.formatDate(y, m, d))
-                    if (!date_end.equals(8888888888)) { status = "sold" }
-                }
-            val now = android.text.format.Time(); now.setToNow()
-            val d = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
-            d.show()
-            d.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(resources.getColor(R.color.colorD))
-            d.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(resources.getColor(R.color.colorD))
-        }
+        upload_dateend.setOnCheckedChangeListener { _, b ->
 
-        cancel_button_upload.setOnClickListener {
-            upload_dateend.text = "-"; date_end = 8888888888; status = "ok"
-            cancel_button_upload.isVisible = false
-        } }
+            if (b) {
+                upload_recyclerview_cache.isVisible = true
+                val now = Time()
+                now.setToNow()
+                val a = now.monthDay
+                val b1 = now.month
+                val c = now.year
+                date_end =  Utils.convertToEpoch(Utils.formatDate(c,b1,a))
+                status = "sold"
+                }
+
+            else {   upload_recyclerview_cache.isVisible = false
+                date_end = 8888888888
+                status = "ok" }
+
+        }
+    }
 
     private fun load_price() {
         upload_rangebar_price.setOnRangeBarChangeListener(object :

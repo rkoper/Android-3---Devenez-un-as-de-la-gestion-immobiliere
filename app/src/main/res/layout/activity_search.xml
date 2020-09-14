@@ -519,7 +519,6 @@
             android:fontFamily="@font/montserrat"
             android:gravity="center"
             android:id="@+id/a_search_cb_pharmacy"
-            android:background="@color/colorB"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:text="Pharmacy"

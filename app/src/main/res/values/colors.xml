@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorB">#fbfdef</color>
-    <color name="colorD">#003459</color>
+    <color name="colorB">#303030</color>
+    <color name="colorD">#bfac40</color>
     <color name="colorTransparent">#00000000</color>
     <color name="colorBlack">#000000</color>
     <color name="colorDbis">#635434</color>
     <color name="colorYellow">#F9AA33</color>
-    <color name="colorPaleBlue">#adb5c5</color>
+    <color name="colorPaleBlue">#544F34</color>
     <color name="colorBlue">#1373eb</color>
     <color name="colorGreen">#76e782</color>
     <color name="colorRed">#e9403e</color>

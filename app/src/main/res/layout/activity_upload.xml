@@ -248,10 +248,10 @@
             style="@style/MyEdittextStyle5"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:gravity="bottom"
+            android:gravity="center"
             android:text="Adress"
-            android:visibility="invisible"
-            app:layout_constraintTop_toBottomOf="@+id/upload_guideline2"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@+id/iconeloc"
             app:layout_constraintBottom_toTopOf="@+id/upload_guideline3"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
@@ -334,16 +334,18 @@
             app:layout_constraintLeft_toLeftOf="@+id/upload_guideline8"
             app:layout_constraintTop_toBottomOf="@+id/upload_guideline41" />
 
-        <TextView
+        <Switch
             android:id="@+id/upload_dateend"
-            style="@style/MyEdittextStyle5"
+            android:buttonTint="@color/colorD"
+            style="@style/ThemeOverlay.MySwitchCompat"
+            android:textColor="@color/colorD"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorB"
-            android:gravity="bottom"
-            android:importantForAutofill="no"
-            android:text="Date end"
-            tools:layout_editor_absoluteY="332dp"
+            app:layout_constraintTop_toBottomOf="@+id/upload_in_dateend"
             app:layout_constraintLeft_toLeftOf="@+id/upload_in_dateend"
             app:layout_constraintRight_toRightOf="@+id/upload_in_dateend"
             app:layout_constraintBottom_toTopOf="@+id/guideline666" />
@@ -354,15 +356,6 @@
             android:background="@drawable/check_yellow"
             app:layout_constraintTop_toBottomOf="@+id/upload_guideline41"
             app:layout_constraintRight_toRightOf="@+id/upload_guideline9"/>
-        <ImageView
-            android:id="@+id/cancel_button_upload"
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/cancel_yellow"
-            android:layout_marginLeft="7dp"
-            app:layout_constraintBottom_toBottomOf="@+id/guideline666"
-            app:layout_constraintLeft_toRightOf="@+id/upload_dateend" />
         <TextView
             android:id="@+id/upload_room"
             style="@style/MyEdittextStyle5"
@@ -401,6 +394,21 @@
             app:layout_constraintRight_toRightOf="parent" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/upload_recyclerview"
+            android:layout_width="0dp"
+            android:layout_margin="5dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline666"
+            app:layout_constraintBottom_toBottomOf="@+id/upload_guideline7"
+            android:layout_height="0dp"
+            android:orientation="horizontal"/>
+        <TextView
+            android:visibility="invisible"
+            android:text="SOLD "
+            android:textColor="@color/colorB"
+            android:background="@color/colorD"
+            style="@style/MyEditTextStyleSearch1"
+            android:id="@+id/upload_recyclerview_cache"
             android:layout_width="0dp"
             android:layout_margin="5dp"
             app:layout_constraintLeft_toLeftOf="parent"

@@ -555,39 +555,34 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.15" />
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/soldguideline"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:rotation="25">
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/soldguideline"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.45" />
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/soldguideline2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.55" />
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/soldguideline3"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.1" />
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/soldguideline4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.9" />
+            android:layout_height="1dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/soldguideline2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.2" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/soldguideline3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.2" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/soldguideline4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.8" />
 
             <TextView
                 android:id="@+id/detail_sold_1"
+                android:textColor="@color/colorB"
                 style="@style/MyEditTextStyle3"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -603,14 +598,15 @@
 
 
             <ImageView
+                android:background="@color/colorGreen"
                 android:id="@+id/round_upload"
                 android:rotation="15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@+id/detail_sold_1"
                 app:layout_constraintBottom_toBottomOf="@+id/detail_sold_1"
-                app:layout_constraintLeft_toRightOf="@+id/detail_sold_1"
-                app:layout_constraintRight_toRightOf="@+id/detail_sold_1"/>
+                app:layout_constraintLeft_toRightOf="@+id/soldguideline4"
+                app:layout_constraintRight_toRightOf="parent"/>
             <ImageButton
                 android:id="@+id/cancel_sold"
                 android:layout_margin="5dp"
@@ -618,33 +614,10 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@drawable/edit_yellow"
-                app:layout_constraintLeft_toLeftOf="@+id/round_upload"
-                app:layout_constraintTop_toTopOf="@+id/round_upload"
-                app:layout_constraintBottom_toBottomOf="@+id/round_upload"
-                app:layout_constraintRight_toRightOf="@+id/round_upload"/>
-
-            <ImageView
-                android:layout_marginLeft="40dp"
-                android:id="@+id/one_upload"
-                android:rotation="15"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_yellow"
-                app:layout_constraintBottom_toBottomOf="@+id/detail_sold_1"
                 app:layout_constraintTop_toTopOf="@+id/detail_sold_1"
-                app:layout_constraintLeft_toLeftOf="@+id/detail_sold_1"/>
-            <ImageButton
-                android:id="@+id/two_sold"
-                android:layout_margin="5dp"
-                android:rotation="-15"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/party"
-                app:layout_constraintLeft_toLeftOf="@+id/one_upload"
-                app:layout_constraintTop_toTopOf="@+id/one_upload"
-                app:layout_constraintBottom_toBottomOf="@+id/one_upload"
-                app:layout_constraintRight_toRightOf="@+id/one_upload"/>
+                app:layout_constraintBottom_toBottomOf="@+id/detail_sold_1"
+                app:layout_constraintLeft_toRightOf="@+id/soldguideline4"
+                app:layout_constraintRight_toRightOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>

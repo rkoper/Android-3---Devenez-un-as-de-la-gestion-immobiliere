@@ -164,7 +164,8 @@ class DetailFragment : Fragment(), LifecycleObserver {
             detail_sold.setOnClickListener { Toast.makeText(requireContext(), "Already sold", Toast.LENGTH_LONG).show() }
             cancel_sold.setOnClickListener {
                 val intent = Intent(activity, UpdateActivity::class.java)
-                intent.putExtra(ID, id)
+                intent.putExtra(ID, mId)
+                println(" ---------id ---------" + mId)
                 startActivity(intent) } } }
 
     private fun initDate(mId: Int, it: List<EstateR>, sdf: SimpleDateFormat) {

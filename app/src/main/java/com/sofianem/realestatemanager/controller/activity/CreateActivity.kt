@@ -131,7 +131,7 @@ class CreateActivity : AppCompatActivity() {
         loadRoom()
         loadPerson()
         loadDateBegin()
-        loadDateEnd()
+       // loadDateEnd()
         loadPrice()
         loadAddress()
         loadType()
@@ -198,23 +198,22 @@ class CreateActivity : AppCompatActivity() {
             override fun onTouchStarted(rangeBar: RangeBar?) {} })
     }
 
-    private fun loadDateEnd() {
-        a_create_ed_dateend.setOnClickListener {
-            val dpd = DatePickerDialog.OnDateSetListener { _, y, m, d ->
-                    a_create_ed_dateend.text =  Utils.formatDate(y,m,d)
-                    mDateEnd = Utils.convertToEpoch(Utils.formatDate(y,m,d)) }
-            val now = Time()
-            now.setToNow()
-            val d = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
-            d.show()
-            d.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(resources.getColor(R.color.colorD))
-            d.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(resources.getColor(R.color.colorD)) } }
-
     private fun loadDateBegin() {
-        a_create_ed_datebegin.setOnClickListener {
+        val now = Time()
+        now.setToNow()
+        val a = now.monthDay
+        val b1 = now.month
+        val b = now.month +1
+        val c = now.year
+        mDateBegin =  Utils.convertToEpoch(Utils.formatDate(c,b1,a))
+     //   println("-----convertToEpoch---   1   ----" + mDateBegin + " a " + a.toString() + " b " + b.toString() + " c " + c.toString())
+        a_create_ed_datebegin.text = a.toString() + "/" + b.toString() + "/"+ c.toString()
+            a_create_ed_datebegin.setOnClickListener {
             val dpd = DatePickerDialog.OnDateSetListener { _, y, m, d ->
                     a_create_ed_datebegin.text =  Utils.formatDate(y,m,d)
-                    mDateBegin =  Utils.convertToEpoch(Utils.formatDate(y,m,d)) }
+                    mDateBegin =  Utils.convertToEpoch(Utils.formatDate(y,m,d))
+     //           println("-----convertToEpoch---   2   ----" + mDateBegin + " a " + a.toString() + " b " + b.toString() + " c " + c.toString())
+                           }
             val now = Time()
             now.setToNow()
             val d = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
@@ -231,6 +230,7 @@ class CreateActivity : AppCompatActivity() {
             val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTheme)
             with(mBuilder) {
                 setItems(listPerson) { dialog, i ->
+                    a_create_ed_personn.text
                     a_create_ed_personn.text = listPerson[i]
                     mPerson = a_create_ed_personn.text.toString().trim()
                     dialog.dismiss() }

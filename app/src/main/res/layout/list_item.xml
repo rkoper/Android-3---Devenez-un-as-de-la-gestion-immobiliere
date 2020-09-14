@@ -29,13 +29,45 @@
                 android:background="@color/colorB"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/main_guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    card_view:layout_constraintGuide_percent="0.40"  />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/one"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
+                    card_view:layout_constraintTop_toTopOf="parent"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintLeft_toLeftOf="parent"
-                    card_view:layout_constraintRight_toLeftOf="@+id/two" >
+                    card_view:layout_constraintRight_toLeftOf="@+id/main_guideline" >
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/main_guideline_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        card_view:layout_constraintGuide_percent="0.8"  />
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/main_guideline_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        card_view:layout_constraintGuide_percent="0.2"  />
 
+                    <LinearLayout
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@color/colorD"
+                        card_view:layout_constraintLeft_toLeftOf="@+id/main_guideline_2"
+                        card_view:layout_constraintRight_toRightOf="@+id/main_guideline_1"
+                        card_view:layout_constraintTop_toTopOf="parent"
+                        card_view:layout_constraintBottom_toBottomOf="parent"
+                     />
                     <ImageView
                         android:paddingTop="7dp"
                         android:paddingBottom="7dp"
@@ -52,7 +84,7 @@
                     android:id="@+id/two"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    card_view:layout_constraintLeft_toRightOf="@+id/one"
+                    card_view:layout_constraintLeft_toRightOf="@+id/main_guideline"
                     card_view:layout_constraintRight_toRightOf="parent" >
 
                     <TextView
@@ -97,7 +129,7 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/item_list_sold"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:rotation="12"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -135,6 +167,7 @@
                     card_view:layout_constraintBottom_toBottomOf="@+id/item_guideline2"
                     card_view:layout_constraintRight_toRightOf="@+id/item_guideline4"
                     android:text="Sold"
+                    android:textColor="@color/colorB"
                     style="@style/MyEditTextStyle3"
                     android:textSize="25sp"/>
 
