@@ -21,6 +21,7 @@ open class PlaceRepo (application: Application) {
 
     fun insertLoc1(nearbyPlaces: NearbyPlaces) {
         GlobalScope.launch(Dispatchers.IO) {
+            println(" -------GO 5 ------" + nearbyPlaces.placeMasterId)
             nearbyPlaceDao.insertLoc1(nearbyPlaces) }
     }
 

@@ -54,6 +54,8 @@ class DetailFragment : Fragment(), LifecycleObserver {
         mMyViewModelForPlaces = ViewModelProviders.of(this).get(MyViewModelForPlaces::class.java)
         mMyViewModelForImages = ViewModelProviders.of(this).get(MyViewModelForImages::class.java)
 
+
+
         updateNbPhoto() }
 
 
@@ -95,6 +97,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
         println("--------IT TI TIT -------------" )
         setupRecyclerView(id)
     }
+
 
     private fun updateProxLoc(estate: List<EstateR>, mId: Int) {
         mMyViewModelForPlaces.getByIdLocation(  "park",estate[mId].id).observe(this, Observer { lnp ->

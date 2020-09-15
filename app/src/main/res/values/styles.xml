@@ -20,6 +20,8 @@
         <item name="android:textColor">@color/colorD</item>
         <item name="android:ellipsize">end</item>
         <item name="android:gravity">center</item>
+        <item name="android:maxLength">30</item>
+        <item name="android:maxLines">1</item>
         <item name="android:textAlignment">center</item>
     </style>
 
@@ -189,7 +191,7 @@
         <item name="android:maxLines">1</item>
         <item name="android:textStyle">bold</item>
         <item name="android:maxLength">30</item>
-        <item name="android:gravity">bottom</item>
+        <item name="android:gravity">center</item>
         <item name="android:textColorHint">#bfac40</item>
         <item name="colorControlHighlight">#bfac40</item>
     </style>

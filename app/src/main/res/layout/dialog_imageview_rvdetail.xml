@@ -48,7 +48,8 @@
         android:gravity="center"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="@color/colorD"
+        style="@style/MyEditTextStyleSearch"
+        android:textColor="@color/colorB"
         android:background="@drawable/round_yellow"
         android:layout_width="0dp"
         android:layout_height="50dp"/>

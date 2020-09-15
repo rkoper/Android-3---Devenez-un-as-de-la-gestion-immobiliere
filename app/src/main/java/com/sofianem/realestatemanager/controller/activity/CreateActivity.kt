@@ -35,6 +35,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.adapter.CreateAdapter
+import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.utils.GeocoderUtil
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
@@ -45,6 +46,8 @@ import kotlinx.android.synthetic.main.dialog_custom_layout.view.*
 import kotlinx.android.synthetic.main.dialog_description.view.*
 import kotlinx.android.synthetic.main.dialog_layout.view.*
 import kotlinx.android.synthetic.main.dialog_number_picker.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
@@ -73,7 +76,8 @@ class CreateActivity : AppCompatActivity() {
     private var mNumberOfRoom: Int = 0
     private var mDateBegin: Long = 3
     private var mDateEnd: Long = 8888888888
-    var mPom: Int = 99
+    var mCreateId: Int = 99
+    var mNbPhoto:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +85,10 @@ class CreateActivity : AppCompatActivity() {
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         mMyViewModelForPlaces = ViewModelProviders.of(this).get(MyViewModelForPlaces::class.java)
         mMyViewModelForImages = ViewModelProviders.of(this).get(MyViewModelForImages::class.java)
+
+        mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer {
+            if (it.isEmpty()) {mCreateId = 1 }
+            else { mCreateId = it.last().id.plus(1) } })
 
         //  mMyViewModel.allWords.observe(this, androidx.lifecycle.Observer { t ->
         //    t.let { println("NEW INSERT" + "TEST ID ---------" + mPom) } })
@@ -94,6 +102,7 @@ class CreateActivity : AppCompatActivity() {
     private fun createData(listImage_path: MutableList<String?>, listimageDescription: MutableList<String?>) {
         activity_saveData_floating.setOnClickListener {
             mStatus = "ok"
+            mNbPhoto = listimageDescription.size
             if (mAddress == "Adress" ||  mAddress == "-" ||  mAddress == "") {Toast.makeText(this, "Please add address...", Toast.LENGTH_SHORT).show()}
             else { Toast.makeText(this, "Saving...", Toast.LENGTH_SHORT).show()
                 mMyViewModel.insertTodo(
@@ -109,22 +118,27 @@ class CreateActivity : AppCompatActivity() {
                     mDateBegin,
                     mDateEnd,
                     mPerson,
+                    mNbPhoto,
                     listImage_path,
-                    listimageDescription)
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-            finish()}
+                    listimageDescription) }
+
+            mMyViewModelForPlaces.getNearbyPlace1(mCreateId, mGeoLoc)
+            mMyViewModelForPlaces.getNearbyPlace2(mCreateId, mGeoLoc)
+            mMyViewModelForPlaces.getNearbyPlace3(mCreateId, mGeoLoc)
+            mMyViewModelForPlaces.getNearbyPlace4(mCreateId, mGeoLoc)
+            mMyViewModelForImages.storeImageData(mCreateId, listImage_path, listimageDescription)
 
 
-            mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer { t ->
-                t.let {
-                    mMyViewModelForPlaces.getNearbyPlace1(t.size, mGeoLoc)
-                    mMyViewModelForPlaces.getNearbyPlace2(t.size, mGeoLoc)
-                    mMyViewModelForPlaces.getNearbyPlace3(t.size, mGeoLoc)
-                    mMyViewModelForPlaces.getNearbyPlace4(t.size, mGeoLoc)
 
-                    mMyViewModelForImages.storeImageData(t.size, listImage_path, listimageDescription)
-                } }) } }
+
+
+
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+           }
+
+
+        }
 
     private fun loadItem() {
         loadCity()
@@ -345,6 +359,7 @@ class CreateActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                println("s----" + s+ "---start--"+ start+ "--before---"+ before+ "--count---"+ count)
                 if (start == 0 )
                 { mDialogViewForImageInfo.custom_dialog_ok.isVisible = false
                     mDialogViewForImageInfo.custom_dialog_not_ok.isVisible = true}

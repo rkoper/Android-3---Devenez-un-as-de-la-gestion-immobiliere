@@ -1,6 +1,7 @@
 package com.sofianem.realestatemanager.controller.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +9,14 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.sofianem.realestatemanager.R
+import kotlin.coroutines.coroutineContext
 
 class PlacesListAdapter(
     private val mListName: ArrayList<String>,
     private val mListDistance: ArrayList<String>,
-    val  mType: String
+    val mType: String,
+    val mContext: Context
 ) :
     RecyclerView.Adapter<PlacesListAdapter.PlaceViewHolder>() {
 
@@ -33,30 +37,23 @@ class PlacesListAdapter(
         if (mType =="supermarket" ) { goRed(holder) }
         if (mType == "primary_school" ) { goYellow(holder) }
         if (mType == "pharmacy") { goBlue(holder) }
+
+
     }
 
-    private fun goRed(holder: PlaceViewHolder) {
-        holder.colorTop.setBackgroundColor(Color.RED) ; holder.colorRight.setBackgroundColor(Color.RED) ; holder.colorBottom.setBackgroundColor(Color.RED) }
-
-    private fun goGreen(holder: PlaceViewHolder) {
-        holder.colorTop.setBackgroundColor(Color.GREEN) ; holder.colorRight.setBackgroundColor(Color.GREEN) ; holder.colorBottom.setBackgroundColor(Color.GREEN) }
-
-    private fun goBlue(holder: PlaceViewHolder) {
-        holder.colorTop.setBackgroundColor(Color.BLUE) ; holder.colorRight.setBackgroundColor(Color.BLUE) ; holder.colorBottom.setBackgroundColor(Color.BLUE) }
-
-    private fun goYellow(holder: PlaceViewHolder) {
-        holder.colorTop.setBackgroundColor(Color.YELLOW); holder.colorRight.setBackgroundColor(Color.YELLOW) ; holder.colorBottom.setBackgroundColor(Color.YELLOW) }
+    private fun goRed(holder: PlaceViewHolder) { holder.linearColor.setBackgroundColor(Color.RED) }
+    private fun goGreen(holder: PlaceViewHolder) { holder.linearColor.setBackgroundColor(Color.GREEN) }
+    private fun goBlue(holder: PlaceViewHolder){ holder.linearColor.setBackgroundColor(Color.BLUE) }
+    private fun goYellow(holder: PlaceViewHolder) { holder.linearColor.setBackgroundColor(Color.YELLOW) }
 
 
     class PlaceViewHolder(placeItem: View) : RecyclerView.ViewHolder(placeItem) {
         var name: TextView;  var distance: TextView
-        var colorTop : LinearLayout ;  var colorRight : LinearLayout  ; var colorBottom : LinearLayout
+        var linearColor : LinearLayout
         init { placeItem.isClickable = false
             name = placeItem.findViewById(com.sofianem.realestatemanager.R.id.nameof)
             distance = placeItem.findViewById(com.sofianem.realestatemanager.R.id.distance)
-            colorTop = placeItem.findViewById(com.sofianem.realestatemanager.R.id.llc1)
-            colorRight = placeItem.findViewById(com.sofianem.realestatemanager.R.id.llc3)
-            colorBottom = placeItem.findViewById(com.sofianem.realestatemanager.R.id.llc4)
+            linearColor = placeItem.findViewById(com.sofianem.realestatemanager.R.id.linearColor)
         }
     }
 }

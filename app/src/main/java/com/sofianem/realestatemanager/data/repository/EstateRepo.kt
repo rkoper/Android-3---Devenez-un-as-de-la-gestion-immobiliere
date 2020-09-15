@@ -16,6 +16,7 @@ open class EstateRepo (application: Application) {
     private var mAll: ArrayList<EstateR> = arrayListOf()
     private var mAllDataForSearch: List<Int>? = arrayListOf()
     var readAllLive: LiveData<List<EstateR>>
+    var mCreateId: Long = 99
 
     init {
         val database = AllDatabase.getInstance(application.applicationContext)
@@ -38,10 +39,11 @@ open class EstateRepo (application: Application) {
         return mAll
     }
 
-        fun insertTodo(todo: EstateR) {
+        fun insertTodo(todo: EstateR) : Long {
             GlobalScope.launch(Dispatchers.IO) {
                 estate_Dao.insert(todo)
             }
+            return mCreateId
         }
 
 

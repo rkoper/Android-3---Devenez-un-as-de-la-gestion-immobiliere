@@ -47,6 +47,7 @@ class MyViewModelForPlaces(application: Application) : AndroidViewModel(applicat
                 mResponseData1.add(response1.body());   nearbySaving1(mResponseData1, location, id) } }) }
 
     private fun nearbySaving1(response: ArrayList<PlacesResponse1?>, locationForPlace: String, id: Int) {
+        println(" -------GO 3 ------")
         response.forEach { allPlace ->
             allPlace?.placesList1?.forEach { place -> val np = NearbyPlaces()
                 val curLat = Utils.currentLat(locationForPlace) ; val curLng = Utils.currentLng(locationForPlace)
@@ -131,6 +132,7 @@ class MyViewModelForPlaces(application: Application) : AndroidViewModel(applicat
 
 
     fun saveNearby1(np: NearbyPlaces) {
+        println(" -------GO 4 ------")
         mRepositoryPlace.insertLoc1(np) }
 
     fun saveNearby2(np: NearbyPlaces){ mRepositoryPlace.insertLoc2(np) }

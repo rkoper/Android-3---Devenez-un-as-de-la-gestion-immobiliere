@@ -63,8 +63,10 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun initPlaceSearch(mType1: String, icon: Int) {
 
         mMyViewModelForPlaces.getByIdLocation(mType1, mId).observe(this, Observer { listNearbyPlaces ->
+            println("---listNearbyPlaces---")
             mMap?.clear()
             listNearbyPlaces?.forEach { np ->
+                println("---listNearbyPlaces---" + np)
                 val location = Utils.formatLatLng(np.placeLocation)
                 val markerO = MarkerOptions()
                 markerO.icon(BitmapDescriptorFactory.fromResource(icon))
@@ -86,7 +88,7 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
             mNewList.add(mNewList.size, np.placeName)
             mNewNewList.add(mNewNewList.size, distance.toString()) }
         activity_detail_map_RVok.layoutManager = GridLayoutManager(this, 3)
-        activity_detail_map_RVok.adapter = PlacesListAdapter(mNewList, mNewNewList, mType1) }
+        activity_detail_map_RVok.adapter = PlacesListAdapter(mNewList, mNewNewList, mType1, this) }
 
     fun onClickHome() {
         detail_map_fb_home.setOnClickListener { val intent = Intent(this, MainActivity::class.java)

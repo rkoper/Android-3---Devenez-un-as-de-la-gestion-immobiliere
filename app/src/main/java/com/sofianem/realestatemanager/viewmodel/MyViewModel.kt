@@ -12,6 +12,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
     lateinit var location: String
     var mNbPhoto = 0
      val allWordsLive: LiveData<List<EstateR>>
+    var mCreateId: Int = 99
 
     init {
 
@@ -19,9 +20,8 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun insertTodo(type: String, city: String, price: Int, surface: Int, number_of_room: Int, description: String, adress: String, location: String,
-                       status: String, date_begin: Long, date_end: Long, personn: String, imageUri: MutableList<String?>,
-                       imageDescription: MutableList<String?>){
-        mNbPhoto = imageUri.size
+                       status: String, date_begin: Long, date_end: Long, personn: String, mNbPhoto:Int,  imageUri: MutableList<String?>,
+                       imageDescription: MutableList<String?>): Long {
         val db = EstateR()
         db.type = type ; db.price = price ; db.city = city; db.surface = surface ; db.number_of_room = number_of_room
         db.description = description ; db.adress = adress ; db.location = location ; db.status = status
@@ -29,11 +29,11 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
         db.ImageUri = imageUri ; db.ImageDescription = imageDescription
 
            mRepository.insertTodo(db)
+
+        return mCreateId.toLong()
     }
 
     fun saveIdData(it: List<Int>): ArrayList<EstateR> { return mRepository.readByID(it) }
-
-    fun getAll(): List<EstateR> { return mRepository.getAll() }
 
     fun updateTodo(todo: EstateR) { mRepository.updateTodo(todo) }
 
