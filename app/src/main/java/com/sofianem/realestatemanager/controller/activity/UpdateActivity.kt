@@ -6,7 +6,6 @@ import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -26,7 +25,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
-import androidx.databinding.adapters.ImageViewBindingAdapter.setImageDrawable
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -41,6 +39,7 @@ import com.sofianem.realestatemanager.controller.activity.CreateActivity.Compani
 import com.sofianem.realestatemanager.controller.activity.MainActivity.Companion.ID
 import com.sofianem.realestatemanager.controller.adapter.UploadAdapter
 import com.sofianem.realestatemanager.data.model.EstateR
+import com.sofianem.realestatemanager.data.model.ImageV
 import com.sofianem.realestatemanager.utils.GeocoderUtil
 import com.sofianem.realestatemanager.utils.MyCommunicationForImage
 import com.sofianem.realestatemanager.utils.Utils
@@ -91,11 +90,12 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
         setContentView(R.layout.activity_upload)
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         mMyViewModelForImages = ViewModelProviders.of(this).get(MyViewModelForImages::class.java)
-        mID = intent.getIntExtra(ID, 1)
+        var iid = intent.getIntExtra(ID, 1)
+        mID = iid -1
 
         retrieveData(mID)
         initRV()
-        createRV(mID)
+        createRV(iid)
         saveEntry()
 
 
@@ -103,9 +103,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
 
     private fun retrieveData(id: Int) {
         mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer { list ->
-            println(" ---------id ----2 -----" + id)
-            println(" ---------id ----3 -----" + list[1])
-            println(" ---------id ----4 -----" + id)
+            println(" ---------id ----3 -----" + list[id])
             var lstEst = list[id]
 
             if (lstEst.type == "") { upload_type.text = "-" }
@@ -154,8 +152,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
 
     private fun initRV() {
         val layoutManager = GridLayoutManager(this, 3)
-        upload_recyclerview.layoutManager = layoutManager
-        upload_recyclerview.adapter = UploadAdapter(listImagePath, listImageDescription, listImageId, this) }
+        upload_recyclerview.layoutManager = layoutManager }
 
 
     private fun createRV(mID: Int) {
@@ -166,7 +163,8 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                         listImageId.add(value.imageId)
                         listImagePath.add(value.imageUri)
                         listImageDescription.add(value.imageDescription)
-                        upload_recyclerview.adapter?.notifyDataSetChanged() } } }) } }
+                        } }
+                upload_recyclerview.adapter = UploadAdapter(listImagePath, listImageDescription, listImageId, this) }) } }
 
 
     private fun uploadData(est: EstateR) {
@@ -446,7 +444,6 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
     }
 
     private fun createAlertDialog(imagePath: String?) {
-        listImagePath.add(imagePath)
         val mDialogViewForImageInfo = LayoutInflater.from(this).inflate(R.layout.dialog_custom_layout, null)
         var builderForImageInfo = AlertDialog.Builder(this)
         builderForImageInfo.setView(mDialogViewForImageInfo)
@@ -466,21 +463,25 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
 
         mDialogViewForImageInfo.custom_dialog_not_ok.setOnClickListener {
             Toast.makeText(this, " Please add description...", Toast.LENGTH_SHORT).show() }
+
         mDialogViewForImageInfo.custom_dialog_ok.setOnClickListener {
+            listImagePath.clear()
+            listImageDescription.clear()
+            listImageId.clear()
             mAlertDialogForImageInfo.dismiss()
             val photo_info: String? = mDialogViewForImageInfo.custom_dialog_txt.text.toString()
             if (imagePath != "" && photo_info != "") {
-                mMyViewModelForImages.upadeSingleImageData(mId, imagePath, photo_info) }
-            refreshRV()
+                mMyViewModelForImages.upadeSingleImageData(mId, imagePath, photo_info)
+              }
         }
     }
 
 
-    override fun deleteImage(IdImage: Int) {
-        var listimg = mMyViewModelForImages.allImageLive
-        listimg.value?.forEach { img ->
-            if (IdImage == img.imageId) { mMyViewModelForImages.deleteImage(img) } }
-        refreshRV() }
+    override fun deleteImage(IdImage: Int, mDesc: String, mPath: String) {
+        listImagePath.clear()
+        listImageDescription.clear()
+        listImageId.clear()
+        mMyViewModelForImages.deleteImageById(IdImage) }
 
 
     override fun uploadImage(IdImage: Int) {
@@ -512,31 +513,21 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                     Toast.makeText(this, " Please add description...", Toast.LENGTH_SHORT).show() }
 
                 mDialogViewForImageInfo.custom_dialog_ok.setOnClickListener {
+                    listImagePath.clear()
+                    listImageDescription.clear()
+                    listImageId.clear()
                     mAlertDialogForImageInfo.dismiss()
                     val photo_info: String? = mDialogViewForImageInfo.custom_dialog_txt.text.toString()
-                    println()
-                    println(" test ---------- image path --- 1 ---" + imagePath)
-                    println(" test ---------- image path -- 2 ----" + photo_info)
                     if (imagePath != "" && photo_info != "") {
-                        println(" test ---------- image path ------" + photo_info)
-                        mMyViewModelForImages.upadeSingleImageData(mId, imagePath, photo_info) }
-                    refreshRV()
+                       val imgV = ImageV()
+                        imgV.imageDescription = photo_info
+                        imgV.imageUri = imagePath
+                        imgV.masterId = mId
+                        imgV.imageId = IdImage
+                        mMyViewModelForImages.updateImageDes(imgV)
+                    println(" IMGV ----" + imgV)}
+                   // refreshRV()
                 }}}}
-
-     fun refreshRV(){
-        mMyViewModelForImages.allImageLive.observe(this, Observer { listImg ->
-            listImagePath.clear()
-            listImageDescription.clear()
-            listImg.forEach {img ->
-                if (mID == img.masterId) {
-                    listImageId.add(img.imageId)
-                    listImagePath.add(img.imageUri)
-                    listImageDescription.add(img.imageDescription)
-                    upload_recyclerview.adapter?.notifyDataSetChanged()
-
-                    mNbPhoto =  listImagePath.size
-                }
-            } }) }
 
     companion object {}
 }

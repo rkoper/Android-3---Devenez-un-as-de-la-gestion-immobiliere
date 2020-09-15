@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.sofianem.realestatemanager.R.*
 import com.sofianem.realestatemanager.utils.MyCommunicationForImage
 import com.sofianem.realestatemanager.utils.Utils
@@ -41,14 +40,13 @@ class UploadAdapter(
             holder.tvPhoto.setImageBitmap(p) }
 
         holder.tvIcon.setOnClickListener {
-            mMyCommunicator.deleteImage(mListId[position]!!.toInt())
-            notifyDataSetChanged() }
+                mMyCommunicator.deleteImage(mListId[position]!!.toInt(),
+                mListDescription[position]!!.toString(),
+                mListPath[position]!!.toString()) }
 
 
         holder.txtIcon.setOnClickListener {
-            mMyCommunicator.uploadImage(mListId[position]!!.toInt())
-                notifyDataSetChanged() }
-                }
+            mMyCommunicator.uploadImage(mListId[position]!!.toInt()) } }
 
 
 

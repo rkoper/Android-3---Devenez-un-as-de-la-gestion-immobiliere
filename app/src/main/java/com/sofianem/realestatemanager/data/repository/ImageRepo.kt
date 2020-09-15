@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import com.sofianem.realestatemanager.data.dao.ImageDao
 import com.sofianem.realestatemanager.data.dataBase.AllDatabase
+import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.model.ImageV
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -19,8 +20,6 @@ open class ImageRepo (application: Application) {
         image_Dao = database!!.imageDao()
         readAllImageLive = image_Dao.getImageAllLive() }
 
-
-
     fun insertImage(mId: Int, listImage: MutableList<String?>, listImageDescription: MutableList<String?>) {
         val i = ImageV()
         GlobalScope.launch(Dispatchers.IO) {
@@ -31,7 +30,6 @@ open class ImageRepo (application: Application) {
                 image_Dao.insertItem(i)
             } } }
 
-
    fun insertItem(mId: Int, stringImage: String?, stringeDescription: String?) {
     val i = ImageV()
        GlobalScope.launch(Dispatchers.IO) {
@@ -40,15 +38,16 @@ open class ImageRepo (application: Application) {
         i.masterId = mId
         image_Dao.insertItem(i) } }
 
-
-    fun deleteImage(ig: ImageV)  {
-        GlobalScope.launch(Dispatchers.IO) { image_Dao.deleteItem(ig) } }
-
     fun UpdateImageDes(ig: ImageV) {
         GlobalScope.launch(Dispatchers.IO) {
             image_Dao.updateItem(ig)
         }
     }
 
+    fun DeleteImageByID(i: Int) {
+        GlobalScope.launch(Dispatchers.IO) {
+            image_Dao.deleteById(i)
+        }
+    }
 }
 

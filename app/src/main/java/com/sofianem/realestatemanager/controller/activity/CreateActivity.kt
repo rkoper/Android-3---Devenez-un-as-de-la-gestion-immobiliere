@@ -88,10 +88,12 @@ class CreateActivity : AppCompatActivity() {
 
         mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer {
             if (it.isEmpty()) {mCreateId = 1 }
-            else { mCreateId = it.last().id.plus(1) } })
+            else { mCreateId = it.last().id.plus(1)
+                println(" last entry--------->" + it.last())}
 
-        //  mMyViewModel.allWords.observe(this, androidx.lifecycle.Observer { t ->
-        //    t.let { println("NEW INSERT" + "TEST ID ---------" + mPom) } })
+//
+        })
+
 
         loadItem()
         OnClick()
@@ -128,24 +130,14 @@ class CreateActivity : AppCompatActivity() {
             mMyViewModelForPlaces.getNearbyPlace4(mCreateId, mGeoLoc)
             mMyViewModelForImages.storeImageData(mCreateId, listImage_path, listimageDescription)
 
-
-
-
-
-
             val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-           }
-
-
-        }
+            startActivity(intent) } }
 
     private fun loadItem() {
         loadCity()
         loadRoom()
         loadPerson()
         loadDateBegin()
-       // loadDateEnd()
         loadPrice()
         loadAddress()
         loadType()
@@ -220,14 +212,11 @@ class CreateActivity : AppCompatActivity() {
         val b = now.month +1
         val c = now.year
         mDateBegin =  Utils.convertToEpoch(Utils.formatDate(c,b1,a))
-     //   println("-----convertToEpoch---   1   ----" + mDateBegin + " a " + a.toString() + " b " + b.toString() + " c " + c.toString())
         a_create_ed_datebegin.text = a.toString() + "/" + b.toString() + "/"+ c.toString()
             a_create_ed_datebegin.setOnClickListener {
             val dpd = DatePickerDialog.OnDateSetListener { _, y, m, d ->
                     a_create_ed_datebegin.text =  Utils.formatDate(y,m,d)
-                    mDateBegin =  Utils.convertToEpoch(Utils.formatDate(y,m,d))
-     //           println("-----convertToEpoch---   2   ----" + mDateBegin + " a " + a.toString() + " b " + b.toString() + " c " + c.toString())
-                           }
+                    mDateBegin =  Utils.convertToEpoch(Utils.formatDate(y,m,d))             }
             val now = Time()
             now.setToNow()
             val d = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
