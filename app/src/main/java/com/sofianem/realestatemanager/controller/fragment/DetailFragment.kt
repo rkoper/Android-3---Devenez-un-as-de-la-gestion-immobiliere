@@ -138,7 +138,6 @@ class DetailFragment : Fragment(), LifecycleObserver {
             if (listImage.isNullOrEmpty()) { Toast.makeText(requireContext(), "xxx", Toast.LENGTH_SHORT).show() }
             else { listImage.forEach { value ->
                 if (value.masterId == mId) { mListImagePath.add(value.imageUri)
-                    println(" -------PHOTO 1 -------" +value.imageUri)
                     mListImageDescription.add(value.imageDescription) } }
                 println(" -------PHOTO -------" + mListImagePath.toString())
 

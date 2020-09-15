@@ -25,7 +25,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.appyvet.materialrangebar.RangeBar
@@ -65,25 +64,23 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
     private var imagePath: String? = ""
     lateinit var view: View
     var mId = 0
-    var type: String = ""
-    var city: String = ""
-    var price: Int = 0
-    var surface: Int = 0
-    var number_of_room: Int = 0
-    var description: String = ""
-    var adress: String = ""
-    var status: String = "ok"
+    var mType: String = ""
+    var mCity: String = ""
+    var mPrice: Int = 0
+    var mSurface: Int = 0
+    var mNumberOfRoom: Int = 0
+    var mDescription: String = ""
+    var mStatus: String = "ok"
     var mGeoLoc: String = ""
-    var date_begin: Long = 3
-    var date_end: Long = 8888888888
-    var personn: String = ""
-    var hintAdress: String = ""
-    var listImageId: MutableList<Int?> = arrayListOf()
-    var listImagePath: MutableList<String?> = arrayListOf()
-    var listImageDescription: MutableList<String?> = arrayListOf()
+    var mDateBegin: Long = 3
+    var mDateEnd: Long = 8888888888
+    var mPersonn: String = ""
+    var mAdress: String = ""
+    var mListImageId: MutableList<Int?> = arrayListOf()
+    var mListImagePath: MutableList<String?> = arrayListOf()
+    var mListImagemDescription: MutableList<String?> = arrayListOf()
     var mID: Int = 0
     var mNbPhoto:Int = 0
-    lateinit var estateR: EstateR
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,31 +100,30 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
 
     private fun retrieveData(id: Int) {
         mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer { list ->
-            println(" ---------id ----3 -----" + list[id])
             var lstEst = list[id]
 
             if (lstEst.type == "") { upload_type.text = "-" }
-            else { upload_type.text = lstEst.type; type = lstEst.type }
+            else { upload_type.text = lstEst.type; mType = lstEst.type }
 
             if (lstEst.price == 0) { upload_tx_pric.text = "-" }
-            else { upload_tx_pric.text = lstEst.price.toString() + "  $"; price = lstEst.price }
+            else { upload_tx_pric.text = lstEst.price.toString() + "  $"; mPrice = lstEst.price }
 
             if (lstEst.surface == 0) { upload_tx_surface.text = "-" }
-            else { upload_tx_surface.text = lstEst.surface.toString() + "  Sq/ft"; surface = lstEst.surface }
+            else { upload_tx_surface.text = lstEst.surface.toString() + "  Sq/ft"; mSurface = lstEst.surface }
 
             if (lstEst.number_of_room == 0) { upload_room.text = "-" }
-            else { upload_room.text = lstEst.number_of_room.toString(); number_of_room = lstEst.number_of_room }
+            else { upload_room.text = lstEst.number_of_room.toString(); mNumberOfRoom = lstEst.number_of_room }
 
             if (lstEst.description == "") { upload_description.setText("-") }
-            else { upload_description.setText(lstEst.description); description = lstEst.description }
+            else { upload_description.setText(lstEst.description); mDescription = lstEst.description }
 
             if (lstEst.personn == "") { upload_personn.text = "-" }
-            else { upload_personn.text = lstEst.personn; personn = lstEst.personn }
+            else { upload_personn.text = lstEst.personn; mPersonn = lstEst.personn }
 
             if (lstEst.location != "") { mGeoLoc = lstEst.location }
 
-            if (lstEst.date_begin.toInt().equals(3)) { upload_datebegin.text = "-" }
-            else { date_begin = lstEst.date_begin; upload_datebegin.text = Utils.convertToLocalB(lstEst)}
+            if (lstEst.date_begin.toInt() == 3) { upload_datebegin.text = "-" }
+            else { mDateBegin = lstEst.date_begin; upload_datebegin.text = Utils.convertToLocalB(lstEst)}
 
             if (lstEst.date_end == 8888888888) { upload_dateend.isChecked = false}
             else { upload_dateend.isChecked = true}
@@ -137,13 +133,13 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
 
             upload_city.text = lstEst.city
 
-            city = lstEst.city
+            mCity = lstEst.city
 
-            hintAdress = lstEst.adress
-            upload_adress.text = hintAdress
+            mAdress = lstEst.adress
+            upload_adress.text = mAdress
 
             upload_tx_pric.setOnClickListener { upload_rangebar_price.visibility = View.VISIBLE }
-            upload_tx_surface.setOnClickListener { upload_rangebar_surface.visibility = View.VISIBLE }
+            upload_tx_surface.setOnClickListener { upload_tx_surface.visibility = View.VISIBLE }
 
             uploadData(lstEst)
             OnClick()
@@ -160,28 +156,28 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             mMyViewModelForImages.allImageLive.observe(this, androidx.lifecycle.Observer { it ->
                 it.forEach { value ->
                     if (mID == value.masterId) {
-                        listImageId.add(value.imageId)
-                        listImagePath.add(value.imageUri)
-                        listImageDescription.add(value.imageDescription)
+                        mListImageId.add(value.imageId)
+                        mListImagePath.add(value.imageUri)
+                        mListImagemDescription.add(value.imageDescription)
                         } }
-                upload_recyclerview.adapter = UploadAdapter(listImagePath, listImageDescription, listImageId, this) }) } }
+                upload_recyclerview.adapter = UploadAdapter(mListImagePath, mListImagemDescription, mListImageId, this) }) } }
 
 
     private fun uploadData(est: EstateR) {
         activity_upload_saveData_floating.setOnClickListener {
-            description = upload_description.text.toString().trim()
-
-            est.type = type
-            est.status = status
-            est.city = city
-            est.price = price
-            est.surface = surface
-            est.number_of_room = number_of_room
-            est.description = description
-            est.date_begin = date_begin
-            est.date_end = date_end
-            est.personn = personn
-            est.adress = hintAdress
+            mNbPhoto = mListImagePath.size
+            mDescription = upload_description.text.toString().trim()
+            est.type = mType
+            est.status = mStatus
+            est.city = mCity
+            est.price= mPrice
+            est.surface = mSurface
+            est.number_of_room = mNumberOfRoom
+            est.description = mDescription
+            est.date_begin = mDateBegin
+            est.date_end = mDateEnd
+            est.personn = mPersonn
+            est.adress = mAdress
             est.location = mGeoLoc
             est.nb_photo = mNbPhoto
 
@@ -194,11 +190,11 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
 
 
     fun saveEntry() {
-        load_city(); load_room(); load_personn(); load_date_begin(); load_date_end();load_price(); load_adress(); load_type(); load_surface()
+        load_mCity(); load_room(); load_mPersonn(); load_mDateBegin(); load_mDateEnd();load_mPrice(); load_mAdress(); load_mType(); load_mSurface()
     }
 
-    private fun load_city() {
-        city = upload_city.text.toString().trim()
+    private fun load_mCity() {
+        mCity = upload_city.text.toString().trim()
     }
 
     private fun load_room() {
@@ -210,13 +206,13 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             d.numberPicker.wrapSelectorWheel = false
             d.button_check_numberpicker.setOnClickListener {
                 upload_room.text = d.numberPicker.value.toString()
-                number_of_room = d.numberPicker.value
+                mNumberOfRoom = d.numberPicker.value
                 d.dismiss()
             }
             d.show()
         } }
 
-    private fun load_personn() {
+    private fun load_mPersonn() {
         upload_personn.setOnClickListener {
             val view = this.currentFocus
             view?.let { v ->
@@ -227,18 +223,18 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             with(mBuilder) {
                 setItems(listPerson) { dialog, i ->
                     upload_personn.text = listPerson[i]
-                    personn = upload_personn.text.toString().trim()
+                    mPersonn = upload_personn.text.toString().trim()
                     dialog.dismiss()
                 }
                 val mDialog = mBuilder.create()
                 mDialog.show()
             } } }
 
-    private fun load_date_begin() {
+    private fun load_mDateBegin() {
         upload_datebegin.setOnClickListener {
             val dpd = DatePickerDialog.OnDateSetListener { view, y, m, d ->
                     upload_datebegin.setText(Utils.formatDate(y, m, d))
-                    date_begin = Utils.convertToEpoch(Utils.formatDate(y, m, d)) }
+                    mDateBegin = Utils.convertToEpoch(Utils.formatDate(y, m, d)) }
             val now = android.text.format.Time(); now.setToNow()
             val d = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
             d.show(); d.getButton(DatePickerDialog.BUTTON_POSITIVE)
@@ -247,7 +243,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                 .setBackgroundColor(resources.getColor(R.color.colorD))
         } }
 
-    private fun load_date_end() {
+    private fun load_mDateEnd() {
         upload_dateend.setOnCheckedChangeListener { _, b ->
 
             if (b) {
@@ -257,18 +253,18 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                 val a = now.monthDay
                 val b1 = now.month
                 val c = now.year
-                date_end =  Utils.convertToEpoch(Utils.formatDate(c,b1,a))
-                status = "sold"
+                mDateEnd =  Utils.convertToEpoch(Utils.formatDate(c,b1,a))
+                mStatus = "sold"
                 }
 
             else {   upload_recyclerview_cache.isVisible = false
-                date_end = 8888888888
-                status = "ok" }
+                mDateEnd = 8888888888
+                mStatus = "ok" }
 
         }
     }
 
-    private fun load_price() {
+    private fun load_mPrice() {
         upload_rangebar_price.setOnRangeBarChangeListener(object :
             RangeBar.OnRangeBarChangeListener {
             override fun onTouchEnded(rangeBar: RangeBar?) {}
@@ -276,15 +272,15 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                 rangeBar: RangeBar?, leftPinIndex: Int, rightPinIndex: Int, leftPinValue: String?, rightPinValue: String?) {
                 val value = rightPinValue.toString() + "0000"
                 val displayValue = Utils.addWhiteSpace(value)
-                upload_tx_pric.text = displayValue + "  $"; price = value.toInt() }
+                upload_tx_pric.text = displayValue + "  $"; mPrice = value.toInt() }
             override fun onTouchStarted(rangeBar: RangeBar?) {}
         }) }
 
-    private fun load_adress() {
+    private fun load_mAdress() {
         var streetNumber = ""
         var route = ""
         if (!Places.isInitialized()) { Places.initialize(applicationContext, "AIzaSyByK0jz-yxjpZFX88W8zjzTwtzMtkPYC4w") }
-        var autocompleteFragment = Utils.configureAutoCompleteFrag(supportFragmentManager, resources, this, hintAdress)
+        var autocompleteFragment = Utils.configureAutoCompleteFrag(supportFragmentManager, resources, this, mAdress)
         autocompleteFragment?.setPlaceFields(
             listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS_COMPONENTS))
         autocompleteFragment?.setOnPlaceSelectedListener(object : PlaceSelectionListener {
@@ -293,31 +289,32 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                 place.addressComponents?.asList()?.forEach {
                     if (it.types.contains("street_number")) { streetNumber = it.name }
                     else if (it.types.contains("route")) { route = it.name }
-                    else if (it.types.contains("locality")) { upload_city.setText(it.name); city = it.name } }
-                hintAdress = "$streetNumber $route"
-                mGeoLoc = GeocoderUtil.getlocationForListv2(hintAdress, city, this@UpdateActivity) }
+                    else if (it.types.contains("locality")) {
+                        upload_city.text = it.name; mCity = it.name } }
+                mAdress = "$streetNumber $route"
+                mGeoLoc = GeocoderUtil.getlocationForListv2(mAdress, mCity, this@UpdateActivity) }
 
             override fun onError(p0: Status) {}
         }) }
 
 
-    private fun load_type() {
+    private fun load_mType() {
         upload_type.setOnClickListener {
             val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTheme)
             with(mBuilder) {
                 setItems(listType) { dialog, i ->
-                    upload_type.text = listType[i]; type = listType[i]; dialog.dismiss() }
+                    upload_type.text = listType[i]; mType = listType[i]; dialog.dismiss() }
                 val mDialog = mBuilder.create()
                 mDialog.show()
             } } }
 
-    private fun load_surface() {
+    private fun load_mSurface() {
         upload_rangebar_surface.setOnRangeBarChangeListener(object :
             RangeBar.OnRangeBarChangeListener {
             override fun onTouchEnded(rangeBar: RangeBar?) {}
             override fun onRangeChangeListener(
                 rangeBar: RangeBar?, leftPinIndex: Int, rightPinIndex: Int, leftPinValue: String?, rightPinValue: String?) {
-                upload_tx_surface.text = rightPinValue.toString() + "  Sq/ft"; surface =
+                upload_tx_surface.text = rightPinValue.toString() + "  Sq/ft"; mSurface =
                     rightPinValue!!.toInt() }
 
             override fun onTouchStarted(rangeBar: RangeBar?) {}
@@ -462,25 +459,25 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             } })
 
         mDialogViewForImageInfo.custom_dialog_not_ok.setOnClickListener {
-            Toast.makeText(this, " Please add description...", Toast.LENGTH_SHORT).show() }
+            Toast.makeText(this, " Please add mDescription...", Toast.LENGTH_SHORT).show() }
 
         mDialogViewForImageInfo.custom_dialog_ok.setOnClickListener {
-            listImagePath.clear()
-            listImageDescription.clear()
-            listImageId.clear()
+            mListImagePath.clear()
+            mListImagemDescription.clear()
+            mListImageId.clear()
             mAlertDialogForImageInfo.dismiss()
-            val photo_info: String? = mDialogViewForImageInfo.custom_dialog_txt.text.toString()
-            if (imagePath != "" && photo_info != "") {
-                mMyViewModelForImages.upadeSingleImageData(mId, imagePath, photo_info)
+            val mPhotoInfo: String? = mDialogViewForImageInfo.custom_dialog_txt.text.toString()
+            if (imagePath != "" && mPhotoInfo != "") {
+                mMyViewModelForImages.upadeSingleImageData(mId, imagePath, mPhotoInfo)
               }
         }
     }
 
 
     override fun deleteImage(IdImage: Int, mDesc: String, mPath: String) {
-        listImagePath.clear()
-        listImageDescription.clear()
-        listImageId.clear()
+        mListImagePath.clear()
+        mListImagemDescription.clear()
+        mListImageId.clear()
         mMyViewModelForImages.deleteImageById(IdImage) }
 
 
@@ -499,8 +496,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                 mDialogViewForImageInfo.custom_dialog_txt.addTextChangedListener(object : TextWatcher {
                     override fun afterTextChanged(s: Editable) {}
                     override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
-                    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                        println("s----" + s+ "---start--"+ start+ "--before---"+ before+ "--count---"+ count)
+                    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) { 
                         if (start == 0 )
                         { mDialogViewForImageInfo.custom_dialog_ok.isVisible = false
                             mDialogViewForImageInfo.custom_dialog_not_ok.isVisible = true}
@@ -508,26 +504,22 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                             mDialogViewForImageInfo.custom_dialog_ok.isVisible = true
                             mDialogViewForImageInfo.custom_dialog_not_ok.isVisible = false}
                     } })
-//// A TRAVAILER ///////////
                 mDialogViewForImageInfo.custom_dialog_not_ok.setOnClickListener {
-                    Toast.makeText(this, " Please add description...", Toast.LENGTH_SHORT).show() }
+                    Toast.makeText(this, " Please add mDescription...", Toast.LENGTH_SHORT).show() }
 
                 mDialogViewForImageInfo.custom_dialog_ok.setOnClickListener {
-                    listImagePath.clear()
-                    listImageDescription.clear()
-                    listImageId.clear()
+                    mListImagePath.clear()
+                    mListImagemDescription.clear()
+                    mListImageId.clear()
                     mAlertDialogForImageInfo.dismiss()
-                    val photo_info: String? = mDialogViewForImageInfo.custom_dialog_txt.text.toString()
-                    if (imagePath != "" && photo_info != "") {
+                    val mPhotoInfo: String? = mDialogViewForImageInfo.custom_dialog_txt.text.toString()
+                    if (imagePath != "" && mPhotoInfo != "") {
                        val imgV = ImageV()
-                        imgV.imageDescription = photo_info
+                        imgV.imageDescription = mPhotoInfo
                         imgV.imageUri = imagePath
                         imgV.masterId = mId
                         imgV.imageId = IdImage
-                        mMyViewModelForImages.updateImageDes(imgV)
-                    println(" IMGV ----" + imgV)}
-                   // refreshRV()
-                }}}}
+                        mMyViewModelForImages.updateImageDes(imgV) } }}}}
 
     companion object {}
 }

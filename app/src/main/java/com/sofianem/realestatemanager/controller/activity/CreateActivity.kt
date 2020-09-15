@@ -42,6 +42,7 @@ import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.activity_create.*
+import kotlinx.android.synthetic.main.activity_upload.*
 import kotlinx.android.synthetic.main.dialog_custom_layout.view.*
 import kotlinx.android.synthetic.main.dialog_description.view.*
 import kotlinx.android.synthetic.main.dialog_layout.view.*
@@ -145,7 +146,7 @@ class CreateActivity : AppCompatActivity() {
         loadDescription()
     }
 
-    private fun loadDescription() { mDescription =  a_create_description.text.toString() }
+    private fun loadDescription() { mDescription = a_create_description.text.toString().trim()}
 
     private fun loadType() {
         a_create_ed_type.setOnClickListener {
