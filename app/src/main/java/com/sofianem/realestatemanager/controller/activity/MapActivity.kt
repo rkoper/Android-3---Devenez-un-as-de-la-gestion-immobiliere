@@ -129,11 +129,17 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (mMap != null) { val permission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                if (permission == PackageManager.PERMISSION_GRANTED) { mMap.isMyLocationEnabled = true
+                if (permission == PackageManager.PERMISSION_GRANTED) {
+                    mMap.isMyLocationEnabled = true
+                    mMap.uiSettings.isTiltGesturesEnabled = true
+                    mMap.uiSettings.isZoomControlsEnabled = true
                     uiSettings()} }
 
             else { requestPermissions(mPermissions, PERMISSION_REQUEST)
                 mMap.isMyLocationEnabled = true
+                mMap.uiSettings.isZoomControlsEnabled = true
+                mMap.uiSettings.isTiltGesturesEnabled = true
+                mMap.uiSettings.isZoomControlsEnabled = true
                 uiSettings()} } }
 
     private fun uiSettings() {

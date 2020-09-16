@@ -23,19 +23,21 @@
         app:maxImageSize="36dp"
         app:tint="@color/colorD"
         tools:targetApi="lollipop" />
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageButton
+        android:elevation="5dp"
+        android:background="@drawable/round_yellow"
+        tools:ignore="VectorDrawableCompat"
         android:id="@+id/activity_saveData_floating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/save_yellow"
-        app:backgroundTint="@color/colorB"
+        android:src="@drawable/save_grey"
+        android:backgroundTint="@color/colorD"
         app:layout_constraintBottom_toTopOf="@+id/activity_home_floating_create"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:maxImageSize="36dp"
-        app:tint="@color/colorD"
+        app:tint="@color/colorB"
         tools:targetApi="lollipop" />
 
     <androidx.constraintlayout.widget.ConstraintLayout

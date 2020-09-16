@@ -56,14 +56,11 @@
     </style>
 
     <style name="MyEditTextStyleSearch" parent="@style/TxtViewPrincipal">
-        <item name="android:layout_margin">5dp</item>
         <item name="colorControlActivated">#303030</item>
         <item name="colorControlNormal">#303030</item>
-        <item name="android:paddingStart">3dp</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:gravity">left</item>
         <item name="android:textColorHint">#303030</item>
         <item name="colorControlHighlight">#303030</item>
     </style>

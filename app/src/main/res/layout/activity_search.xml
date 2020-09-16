@@ -232,7 +232,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/a_search_cb_sold"
-            app:layout_constraintTop_toBottomOf="@id/a_search_ed_dateBegin_create"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             android:importantForAutofill="no" />
         <TextView
@@ -247,7 +246,7 @@
             app:layout_constraintBottom_toTopOf="@+id/a_search_ed_dateEnd_create"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/a_search_cb_sold"
-            app:layout_constraintTop_toBottomOf="@id/a_search_rangebar_surface"
+            app:layout_constraintTop_toBottomOf="@id/guideline3"
             android:importantForAutofill="no" />
         <TextView
             android:gravity="center"
@@ -262,7 +261,6 @@
             app:layout_constraintLeft_toRightOf="@id/a_search_cb_sold"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
-            app:layout_constraintTop_toBottomOf="@id/a_search_sold_dateBegin"
             android:importantForAutofill="no" />
         <TextView
             android:gravity="center"
@@ -278,10 +276,11 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toRightOf="@id/a_search_cb_sold"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/a_search_rangebar_surface" />
+            app:layout_constraintTop_toBottomOf="@id/guideline3" />
         <TextView
-            android:gravity="center"
+
              style="@style/MyEditTextStyleSearch"
+            android:gravity="bottom"
             android:hint="Personn"
             android:background="@color/colorB"
             android:id="@+id/a_search_ed_personn"
@@ -292,8 +291,8 @@
             app:layout_constraintRight_toLeftOf="@id/a_search_ed_type"
             app:layout_constraintTop_toBottomOf="@id/guideline4" />
         <TextView
-            android:gravity="center"
              style="@style/MyEditTextStyleSearch"
+            android:gravity="bottom"
             android:hint="Type"
             android:background="@color/colorB"
             android:id="@+id/a_search_ed_type"
@@ -352,6 +351,7 @@
             android:id="@+id/a_search_ed_room_mini"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="20dp"
             app:layout_constraintLeft_toLeftOf="@+id/a_search_ed_room_rangeBar"
             app:layout_constraintBottom_toBottomOf="@id/a_search_ed_room_rangeBar"
             android:importantForAutofill="no" />
@@ -359,11 +359,11 @@
             android:gravity="bottom"
             style="@style/MyEditTextStyleSearch"
             android:text="+"
+            android:paddingEnd="20dp"
             android:background="@color/colorB"
             android:id="@+id/a_search_ed_room_max"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
             app:layout_constraintRight_toRightOf="@id/a_search_ed_room_rangeBar"
             app:layout_constraintBottom_toBottomOf="@id/a_search_ed_room_rangeBar"
             android:importantForAutofill="no" />
@@ -377,7 +377,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            app:mrb_rangeBarPaddingBottom="50dp"
+            app:mrb_rangeBarPaddingBottom="40dp"
             app:mrb_connectingLineColor="@color/colorD"
             app:mrb_rightThumbColor="@color/colorD"
             app:mrb_leftThumbColor="@color/colorD"
@@ -410,6 +410,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="@+id/a_search_ed_photo_rangebar"
+            android:paddingStart="20dp"
             app:layout_constraintBottom_toBottomOf="@id/a_search_ed_photo_rangebar"
             android:importantForAutofill="no" />
         <TextView
@@ -420,7 +421,7 @@
             android:id="@+id/a_search_ed_photo_max"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
+            android:paddingEnd="20dp"
             app:layout_constraintRight_toRightOf="@id/a_search_ed_photo_rangebar"
             app:layout_constraintBottom_toBottomOf="@id/a_search_ed_photo_rangebar"
             android:importantForAutofill="no" />
@@ -434,7 +435,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            app:mrb_rangeBarPaddingBottom="50dp"
+            app:mrb_rangeBarPaddingBottom="40dp"
             app:mrb_connectingLineColor="@color/colorD"
             app:mrb_rightThumbColor="@color/colorD"
             app:mrb_leftThumbColor="@color/colorD"
@@ -476,7 +477,7 @@
             android:buttonTint="@color/colorD"
             android:textColor="@color/colorD"
             android:textStyle="bold"
-            android:textSize="13sp"
+            android:textSize="@dimen/textadaptsizesmall"
             android:fontFamily="@font/montserrat"
             android:gravity="center"
             android:id="@+id/a_search_cb_school"
@@ -493,7 +494,7 @@
             style="@style/YellowCheck"
             android:textColor="@color/colorD"
             android:textStyle="bold"
-            android:textSize="13sp"
+            android:textSize="@dimen/textadaptsizesmall"
             android:fontFamily="@font/montserrat"
             android:gravity="center"
             android:id="@+id/a_search_cb_park"
@@ -510,7 +511,7 @@
             style="@style/YellowCheck"
             android:textColor="@color/colorD"
             android:textStyle="bold"
-            android:textSize="13sp"
+            android:textSize="@dimen/textadaptsizesmall"
             android:fontFamily="@font/montserrat"
             android:gravity="center"
             android:id="@+id/a_search_cb_market"
@@ -527,7 +528,7 @@
             style="@style/YellowCheck"
             android:textColor="@color/colorD"
             android:textStyle="bold"
-            android:textSize="13sp"
+            android:textSize="@dimen/textadaptsizesmall"
             android:fontFamily="@font/montserrat"
             android:gravity="center"
             android:id="@+id/a_search_cb_pharmacy"

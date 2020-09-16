@@ -52,7 +52,7 @@ class MainFragment : Fragment(), LifecycleObserver {
         mMyViewModel.allWordsLive.observe(this, Observer {listEst ->
             listEst.forEach { est ->
                 mListData?.add(est)
-                subscriber_recyclerView.adapter?.notifyDataSetChanged()
+             //   subscriber_recyclerView.adapter?.notifyDataSetChanged()
 
             }
         })

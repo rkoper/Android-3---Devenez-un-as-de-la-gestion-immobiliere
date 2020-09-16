@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="textadaptsize">14dp</dimen>
-    <dimen name="textadaptsizesmall">14dp</dimen>
+    <dimen name="textadaptsizesmall">12dp</dimen>
  </resources>

@@ -181,7 +181,7 @@ object Utils {
         etTextInput?.hint = hint
         val font: Typeface? = ResourcesCompat.getFont(mContext, R.font.montserrat)
         etTextInput?.setTypeface(font, Typeface.BOLD)
-        etTextInput?.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20.5F)
+        etTextInput?.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.textadaptsize))
         val searchIcon = (autocompleteFragment?.view as LinearLayout).getChildAt(0) as ImageView
         searchIcon.visibility = View.GONE
         autocompleteFragment?.setTypeFilter(TypeFilter.ADDRESS)
