@@ -18,6 +18,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.format.Time
 import android.util.Log
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -156,6 +157,7 @@ class CreateActivity : AppCompatActivity() {
             with(mBuilder) {
                 setItems(listType) { dialog, i ->
                     a_create_ed_type.text = listType[i]
+
                     mType = a_create_ed_type.text.toString().trim()
                     dialog.dismiss() }
                 val mDialog = mBuilder.create()

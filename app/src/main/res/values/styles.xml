@@ -2,85 +2,51 @@
 
     <!-- Base application theme. -->
     <style name="TxtViewPrincipal" parent="@style/TextAppearance.AppCompat">
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">@dimen/textadaptsize</item>
         <item name="fontFamily">@font/montserrat</item>
-        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColor">@color/colorD</item>
         <item name="android:ellipsize">end</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:maxLines">1</item>
         <item name="android:textStyle">bold</item>
         <item name="android:maxLength">30</item>
-        <item name="android:gravity">left</item>
-        <item name="android:textColorHint">@color/colorBlack</item>
-    </style>
-
-    <style name="TxtViewYellow" parent="@style/TxtViewPrincipal">
-        <item name="android:textSize">13sp</item>
-        <item name="fontFamily">@font/montserrat</item>
-        <item name="android:textColor">@color/colorD</item>
-        <item name="android:ellipsize">end</item>
         <item name="android:gravity">center</item>
-        <item name="android:maxLength">30</item>
-        <item name="android:maxLines">1</item>
+        <item name="android:textColorHint">@color/colorBlack</item>
         <item name="android:textAlignment">center</item>
     </style>
 
-    <style name="EditTXTCreate" parent="@style/TxtViewYellow">
-        <item name="android:ellipsize">end</item>
+    <style name="EditTXTCreate" parent="@style/TxtViewPrincipal">
         <item name="android:paddingStart">3dp</item>
         <item name="android:layout_width">0dp</item>
-        <item name="fontFamily">@font/montserrat</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:textColor">@color/colorD</item>
         <item name="android:background">@color/colorB</item>
     </style>
 
-    <style name="EditTXTCal" parent="@style/TxtViewYellow">
-        <item name="android:ellipsize">end</item>
+    <style name="EditTXTCal" parent="@style/TxtViewPrincipal">
         <item name="android:layout_width">0dp</item>
-        <item name="fontFamily">@font/montserrat</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:textColor">@color/colorD</item>
         <item name="android:background">@color/colorB</item>
     </style>
 
     <style name="EditTXTdetail" parent="@style/TxtViewPrincipal">
-        <item name="android:ellipsize">end</item>
-        <item name="android:textSize">15dp</item>
         <item name="android:layout_marginLeft">2dp</item>
-        <item name="fontFamily">@font/montserrat</item>
         <item name="android:layout_marginRight">2dp</item>
         <item name="android:background">@color/colorD</item>
     </style>
 
     <style name="EditTXTdetailv2" parent="@style/TxtViewPrincipal">
-        <item name="android:ellipsize">end</item>
-        <item name="android:textSize">12dp</item>
         <item name="android:layout_marginLeft">2dp</item>
-        <item name="fontFamily">@font/montserrat</item>
         <item name="android:layout_marginRight">2dp</item>
-        <item name="android:textColor">@color/colorD</item>
-    </style>
-    <style name="EditTXTdetailv3" parent="@style/TxtViewPrincipal">
-        <item name="android:ellipsize">end</item>
-        <item name="android:textSize">12dp</item>
-        <item name="android:layout_marginLeft">2dp</item>
-        <item name="fontFamily">@font/montserrat</item>
-        <item name="android:layout_marginRight">2dp</item>
-        <item name="android:textColor">@color/colorD</item>
     </style>
 
 
-    <style name="MyEditTextStyle2" parent="@style/TxtViewYellow">
+    <style name="MyEditTextStyle2" parent="@style/TxtViewPrincipal">
         <item name="android:layout_margin">5dp</item>
         <item name="colorControlActivated">#303030</item>
         <item name="colorControlNormal">#303030</item>
         <item name="android:paddingStart">3dp</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:textSize">13sp</item>
-        <item name="fontFamily">@font/montserrat</item>
-        <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
         <item name="android:textStyle">bold</item>
         <item name="android:maxLength">30</item>
@@ -89,25 +55,20 @@
         <item name="colorControlHighlight">#303030</item>
     </style>
 
-    <style name="MyEditTextStyleSearch" parent="@style/TxtViewYellow">
+    <style name="MyEditTextStyleSearch" parent="@style/TxtViewPrincipal">
         <item name="android:layout_margin">5dp</item>
         <item name="colorControlActivated">#303030</item>
         <item name="colorControlNormal">#303030</item>
         <item name="android:paddingStart">3dp</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:textSize">13sp</item>
-        <item name="fontFamily">@font/montserrat</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:maxLines">1</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:maxLength">30</item>
         <item name="android:gravity">left</item>
         <item name="android:textColorHint">#303030</item>
         <item name="colorControlHighlight">#303030</item>
     </style>
 
-    <style name="MyEditTextStyleSearch1" parent="@style/TxtViewYellow">
+    <style name="MyEditTextStyleSearch1" parent="@style/TxtViewPrincipal">
         <item name="android:layout_margin">5dp</item>
         <item name="colorControlActivated">#bfac40</item>
         <item name="colorControlNormal">#bfac40</item>
@@ -115,83 +76,58 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:textSize">55sp</item>
-        <item name="fontFamily">@font/montserrat</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:maxLines">1</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:maxLength">30</item>
         <item name="android:gravity">center</item>
         <item name="android:textColorHint">#bfac40</item>
         <item name="colorControlHighlight">#bfac40</item>
     </style>
 
-    <style name="MyEdittextStyle2" parent="@style/TxtViewYellow">
+    <style name="MyEdittextStyle2" parent="@style/TxtViewPrincipal">
         <item name="android:layout_margin">5dp</item>
         <item name="colorControlActivated">#bfac40</item>
         <item name="colorControlNormal">#bfac40</item>
         <item name="android:paddingStart">3dp</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:textSize">13sp</item>
-        <item name="fontFamily">@font/montserrat</item>
-        <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:maxLength">30</item>
         <item name="android:gravity">left</item>
         <item name="android:textColorHint">#bfac40</item>
         <item name="colorControlHighlight">#bfac40</item>
     </style>
 
-    <style name="MyEditTextStyle3" parent="@style/TxtViewYellow">
+    <style name="MyEditTextStyle3" parent="@style/TxtViewPrincipal">
         <item name="android:layout_margin">1dp</item>
         <item name="colorControlActivated">#303030</item>
         <item name="colorControlNormal">#303030</item>
-        <item name="android:textSize">15sp</item>
-        <item name="fontFamily">@font/montserrat</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:maxLines">1</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:maxLength">30</item>
         <item name="android:gravity">center</item>
         <item name="android:textColorHint">#303030</item>
         <item name="colorControlHighlight">#303030</item>
     </style>
 
-    <style name="MyEditTextStyle4" parent="@style/TxtViewYellow">
-        <item name="android:textSize">15sp</item>
-        <item name="fontFamily">@font/montserrat</item>
+    <style name="MyEditTextStyle4" parent="@style/TxtViewPrincipal">
     </style>
 
-    <style name="MyEdittextStyle5" parent="@style/TxtViewYellow">
+    <style name="MyEdittextStyle5" parent="@style/TxtViewPrincipal">
         <item name="colorControlActivated">#bfac40</item>
         <item name="colorControlNormal">#bfac40</item>
         <item name="android:paddingStart">3dp</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:textSize">13sp</item>
-        <item name="fontFamily">@font/montserrat</item>
-        <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:maxLength">30</item>
         <item name="android:gravity">bottom</item>
         <item name="android:textColorHint">#bfac40</item>
         <item name="colorControlHighlight">#bfac40</item>
     </style>
 
-    <style name="MyEdittextStyle6" parent="@style/TxtViewYellow">
+    <style name="MyEdittextStyle6" parent="@style/TxtViewPrincipal">
         <item name="colorControlActivated">#bfac40</item>
         <item name="colorControlNormal">#bfac40</item>
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
-        <item name="android:textSize">13sp</item>
-        <item name="fontFamily">@font/montserrat</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:maxLines">1</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:maxLength">30</item>
-        <item name="android:gravity">center</item>
         <item name="android:textColorHint">#bfac40</item>
         <item name="colorControlHighlight">#bfac40</item>
     </style>
@@ -230,7 +166,7 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:textSize">17sp</item>
+        <item name="android:textSize">@dimen/textadaptsize</item>
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>

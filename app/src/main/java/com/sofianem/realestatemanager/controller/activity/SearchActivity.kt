@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.format.Time
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -73,8 +74,8 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
 
             if (!c.isChecked) {
                 println("-------CHECK---2 --" + c.toString())
-                a_search_sold_dateEnd.isVisible = false
-                a_search_sold_dateBegin.isVisible = false
+                a_search_sold_dateEnd.visibility = View.INVISIBLE
+                a_search_sold_dateBegin.visibility = View.INVISIBLE
                 mStatus = "ok" } } }
 
 

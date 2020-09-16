@@ -13,6 +13,7 @@ import android.media.MediaScannerConnection
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.provider.MediaStore
+import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.EditText
@@ -28,6 +29,7 @@ import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.data.model.EstateR
+import kotlinx.android.synthetic.main.activity_create.*
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -178,10 +180,9 @@ object Utils {
         etTextInput?.gravity = Gravity.CENTER
         etTextInput?.hint = hint
         val font: Typeface? = ResourcesCompat.getFont(mContext, R.font.montserrat)
-        etTextInput?.typeface = font
-        etTextInput?.textSize = 15f
-        val searchIcon =
-            (autocompleteFragment?.view as LinearLayout).getChildAt(0) as ImageView
+        etTextInput?.setTypeface(font, Typeface.BOLD)
+        etTextInput?.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20.5F)
+        val searchIcon = (autocompleteFragment?.view as LinearLayout).getChildAt(0) as ImageView
         searchIcon.visibility = View.GONE
         autocompleteFragment?.setTypeFilter(TypeFilter.ADDRESS)
         autocompleteFragment?.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS_COMPONENTS))

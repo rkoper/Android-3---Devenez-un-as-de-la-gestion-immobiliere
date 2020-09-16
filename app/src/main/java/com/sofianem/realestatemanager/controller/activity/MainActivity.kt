@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModelProviders
 import com.sofianem.realestatemanager.R
@@ -27,15 +28,19 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+         var fragmentDetailView = findViewById<View>(R.id.fragment_main_detail)
+        mIsDualPane = !(fragmentDetailView == null || !fragmentDetailView.isVisible)
+        mListId = intent.getIntegerArrayListExtra("masterId")
+        val fragment = MainFragment.newInstance(mListId)
+
         onClickAdd()
         onClickMap()
         onClickSearch()
         onClickCAl()
         onClickHome()
-        val fragmentDetailView = findViewById<View>(R.id.fragment_main_detail)
-        mIsDualPane = fragmentDetailView.isVisible
-        mListId = intent.getIntegerArrayListExtra("masterId")
-        val fragment = MainFragment.newInstance(mListId)
+
+
         supportFragmentManager.beginTransaction().replace(R.id.fragmentMain, fragment).commit()
         supportFragmentManager.executePendingTransactions()
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
