@@ -48,6 +48,7 @@ import kotlinx.android.synthetic.main.dialog_custom_layout.view.*
 import kotlinx.android.synthetic.main.dialog_description.view.*
 import kotlinx.android.synthetic.main.dialog_layout.view.*
 import kotlinx.android.synthetic.main.dialog_number_picker.*
+import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import java.io.ByteArrayOutputStream
@@ -134,8 +135,27 @@ class CreateActivity : AppCompatActivity() {
             mMyViewModelForPlaces.getNearbyPlace4(mCreateId, mGeoLoc)
             mMyViewModelForImages.storeImageData(mCreateId, listImage_path, listimageDescription)
 
+            updateProxLoc(mCreateId)
+
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent) } }
+
+
+    private fun updateProxLoc( mCreateId : Int) {
+        mMyViewModelForPlaces.getByIdLocation(  "park", mCreateId).observe(this, androidx.lifecycle.Observer  { lnp ->
+            if (lnp.isNotEmpty()){ if (lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxPark(lnp[0].placeDistance.toString(), mCreateId)}}})
+
+        mMyViewModelForPlaces.getByIdLocation(  "pharmacy",mCreateId).observe(this, androidx.lifecycle.Observer {lnp ->
+            if (lnp.isNotEmpty()){ if (lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxPharma(lnp[0].placeDistance.toString(), mCreateId)}}})
+
+        mMyViewModelForPlaces.getByIdLocation(  "primary_school",mCreateId).observe(this, androidx.lifecycle.Observer { lnp ->
+            if (lnp.isNotEmpty()){ if (lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxSchool(lnp[0].placeDistance.toString(), mCreateId)} }})
+
+        mMyViewModelForPlaces.getByIdLocation(  "supermarket", mCreateId) .observe(this, androidx.lifecycle.Observer { lnp ->
+            if (lnp.isNotEmpty()){ if (lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxMarket(lnp[0].placeDistance.toString(), mCreateId)}}})
+    }
+
+
 
     private fun loadItem() {
         loadCity()

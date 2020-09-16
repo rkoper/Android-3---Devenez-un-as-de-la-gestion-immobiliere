@@ -94,35 +94,42 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
         initRV()
         createRV(iid)
         saveEntry()
+        clickHome()
 
 
+    }
+
+    private fun clickHome() {
+        activity_upload_home_floating.setOnClickListener {
+        val intent = Intent(this , MainActivity::class.java)
+        startActivity(intent)}
     }
 
     private fun retrieveData(id: Int) {
         mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer { list ->
             var lstEst = list[id]
 
-            if (lstEst.type == "") { upload_type.text = "-" }
+            if (lstEst.type == "") { upload_type.text =  "     -     " }
             else { upload_type.text = lstEst.type; mType = lstEst.type }
 
-            if (lstEst.price == 0) { upload_tx_pric.text = "-" }
+            if (lstEst.price == 0) { upload_tx_pric.text =  "     -     " }
             else { upload_tx_pric.text = lstEst.price.toString() + "  $"; mPrice = lstEst.price }
 
-            if (lstEst.surface == 0) { upload_tx_surface.text = "-" }
+            if (lstEst.surface == 0) { upload_tx_surface.text =  "     -     " }
             else { upload_tx_surface.text = lstEst.surface.toString() + "  Sq/ft"; mSurface = lstEst.surface }
 
-            if (lstEst.number_of_room == 0) { upload_room.text = "-" }
+            if (lstEst.number_of_room == 0) { upload_room.text = "     -     "}
             else { upload_room.text = lstEst.number_of_room.toString(); mNumberOfRoom = lstEst.number_of_room }
 
-            if (lstEst.description == "") { upload_description.setText("-") }
+            if (lstEst.description == "") { upload_description.setText( "     -     ") }
             else { upload_description.setText(lstEst.description); mDescription = lstEst.description }
 
-            if (lstEst.personn == "") { upload_personn.text = "-" }
+            if (lstEst.personn == "") { upload_personn.text =  "     -     " }
             else { upload_personn.text = lstEst.personn; mPersonn = lstEst.personn }
 
             if (lstEst.location != "") { mGeoLoc = lstEst.location }
 
-            if (lstEst.date_begin.toInt() == 3) { upload_datebegin.text = "-" }
+            if (lstEst.date_begin.toInt() == 3) { upload_datebegin.text =  "     -     " }
             else { mDateBegin = lstEst.date_begin; upload_datebegin.text = Utils.convertToLocalB(lstEst)}
 
             if (lstEst.date_end == 8888888888) { upload_dateend.isChecked = false}

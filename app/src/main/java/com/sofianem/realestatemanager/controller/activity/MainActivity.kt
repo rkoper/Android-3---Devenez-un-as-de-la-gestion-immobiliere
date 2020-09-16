@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
         onClickCAl()
         onClickHome()
 
+        println( " ???????????????????????")
 
         supportFragmentManager.beginTransaction().replace(R.id.fragmentMain, fragment).commit()
         supportFragmentManager.executePendingTransactions()

@@ -31,17 +31,38 @@ class MainFragment : Fragment(), LifecycleObserver {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mListId = arguments?.getIntegerArrayList("1111")
+       // mListId = arguments?.getIntegerArrayList("1111")
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         mMyViewModelForImages = ViewModelProviders.of(this).get(MyViewModelForImages::class.java)
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        subscriber_recyclerView.layoutManager = LinearLayoutManager(activity)
+        subscriber_recyclerView.adapter = MainAdapter(mListData , mListImage, requireContext())
+        mMyViewModel.allWordsLive.observe(this, Observer {listEst ->
+            mListData?.clear()
+            mListImage?.clear()
+            listEst.forEach { est -> mListData?.add(est) }
+            mMyViewModelForImages.allImageLive.observe(this, Observer {listImg ->
+                listImg.forEach { img -> mListImage?.add(img) } })
+             subscriber_recyclerView.adapter?.notifyDataSetChanged()
+        })
+    }
+
+
+
+
+       // setupRecyclerView(mListId)
+       // initDataForRV()
+        // initImageForRV()
+/*
     private fun setupRecyclerView(mListId: java.util.ArrayList<Int>?) {
-        val t1 = arrayListOf<ImageV>()
+        val mListImage = arrayListOf<ImageV>()
         if (mListId != null) {
-            val t = mMyViewModel.saveIdData(mListId)
-            subscriber_recyclerView.adapter = MainAdapter(t, t1, requireContext())
+            val mListData = mMyViewModel.saveIdData(mListId)
+            subscriber_recyclerView.adapter = MainAdapter(mListData, mListImage, requireContext())
         } else {
 
             initDataForRV()
@@ -52,11 +73,8 @@ class MainFragment : Fragment(), LifecycleObserver {
         mMyViewModel.allWordsLive.observe(this, Observer {listEst ->
             listEst.forEach { est ->
                 mListData?.add(est)
-             //   subscriber_recyclerView.adapter?.notifyDataSetChanged()
-
-            }
-        })
-    }
+                subscriber_recyclerView.adapter?.notifyDataSetChanged()
+            } }) }
 
     private fun initImageForRV() {
         mMyViewModelForImages.allImageLive.observe(this, Observer {listImg ->
@@ -64,18 +82,11 @@ class MainFragment : Fragment(), LifecycleObserver {
                 mListImage?.add(img)
                 subscriber_recyclerView.adapter?.notifyDataSetChanged()
 
-            }
-        })
+            } }) }
 
 
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        subscriber_recyclerView.layoutManager = LinearLayoutManager(activity)
-        subscriber_recyclerView.adapter = MainAdapter(mListData , mListImage, requireContext())
-        setupRecyclerView(mListId)
-    }
+ */
 
     companion object {
         fun newInstance(mListId: ArrayList<Int>?): MainFragment {

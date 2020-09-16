@@ -53,27 +53,19 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             startActivity(intent) } }
 
     private fun allMarker() {
-
         mMyViewModel.allWordsLive.observe(this, Observer {
             it.forEach { estate ->
-                if (estate.location != "") {
                 val location = Utils.formatLatLng(estate.location)
                 val markerOptions = MarkerOptions()
                 markerOptions.position(location)
                 markerOptions.snippet(estate.id.toString())
-                println("---------   1   estate.id    ------->" + estate.id)
                 markerOptions.icon(BitmapDescriptorFactory.fromResource(com.sofianem.realestatemanager.R.drawable.home))
                 mItemMarker = mMap.addMarker(markerOptions)
-                mMap.setOnMarkerClickListener { m -> onMarkerClick(m) } } }})
-
-
-                }
-
+                mMap.setOnMarkerClickListener { m -> onMarkerClick(m) } } }) }
 
 
     private fun onMarkerClick(m: Marker): Boolean {
         val mId: Int = mItemMarker!!.snippet.toInt()
-        println("---------   2   mId    ------->" + mId)
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("id", mId)
         startActivity(intent)
@@ -129,17 +121,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (mMap != null) { val permission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                if (permission == PackageManager.PERMISSION_GRANTED) {
-                    mMap.isMyLocationEnabled = true
-                    mMap.uiSettings.isTiltGesturesEnabled = true
-                    mMap.uiSettings.isZoomControlsEnabled = true
+                if (permission == PackageManager.PERMISSION_GRANTED) { mMap.isMyLocationEnabled = true
                     uiSettings()} }
 
             else { requestPermissions(mPermissions, PERMISSION_REQUEST)
                 mMap.isMyLocationEnabled = true
-                mMap.uiSettings.isZoomControlsEnabled = true
-                mMap.uiSettings.isTiltGesturesEnabled = true
-                mMap.uiSettings.isZoomControlsEnabled = true
                 uiSettings()} } }
 
     private fun uiSettings() {
@@ -157,7 +143,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             if (mMarker != null) { mMarker!!.remove() }
             mLatitude = mLastLocation.latitude
             mLongitude = mLastLocation.longitude
-
             val latlng = LatLng(mLatitude, mLongitude)
             val markerOptions = MarkerOptions().position(latlng).title("My Position")
                 .icon(BitmapDescriptorFactory.fromResource(com.sofianem.realestatemanager.R.drawable.target))

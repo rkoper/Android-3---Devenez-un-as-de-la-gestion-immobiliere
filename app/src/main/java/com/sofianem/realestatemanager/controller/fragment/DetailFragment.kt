@@ -68,39 +68,22 @@ class DetailFragment : Fragment(), LifecycleObserver {
             initDate(mId, it, sdf)
             initStatus(mId, it)
             initLocation(mId, it)
-            updateProxLoc(it, mId) })
+            initProxLoc(mId, it)
+
+       })
         setupRecyclerView(id)
     }
 
+    private fun initProxLoc(mId: Int, it: List<EstateR>?) {
+        if (it?.get(mId)?.prox_park == "Estate_park") {detail_park_txt.text  = " - "}
+        else {detail_park_txt.text  = it?.get(mId)?.prox_park + " m"}
+        if (it?.get(mId)?.prox_school == "Estate_school" ) {detail_school_txt.text = " - "}
+        else {detail_school_txt.text  = it?.get(mId)?.prox_school  + " m"}
+        if (it?.get(mId)?.prox_pharmacy == "Estate_pharmacy") {detail_pharmacy_txt.text = " - " }
+        else {detail_pharmacy_txt.text  = it?.get(mId)?.prox_pharmacy  + " m"}
+        if (it?.get(mId)?.prox_market == "Estate_market") {detail_market_txt.text = " - " }
+        else {detail_market_txt.text  = it?.get(mId)?.prox_market + " m"}
 
-    private fun updateProxLoc(estate: List<EstateR>, mId: Int) {
-        mMyViewModelForPlaces.getByIdLocation(  "park",estate[mId].id).observe(this, Observer { lnp ->
-            if (lnp.isNotEmpty()){
-                if (lnp[0].placeDistance < 500 && estate[mId].prox_park == "Estate_park")
-                {mMyViewModel.UpdateProxPark("ok", estate[mId].id)}
-                detail_park_txt.text  = lnp[0].placeDistance.toString() + " m" }})
-
-        mMyViewModelForPlaces.getByIdLocation(  "pharmacy",estate[mId].id).observe(this, Observer { lnp ->
-            if (lnp.isNotEmpty()){
-                if (lnp[0].placeDistance < 500 && estate[mId].prox_pharmacy == "Estate_pharmacy")
-                {mMyViewModel.UpdateProxPharma("ok", estate[mId].id)}
-
-                if (lnp[0].placeDistance.toString() == "Estate_pharmacy")
-                {detail_pharmacy_txt.text = " - "}
-                else {
-                    detail_pharmacy_txt.text  = lnp[0].placeDistance.toString() + " m" }}})
-
-        mMyViewModelForPlaces.getByIdLocation(  "primary_school",estate[mId].id).observe(this, Observer { lnp ->
-            if (lnp.isNotEmpty()){
-                if (lnp[0].placeDistance < 500 && estate[mId].prox_school == "Estate_school")
-                {mMyViewModel.UpdateProxSchool("ok", estate[mId].id)}
-                detail_school_txt.text  = lnp[0].placeDistance.toString() + " m" }})
-
-        mMyViewModelForPlaces.getByIdLocation(  "supermarket",estate[mId].id).observe(this, Observer { lnp ->
-            if (lnp.isNotEmpty()){
-                if (lnp[0].placeDistance < 500 && estate[mId].prox_market == "Estate_market")
-                {mMyViewModel.UpdateProxMarket("ok", estate[mId].id)}
-                detail_market_txt.text  = lnp[0].placeDistance.toString() + " m" }})
     }
 
     private fun setupRecyclerView(mId: Int) {
