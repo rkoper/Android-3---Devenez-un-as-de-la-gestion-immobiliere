@@ -10,6 +10,20 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/activity_home_floating_create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/house_grey"
+        app:backgroundTint="@color/colorB"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:maxImageSize="36dp"
+        app:tint="@color/colorD"
+        tools:targetApi="lollipop" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/activity_saveData_floating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +31,7 @@
         android:scaleType="centerCrop"
         android:src="@drawable/save_yellow"
         app:backgroundTint="@color/colorB"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/activity_home_floating_create"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:maxImageSize="36dp"
@@ -140,6 +154,37 @@
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/create_guidelineC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.93" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/create_guidelineA1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.33" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/create_guidelineA2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/create_guidelineA3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.66" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/create_guidelineA4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.93" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/create_guidelineA5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

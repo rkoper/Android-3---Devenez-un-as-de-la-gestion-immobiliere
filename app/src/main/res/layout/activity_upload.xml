@@ -334,15 +334,9 @@
             app:layout_constraintLeft_toLeftOf="@+id/upload_guideline8"
             app:layout_constraintTop_toBottomOf="@+id/upload_guideline41" />
 
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/upload_dateend"
-            android:buttonTint="@color/colorD"
-            style="@style/ThemeOverlay.MySwitchCompat"
-            android:textColor="@color/colorD"
-            android:textStyle="bold"
-            android:textSize="13sp"
-            android:fontFamily="@font/montserrat"
-            android:gravity="center"
+            android:theme="@style/ThemeOverlay.MySwitchCompat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/upload_in_dateend"

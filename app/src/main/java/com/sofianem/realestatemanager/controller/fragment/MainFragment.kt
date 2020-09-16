@@ -38,7 +38,6 @@ class MainFragment : Fragment(), LifecycleObserver {
     }
 
     private fun setupRecyclerView(mListId: java.util.ArrayList<Int>?) {
-        println(" T ---------------2 -------------")
         val t1 = arrayListOf<ImageV>()
         if (mListId != null) {
             val t = mMyViewModel.saveIdData(mListId)

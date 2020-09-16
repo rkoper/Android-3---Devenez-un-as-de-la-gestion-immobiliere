@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -27,7 +26,6 @@ import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.fragment_detail.*
-import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -50,34 +48,15 @@ class DetailFragment : Fragment(), LifecycleObserver {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         mMyViewModelForPlaces = ViewModelProviders.of(this).get(MyViewModelForPlaces::class.java)
-        mMyViewModelForImages = ViewModelProviders.of(this).get(MyViewModelForImages::class.java)
-
-
-
-        updateNbPhoto() }
-
-
-    private fun updateNbPhoto() {
-        /*
-        mMyViewModel.allWordsLive.observe(this, Observer {
-            it.forEach {estate ->
-                val nbPhotoList =   mMyViewModelForImages.retrievImagebyMasterID(estate.id)
-                mMyViewModel.UpdateNbPhoto(nbPhotoList.size, estate.id) } })
-
-         */
-                }
-
-
+        mMyViewModelForImages = ViewModelProviders.of(this).get(MyViewModelForImages::class.java) }
 
     fun displayDetails(id: Int) {
-
        mMyViewModel.allWordsLive.observe(this, Observer {
-            println("--------IT 2 TIT -------------" )
             val sdf = SimpleDateFormat("dd/MM/yyyy")
             mId = id - 1
-           println("--------geocode search------------" + it)
             initType(mId, it)
             initPrice(mId, it)
             initCity(mId, it)
@@ -89,12 +68,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
             initDate(mId, it, sdf)
             initStatus(mId, it)
             initLocation(mId, it)
-
-            updateProxLoc(it, mId)
-
-        })
-
-        println("--------IT TI TIT -------------" )
+            updateProxLoc(it, mId) })
         setupRecyclerView(id)
     }
 
@@ -103,8 +77,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
         mMyViewModelForPlaces.getByIdLocation(  "park",estate[mId].id).observe(this, Observer { lnp ->
             if (lnp.isNotEmpty()){
                 if (lnp[0].placeDistance < 500 && estate[mId].prox_park == "Estate_park")
-                {mMyViewModel.UpdateProxPark("ok", estate[mId].id)
-                    println(" test ----------park " + lnp[0].placeName + " // " + lnp[0].placeDistance)}
+                {mMyViewModel.UpdateProxPark("ok", estate[mId].id)}
                 detail_park_txt.text  = lnp[0].placeDistance.toString() + " m" }})
 
         mMyViewModelForPlaces.getByIdLocation(  "pharmacy",estate[mId].id).observe(this, Observer { lnp ->
@@ -139,8 +112,6 @@ class DetailFragment : Fragment(), LifecycleObserver {
             else { listImage.forEach { value ->
                 if (value.masterId == mId) { mListImagePath.add(value.imageUri)
                     mListImageDescription.add(value.imageDescription) } }
-                println(" -------PHOTO -------" + mListImagePath.toString())
-
                 detail_recyclerview.adapter = DetailAdapter(mListImagePath, mListImageDescription, requireContext()) } })
 
         val layoutManager = GridLayoutManager(requireContext(), 3)
@@ -150,10 +121,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
     private fun initLocation(mId: Int, it: List<EstateR>?) {
         if (it?.get(mId)!!.location != "null") {
             mLocationForPlace = it[mId].location
-            println(" test map -------OO-----" + mLocationForPlace)
             val locationToDisplay = "https://maps.googleapis.com/maps/api/staticmap?center=$mLocationForPlace&zoom=20&size=2400x1200&maptype=roadmap&markers=color:red%7Clabel:S%7C$mLocationForPlace&key=AIzaSyC-Hromy2t2Pfgd-qlYnDk0SOVdVmctrvc"
-            println(" test map ------------" + locationToDisplay)
-
             Glide.with(this).load(locationToDisplay).into(detail_map)
             detail_map.setOnClickListener {
                 val intent = Intent(activity, PlacesActivity::class.java)
@@ -167,7 +135,6 @@ class DetailFragment : Fragment(), LifecycleObserver {
             cancel_sold.setOnClickListener {
                 val intent = Intent(activity, UpdateActivity::class.java)
                 intent.putExtra(ID, mId)
-                println(" ---------id ---------" + mId)
                 startActivity(intent) } } }
 
     private fun initDate(mId: Int, it: List<EstateR>, sdf: SimpleDateFormat) {

@@ -64,7 +64,6 @@ class CreateActivity : AppCompatActivity() {
     private var mUri: Uri? = null
     private val mListImagePath: MutableList<String?> = ArrayList()
     private val mListImageDescription: MutableList<String?> = ArrayList()
-    lateinit var mView: View
     var mType: String = ""
     var mCity: String = ""
     private var mDescription: String = ""
@@ -89,16 +88,19 @@ class CreateActivity : AppCompatActivity() {
 
         mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer {
             if (it.isEmpty()) {mCreateId = 1 }
-            else { mCreateId = it.last().id.plus(1)
-                println(" last entry--------->" + it.last())}
-
-//
-        })
+            else { mCreateId = it.last().id.plus(1) }})
 
 
         loadItem()
-        OnClick()
+        onClickHouse()
+        onClickAddPhoto()
         createData(mListImagePath, mListImageDescription)
+    }
+
+    private fun onClickHouse() {
+        activity_home_floating_create.setOnClickListener {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)}
     }
 
 
@@ -256,7 +258,7 @@ class CreateActivity : AppCompatActivity() {
 
     private fun loadCity() { mCity = a_create_ed_city.text.toString().trim() }
 
-    private fun OnClick() { photoUpload.setOnClickListener { selectImage() }}
+    private fun onClickAddPhoto() { photoUpload.setOnClickListener { selectImage() }}
 
     private fun selectImage() {
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_layout, null)
