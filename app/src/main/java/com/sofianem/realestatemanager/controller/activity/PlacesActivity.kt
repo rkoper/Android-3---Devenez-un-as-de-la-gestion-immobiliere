@@ -35,6 +35,7 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
     private var mNewNewList = arrayListOf<String>()
     private val mMarkerOptions = MarkerOptions()
     private val mMyViewModelForPlaces by viewModel<MyViewModelForPlaces>()
+    private lateinit var mPlace : List<NearbyPlaces>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,25 +44,22 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
         mId = intent.getIntExtra(DetailFragment.NEWID, 1)
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
+        mMyViewModelForPlaces.allPlace.observe(this, androidx.lifecycle.Observer  { lnp -> mPlace = lnp })
+
         initFButton()
         onClickHome()
 
         loadMap() }
 
     private fun initFButton() {
-        fb_park_float.setOnClickListener {
-            initPlaceSearch("park", R.mipmap.flaggreen ) }
-        fb_market_float.setOnClickListener {
-            initPlaceSearch("supermarket", R.mipmap.flagred ) }
-        fb_school_float.setOnClickListener {
-            initPlaceSearch("primary_school", R.mipmap.flagorange ) }
-        fb_pharmacy_float.setOnClickListener {
-            initPlaceSearch("pharmacy", R.mipmap.flagblue ) }
+        fb_park_float.setOnClickListener { initPlaceSearch("park", R.mipmap.flaggreen ) }
+        fb_market_float.setOnClickListener { initPlaceSearch("supermarket", R.mipmap.flagred ) }
+        fb_school_float.setOnClickListener { initPlaceSearch("primary_school", R.mipmap.flagorange ) }
+        fb_pharmacy_float.setOnClickListener { initPlaceSearch("pharmacy", R.mipmap.flagblue ) }
     }
 
     private fun initPlaceSearch(mType1: String, icon: Int) {
-
-        mMyViewModelForPlaces.getByIdLocation1(mType1, mId).observe(this, Observer { listNearbyPlaces ->
+        mMyViewModelForPlaces.getByIdLocation(mType1, mId).observe(this, Observer { listNearbyPlaces ->
             mMap?.clear()
             listNearbyPlaces?.forEach { np ->
                 val location = Utils.formatLatLng(np.placeLocation)
@@ -71,6 +69,7 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
                 mMap?.addMarker(markerO) }
             mMap?.addMarker(mMarkerOptions)
             loadRV(listNearbyPlaces, mType1) }) }
+
 
     private fun loadRV(it: List<NearbyPlaces>?, mType1: String) {
         mNewList.clear()

@@ -19,6 +19,7 @@ import com.sofianem.realestatemanager.utils.MyCommunication
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.list_item_detail_map.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
@@ -41,10 +42,16 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
         onClickCAl()
         onClickHome()
 
-        println( " ???????????????????????")
+        // testtest()
 
         supportFragmentManager.beginTransaction().replace(R.id.fragmentMain, fragment).commit()
         supportFragmentManager.executePendingTransactions()
+    }
+
+    private fun testtest() {
+        mMyViewModel.allWordsLive.observe(this, Observer {
+            println(" -------- ALL DATA -----" + it.toString())
+        })
     }
 
     private fun onClickHome() {

@@ -1,10 +1,7 @@
 package com.sofianem.realestatemanager.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.sofianem.realestatemanager.data.dataBase.AllDatabase
 import com.sofianem.realestatemanager.data.model.*
 import com.sofianem.realestatemanager.data.repository.EstateRepo
@@ -30,6 +27,7 @@ private val mResponseData1: ArrayList<PlacesResponse1?> = arrayListOf()
     private val mResponseData4: ArrayList<PlacesResponse4?> = arrayListOf()
 
     val allPlace: LiveData<List<NearbyPlaces>> = mRepositoryPlace.readAllPlace
+
 
 
     fun getNearbyPlace1(id: Int, location: String) {
@@ -137,21 +135,8 @@ private val mResponseData1: ArrayList<PlacesResponse1?> = arrayListOf()
 
     fun saveNearby4(np: NearbyPlaces) { mRepositoryPlace.insertLoc4(np) }
 
-    fun getByIdLocation1(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        val a = mRepositoryPlace.getByIdLocation1(type, master_id)
+    fun getByIdLocation(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
+        val a = mRepositoryPlace.getByIdLocation(type, master_id)
         return a }
-
-    fun getByIdLocation2(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        val a = mRepositoryPlace.getByIdLocation2(type, master_id)
-        return a }
-
-    fun getByIdLocation3(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        val a = mRepositoryPlace.getByIdLocation3(type, master_id)
-        return a }
-
-    fun getByIdLocation4(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        val a = mRepositoryPlace.getByIdLocation4(type, master_id)
-        return a }
-
 
 }
