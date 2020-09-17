@@ -8,7 +8,9 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.sofianem.realestatemanager.EstateApplication
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.fragment.DetailFragment
 import com.sofianem.realestatemanager.controller.fragment.MainFragment
@@ -17,13 +19,12 @@ import com.sofianem.realestatemanager.utils.MyCommunication
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_detail.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
-
     var mIsDualPane = false
     private var mListId: ArrayList<Int>? = arrayListOf()
-    private lateinit var mMyViewModel: MyViewModel
-//    private var mListData: List<EstateR>? = arrayListOf()
+    private val mMyViewModel by viewModel<MyViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +45,6 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
 
         supportFragmentManager.beginTransaction().replace(R.id.fragmentMain, fragment).commit()
         supportFragmentManager.executePendingTransactions()
-        mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
     }
 
     private fun onClickHome() {
@@ -90,14 +90,13 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
 
         else  {
             println("--------------------phone--------------")
+            mMyViewModel.allWordsLive.observe(this, Observer {
+                println(" -------- ALL DATA -----" + it.toString())
+            })
             val intent = Intent(this, DetailActivity::class.java)
             intent.putExtra(ID, id)
             startActivity(intent)
-            finish()}
+            finish()} }
 
-    }
-
-    companion object { const val ID = "id"
-       }
-
+    companion object { const val ID = "id" }
 }

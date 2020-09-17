@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorA">#3D3B31</color>
     <color name="colorB">#303030</color>
     <color name="colorD">#bfac40</color>
     <color name="colorTransparent">#00000000</color>
@@ -11,5 +12,9 @@
     <color name="colorGreen">#76e782</color>
     <color name="colorRed">#e9403e</color>
     <color name="colorWhite">#ffff</color>
+
+
+
+
 
 </resources>

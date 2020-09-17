@@ -22,15 +22,17 @@ import com.sofianem.realestatemanager.controller.activity.CreateActivity.Compani
 import com.sofianem.realestatemanager.controller.activity.CreateActivity.Companion.listType
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
+import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
+import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.activity_search.*
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
 
 @Suppress("DEPRECATION")
 class SearchActivity : AppCompatActivity(), LifecycleOwner  {
-
-    private lateinit var mMyViewModel: MyViewModel
+    private val mMyViewModel by viewModel<MyViewModel>()
     var mListAll = arrayListOf<Int>()
     //ADDRESS
     var mAddress: String? = ""; var mHintAddress = "" ; var mStreetNumber = "" ; var mRoute = ""
@@ -56,7 +58,6 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         mListAll.clear()
         searchPerson() ; searchRoom() ; searchType()
         searchSurface() ; searchPrice() ; searchAddress()

@@ -5,42 +5,34 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.activity.MainActivity.Companion.ID
 import com.sofianem.realestatemanager.controller.fragment.DetailFragment
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
+import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
+import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.activity_detail.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailActivity : AppCompatActivity() {
 
-    private lateinit var mMyViewModel: MyViewModel
+    private val mMyViewModel by viewModel<MyViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-
         val id = intent.getIntExtra(ID, 1)
-
-        mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-
         mMyViewModel.allWordsLive.observe(this, Observer { detail_fb_edit.isVisible = it[id-1].status == "ok" })
-
-
         initFrag(id)
         onclickUpdate(id)
         onClickHome()
         onClickMap()
         onClickSearch()
-        onClickCAl()
-
-
-    }
+        onClickCAl() }
 
     private fun initFrag(id: Int) {
         val fragmentMainDetail = supportFragmentManager.findFragmentById(R.id.fragment_main_detail) as DetailFragment?
-        fragmentMainDetail?.displayDetails(id)
-    }
+        fragmentMainDetail?.displayDetails(id) }
 
     private fun onClickSearch() {
         detail_fb_search.setOnClickListener {

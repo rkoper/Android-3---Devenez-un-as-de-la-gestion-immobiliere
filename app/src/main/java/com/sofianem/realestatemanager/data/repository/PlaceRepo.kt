@@ -8,20 +8,13 @@ import com.sofianem.realestatemanager.data.model.ImageV
 import com.sofianem.realestatemanager.data.model.NearbyPlaces
 import kotlinx.coroutines.*
 
-open class PlaceRepo (application: Application) {
+open class PlaceRepo (nearbyPlaceDao: PlaceDao) {
 
-    private val nearbyPlaceDao: PlaceDao
-    var readAllPlace: LiveData<List<NearbyPlaces>>
-
-    init {
-        val database = AllDatabase.getInstance(application.applicationContext)
-        nearbyPlaceDao = database!!.nearbyPlaceDao()
-        readAllPlace = nearbyPlaceDao.getPlaceAll()
-    }
+    private val nearbyPlaceDao = nearbyPlaceDao
+    var readAllPlace: LiveData<List<NearbyPlaces>> = nearbyPlaceDao.getPlaceAll()
 
     fun insertLoc1(nearbyPlaces: NearbyPlaces) {
         GlobalScope.launch(Dispatchers.IO) {
-            println(" -------GO 5 ------" + nearbyPlaces.placeMasterId)
             nearbyPlaceDao.insertLoc1(nearbyPlaces) }
     }
 
@@ -42,6 +35,12 @@ open class PlaceRepo (application: Application) {
 
     fun getByIdLocation1 (type: String, master_id: Int) : LiveData<List<NearbyPlaces>>
             = nearbyPlaceDao.getByIdLocation1(type, master_id)
+    fun getByIdLocation2 (type: String, master_id: Int) : LiveData<List<NearbyPlaces>>
+            = nearbyPlaceDao.getByIdLocation2(type, master_id)
+    fun getByIdLocation3 (type: String, master_id: Int) : LiveData<List<NearbyPlaces>>
+            = nearbyPlaceDao.getByIdLocation3(type, master_id)
+    fun getByIdLocation4 (type: String, master_id: Int) : LiveData<List<NearbyPlaces>>
+            = nearbyPlaceDao.getByIdLocation4(type, master_id)
 
 
 }

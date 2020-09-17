@@ -18,7 +18,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.format.Time
 import android.util.Log
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -27,7 +26,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.appyvet.materialrangebar.RangeBar
 import com.google.android.gms.common.api.Status
@@ -36,21 +34,16 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.adapter.CreateAdapter
-import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.utils.GeocoderUtil
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.activity_create.*
-import kotlinx.android.synthetic.main.activity_upload.*
 import kotlinx.android.synthetic.main.dialog_custom_layout.view.*
-import kotlinx.android.synthetic.main.dialog_description.view.*
 import kotlinx.android.synthetic.main.dialog_layout.view.*
 import kotlinx.android.synthetic.main.dialog_number_picker.*
-import kotlinx.android.synthetic.main.fragment_detail.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
@@ -58,11 +51,6 @@ import java.util.*
 
 
 class CreateActivity : AppCompatActivity() {
-
-    private lateinit var mMyViewModel: MyViewModel
-    private lateinit var mMyViewModelForPlaces: MyViewModelForPlaces
-    private lateinit var mMyViewModelForImages: MyViewModelForImages
-
     private var mUri: Uri? = null
     private val mListImagePath: MutableList<String?> = ArrayList()
     private val mListImageDescription: MutableList<String?> = ArrayList()
@@ -80,19 +68,16 @@ class CreateActivity : AppCompatActivity() {
     private var mDateEnd: Long = 8888888888
     var mCreateId: Int = 99
     var mNbPhoto:Int = 0
+    private val mMyViewModel by viewModel<MyViewModel>()
+    private val mMyViewModelForImages by viewModel<MyViewModelForImages>()
+    private val mMyViewModelForPlaces by viewModel<MyViewModelForPlaces>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create)
-        mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-        mMyViewModelForPlaces = ViewModelProviders.of(this).get(MyViewModelForPlaces::class.java)
-        mMyViewModelForImages = ViewModelProviders.of(this).get(MyViewModelForImages::class.java)
-
         mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer {
             if (it.isEmpty()) {mCreateId = 1 }
             else { mCreateId = it.last().id.plus(1) }})
-
-
         loadItem()
         onClickHouse()
         onClickAddPhoto()
@@ -129,31 +114,27 @@ class CreateActivity : AppCompatActivity() {
                     listImage_path,
                     listimageDescription) }
 
-            mMyViewModelForPlaces.getNearbyPlace1(mCreateId, mGeoLoc)
-            mMyViewModelForPlaces.getNearbyPlace2(mCreateId, mGeoLoc)
-            mMyViewModelForPlaces.getNearbyPlace3(mCreateId, mGeoLoc)
-            mMyViewModelForPlaces.getNearbyPlace4(mCreateId, mGeoLoc)
+            mMyViewModelForPlaces.getNearbyPlace1(mCreateId, mGeoLoc).run {  updateProx2( mCreateId)  }
+            mMyViewModelForPlaces.getNearbyPlace2(mCreateId, mGeoLoc).run { updateProx1( mCreateId) }
+            mMyViewModelForPlaces.getNearbyPlace3(mCreateId, mGeoLoc).run { updateProx3( mCreateId) }
+            mMyViewModelForPlaces.getNearbyPlace4(mCreateId, mGeoLoc).run { updateProx4( mCreateId) }
             mMyViewModelForImages.storeImageData(mCreateId, listImage_path, listimageDescription)
-
-            updateProxLoc(mCreateId)
 
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent) } }
 
-
-    private fun updateProxLoc( mCreateId : Int) {
-        mMyViewModelForPlaces.getByIdLocation(  "park", mCreateId).observe(this, androidx.lifecycle.Observer  { lnp ->
-            if (lnp.isNotEmpty()){ if (lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxPark(lnp[0].placeDistance.toString(), mCreateId)}}})
-
-        mMyViewModelForPlaces.getByIdLocation(  "pharmacy",mCreateId).observe(this, androidx.lifecycle.Observer {lnp ->
-            if (lnp.isNotEmpty()){ if (lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxPharma(lnp[0].placeDistance.toString(), mCreateId)}}})
-
-        mMyViewModelForPlaces.getByIdLocation(  "primary_school",mCreateId).observe(this, androidx.lifecycle.Observer { lnp ->
-            if (lnp.isNotEmpty()){ if (lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxSchool(lnp[0].placeDistance.toString(), mCreateId)} }})
-
-        mMyViewModelForPlaces.getByIdLocation(  "supermarket", mCreateId) .observe(this, androidx.lifecycle.Observer { lnp ->
-            if (lnp.isNotEmpty()){ if (lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxMarket(lnp[0].placeDistance.toString(), mCreateId)}}})
-    }
+    private fun updateProx1( mCreateId : Int) {
+            mMyViewModelForPlaces.getByIdLocation1(  "park", mCreateId).observe(this, androidx.lifecycle.Observer  { lnp ->
+                if (lnp.isNotEmpty()){ if (lnp[0].placeDistance < 500) { mMyViewModel.UpdateProxPark(lnp[0].placeDistance.toString(), mCreateId)}}})}
+    private fun updateProx2( mCreateId : Int) {
+            mMyViewModelForPlaces.getByIdLocation2(  "pharmacy",mCreateId).observe(this, androidx.lifecycle.Observer {lnp ->
+                if (lnp.isNotEmpty()){ if (lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxPharma(lnp[0].placeDistance.toString(), mCreateId)}}})}
+    private fun updateProx3( mCreateId : Int) {
+            mMyViewModelForPlaces.getByIdLocation3(  "primary_school",mCreateId).observe(this, androidx.lifecycle.Observer { lnp ->
+                if (lnp.isNotEmpty()){ if (lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxSchool(lnp[0].placeDistance.toString(), mCreateId)} }})}
+    private fun updateProx4( mCreateId : Int) {
+            mMyViewModelForPlaces.getByIdLocation4(  "supermarket", mCreateId) .observe(this, androidx.lifecycle.Observer { lnp ->
+                if (lnp.isNotEmpty()){ if (lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxMarket(lnp[0].placeDistance.toString(), mCreateId)}}}) }
 
 
 

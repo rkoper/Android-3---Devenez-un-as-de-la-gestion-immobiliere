@@ -20,8 +20,10 @@ import com.sofianem.realestatemanager.controller.fragment.DetailFragment
 import com.sofianem.realestatemanager.data.model.NearbyPlaces
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
+import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.activity_detail_map.*
+import org.koin.android.viewmodel.ext.android.viewModel
 import kotlin.math.roundToInt
 
 class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -31,17 +33,14 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
     var mId: Int = 0
     var mNewList = arrayListOf<String>()
     private var mNewNewList = arrayListOf<String>()
-    private lateinit var mMyViewModelForPlaces: MyViewModelForPlaces
-    private lateinit var mMyViewModel: MyViewModel
     private val mMarkerOptions = MarkerOptions()
+    private val mMyViewModelForPlaces by viewModel<MyViewModelForPlaces>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_map)
         mCurrentLocation = intent.getStringExtra(DetailFragment.LOCATION)
         mId = intent.getIntExtra(DetailFragment.NEWID, 1)
-        mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-        mMyViewModelForPlaces = ViewModelProviders.of(this).get(MyViewModelForPlaces::class.java)
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
         initFButton()
@@ -62,11 +61,9 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun initPlaceSearch(mType1: String, icon: Int) {
 
-        mMyViewModelForPlaces.getByIdLocation(mType1, mId).observe(this, Observer { listNearbyPlaces ->
-            println("---listNearbyPlaces---")
+        mMyViewModelForPlaces.getByIdLocation1(mType1, mId).observe(this, Observer { listNearbyPlaces ->
             mMap?.clear()
             listNearbyPlaces?.forEach { np ->
-                println("---listNearbyPlaces---" + np)
                 val location = Utils.formatLatLng(np.placeLocation)
                 val markerO = MarkerOptions()
                 markerO.icon(BitmapDescriptorFactory.fromResource(icon))

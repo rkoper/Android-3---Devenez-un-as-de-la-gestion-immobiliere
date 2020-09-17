@@ -11,14 +11,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-open class ImageRepo (application: Application) {
-
-    val image_Dao: ImageDao
-    var readAllImageLive: LiveData<List<ImageV>>
-
-    init { val database = AllDatabase.getInstance(application.applicationContext)
-        image_Dao = database!!.imageDao()
-        readAllImageLive = image_Dao.getImageAllLive() }
+open class ImageRepo (image_Dao: ImageDao) {
+    val image_Dao = image_Dao
+    var readAllImageLive: LiveData<List<ImageV>> = image_Dao.getImageAllLive()
 
     fun insertImage(mId: Int, listImage: MutableList<String?>, listImageDescription: MutableList<String?>) {
         val i = ImageV()

@@ -22,10 +22,7 @@ class ItemContentProvider : ContentProvider() {
             val index = AllDatabase.getInstance(context)?.estateDao()?.insertItem(EstateR.fromContentValues(mCValues))
             if (index != 0L){
                 context.contentResolver.notifyChange(mUri,null)
-                return ContentUris.withAppendedId(mUri, index!!)
-            }
-        }
-
+                return ContentUris.withAppendedId(mUri, index!!) } }
         throw IllegalArgumentException("Error insert")
     }
 
@@ -34,31 +31,22 @@ class ItemContentProvider : ContentProvider() {
             val index  = ContentUris.parseId(mUri).toInt()
             val cursor = AllDatabase.getInstance(context)?.estateDao()?.getItemsWithCursor(index)
             cursor?.setNotificationUri(context.contentResolver,mUri)
-            return cursor
-        }
-
-        throw IllegalArgumentException("Error query")
-    }
+            return cursor }
+        throw IllegalArgumentException("Error query") }
 
     override fun onCreate(): Boolean {
-        return true
-    }
+        return true }
 
     override fun update(mUri: Uri?, mCValues: ContentValues?, mString: String?, mArray: Array<out String>?): Int {
         if (context != null && mCValues != null){
             val count:Int = AllDatabase.getInstance(context)?.estateDao()!!.updateItem(EstateR.fromContentValues(mCValues))
             context.contentResolver.notifyChange(mUri,null)
-            return count
-        }
-
-        throw IllegalArgumentException("Error update")
-    }
+            return count }
+        throw IllegalArgumentException("Error update") }
 
     override fun delete(mUri: Uri?, mString: String?, mArray: Array<out String>?): Int {
-        throw IllegalArgumentException("Not allowed")
-    }
+        throw IllegalArgumentException("Not allowed") }
 
     override fun getType(mUri: Uri?): String {
-        return "vnd.android.cursor.item/$AUTHORITY.$TABLE_NAME"
-    }
+        return "vnd.android.cursor.item/$AUTHORITY.$TABLE_NAME" }
 }

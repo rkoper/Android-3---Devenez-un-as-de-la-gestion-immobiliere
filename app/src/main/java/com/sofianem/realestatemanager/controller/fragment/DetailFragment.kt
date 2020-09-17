@@ -26,32 +26,24 @@ import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.fragment_detail.*
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 @Suppress("DEPRECATION")
 class DetailFragment : Fragment(), LifecycleObserver {
-    private lateinit var mMyViewModelForPlaces: MyViewModelForPlaces
-    private lateinit var mMyViewModelForImages: MyViewModelForImages
-    private lateinit var mMyViewModel: MyViewModel
+    private val mMyViewModel by viewModel<MyViewModel>()
+    private val mMyViewModelForImages by viewModel<MyViewModelForImages>()
+    private val mMyViewModelForPlaces by viewModel<MyViewModelForPlaces>()
     private lateinit var mEstate : List<EstateR>
     private var mId: Int = 0
     private val mListImagePath: MutableList<String?> = ArrayList()
     private val mListImageDescription: MutableList<String?> = ArrayList()
     var mLocationForPlace = ""
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_detail, container, false) }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-        mMyViewModelForPlaces = ViewModelProviders.of(this).get(MyViewModelForPlaces::class.java)
-        mMyViewModelForImages = ViewModelProviders.of(this).get(MyViewModelForImages::class.java) }
 
     fun displayDetails(id: Int) {
        mMyViewModel.allWordsLive.observe(this, Observer {
@@ -68,28 +60,47 @@ class DetailFragment : Fragment(), LifecycleObserver {
             initDate(mId, it, sdf)
             initStatus(mId, it)
             initLocation(mId, it)
-            initProxLoc(mId, it)
+            initProxLoc(mId, it) })
 
-       })
         setupRecyclerView(id)
     }
 
     private fun initProxLoc(mId: Int, it: List<EstateR>?) {
-        if (it?.get(mId)?.prox_park == "Estate_park") {detail_park_txt.text  = " - "}
+        if (it?.get(mId)?.prox_park == "Estate_park") {
+            updateProx1(mId)
+            detail_park_txt.text  = " - "}
         else {detail_park_txt.text  = it?.get(mId)?.prox_park + " m"}
-        if (it?.get(mId)?.prox_school == "Estate_school" ) {detail_school_txt.text = " - "}
+        if (it?.get(mId)?.prox_school == "Estate_school" ) {
+            updateProx3(mId)
+            detail_school_txt.text = " - "}
         else {detail_school_txt.text  = it?.get(mId)?.prox_school  + " m"}
-        if (it?.get(mId)?.prox_pharmacy == "Estate_pharmacy") {detail_pharmacy_txt.text = " - " }
+        if (it?.get(mId)?.prox_pharmacy == "Estate_pharmacy") {
+            updateProx2(mId)
+            detail_pharmacy_txt.text = " - " }
         else {detail_pharmacy_txt.text  = it?.get(mId)?.prox_pharmacy  + " m"}
-        if (it?.get(mId)?.prox_market == "Estate_market") {detail_market_txt.text = " - " }
+        if (it?.get(mId)?.prox_market == "Estate_market") {
+            updateProx4(mId)
+            detail_market_txt.text = " - " }
         else {detail_market_txt.text  = it?.get(mId)?.prox_market + " m"}
-
     }
+
+    private fun updateProx1( mCreateId : Int) {
+        mMyViewModelForPlaces.getByIdLocation1(  "park", mCreateId).observe(this, androidx.lifecycle.Observer  { lnp ->
+            if (lnp.isNotEmpty()){ if (lnp[0].placeDistance < 500) { mMyViewModel.UpdateProxPark(lnp[0].placeDistance.toString(), mCreateId)}}})}
+    private fun updateProx2( mCreateId : Int) {
+        mMyViewModelForPlaces.getByIdLocation2(  "pharmacy",mCreateId).observe(this, androidx.lifecycle.Observer {lnp ->
+            if (lnp.isNotEmpty()){ if (lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxPharma(lnp[0].placeDistance.toString(), mCreateId)}}})}
+    private fun updateProx3( mCreateId : Int) {
+        mMyViewModelForPlaces.getByIdLocation3(  "primary_school",mCreateId).observe(this, androidx.lifecycle.Observer { lnp ->
+            if (lnp.isNotEmpty()){ if (lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxSchool(lnp[0].placeDistance.toString(), mCreateId)} }})}
+    private fun updateProx4( mCreateId : Int) {
+        mMyViewModelForPlaces.getByIdLocation4(  "supermarket", mCreateId) .observe(this, androidx.lifecycle.Observer { lnp ->
+            if (lnp.isNotEmpty()){
+                if (lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxMarket(lnp[0].placeDistance.toString(), mCreateId)}}}) }
 
     private fun setupRecyclerView(mId: Int) {
         mListImageDescription.clear()
         mListImagePath.clear()
-        mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         mMyViewModelForImages.allImageLive.observe(this, Observer { listImage ->
             if (listImage.isNullOrEmpty()) { Toast.makeText(requireContext(), "xxx", Toast.LENGTH_SHORT).show() }
             else { listImage.forEach { value ->

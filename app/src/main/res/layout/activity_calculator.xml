@@ -330,7 +330,7 @@
         android:layout_marginBottom="1dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:backgroundTint="@color/colorB"
+        app:backgroundTint="@color/colorA"
         android:scaleType="centerCrop"
         android:src="@drawable/house_grey"
         app:maxImageSize="36dp"

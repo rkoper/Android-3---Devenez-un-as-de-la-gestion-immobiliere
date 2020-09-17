@@ -19,8 +19,8 @@
         android:roundIcon="@mipmap/icon_estate"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents"
-        android:name="com.sofianem.realestatemanager.utils.MyApplication"
-          android:hardwareAccelerated="false"
+        android:name=".EstateApplication"
+        android:hardwareAccelerated="false"
         android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config"
 

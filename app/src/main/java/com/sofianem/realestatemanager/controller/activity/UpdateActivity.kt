@@ -44,10 +44,12 @@ import com.sofianem.realestatemanager.utils.MyCommunicationForImage
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
+import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.activity_upload.*
 import kotlinx.android.synthetic.main.dialog_custom_layout.view.*
 import kotlinx.android.synthetic.main.dialog_layout.view.*
 import kotlinx.android.synthetic.main.dialog_number_picker.*
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
@@ -55,10 +57,9 @@ import java.io.IOException
 
 @Suppress("DEPRECATION")
 class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
-
-    private lateinit var mMyViewModel: MyViewModel
+    private val mMyViewModel by viewModel<MyViewModel>()
+    private val mMyViewModelForImages by viewModel<MyViewModelForImages>()
     private var mUri: Uri? = null
-    private lateinit var mMyViewModelForImages: MyViewModelForImages
     private val OPERATION_CAPTURE_PHOTO = 1
     private val OPERATION_CHOOSE_PHOTO = 2
     private var imagePath: String? = ""
@@ -85,25 +86,18 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload)
-        mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
-        mMyViewModelForImages = ViewModelProviders.of(this).get(MyViewModelForImages::class.java)
         var iid = intent.getIntExtra(ID, 1)
         mID = iid -1
-
         retrieveData(mID)
         initRV()
         createRV(iid)
         saveEntry()
-        clickHome()
-
-
-    }
+        clickHome() }
 
     private fun clickHome() {
         activity_upload_home_floating.setOnClickListener {
         val intent = Intent(this , MainActivity::class.java)
-        startActivity(intent)}
-    }
+        startActivity(intent)} }
 
     private fun retrieveData(id: Int) {
         mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer { list ->

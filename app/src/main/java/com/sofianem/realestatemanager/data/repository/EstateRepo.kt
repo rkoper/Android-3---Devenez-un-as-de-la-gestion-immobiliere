@@ -1,6 +1,7 @@
 package com.sofianem.realestatemanager.data.repository
 
 import android.app.Application
+import android.content.Context
 import androidx.lifecycle.LiveData
 import com.sofianem.realestatemanager.data.dao.EstateDao
 import com.sofianem.realestatemanager.data.dataBase.AllDatabase
@@ -9,9 +10,10 @@ import com.sofianem.realestatemanager.data.model.ImageV
 import com.sofianem.realestatemanager.data.model.NearbyPlaces
 import kotlinx.coroutines.*
 
-open class EstateRepo (application: Application) {
+open class EstateRepo (estate_Dao: EstateDao) {
 
-    private val estate_Dao: EstateDao
+
+    val estate_Dao = estate_Dao
     private var mDataSearchList: ArrayList<EstateR> = arrayListOf()
     private var mAll: ArrayList<EstateR> = arrayListOf()
     private var mAllDataForSearch: List<Int>? = arrayListOf()
@@ -19,8 +21,6 @@ open class EstateRepo (application: Application) {
     var mCreateId: Long = 99
 
     init {
-        val database = AllDatabase.getInstance(application.applicationContext)
-        estate_Dao = database!!.estateDao()
        readAllLive = estate_Dao.getAllLiveList()
     }
 

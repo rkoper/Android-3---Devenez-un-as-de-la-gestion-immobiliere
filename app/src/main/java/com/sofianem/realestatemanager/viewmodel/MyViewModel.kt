@@ -3,21 +3,20 @@ package com.sofianem.realestatemanager.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.repository.EstateRepo
 
 
-class MyViewModel(application: Application) : AndroidViewModel(application) {
-    private val mRepository: EstateRepo = EstateRepo(application)
+class MyViewModel(private val mRepository : EstateRepo) : ViewModel() {
+   // private val mRepository: EstateRepo = EstateRepo(application)
     lateinit var location: String
     var mNbPhoto = 0
-     val allWordsLive: LiveData<List<EstateR>>
     var mCreateId: Int = 99
 
-    init {
 
-        allWordsLive = mRepository.readAllLive
-    }
+
+     val allWordsLive: LiveData<List<EstateR>> = mRepository.readAllLive
 
     fun insertTodo(type: String, city: String, price: Int, surface: Int, number_of_room: Int, description: String, adress: String, location: String,
                        status: String, date_begin: Long, date_end: Long, personn: String, mNbPhoto:Int,  imageUri: MutableList<String?>,

@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -24,15 +23,15 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import kotlinx.android.synthetic.main.activity_map.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
-
+    private val mMyViewModel by viewModel<MyViewModel>()
     private lateinit var mMap: GoogleMap
     private lateinit var mLastLocation: Location
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var mLocationRequest: LocationRequest
     private lateinit var mLocationCallback: LocationCallback
-    private lateinit var mMyViewModel: MyViewModel
     private var mLatitude: Double = 0.toDouble()
     private var mLongitude: Double = 0.toDouble()
     private var mMarker: Marker? = null
@@ -42,27 +41,13 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.sofianem.realestatemanager.R.layout.activity_map)
-        mMyViewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
         loadMap()
-        allMarker()
-        onClick() }
+        onClick()}
 
     private fun onClick() {
         activity_map_floating.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent) } }
-
-    private fun allMarker() {
-        mMyViewModel.allWordsLive.observe(this, Observer {
-            it.forEach { estate ->
-                val location = Utils.formatLatLng(estate.location)
-                val markerOptions = MarkerOptions()
-                markerOptions.position(location)
-                markerOptions.snippet(estate.id.toString())
-                markerOptions.icon(BitmapDescriptorFactory.fromResource(com.sofianem.realestatemanager.R.drawable.home))
-                mItemMarker = mMap.addMarker(markerOptions)
-                mMap.setOnMarkerClickListener { m -> onMarkerClick(m) } } }) }
-
 
     private fun onMarkerClick(m: Marker): Boolean {
         val mId: Int = mItemMarker!!.snippet.toInt()
@@ -121,16 +106,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (mMap != null) { val permission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
-                if (permission == PackageManager.PERMISSION_GRANTED) { mMap.isMyLocationEnabled = true
-                    uiSettings()} }
+                if (permission == PackageManager.PERMISSION_GRANTED) {     mMap.isMyLocationEnabled = true } }
 
             else { requestPermissions(mPermissions, PERMISSION_REQUEST)
-                mMap.isMyLocationEnabled = true
-                uiSettings()} } }
+                mMap.isMyLocationEnabled = true} } }
 
-    private fun uiSettings() {
-        mMap.uiSettings.isTiltGesturesEnabled = true
-        mMap.uiSettings.isZoomControlsEnabled = true }
 
     private fun buildLocationRequest() {
         mLocationRequest = LocationRequest()
@@ -144,10 +124,30 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             mLatitude = mLastLocation.latitude
             mLongitude = mLastLocation.longitude
             val latlng = LatLng(mLatitude, mLongitude)
-            val markerOptions = MarkerOptions().position(latlng).title("My Position")
-                .icon(BitmapDescriptorFactory.fromResource(com.sofianem.realestatemanager.R.drawable.target))
-            mMarker = mMap.addMarker(markerOptions)
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15.0f)) } } }
+            locationMarker(latlng, mMap)
+            allMarker(mMap)} } }
+
+    private fun locationMarker(latlng: LatLng, mMap: GoogleMap) {
+        val markerOptions = MarkerOptions().position(latlng).title("My Position")
+            .icon(BitmapDescriptorFactory.fromResource(com.sofianem.realestatemanager.R.drawable.target))
+        mMarker = mMap.addMarker(markerOptions)
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, 15.0f))
+
+        mMap.uiSettings.isTiltGesturesEnabled = true
+        mMap.uiSettings.isZoomControlsEnabled = true
+
+    }
+
+    private fun allMarker(mMap: GoogleMap) {
+        mMyViewModel.allWordsLive.observe(this, Observer {
+            it.forEach { estate ->
+                val location = Utils.formatLatLng(estate.location)
+                val markerOptions = MarkerOptions()
+                markerOptions.position(location)
+                markerOptions.snippet(estate.id.toString())
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(com.sofianem.realestatemanager.R.drawable.home))
+                mItemMarker = mMap.addMarker(markerOptions)
+                this.mMap.setOnMarkerClickListener { m -> onMarkerClick(m) } } }) }
 
     companion object { private const val PERMISSION_REQUEST: Int = 1000 }
 
