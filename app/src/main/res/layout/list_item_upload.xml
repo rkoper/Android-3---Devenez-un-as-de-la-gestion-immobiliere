@@ -48,7 +48,7 @@
         card_view:layout_constraintGuide_percent="0.85" />
 
     <ImageView
-        android:background="@color/colorD"
+        android:background="@color/colorB"
         android:id="@+id/backOne"
         android:layout_width="0dp"
         card_view:layout_constraintLeft_toLeftOf="parent"
@@ -93,7 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         card_view:layout_constraintTop_toTopOf="@+id/backOne"
-        card_view:layout_constraintRight_toRightOf="parent"/>
+        card_view:layout_constraintRight_toRightOf="@+id/guideline4"/>
 
     <ImageButton
         android:background="@drawable/roundsize1"
@@ -102,8 +102,9 @@
         android:id="@+id/edit_upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        card_view:layout_constraintBottom_toBottomOf="@+id/backOne"
-        card_view:layout_constraintRight_toRightOf="parent"/>
+        card_view:layout_constraintBottom_toBottomOf="@+id/guideline2"
+        card_view:layout_constraintTop_toTopOf="@+id/guideline"
+        card_view:layout_constraintRight_toRightOf="@+id/guideline4"/>
 
 
 

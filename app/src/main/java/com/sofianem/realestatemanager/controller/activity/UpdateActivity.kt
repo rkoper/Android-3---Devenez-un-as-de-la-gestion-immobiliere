@@ -17,6 +17,8 @@ import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.format.Time
+import android.util.DisplayMetrics
+import android.view.Display
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -25,7 +27,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.appyvet.materialrangebar.RangeBar
 import com.google.android.gms.common.api.Status
@@ -44,7 +45,6 @@ import com.sofianem.realestatemanager.utils.MyCommunicationForImage
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
-import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.activity_upload.*
 import kotlinx.android.synthetic.main.dialog_custom_layout.view.*
 import kotlinx.android.synthetic.main.dialog_layout.view.*
@@ -53,6 +53,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
+import kotlin.math.pow
 
 
 @Suppress("DEPRECATION")
@@ -126,16 +127,11 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             if (lstEst.date_begin.toInt() == 3) { upload_datebegin.text =  "     -     " }
             else { mDateBegin = lstEst.date_begin; upload_datebegin.text = Utils.convertToLocalB(lstEst)}
 
-            if (lstEst.date_end == 8888888888) { upload_dateend.isChecked = false}
-            else { upload_dateend.isChecked = true}
-
+            upload_dateend.isChecked = lstEst.date_end != 8888888888
 
             mId = lstEst.id
-
             upload_city.text = lstEst.city
-
             mCity = lstEst.city
-
             mAdress = lstEst.adress
             upload_adress.text = mAdress
 
@@ -144,23 +140,23 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
 
             uploadData(lstEst)
             OnClick()
-        })
-    }
+        }) }
 
     private fun initRV() {
-        val layoutManager = GridLayoutManager(this, 3)
+        if (this.checkIsTablet()){
+        val layoutManager = GridLayoutManager(this, 6)
         upload_recyclerview.layoutManager = layoutManager }
+        else
+        {val layoutManager = GridLayoutManager(this, 3)
+            upload_recyclerview.layoutManager = layoutManager} }
 
 
     private fun createRV(mID: Int) {
-        if (mID != null) {
-            mMyViewModelForImages.allImageLive.observe(this, androidx.lifecycle.Observer { it ->
-                it.forEach { value ->
-                    if (mID == value.masterId) {
+        if (mID != null) { mMyViewModelForImages.allImageLive.observe(this, androidx.lifecycle.Observer { it ->
+                it.forEach { value -> if (mID == value.masterId) {
                         mListImageId.add(value.imageId)
                         mListImagePath.add(value.imageUri)
-                        mListImagemDescription.add(value.imageDescription)
-                        } }
+                        mListImagemDescription.add(value.imageDescription) } }
                 upload_recyclerview.adapter = UploadAdapter(mListImagePath, mListImagemDescription, mListImageId, this) }) } }
 
 
@@ -208,28 +204,23 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             d.button_check_numberpicker.setOnClickListener {
                 upload_room.text = d.numberPicker.value.toString()
                 mNumberOfRoom = d.numberPicker.value
-                d.dismiss()
-            }
-            d.show()
-        } }
+                d.dismiss() }
+            d.show() } }
 
     private fun load_mPersonn() {
         upload_personn.setOnClickListener {
             val view = this.currentFocus
             view?.let { v ->
                 val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-                imm?.hideSoftInputFromWindow(v.windowToken, 0)
-            }
+                imm?.hideSoftInputFromWindow(v.windowToken, 0) }
             val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTheme)
             with(mBuilder) {
                 setItems(listPerson) { dialog, i ->
                     upload_personn.text = listPerson[i]
                     mPersonn = upload_personn.text.toString().trim()
-                    dialog.dismiss()
-                }
+                    dialog.dismiss() }
                 val mDialog = mBuilder.create()
-                mDialog.show()
-            } } }
+                mDialog.show() } } }
 
     private fun load_mDateBegin() {
         upload_datebegin.setOnClickListener {
@@ -241,12 +232,10 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             d.show(); d.getButton(DatePickerDialog.BUTTON_POSITIVE)
             .setBackgroundColor(resources.getColor(R.color.colorD))
             d.getButton(DatePickerDialog.BUTTON_NEGATIVE)
-                .setBackgroundColor(resources.getColor(R.color.colorD))
-        } }
+                .setBackgroundColor(resources.getColor(R.color.colorD)) } }
 
     private fun load_mDateEnd() {
         upload_dateend.setOnCheckedChangeListener { _, b ->
-
             if (b) {
                 upload_recyclerview_cache.isVisible = true
                 val now = Time()
@@ -255,15 +244,11 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                 val b1 = now.month
                 val c = now.year
                 mDateEnd =  Utils.convertToEpoch(Utils.formatDate(c,b1,a))
-                mStatus = "sold"
-                }
+                mStatus = "sold" }
 
             else {   upload_recyclerview_cache.isVisible = false
                 mDateEnd = 8888888888
-                mStatus = "ok" }
-
-        }
-    }
+                mStatus = "ok" } } }
 
     private fun load_mPrice() {
         upload_rangebar_price.setOnRangeBarChangeListener(object :
@@ -274,8 +259,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                 val value = rightPinValue.toString() + "0000"
                 val displayValue = Utils.addWhiteSpace(value)
                 upload_tx_pric.text = displayValue + "  $"; mPrice = value.toInt() }
-            override fun onTouchStarted(rangeBar: RangeBar?) {}
-        }) }
+            override fun onTouchStarted(rangeBar: RangeBar?) {} }) }
 
     private fun load_mAdress() {
         var streetNumber = ""
@@ -295,8 +279,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                 mAdress = "$streetNumber $route"
                 mGeoLoc = GeocoderUtil.getlocationForListv2(mAdress, mCity, this@UpdateActivity) }
 
-            override fun onError(p0: Status) {}
-        }) }
+            override fun onError(p0: Status) {} }) }
 
 
     private fun load_mType() {
@@ -306,8 +289,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                 setItems(listType) { dialog, i ->
                     upload_type.text = listType[i]; mType = listType[i]; dialog.dismiss() }
                 val mDialog = mBuilder.create()
-                mDialog.show()
-            } } }
+                mDialog.show() } } }
 
     private fun load_mSurface() {
         upload_rangebar_surface.setOnRangeBarChangeListener(object :
@@ -318,8 +300,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                 upload_tx_surface.text = rightPinValue.toString() + "  Sq/ft"; mSurface =
                     rightPinValue!!.toInt() }
 
-            override fun onTouchStarted(rangeBar: RangeBar?) {}
-        }) }
+            override fun onTouchStarted(rangeBar: RangeBar?) {} }) }
 
     fun OnClick() {
         activity_upload_addPhoto_floating.setOnClickListener { selectImage() }
@@ -347,8 +328,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
 
         mDialogView.dialog_cancel.setOnClickListener {
             mAlertDialog.dismiss()
-            Toast.makeText(applicationContext, "cancelled", Toast.LENGTH_SHORT).show()
-        } }
+            Toast.makeText(applicationContext, "cancelled", Toast.LENGTH_SHORT).show() } }
 
 
     private fun capturePhoto() {
@@ -521,6 +501,22 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                         imgV.masterId = mId
                         imgV.imageId = IdImage
                         mMyViewModelForImages.updateImageDes(imgV) } }}}}
+
+
+    private fun checkIsTablet(): Boolean {
+        val display: Display = (this as Activity).windowManager.defaultDisplay
+        val metrics = DisplayMetrics()
+        display.getMetrics(metrics)
+        val widthInches: Float = metrics.widthPixels / metrics.xdpi
+        val heightInches: Float = metrics.heightPixels / metrics.ydpi
+        val diagonalInches = Math.sqrt(
+            Math.pow(
+                widthInches.toDouble(),
+                2.0
+            ) + heightInches.toDouble().pow(2.0)
+        )
+        return diagonalInches >= 7.0
+    }
 
     companion object {}
 }

@@ -17,7 +17,9 @@ import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.format.Time
+import android.util.DisplayMetrics
 import android.util.Log
+import android.view.Display
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -49,6 +51,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
 import java.util.*
+import kotlin.math.pow
 
 
 class CreateActivity : AppCompatActivity() {
@@ -373,6 +376,21 @@ class CreateActivity : AppCompatActivity() {
         if (!wallpaperDirectory.exists()) { wallpaperDirectory.mkdirs() }
         try { val f = Utils.createPathAndSave(wallpaperDirectory,bytes, this )
             createAlertDialog(f.absolutePath) } catch (e1: IOException) { e1.printStackTrace() } }
+
+    private fun checkIsTablet(): Boolean {
+        val display: Display = (this as Activity).windowManager.defaultDisplay
+        val metrics = DisplayMetrics()
+        display.getMetrics(metrics)
+        val widthInches: Float = metrics.widthPixels / metrics.xdpi
+        val heightInches: Float = metrics.heightPixels / metrics.ydpi
+        val diagonalInches = Math.sqrt(
+            Math.pow(
+                widthInches.toDouble(),
+                2.0
+            ) + heightInches.toDouble().pow(2.0)
+        )
+        return diagonalInches >= 7.0
+    }
 
     companion object {
         const val IMAGE_DIRECTORY = "/so"

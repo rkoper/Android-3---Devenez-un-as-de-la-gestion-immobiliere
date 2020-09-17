@@ -77,7 +77,7 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
         it?.forEach { np ->
             val latPlace = Utils.latitude(np.placeLocation)
             val lngPlace = Utils.longitude(np.placeLocation)
-            val currLat = Utils.latitude(mCurrentLocation);
+            val currLat = Utils.latitude(mCurrentLocation)
             val currLng = Utils.longitude(mCurrentLocation)
             val distance = Utils.calculateDistance(currLat, currLng, latPlace, lngPlace).roundToInt()
 

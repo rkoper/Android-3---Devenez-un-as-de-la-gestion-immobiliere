@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.room.ColumnInfo
 import com.bumptech.glide.Glide
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.activity.MainActivity.Companion.ID
@@ -37,66 +36,55 @@ class DetailFragment : Fragment(), LifecycleObserver {
     private val mMyViewModel by viewModel<MyViewModel>()
     private val mMyViewModelForImages by viewModel<MyViewModelForImages>()
     private val mMyViewModelForPlaces by viewModel<MyViewModelForPlaces>()
-    private lateinit var mEstate : List<EstateR>
-    private lateinit var mPlace : List<NearbyPlaces>
+    private lateinit var mEstate: List<EstateR>
+    private lateinit var mPlace: List<NearbyPlaces>
     private var mId: Int = 0
     private val mListImagePath: MutableList<String?> = ArrayList()
     private val mListImageDescription: MutableList<String?> = ArrayList()
     var mLocationForPlace = ""
-    val pharmacyList = arrayListOf<Int>()
-    val schoolList = arrayListOf<Int>()
-    val parkList = arrayListOf<Int>()
-    val marketList = arrayListOf<Int>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        mMyViewModelForPlaces.allPlace.observe(this, Observer { lnp -> mPlace = lnp })
-        return inflater.inflate(R.layout.fragment_detail, container, false) }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? { return inflater.inflate(R.layout.fragment_detail, container, false) }
 
     fun displayDetails(id: Int) {
-       mMyViewModel.allWordsLive.observe(this, Observer {
-            val sdf = SimpleDateFormat("dd/MM/yyyy")
-            mId = id - 1
-            initType(mId, it)
-            initPrice(mId, it)
-            initCity(mId, it)
-            initSurface(mId, it)
-            initRoom(mId, it)
-            initDescription(mId, it)
-            initAdress(mId, it)
-            initPersonn(mId, it)
-            initDate(mId, it, sdf)
-            initStatus(mId, it)
-            initLocation(mId, it)
-            initProxLoc(mId, it)
-            })
-
-        setupRecyclerView(id)
-    }
+            mMyViewModel.allWordsLive.observe(this, Observer {
+                val sdf = SimpleDateFormat("dd/MM/yyyy")
+                mId = id - 1
+                initType(mId, it)
+                initPrice(mId, it)
+                initCity(mId, it)
+                initSurface(mId, it)
+                initRoom(mId, it)
+                initDescription(mId, it)
+                initAdress(mId, it)
+                initPersonn(mId, it)
+                initDate(mId, it, sdf)
+                initStatus(mId, it)
+                initLocation(mId, it)
+                initProxLoc(id, it) })
+        setupRecyclerView(id) }
 
     private fun initProxLoc(mId: Int, it: List<EstateR>?) {
-        val mIdN = mId.plus(1)
-        if (it?.get(mId)?.prox_school == "Estate_school") {UpdateProx1(mIdN)} else {detail_market_txt.text = it?.get(mId)?.prox_school.toString() + " m "}
-        if (it?.get(mId)?.prox_market == "Estate_market") {UpdateProx2(mIdN)} else {detail_school_txt.text = it?.get(mId)?.prox_market.toString() + " m "}
-        if (it?.get(mId)?.prox_park == "Estate_park") {UpdateProx3(mIdN)} else { detail_park_txt.text = it?.get(mId)?.prox_park.toString() + " m "}
-        if (it?.get(mId)?.prox_pharmacy == "Estate_pharmacy") {UpdateProx4(mIdN)} else {detail_pharmacy_txt.text = it?.get(mId)?.prox_pharmacy.toString() + " m "}
+        mMyViewModelForPlaces.getByIdLocation("park", mId).observe(this, Observer { lnp ->
+            detail_park_txt.text = lnp[0].placeDistance.toString() + " m"
+            println("-----------" +lnp[0].placeDistance )
+     }).also {
+            mMyViewModelForPlaces.getByIdLocation("supermarket", mId).observe(this, Observer { lnp ->
+                detail_market_txt.text = lnp[0].placeDistance.toString() + " m "
+                println("-----------" +lnp[0].placeDistance )
+        })}.also {
+            mMyViewModelForPlaces.getByIdLocation("primary_school", mId).observe(this, Observer { lnp ->
+                detail_school_txt.text = lnp[0].placeDistance.toString()+ " m "
+                println("-----------" +lnp[0].placeDistance )
+        })}.also {
+            mMyViewModelForPlaces.getByIdLocation("pharmacy", mId).observe(this, Observer { lnp ->
+                detail_pharmacy_txt.text = lnp[0].placeDistance.toString()+ " m "
+            println("-----------" +lnp[0].placeDistance ) }) }}
 
-    }
-
-    private fun UpdateProx1(mIdN: Int) { mPlace.forEach {np -> if (np.placeMasterId == mIdN && np.placetype == "primary_school")
-        { schoolList.add(np.placeDistance); schoolList.sort()}}
-        mMyViewModel.UpdateProxSchool(schoolList[0].toString(), mIdN) ; detail_school_txt.text = schoolList[0].toString() + " m " }
-
-    private fun UpdateProx2(mIdN: Int) { mPlace.forEach {np -> if (np.placeMasterId == mIdN && np.placetype == "supermarket")
-            { marketList.add(np.placeDistance); marketList.sort()}}
-        mMyViewModel.UpdateProxMarket(marketList[0].toString(), mIdN) ; detail_market_txt.text = marketList[0].toString() + " m " }
-
-    private fun UpdateProx3(mIdN: Int) { mPlace.forEach {np -> if (np.placeMasterId == mIdN && np.placetype == "park")
-                { parkList.add(np.placeDistance); parkList.sort()}}
-        mMyViewModel.UpdateProxPark(parkList[0].toString(), mIdN) ; detail_park_txt.text = parkList[0].toString() + " m " }
-
-    private fun UpdateProx4(mIdN: Int) { mPlace.forEach {np ->if (np.placeMasterId == mIdN && np.placetype == "pharmacy")
-                { pharmacyList.add(np.placeDistance) ; pharmacyList.sort()}}
-         mMyViewModel.UpdateProxPharma(pharmacyList[0].toString(), mIdN) ; detail_park_txt.text = pharmacyList[0].toString() + " m " }
 
 
     private fun setupRecyclerView(mId: Int) {
