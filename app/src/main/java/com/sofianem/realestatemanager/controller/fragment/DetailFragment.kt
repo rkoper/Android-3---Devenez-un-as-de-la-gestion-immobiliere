@@ -33,12 +33,14 @@ import java.util.*
 
 @Suppress("DEPRECATION")
 class DetailFragment : Fragment(), LifecycleObserver {
-    private val mMyViewModel by viewModel<MyViewModel>()
-    private val mMyViewModelForImages by viewModel<MyViewModelForImages>()
-    private val mMyViewModelForPlaces by viewModel<MyViewModelForPlaces>()
+    private val mMV by viewModel<MyViewModel>()
+    private val mMVImage by viewModel<MyViewModelForImages>()
+    private val mMVForPlaces by viewModel<MyViewModelForPlaces>()
     private lateinit var mEstate: List<EstateR>
     private lateinit var mPlace: List<NearbyPlaces>
     private var mId: Int = 0
+    private lateinit var lnp : List<NearbyPlaces>
+
     private val mListImagePath: MutableList<String?> = ArrayList()
     private val mListImageDescription: MutableList<String?> = ArrayList()
     var mLocationForPlace = ""
@@ -71,7 +73,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
     fun displayDetails(id: Int) {
 
 
-       mMyViewModel.getById(id).observe(this, Observer {mEstate ->
+       mMV.getById(id).observe(this, Observer {mEstate ->
            println( " T1 ----------> + " + mEstate )
            mId = mEstate.id
            mType = mEstate.type
@@ -106,46 +108,40 @@ class DetailFragment : Fragment(), LifecycleObserver {
        }
 
     private fun initProxLoc() {
-        mMyViewModelForPlaces.getByIdLocation("park", mId).observe(this, Observer { lnp ->
-            detail_park_txt.text = lnp[0].placeDistance.toString() + " m"
+        mMVForPlaces.getByIdLocation("park", mId).observe(this, Observer { lnp ->
+            detail_park_txt.text = lnp[0].placeDistance.toString() + " m "
             if (mProxPark == "Estate_park"){
-                if ( lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxMarket("ok", mId )}
-                else {mMyViewModel.UpdateProxMarket("no", mId )}}
+                if ( lnp[0].placeDistance < 500) {mMV.UpdateProxPark("ok", mId )}
+                else {mMV.UpdateProxPark("no", mId )}}
         }).also {
-            mMyViewModelForPlaces.getByIdLocation("supermarket", mId).observe(this, Observer { lnp ->
+            mMVForPlaces.getByIdLocation("supermarket", mId).observe(this, Observer { lnp ->
                 detail_market_txt.text = lnp[0].placeDistance.toString() + " m "
                 if (mProxMarket == "Estate_market"){
-                   if ( lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxMarket("ok", mId )}
-                   else {mMyViewModel.UpdateProxMarket("no", mId )}}
-                println("-----------" +lnp[0].placeDistance )
+                   if ( lnp[0].placeDistance < 500) {mMV.UpdateProxMarket("ok", mId )}
+                   else {mMV.UpdateProxMarket("no", mId )}}
         })}.also {
-            mMyViewModelForPlaces.getByIdLocation("primary_school", mId).observe(this, Observer { lnp ->
+            mMVForPlaces.getByIdLocation("primary_school", mId).observe(this, Observer { lnp ->
                 detail_school_txt.text = lnp[0].placeDistance.toString()+ " m "
                 if (mProxSchool == "Estate_school"){
-                    if ( lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxMarket("ok", mId )}
-                    else {mMyViewModel.UpdateProxMarket("no", mId )}}
+                    if ( lnp[0].placeDistance < 500) {mMV.UpdateProxSchool("ok", mId )}
+                    else {mMV.UpdateProxSchool("no", mId )}}
         })}.also {
-            mMyViewModelForPlaces.getByIdLocation("pharmacy", mId).observe(this, Observer { lnp ->
+            mMVForPlaces.getByIdLocation("pharmacy", mId).observe(this, Observer { lnp ->
                 detail_pharmacy_txt.text = lnp[0].placeDistance.toString()+ " m "
                 if (mProxPharmacy == "Estate_pharmacy"){
-                    if ( lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxMarket("ok", mId )}
-                    else {mMyViewModel.UpdateProxMarket("no", mId )}}
-            println("-----------" +lnp[0].placeDistance ) }) }}
+                    if ( lnp[0].placeDistance < 500) {mMV.UpdateProxPharma("ok", mId )}
+                    else {mMV.UpdateProxPharma("no", mId )}} }) }}
 
 
 
     private fun setupRecyclerView() {
         mListImageDescription.clear()
         mListImagePath.clear()
-        mMyViewModelForImages.allImageLive.observe(this, Observer { listImage ->
+        mMVImage.allImageLive.observe(this, Observer { listImage ->
             if (listImage.isNullOrEmpty()) { Toast.makeText(requireContext(), "No photo", Toast.LENGTH_SHORT).show() }
             else { listImage.forEach { img ->
-                println("listImage--+++++++++++---- " + img)
-                println("mId--+++++++++++---- " + mId)
                 if (img.masterId == mId) { mListImagePath.add(img.imageUri)
-                    mListImageDescription.add(img.imageDescription)
-                    println("mListImageDescription--+++++ 1 ++++++---- " + mListImageDescription)}
-                println("mListImageDescription--++++++++ 2 +++---- " + mListImageDescription)}
+                    mListImageDescription.add(img.imageDescription) }}
                 detail_recyclerview.adapter = DetailAdapter(mListImagePath, mListImageDescription, requireContext()) } })
 
         val layoutManager = GridLayoutManager(requireContext(), 3)
@@ -158,7 +154,6 @@ class DetailFragment : Fragment(), LifecycleObserver {
             Glide.with(this).load(locationToDisplay).into(detail_map)
             detail_map.setOnClickListener {
                 val intent = Intent(activity, PlacesActivity::class.java)
-                println("mId--++++ v2 +++++++---- " + mId)
                 intent.putExtra(NEWID, mId)
                 intent.putExtra(LOCATION, mLocationForPlace)
                 activity?.startActivity(intent) } } }
