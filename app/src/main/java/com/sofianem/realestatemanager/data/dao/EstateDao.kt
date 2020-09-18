@@ -2,8 +2,10 @@ package com.sofianem.realestatemanager.data.dao
 
 import android.database.Cursor
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.sofianem.realestatemanager.data.model.EstateR
+import com.sofianem.realestatemanager.data.model.NearbyPlaces
 
 
 @Dao
@@ -32,7 +34,7 @@ interface EstateDao {
     fun updateNbPhoto(nb_photo: Int, id: Int)
 
     @Query("SELECT * FROM Estate where Estate_id like :id")
-    fun getById(id: Int): EstateR
+    fun getById(id: Int):  EstateR
 
     @Query("SELECT * FROM Estate ORDER BY Estate_id ASC")
     fun getAllLiveList(): LiveData<List<EstateR>>
@@ -47,12 +49,10 @@ interface EstateDao {
     @Query("SELECT * FROM Estate WHERE Estate_id = :index")
     fun getItemsWithCursor(index:Int): Cursor
 
-    @Query("SELECT * FROM Estate WHERE Estate_id = :index")
-    fun readWithID(index:Int): EstateR
-
     @Insert
     fun insertItem(estate: EstateR) : Long
 
     @Update
     fun updateItem(estate: EstateR) :Int
+
 }

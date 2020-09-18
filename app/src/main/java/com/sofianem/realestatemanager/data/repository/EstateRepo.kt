@@ -3,6 +3,7 @@ package com.sofianem.realestatemanager.data.repository
 import android.app.Application
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.sofianem.realestatemanager.data.dao.EstateDao
 import com.sofianem.realestatemanager.data.dataBase.AllDatabase
 import com.sofianem.realestatemanager.data.model.EstateR
@@ -14,15 +15,10 @@ open class EstateRepo (estate_Dao: EstateDao) {
 
 
     val estate_Dao = estate_Dao
-    private var mDataSearchList: ArrayList<EstateR> = arrayListOf()
-    private var mAll: ArrayList<EstateR> = arrayListOf()
     private var mAllDataForSearch: List<Int>? = arrayListOf()
-    var readAllLive: LiveData<List<EstateR>>
+    var readAllLive: LiveData<List<EstateR>> = estate_Dao.getAllLiveList()
     var mCreateId: Long = 99
-
-    init {
-       readAllLive = estate_Dao.getAllLiveList()
-    }
+    private val mEstate = MutableLiveData<EstateR>()
 
     fun updateTodo(todo: EstateR) {
         GlobalScope.launch(Dispatchers.IO) {
@@ -30,105 +26,92 @@ open class EstateRepo (estate_Dao: EstateDao) {
         }
     }
 
-    fun getAll() : ArrayList<EstateR>{
+    fun insertTodo(todo: EstateR): Long {
         GlobalScope.launch(Dispatchers.IO) {
-            val a = estate_Dao.getAll()
-            a.forEach {mAll.add(it)}
-
+            estate_Dao.insert(todo)
         }
-        return mAll
+        return mCreateId
     }
 
-        fun insertTodo(todo: EstateR) : Long {
-            GlobalScope.launch(Dispatchers.IO) {
-                estate_Dao.insert(todo)
-            }
-            return mCreateId
-        }
 
+    fun getSearchAll(
+        personn: String?, type: String?, surfaceMini: Int?,
+        surfaceMax: Int?,
+        priceMini: Int?,
+        priceMax: Int?,
+        roomMini: Int?,
+        roomMax: Int?,
+        dateCreateBegin: Long?,
+        dateCreateEnd: Long?,
+        nb_photo_mini: Int?,
+        nb_photo_max: Int?,
+        dateSoldBegin: Long?,
+        dateSoldBeginEnd: Long?,
+        status: String?,
+        pharmacy: String?,
+        school: String?,
+        market: String?,
+        park: String?
+    ): List<Int>? {
 
-        fun readByID(listId: List<Int>): ArrayList<EstateR> {
-            listId.forEach { it ->
-                GlobalScope.launch(Dispatchers.IO) { mDataSearchList.add(estate_Dao.getById(it)) }
-            }
-            return mDataSearchList
-        }
+        mAllDataForSearch = estate_Dao.getSearchAll(
+            personn,
+            type,
+            surfaceMini,
+            surfaceMax,
+            priceMini,
+            priceMax,
+            roomMini,
+            roomMax,
+            dateCreateBegin,
+            dateCreateEnd,
+            nb_photo_mini,
+            nb_photo_max,
+            dateSoldBegin,
+            dateSoldBeginEnd,
+            status,
+            pharmacy,
+            school,
+            market,
+            park
+        )
+        return mAllDataForSearch
+    }
 
-
-        fun getSearchAll( personn: String?, type: String?, surfaceMini: Int?,
-                          surfaceMax: Int?,
-                          priceMini: Int?,
-                          priceMax: Int?,
-                          roomMini: Int?,
-                          roomMax: Int?,
-                          dateCreateBegin: Long?,
-                          dateCreateEnd: Long?,
-                          nb_photo_mini: Int?,
-                          nb_photo_max: Int?,
-                          dateSoldBegin: Long?,
-                          dateSoldBeginEnd: Long?,
-                          status: String?,
-                          pharmacy: String?,
-                          school: String?,
-                          market: String?,
-                          park: String?
-        ): List<Int>?  {
-
-            mAllDataForSearch = estate_Dao.getSearchAll(
-                personn,
-                type,
-                surfaceMini,
-                surfaceMax,
-                priceMini,
-                priceMax,
-                roomMini,
-                roomMax,
-                dateCreateBegin,
-                dateCreateEnd,
-                nb_photo_mini,
-                nb_photo_max,
-                dateSoldBegin,
-                dateSoldBeginEnd,
-                status,
-                pharmacy,
-                school,
-                market,
-                park
-            )
-            return mAllDataForSearch
-        }
-
-
-        fun updateNbPhoto(nb_photo: Int, id: Int) {
-            GlobalScope.launch(Dispatchers.IO) {
-                estate_Dao.updateNbPhoto(nb_photo, id)
-            }
-        }
-
-        fun updateProxPharma(pharmacy: String, id: Int) {
-            GlobalScope.launch(Dispatchers.IO) {
-                estate_Dao.updateProxPharma(pharmacy, id)
-            }
-        }
-
-        fun updateProxPark(park: String, id: Int) {
-            GlobalScope.launch(Dispatchers.IO) {
-                estate_Dao.updateProxPark(park, id)
-            }
-        }
-
-        fun updateProxSchool(school: String, id: Int)  {
-            GlobalScope.launch(Dispatchers.IO) {
-                estate_Dao.updateProxSchool(school, id)
-            }
-        }
-
-        fun updateProxMarket(market: String, id: Int) {
-            GlobalScope.launch(Dispatchers.IO) {
-                estate_Dao.updateProxMarket(market, id)
-            }
+    fun updateProxPharma(pharmacy: String, id: Int) {
+        GlobalScope.launch(Dispatchers.IO) {
+            estate_Dao.updateProxPharma(pharmacy, id)
         }
     }
+
+    fun updateProxPark(park: String, id: Int) {
+        GlobalScope.launch(Dispatchers.IO) {
+            estate_Dao.updateProxPark(park, id)
+        }
+    }
+
+    fun updateProxSchool(school: String, id: Int) {
+        GlobalScope.launch(Dispatchers.IO) {
+            estate_Dao.updateProxSchool(school, id)
+        }
+    }
+
+    fun updateProxMarket(market: String, id: Int) {
+        GlobalScope.launch(Dispatchers.IO) {
+            estate_Dao.updateProxMarket(market, id)
+        }
+    }
+
+    fun getById(mId: Int): MutableLiveData<EstateR> {
+        GlobalScope.launch(Dispatchers.IO) {
+            val list = estate_Dao.getById(mId)
+            mEstate.postValue(list)
+
+        }
+        println( " T2 ------>" + mEstate)
+        return mEstate
+    }
+}
 
 
 

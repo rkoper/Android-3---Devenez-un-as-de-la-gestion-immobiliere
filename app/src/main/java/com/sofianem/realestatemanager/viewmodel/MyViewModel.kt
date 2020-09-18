@@ -5,16 +5,13 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.sofianem.realestatemanager.data.model.EstateR
+import com.sofianem.realestatemanager.data.model.NearbyPlaces
 import com.sofianem.realestatemanager.data.repository.EstateRepo
 
 
 class MyViewModel(private val mRepository : EstateRepo) : ViewModel() {
-   // private val mRepository: EstateRepo = EstateRepo(application)
     lateinit var location: String
-    var mNbPhoto = 0
     var mCreateId: Int = 99
-
-
 
      val allWordsLive: LiveData<List<EstateR>> = mRepository.readAllLive
 
@@ -32,8 +29,6 @@ class MyViewModel(private val mRepository : EstateRepo) : ViewModel() {
         return mCreateId.toLong()
     }
 
-    fun saveIdData(it: List<Int>): ArrayList<EstateR> { return mRepository.readByID(it) }
-
     fun updateTodo(todo: EstateR) { mRepository.updateTodo(todo) }
 
     fun getSearchAll(
@@ -49,5 +44,8 @@ class MyViewModel(private val mRepository : EstateRepo) : ViewModel() {
     fun UpdateProxSchool(school: String, id: Int) {mRepository.updateProxSchool(school, id) }
 
     fun UpdateProxMarket(market: String, id: Int) {mRepository.updateProxMarket(market, id) }
+
+    fun getById(mId: Int): LiveData<EstateR> {
+        return mRepository.getById( mId)}
 
 }

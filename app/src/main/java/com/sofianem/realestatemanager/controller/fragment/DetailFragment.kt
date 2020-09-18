@@ -42,6 +42,24 @@ class DetailFragment : Fragment(), LifecycleObserver {
     private val mListImagePath: MutableList<String?> = ArrayList()
     private val mListImageDescription: MutableList<String?> = ArrayList()
     var mLocationForPlace = ""
+    var mType: String = ""
+    var mCity: String = ""
+    var mDescription: String = ""
+    var mAddress: String = ""
+    var mStatus: String = ""
+    var mGeoLoc: String = ""
+    var mPerson: String = ""
+    var mPrice: Int = 0
+    var mSurface: Int = 0
+    var mNumberOfRoom: Int = 0
+    var mDateBegin: Long = 3
+    var mDateEnd: Long = 8888888888
+    var mProxPark: String = ""
+    var mProxSchool: String = ""
+    var mProxMarket: String = ""
+    var mProxPharmacy: String = ""
+    var mCreateId: Int = 99
+    var mNbPhoto:Int = 0
 
 
     override fun onCreateView(
@@ -51,112 +69,146 @@ class DetailFragment : Fragment(), LifecycleObserver {
     ): View? { return inflater.inflate(R.layout.fragment_detail, container, false) }
 
     fun displayDetails(id: Int) {
-            mMyViewModel.allWordsLive.observe(this, Observer {
-                val sdf = SimpleDateFormat("dd/MM/yyyy")
-                mId = id - 1
-                initType(mId, it)
-                initPrice(mId, it)
-                initCity(mId, it)
-                initSurface(mId, it)
-                initRoom(mId, it)
-                initDescription(mId, it)
-                initAdress(mId, it)
-                initPersonn(mId, it)
-                initDate(mId, it, sdf)
-                initStatus(mId, it)
-                initLocation(mId, it)
-                initProxLoc(id, it) })
-        setupRecyclerView(id) }
 
-    private fun initProxLoc(mId: Int, it: List<EstateR>?) {
+
+       mMyViewModel.getById(id).observe(this, Observer {mEstate ->
+           println( " T1 ----------> + " + mEstate )
+           mId = mEstate.id
+           mType = mEstate.type
+           mPrice = mEstate.price
+           mCity = mEstate.city
+           mSurface = mEstate.surface
+           mNumberOfRoom = mEstate.number_of_room
+           mDescription = mEstate.description
+           mAddress = mEstate.adress
+           mPerson = mEstate.personn
+           mDateBegin = mEstate.date_begin
+           mStatus = mEstate.status
+           mLocationForPlace = mEstate.location
+           mProxPark = mEstate.prox_park
+           mProxSchool= mEstate.prox_school
+           mProxMarket = mEstate.prox_market
+           mProxPharmacy = mEstate.prox_pharmacy
+           initType()
+           initPrice()
+           initCity()
+           initSurface()
+           initRoom()
+           initDescription()
+           initAdress()
+           initPersonn()
+           initDate()
+           initStatus()
+           initLocation()
+           initProxLoc()
+           setupRecyclerView()})
+
+       }
+
+    private fun initProxLoc() {
         mMyViewModelForPlaces.getByIdLocation("park", mId).observe(this, Observer { lnp ->
             detail_park_txt.text = lnp[0].placeDistance.toString() + " m"
-            println("-----------" +lnp[0].placeDistance )
-     }).also {
+            if (mProxPark == "Estate_park"){
+                if ( lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxMarket("ok", mId )}
+                else {mMyViewModel.UpdateProxMarket("no", mId )}}
+        }).also {
             mMyViewModelForPlaces.getByIdLocation("supermarket", mId).observe(this, Observer { lnp ->
                 detail_market_txt.text = lnp[0].placeDistance.toString() + " m "
+                if (mProxMarket == "Estate_market"){
+                   if ( lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxMarket("ok", mId )}
+                   else {mMyViewModel.UpdateProxMarket("no", mId )}}
                 println("-----------" +lnp[0].placeDistance )
         })}.also {
             mMyViewModelForPlaces.getByIdLocation("primary_school", mId).observe(this, Observer { lnp ->
                 detail_school_txt.text = lnp[0].placeDistance.toString()+ " m "
-                println("-----------" +lnp[0].placeDistance )
+                if (mProxSchool == "Estate_school"){
+                    if ( lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxMarket("ok", mId )}
+                    else {mMyViewModel.UpdateProxMarket("no", mId )}}
         })}.also {
             mMyViewModelForPlaces.getByIdLocation("pharmacy", mId).observe(this, Observer { lnp ->
                 detail_pharmacy_txt.text = lnp[0].placeDistance.toString()+ " m "
+                if (mProxPharmacy == "Estate_pharmacy"){
+                    if ( lnp[0].placeDistance < 500) {mMyViewModel.UpdateProxMarket("ok", mId )}
+                    else {mMyViewModel.UpdateProxMarket("no", mId )}}
             println("-----------" +lnp[0].placeDistance ) }) }}
 
 
 
-    private fun setupRecyclerView(mId: Int) {
+    private fun setupRecyclerView() {
         mListImageDescription.clear()
         mListImagePath.clear()
         mMyViewModelForImages.allImageLive.observe(this, Observer { listImage ->
-            if (listImage.isNullOrEmpty()) { Toast.makeText(requireContext(), "xxx", Toast.LENGTH_SHORT).show() }
-            else { listImage.forEach { value ->
-                if (value.masterId == mId) { mListImagePath.add(value.imageUri)
-                    mListImageDescription.add(value.imageDescription) } }
+            if (listImage.isNullOrEmpty()) { Toast.makeText(requireContext(), "No photo", Toast.LENGTH_SHORT).show() }
+            else { listImage.forEach { img ->
+                println("listImage--+++++++++++---- " + img)
+                println("mId--+++++++++++---- " + mId)
+                if (img.masterId == mId) { mListImagePath.add(img.imageUri)
+                    mListImageDescription.add(img.imageDescription)
+                    println("mListImageDescription--+++++ 1 ++++++---- " + mListImageDescription)}
+                println("mListImageDescription--++++++++ 2 +++---- " + mListImageDescription)}
                 detail_recyclerview.adapter = DetailAdapter(mListImagePath, mListImageDescription, requireContext()) } })
 
         val layoutManager = GridLayoutManager(requireContext(), 3)
         detail_recyclerview.layoutManager = layoutManager }
 
 
-    private fun initLocation(mId: Int, it: List<EstateR>?) {
-        if (it?.get(mId)!!.location != "null") {
-            mLocationForPlace = it[mId].location
+    private fun initLocation() {
+        if (mLocationForPlace != "null") {
             val locationToDisplay = "https://maps.googleapis.com/maps/api/staticmap?center=$mLocationForPlace&zoom=20&size=2400x1200&maptype=roadmap&markers=color:red%7Clabel:S%7C$mLocationForPlace&key=AIzaSyC-Hromy2t2Pfgd-qlYnDk0SOVdVmctrvc"
             Glide.with(this).load(locationToDisplay).into(detail_map)
             detail_map.setOnClickListener {
                 val intent = Intent(activity, PlacesActivity::class.java)
-                intent.putExtra(NEWID, mId + 1)
+                println("mId--++++ v2 +++++++---- " + mId)
+                intent.putExtra(NEWID, mId)
                 intent.putExtra(LOCATION, mLocationForPlace)
                 activity?.startActivity(intent) } } }
 
-    private fun initStatus(mId: Int, it: List<EstateR>?) {
-        if (it?.get(mId)!!.status == "sold") { detail_sold.isVisible = true
+    private fun initStatus() {
+        if (mStatus == "sold") { detail_sold.isVisible = true
             detail_sold.setOnClickListener { Toast.makeText(requireContext(), "Already sold", Toast.LENGTH_LONG).show() }
             cancel_sold.setOnClickListener {
                 val intent = Intent(activity, UpdateActivity::class.java)
                 intent.putExtra(ID, mId)
                 startActivity(intent) } } }
 
-    private fun initDate(mId: Int, it: List<EstateR>, sdf: SimpleDateFormat) {
-        if (it[mId].date_begin.toInt() == 3) { detail_datebegin.text = "-"} else{
-            val mDisplayDateBegin = sdf.format(Date(it[mId].date_begin))
+    private fun initDate() {
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        if (mDateBegin.toInt() == 3) { detail_datebegin.text = "-"} else{
+            val mDisplayDateBegin = sdf.format(Date(mDateBegin))
             detail_datebegin.text = mDisplayDateBegin.toString() }
 
-        if (it[mId].date_end == 8888888888) { detail_dateend.text = "-" }  else {
-            val mDisplayDateEnd = sdf.format(Date(it[mId].date_end))
+        if (mDateEnd == 8888888888) { detail_dateend.text = "-" }  else {
+            val mDisplayDateEnd = sdf.format(Date(mDateEnd))
             detail_dateend.text = mDisplayDateEnd.toString() } }
 
-    private fun initPersonn(mId: Int, it: List<EstateR>?) {
-        if (it?.get(mId)!!.personn == "") {   detail_personn.text   = "-"}
-        else { detail_personn.text = it[mId].personn}}
+    private fun initPersonn() {
+        if (mPerson == "") {   detail_personn.text   = "-"}
+        else { detail_personn.text = mPerson}}
 
-    private fun initAdress(mId: Int, it: List<EstateR>?) { detail_adress.text = it?.get(mId)!!.adress }
+    private fun initAdress() { detail_adress.text = mAddress }
 
-    private fun initDescription(mId: Int, it: List<EstateR>?) {
+    private fun initDescription() {
 
-        if (it?.get(mId)!!.description == "") {
+        if (mDescription == "") {
             detail_description.text = "     -     "
         } else {
-            detail_description.text = it[mId].description
+            detail_description.text = mDescription
             detail_description.setOnClickListener { _ ->
                 val mDialogView = LayoutInflater.from(context).inflate(R.layout.dialog_description_detail, null)
                 mDialogView.requestFocus()
-                val builder = AlertDialog.Builder(this!!.context!!).setView(mDialogView)
+                val builder = AlertDialog.Builder(this!!.requireContext()).setView(mDialogView)
                 val q: TextView = mDialogView.findViewById(R.id.dialog_imageview_text)
-                q.text = it[mId].description
+                q.text = mDescription
                 builder.show()
             } } }
 
-    private fun initRoom(mId: Int, it: List<EstateR>?) { if (it!![mId].number_of_room == 0) {   detail_room.text = "-"}
-    else { detail_room.text = it[mId].number_of_room.toString() } }
+    private fun initRoom() { if (mNumberOfRoom == 0) {   detail_room.text = "-"}
+    else { detail_room.text = mNumberOfRoom.toString() } }
 
-    private fun initCity(mId: Int, it: List<EstateR>?) { detail_city.text = it!![mId].city }
+    private fun initCity() { detail_city.text = mCity }
 
-    private fun initPrice(mId: Int, itPrice: List<EstateR>?) {
-        if (itPrice!![mId].price == 0) {
+    private fun initPrice() {
+        if (mPrice == 0) {
             detail_tx_pric.text = "   -   "
             detail_tx_pric_dollar.setTextColor(resources.getColor(R.color.colorPaleBlue))
             detail_tx_pric_euro.setTextColor(resources.getColor(R.color.colorPaleBlue))
@@ -164,9 +216,9 @@ class DetailFragment : Fragment(), LifecycleObserver {
             detail_tx_pric_euro.isClickable = false }
 
         else {
-            loadPriceDollar(itPrice)
+            loadPriceDollar()
             detail_tx_pric_euro.setOnClickListener { o ->
-                val value = Utils.convertDollarToEuro(itPrice[mId].price)
+                val value = Utils.convertDollarToEuro(mPrice)
                 val displayValue = Utils.addWhiteSpace(value.toString())
                 detail_tx_pric.text = "$displayValue  €"
                 detail_tx_pric_dollar.setTextColor(resources.getColor(R.color.colorPaleBlue))
@@ -175,11 +227,11 @@ class DetailFragment : Fragment(), LifecycleObserver {
                 detail_tx_pric_euro.isClickable = false}
 
             detail_tx_pric_dollar.setOnClickListener { o ->
-                loadPriceDollar(itPrice) } }
+                loadPriceDollar() } }
     }
 
-    private fun loadPriceDollar(itPrice: List<EstateR>) {
-        val displayValue = Utils.addWhiteSpace(itPrice[mId].price.toString())
+    private fun loadPriceDollar() {
+        val displayValue = Utils.addWhiteSpace(mPrice.toString())
         detail_tx_pric.text = "$displayValue  $"
         detail_tx_pric_dollar.setTextColor(resources.getColor(R.color.colorD))
         detail_tx_pric_dollar.isClickable = false
@@ -188,37 +240,37 @@ class DetailFragment : Fragment(), LifecycleObserver {
     }
 
 
-    private fun initSurface(mId: Int, itSurface: List<EstateR>?) {
-        if (itSurface!![mId].surface == 0) {
+    private fun initSurface() {
+        if (mSurface == 0) {
             detail_tx_surface.text = "         -         "
             detail_tx_surface_square.setTextColor(resources.getColor(R.color.colorPaleBlue))
             detail_tx_surface_m2.setTextColor(resources.getColor(R.color.colorPaleBlue))
             detail_tx_surface_square.isClickable = false
             detail_tx_surface_m2.isClickable = false }
         else {
-            loadSurfaceSq(itSurface)
+            loadSurfaceSq()
             detail_tx_surface_m2.setOnClickListener {
-                val value = Utils.convertSqTom2(itSurface[mId].surface)
+                val value = Utils.convertSqTom2(mSurface)
                 detail_tx_surface.text = "$value     m²"
                 detail_tx_surface_square.setTextColor(resources.getColor(R.color.colorPaleBlue))
                 detail_tx_surface_m2.setTextColor(resources.getColor(R.color.colorD))
                 detail_tx_surface_square.isClickable = true
                 detail_tx_surface_m2.isClickable = false}
 
-            detail_tx_surface_square.setOnClickListener { loadSurfaceSq(itSurface) } }
+            detail_tx_surface_square.setOnClickListener { loadSurfaceSq() } }
     }
 
-    private fun loadSurfaceSq(itSurface: List<EstateR>) {
-        detail_tx_surface.text = itSurface[mId].surface.toString() + "    Sq/ft"
+    private fun loadSurfaceSq() {
+        detail_tx_surface.text = mSurface.toString() + "    Sq/ft"
         detail_tx_surface_square.setTextColor(resources.getColor(R.color.colorD))
         detail_tx_surface_square.isClickable = false
         detail_tx_surface_m2.isClickable = true
         detail_tx_surface_m2.setTextColor(resources.getColor(R.color.colorPaleBlue))
     }
 
-    private fun initType(mId: Int, it: List<EstateR>?) {
-        if (it?.get(mId)!!.type == "") {   detail_type.text  = "-"}
-        else { detail_type.text = it[mId].type} }
+    private fun initType() {
+        if (mType == "") {   detail_type.text  = "-"}
+        else { detail_type.text = mType} }
 
     companion object {
         const val NEWID = "newId"

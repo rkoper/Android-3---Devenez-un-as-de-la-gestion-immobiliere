@@ -403,5 +403,6 @@ class CreateActivity : AppCompatActivity() {
         val listType = arrayOf("Apartment", "House", "Loft", "Castle")
         const val OPERATION_CAPTURE_PHOTO = 1
         const val OPERATION_CHOOSE_PHOTO = 2
+
     }
 }

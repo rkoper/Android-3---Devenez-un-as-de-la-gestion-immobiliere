@@ -44,7 +44,10 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
         mId = intent.getIntExtra(DetailFragment.NEWID, 1)
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
 
-        mMyViewModelForPlaces.allPlace.observe(this, androidx.lifecycle.Observer  { lnp -> mPlace = lnp })
+        println( " ID - - - - - -- " + mId)
+
+        mMyViewModelForPlaces.allPlace.observe(this, androidx.lifecycle.Observer  { lnp -> mPlace = lnp
+            println( " lnp lnp lnp  - - - - - -- " + lnp)})
 
         initFButton()
         onClickHome()
