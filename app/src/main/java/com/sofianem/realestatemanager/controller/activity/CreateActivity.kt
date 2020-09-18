@@ -43,6 +43,7 @@ import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.activity_create.*
+import kotlinx.android.synthetic.main.activity_upload.*
 import kotlinx.android.synthetic.main.dialog_custom_layout.view.*
 import kotlinx.android.synthetic.main.dialog_layout.view.*
 import kotlinx.android.synthetic.main.dialog_number_picker.*
@@ -62,7 +63,7 @@ class CreateActivity : AppCompatActivity() {
     private val mListImageDescription: MutableList<String?> = ArrayList()
     var mType: String = ""
     var mCity: String = ""
-    private var mDescription: String = ""
+    var mDescription: String = ""
     var mAddress: String = ""
     var mStatus: String = ""
     var mGeoLoc: String = ""
@@ -100,6 +101,7 @@ class CreateActivity : AppCompatActivity() {
 
     private fun createData(listImage_path: MutableList<String?>, listimageDescription: MutableList<String?>) {
         activity_saveData_floating.setOnClickListener {
+            mDescription = a_create_description.text.toString()
             mStatus = "ok"
             mNbPhoto = listimageDescription.size
             if (mAddress == "Adress" ||  mAddress == "-" ||  mAddress == "") {Toast.makeText(this, "Please add address...", Toast.LENGTH_SHORT).show()}
@@ -138,12 +140,8 @@ class CreateActivity : AppCompatActivity() {
         loadAddress()
         loadType()
         loadSurface()
-        loadDescription()
     }
 
-
-
-    private fun loadDescription() { mDescription = a_create_description.text.toString().trim()}
 
     private fun loadType() {
         a_create_ed_type.setOnClickListener {
@@ -361,9 +359,18 @@ class CreateActivity : AppCompatActivity() {
                 createRV(mListImagePath, mListImageDescription) } } }
 
     private fun createRV(listimagePath: MutableList<String?>, listimageDescription: MutableList<String?>) {
-        create_recyclerview.layoutManager = GridLayoutManager(applicationContext, 6)
-        create_recyclerview.adapter =  CreateAdapter(listimagePath, listimageDescription, this)
-        createData(mListImagePath, listimageDescription) }
+        if (this.checkIsTablet()){
+            create_recyclerview.layoutManager = GridLayoutManager(applicationContext, 3)
+            create_recyclerview.adapter =  CreateAdapter(listimagePath, listimageDescription, this)
+            createData(mListImagePath, listimageDescription) }
+        else
+        { create_recyclerview.layoutManager = GridLayoutManager(applicationContext, 6)
+            create_recyclerview.adapter =  CreateAdapter(listimagePath, listimageDescription, this)
+            createData(mListImagePath, listimageDescription)}
+    }
+
+
+
 
     private fun saveImage(myBitmap: Bitmap) {
         val bytes = ByteArrayOutputStream()
