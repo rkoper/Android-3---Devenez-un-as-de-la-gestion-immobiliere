@@ -22,7 +22,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         val id = intent.getIntExtra(ID, 1)
-        mMyViewModel.allWordsLive.observe(this, Observer { detail_fb_edit.isVisible = it[id-1].status == "ok" })
+        mMyViewModel.mAllEstate.observe(this, Observer { detail_fb_edit.isVisible = it[id-1].status == "ok" })
         initFrag(id)
         onclickUpdate(id)
         onClickHome()

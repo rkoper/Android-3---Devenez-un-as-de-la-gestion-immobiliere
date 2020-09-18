@@ -16,7 +16,8 @@ open class EstateRepo (estate_Dao: EstateDao) {
 
     val estate_Dao = estate_Dao
     private var mAllDataForSearch: List<Int>? = arrayListOf()
-    var readAllLive: LiveData<List<EstateR>> = estate_Dao.getAllLiveList()
+    var readAllLive: LiveData<List<EstateR>> = estate_Dao.getAll()
+    var readAllId: LiveData<List<Int>> = estate_Dao.getAllId()
     var mCreateId: Long = 99
     private val mEstate = MutableLiveData<EstateR>()
 
@@ -35,48 +36,29 @@ open class EstateRepo (estate_Dao: EstateDao) {
 
 
     fun getSearchAll(
-        personn: String?, type: String?, surfaceMini: Int?,
-        surfaceMax: Int?,
-        priceMini: Int?,
-        priceMax: Int?,
-        roomMini: Int?,
-        roomMax: Int?,
-        dateCreateBegin: Long?,
-        dateCreateEnd: Long?,
-        nb_photo_mini: Int?,
-        nb_photo_max: Int?,
-        dateSoldBegin: Long?,
-        dateSoldBeginEnd: Long?,
+        personn: String?,
+        type: String?,
+        surfaceMini: Int?, surfaceMax: Int?,
+        priceMini: Int?, priceMax: Int?,
+        roomMini: Int?, roomMax: Int?,
+        dateCreateBegin: Long?, dateCreateEnd: Long?,
+        nb_photo_mini: Int?, nb_photo_max: Int?,
+        dateSoldBegin: Long?, dateSoldBeginEnd: Long?,
         status: String?,
-        pharmacy: String?,
-        school: String?,
-        market: String?,
-        park: String?
-    ): List<Int>? {
+        pharmacy: String?, school: String?, market: String?, park: String?
+    ): LiveData<List<Int>> =
 
-        mAllDataForSearch = estate_Dao.getSearchAll(
+       estate_Dao.getSearchAll(
             personn,
             type,
-            surfaceMini,
-            surfaceMax,
-            priceMini,
-            priceMax,
-            roomMini,
-            roomMax,
-            dateCreateBegin,
-            dateCreateEnd,
-            nb_photo_mini,
-            nb_photo_max,
-            dateSoldBegin,
-            dateSoldBeginEnd,
+            surfaceMini, surfaceMax,
+            priceMini, priceMax,
+            roomMini, roomMax,
+            dateCreateBegin, dateCreateEnd,
+            nb_photo_mini, nb_photo_max,
+            dateSoldBegin, dateSoldBeginEnd,
             status,
-            pharmacy,
-            school,
-            market,
-            park
-        )
-        return mAllDataForSearch
-    }
+            pharmacy, school, market, park)
 
     fun updateProxPharma(pharmacy: String, id: Int) {
         GlobalScope.launch(Dispatchers.IO) {
@@ -105,10 +87,7 @@ open class EstateRepo (estate_Dao: EstateDao) {
     fun getById(mId: Int): MutableLiveData<EstateR> {
         GlobalScope.launch(Dispatchers.IO) {
             val list = estate_Dao.getById(mId)
-            mEstate.postValue(list)
-
-        }
-        println( " T2 ------>" + mEstate)
+            mEstate.postValue(list) }
         return mEstate
     }
 }

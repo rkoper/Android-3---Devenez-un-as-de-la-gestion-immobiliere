@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
     }
 
     private fun testtest() {
-        mMyViewModel.allWordsLive.observe(this, Observer {
+        mMyViewModel.mAllEstate.observe(this, Observer {
             println(" -------- ALL DATA -----" + it.toString())
         })
     }
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
 
         else  {
             println("--------------------phone--------------")
-            mMyViewModel.allWordsLive.observe(this, Observer {
+            mMyViewModel.mAllEstate.observe(this, Observer {
                 println(" -------- ALL DATA -----" + it.toString())
             })
             val intent = Intent(this, DetailActivity::class.java)

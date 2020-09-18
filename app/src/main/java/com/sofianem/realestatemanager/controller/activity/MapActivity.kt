@@ -139,7 +139,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun allMarker(mMap: GoogleMap) {
-        mMyViewModel.allWordsLive.observe(this, Observer {
+        mMyViewModel.mAllEstate.observe(this, Observer {
             it.forEach { estate ->
                 val location = Utils.formatLatLng(estate.location)
                 val markerOptions = MarkerOptions()

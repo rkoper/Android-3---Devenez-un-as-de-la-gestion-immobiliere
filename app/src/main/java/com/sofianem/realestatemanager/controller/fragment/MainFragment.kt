@@ -27,7 +27,7 @@ class MainFragment : Fragment(), LifecycleObserver {
     ): View? { return inflater.inflate(R.layout.fragment_main, container, false) }
 
     private fun setupRecyclerView() {
-            mMyViewModel.allWordsLive.observeForever { dataEstate ->
+            mMyViewModel.mAllEstate.observeForever { dataEstate ->
                 mMyViewModelForImages.allImageLive.observe(this, Observer { dataImage ->
                     subscriber_recyclerView.adapter = MainAdapter(dataEstate, dataImage, requireContext()) }) }
     }

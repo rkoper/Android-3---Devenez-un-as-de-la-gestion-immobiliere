@@ -13,7 +13,10 @@ class MyViewModel(private val mRepository : EstateRepo) : ViewModel() {
     lateinit var location: String
     var mCreateId: Int = 99
 
-     val allWordsLive: LiveData<List<EstateR>> = mRepository.readAllLive
+
+
+     val mAllEstate: LiveData<List<EstateR>> = mRepository.readAllLive
+     val mAllEstateId : LiveData<List<Int>> = mRepository.readAllId
 
     fun insertTodo(type: String, city: String, price: Int, surface: Int, number_of_room: Int, description: String, adress: String, location: String,
                        status: String, date_begin: Long, date_end: Long, personn: String, mNbPhoto:Int,  imageUri: MutableList<String?>,
@@ -32,9 +35,28 @@ class MyViewModel(private val mRepository : EstateRepo) : ViewModel() {
     fun updateTodo(todo: EstateR) { mRepository.updateTodo(todo) }
 
     fun getSearchAll(
-        personn: String?, type: String?, surfaceMini: Int?, surfaceMax: Int?, priceMini: Int?, priceMax: Int?, roomMini: Int?, roomMax: Int?, dateCreateBegin: Long?, dateCreateEnd: Long?, nb_photo_mini:Int?, nb_photo_max:Int?, dateSoldBegin: Long?, dateSoldBeginEnd: Long?, status: String?, pharmacy:String?, school:String?, market:String?, park:String? ):  List<Int>? {
+        personn: String?,
+        type: String?,
+        surfaceMini: Int?, surfaceMax: Int?,
+        priceMini: Int?, priceMax: Int?,
+        roomMini: Int?, roomMax: Int?,
+        dateCreateBegin: Long?, dateCreateEnd: Long?,
+        nb_photo_mini:Int?, nb_photo_max:Int?,
+        dateSoldBegin: Long?, dateSoldBeginEnd: Long?,
+        status: String?,
+        pharmacy:String?, school:String?, market:String?, park:String? ):  LiveData<List<Int>> {
+
     return  mRepository.getSearchAll(
-        personn, type,surfaceMini,surfaceMax,priceMini,priceMax,roomMini,roomMax,dateCreateBegin,dateCreateEnd,nb_photo_mini,nb_photo_max,dateSoldBegin,dateSoldBeginEnd,status,pharmacy,school,market,park)
+        personn,
+        type,
+        surfaceMini,surfaceMax,
+        priceMini,priceMax,
+        roomMini,roomMax,
+        dateCreateBegin,dateCreateEnd,
+        nb_photo_mini,nb_photo_max,
+        dateSoldBegin,dateSoldBeginEnd,
+        status,
+        pharmacy,school,market,park)
     }
 
     fun UpdateProxPharma(pharmacy: String, id: Int) { mRepository.updateProxPharma(pharmacy, id) }

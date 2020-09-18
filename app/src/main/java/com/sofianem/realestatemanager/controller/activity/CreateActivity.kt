@@ -82,7 +82,7 @@ class CreateActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create)
-        mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer {
+        mMyViewModel.mAllEstate.observe(this, androidx.lifecycle.Observer {
             if (it.isEmpty()) {mCreateId = 1 } else { mCreateId = it.last().id.plus(1) }})
 
         loadItem()

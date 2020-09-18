@@ -227,19 +227,41 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
         a_search_fb_searchicon.setOnClickListener {
             if (mPerson == "" && mType == "" && mSurfaceMini == -1 && mSurfaceMax == 999999 && mPriceMini == -1 && mPriceMax == 999999999 && mRoomMini == -1
                 && mRoomMax == 99 && mCreateDateBegin.toInt() == 1 && mCreateDateEnd == 88888888870000 && mPhotoMini == -1 && mPhotoMax == 99
-                && mSoldDateBegin.toInt() == 1 && mSoldDateEnd == 88888888870000 && mStatus == "" && mPharmacy == "" && mSchool == "" && mMarket == "" && mPark == "") { mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer { it.forEach { op -> mListAll.add(op.id) } }) }
+                && mSoldDateBegin.toInt() == 1 && mSoldDateEnd == 88888888870000 && mStatus == "" && mPharmacy == "" && mSchool == "" && mMarket == "" && mPark == "") {
+                println("----1----")
+                mMyViewModel.mAllEstateId.observe(this, androidx.lifecycle.Observer {
+                    println(" Search Result -----12---->>>>>>" + it.toString())
+                })
+            }
             else {
-                if (mPerson == "") { mPerson = "%" } ; if (mType == "") { mType = "%" };  if (mStatus == "") { mStatus = "%" };   if (mPharmacy == "") { mPharmacy = "%" }
-                if (mSchool == "") { mSchool = "%" }; if (mMarket == "") { mMarket = "%" }; if (mPark == "") { mPark = "%" }
+                println("----2----")
+                if (mPerson == "") { mPerson = "%" }
+                if (mType == "") { mType = "%" }
+                if (mStatus == "") { mStatus = "%" }
+                if (mPharmacy == "") { mPharmacy = "%" }
+                if (mSchool == "") { mSchool = "%" }
+                if (mMarket == "") { mMarket = "%" }
+                if (mPark == "") { mPark = "%" }
 
-                val a  = mMyViewModel.getSearchAll(mPerson, mType, mSurfaceMini, mSurfaceMax, mPriceMini, mPriceMax, mRoomMini,
-                    mRoomMax, mCreateDateBegin, mCreateDateEnd, mPhotoMini, mPhotoMax, mSoldDateBegin, mSoldDateEnd, mStatus, mPharmacy, mSchool, mMarket, mPark)
+               mMyViewModel.getSearchAll(
+                    mPerson, mType,
+                    mSurfaceMini, mSurfaceMax,
+                    mPriceMini, mPriceMax,
+                    mRoomMini, mRoomMax,
+                    mCreateDateBegin, mCreateDateEnd,
+                    mPhotoMini, mPhotoMax,
+                    mSoldDateBegin, mSoldDateEnd,
+                    mStatus,
+                    mPharmacy, mSchool, mMarket, mPark).observe(this, androidx.lifecycle.Observer {
+                   println(" Search Result -----2---->>>>>>" + it.toString())
+               })}
 
-                a?.forEach { mListAll.add(it) }
 
-                val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("masterId", mListAll)
-                startActivity(intent) } } }
+
+                //val intent = Intent(this, MainActivity::class.java)
+                //intent.putExtra("masterId", mListAll)
+               // startActivity(intent)
+            } }
 
 
     private fun loadRV(mListAll: ArrayList<Int>?) {

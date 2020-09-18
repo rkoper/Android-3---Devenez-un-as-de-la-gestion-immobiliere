@@ -1,16 +1,10 @@
 package com.sofianem.realestatemanager.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.*
-import com.sofianem.realestatemanager.data.dataBase.AllDatabase
 import com.sofianem.realestatemanager.data.model.*
-import com.sofianem.realestatemanager.data.repository.EstateRepo
-import com.sofianem.realestatemanager.data.repository.ImageRepo
 import com.sofianem.realestatemanager.data.repository.PlaceRepo
 import com.sofianem.realestatemanager.services.MapService
 import com.sofianem.realestatemanager.utils.Utils
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -136,7 +130,7 @@ private val mResponseData1: ArrayList<PlacesResponse1?> = arrayListOf()
     fun saveNearby4(np: NearbyPlaces) { mRepositoryPlace.insertLoc4(np) }
 
     fun getByIdLocation(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
-        val a = mRepositoryPlace.getByIdLocation(type, master_id)
-        return a }
+        return mRepositoryPlace.getByIdLocation(type, master_id)
+    }
 
 }

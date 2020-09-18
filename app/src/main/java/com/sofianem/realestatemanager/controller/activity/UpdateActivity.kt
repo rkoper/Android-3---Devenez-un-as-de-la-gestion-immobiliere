@@ -101,7 +101,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
         startActivity(intent)} }
 
     private fun retrieveData(id: Int) {
-        mMyViewModel.allWordsLive.observe(this, androidx.lifecycle.Observer { list ->
+        mMyViewModel.mAllEstate.observe(this, androidx.lifecycle.Observer { list ->
             var lstEst = list[id]
 
             if (lstEst.type == "") { upload_type.text =  "     -     " }
