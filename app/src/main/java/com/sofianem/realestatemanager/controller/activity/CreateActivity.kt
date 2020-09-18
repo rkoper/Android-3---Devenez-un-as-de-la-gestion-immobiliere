@@ -50,6 +50,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.pow
 
@@ -202,14 +204,8 @@ class CreateActivity : AppCompatActivity() {
     }
 
     private fun loadDateBegin() {
-        val now = Time()
-        now.setToNow()
-        val a = now.monthDay
-        val b1 = now.month
-        val b = now.month +1
-        val c = now.year
-        mDateBegin =  Utils.convertToEpoch(Utils.formatDate(c,b1,a))
-        a_create_ed_datebegin.text = a.toString() + "/" + b.toString() + "/"+ c.toString()
+        mDateBegin = Timestamp(System.currentTimeMillis()).time
+        a_create_ed_datebegin.text = SimpleDateFormat("dd/MM/yyyy").format(Date())
             a_create_ed_datebegin.setOnClickListener {
             val dpd = DatePickerDialog.OnDateSetListener { _, y, m, d ->
                     a_create_ed_datebegin.text =  Utils.formatDate(y,m,d)
