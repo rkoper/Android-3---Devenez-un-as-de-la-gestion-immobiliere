@@ -29,6 +29,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
             android:layout_width="wrap_content"
@@ -93,6 +94,13 @@
             app:layout_constraintGuide_percent="0.85" />
 
         <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.475" />
+
+        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineV1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -105,22 +113,52 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.9" />
 
-
-        <ImageButton
-            app:layout_constraintBottom_toTopOf="@+id/guideline"
-            android:id="@+id/a_search_fb_searchicon"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineC1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="5dp"
-            android:background="@drawable/round_yellow"
-            android:src="@drawable/search_yellow"
-            app:tint="@color/colorB"
-            tools:ignore="VectorDrawableCompat"
-            tools:targetApi="lollipop"
-            app:layout_constraintTop_toBottomOf="@+id/a_search_cb_park"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.33" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineC2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.66" />
+
+
+        <LinearLayout
+            android:id="@+id/a_search_fb_searchicon"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/a_search_cb_park"
+            android:background="@drawable/round_yellow"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_weight="3"
+                android:layout_gravity="center"
+                android:id="@+id/b1"
+                android:src="@drawable/eye_grey"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_gravity="center"
+                style="@style/MyEditTextStyleSearch"
+                android:id="@+id/a_search_txt_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textColor="@color/colorBlack"
+                android:layout_weight="4"
+                />
+        </LinearLayout>
+
+
+
 
             <com.appyvet.materialrangebar.RangeBar
                 app:layout_constraintTop_toTopOf="@+id/guideline1"
@@ -221,96 +259,161 @@
             android:text="Surface max"/>
 
         <TextView
-            android:gravity="center"
+            android:gravity="right"
             android:textColorHint="@color/colorD"
             style="@style/MyEditTextStyleSearch"
-            android:hint="Date create End"
+            android:hint="Date create +"
             android:textSize="@dimen/textadaptsizesmall"
             android:background="@color/colorB"
             android:id="@+id/a_search_ed_dateEnd_create"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/cancelDCE"
             app:layout_constraintRight_toLeftOf="@id/a_search_cb_sold"
+            app:layout_constraintTop_toBottomOf="@+id/a_search_ed_dateBegin_create"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             android:importantForAutofill="no" />
+        <ImageButton
+            android:visibility="invisible"
+            android:id="@+id/cancelDCE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cancel_yellow_small"
+            app:layout_constraintBottom_toBottomOf="@+id/a_search_ed_dateEnd_create"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/a_search_ed_dateEnd_create"
+            app:layout_constraintTop_toTopOf="@+id/a_search_ed_dateEnd_create"/>
         <TextView
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
-            android:hint="Date create Begin"
+            android:hint="Date create -"
             android:textSize="@dimen/textadaptsizesmall"
             android:textColorHint="@color/colorD"
             android:id="@+id/a_search_ed_dateBegin_create"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/a_search_ed_dateEnd_create"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/cancelDCB"
             app:layout_constraintRight_toLeftOf="@id/a_search_cb_sold"
             app:layout_constraintTop_toBottomOf="@id/guideline3"
             android:importantForAutofill="no" />
+        <ImageButton
+            android:visibility="invisible"
+            android:id="@+id/cancelDCB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cancel_yellow_small"
+            app:layout_constraintBottom_toBottomOf="@+id/a_search_ed_dateBegin_create"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/a_search_ed_dateBegin_create"
+            app:layout_constraintTop_toTopOf="@+id/a_search_ed_dateBegin_create"/>
         <TextView
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
             android:id="@+id/a_search_sold_dateEnd"
             android:textColorHint="@color/colorD"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/textadaptsizesmall"
-            android:hint="Date Sold End "
-            android:visibility="invisible"
+            android:hint="Date Sold + "
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@+id/a_search_sold_dateBegin"
             app:layout_constraintLeft_toRightOf="@id/a_search_cb_sold"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/cancelDSE"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             android:importantForAutofill="no" />
+        <ImageButton
+            android:visibility="invisible"
+            android:id="@+id/cancelDSE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cancel_yellow_small"
+            app:layout_constraintBottom_toBottomOf="@+id/a_search_sold_dateEnd"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/a_search_sold_dateEnd"
+            app:layout_constraintTop_toTopOf="@+id/a_search_sold_dateEnd"/>
+
         <TextView
             android:gravity="center"
              style="@style/MyEditTextStyleSearch"
             android:textSize="@dimen/textadaptsizesmall"
             android:background="@color/colorB"
-            android:hint="Date Sold Begin "
-            android:visibility="invisible"
+            android:hint="Date Sold - "
+            android:visibility="visible"
             android:textColorHint="@color/colorD"
             android:id="@+id/a_search_sold_dateBegin"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/a_search_sold_dateEnd"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toRightOf="@id/a_search_cb_sold"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/cancelDSB"
             app:layout_constraintTop_toBottomOf="@id/guideline3" />
-        <TextView
+        <ImageButton
+            android:visibility="invisible"
+            android:id="@+id/cancelDSB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cancel_yellow_small"
+            app:layout_constraintBottom_toBottomOf="@+id/a_search_sold_dateBegin"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/a_search_sold_dateBegin"
+            app:layout_constraintTop_toTopOf="@+id/a_search_sold_dateBegin"/>
 
-             style="@style/MyEditTextStyleSearch"
-            android:gravity="bottom"
+        <TextView
+            android:paddingStart="5dp"
+            style="@style/TxtViewPrincipal1"
+            android:gravity = "bottom|start"
             android:hint="Personn"
             android:background="@color/colorB"
             android:id="@+id/a_search_ed_personn"
             android:layout_width="0dp"
             android:textColorHint="@color/colorD"
-            android:layout_height="50dp"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineV1"
+            app:layout_constraintBottom_toTopOf="@+id/guideline10"
             app:layout_constraintRight_toLeftOf="@id/a_search_ed_type"
             app:layout_constraintTop_toBottomOf="@id/guideline4" />
+        <ImageButton
+            android:visibility="invisible"
+            android:id="@+id/cancelPer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cancel_yellow_small"
+            app:layout_constraintBottom_toBottomOf="@+id/a_search_ed_personn"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineV1" />
         <TextView
-             style="@style/MyEditTextStyleSearch"
-            android:gravity="bottom"
+            android:paddingEnd="5dp"
+            style="@style/TxtViewPrincipal1"
+            android:gravity = "bottom|end"
             android:hint="Type"
             android:background="@color/colorB"
             android:id="@+id/a_search_ed_type"
             android:layout_width="0dp"
             android:textColorHint="@color/colorD"
-            android:layout_height="50dp"
+            android:layout_height="0dp"
             android:textColor="@color/colorD"
             app:layout_constraintLeft_toRightOf="@id/a_search_ed_personn"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/guidelineV2"
+            app:layout_constraintBottom_toTopOf="@+id/guideline10"
             app:layout_constraintTop_toBottomOf="@id/guideline4"
             android:importantForAutofill="no" />
+        <ImageButton
+            android:visibility="invisible"
+            android:id="@+id/cancelType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cancel_yellow_small"
+            app:layout_constraintBottom_toBottomOf="@+id/a_search_ed_type"
+            app:layout_constraintLeft_toRightOf="@+id/guidelineV2"/>
+
         <LinearLayout
             android:id="@+id/a_search_cb_sold"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/a_search_ed_dateEnd_create"
-            app:layout_constraintRight_toLeftOf="@id/a_search_sold_dateEnd"
+            app:layout_constraintLeft_toRightOf="@+id/guidelineC1"
+            app:layout_constraintRight_toLeftOf="@id/guidelineC2"
             app:layout_constraintTop_toBottomOf="@id/a_search_rangebar_surface"
+            app:layout_constraintBottom_toBottomOf="@+id/guideline4"
             android:orientation="vertical"
             android:gravity="center">
 
@@ -340,7 +443,7 @@
             android:layout_height="0dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/a_search_ed_photo"
-            app:layout_constraintTop_toBottomOf="@id/a_search_ed_personn"
+            app:layout_constraintTop_toBottomOf="@id/guideline10"
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
             android:importantForAutofill="no" />
         <TextView
@@ -398,7 +501,7 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline5"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintLeft_toRightOf="@id/a_search_ed_room"
-            app:layout_constraintTop_toBottomOf="@id/a_search_ed_type"
+            app:layout_constraintTop_toBottomOf="@id/guideline10"
             android:importantForAutofill="no" />
 
         <TextView
@@ -539,8 +642,6 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline7"
             app:layout_constraintRight_toRightOf="@+id/guidelineV2"
             app:layout_constraintTop_toBottomOf="@id/guideline6"/>
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

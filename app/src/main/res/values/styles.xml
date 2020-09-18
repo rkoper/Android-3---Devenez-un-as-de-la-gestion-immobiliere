@@ -6,13 +6,23 @@
         <item name="fontFamily">@font/montserrat</item>
         <item name="android:textColor">@color/colorD</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:paddingLeft">5dp</item>
         <item name="android:maxLines">1</item>
         <item name="android:textStyle">bold</item>
         <item name="android:maxLength">30</item>
         <item name="android:gravity">center</item>
         <item name="android:textColorHint">@color/colorBlack</item>
         <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="TxtViewPrincipal1" parent="@style/TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/textadaptsize</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textColor">@color/colorD</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLength">30</item>
+        <item name="android:textColorHint">@color/colorBlack</item>
     </style>
 
     <style name="EditTXTCreate" parent="@style/TxtViewPrincipal">
@@ -56,14 +66,15 @@
     </style>
 
     <style name="MyEditTextStyleSearch" parent="@style/TxtViewPrincipal">
-        <item name="colorControlActivated">#303030</item>
-        <item name="colorControlNormal">#303030</item>
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColorHint">#303030</item>
-        <item name="colorControlHighlight">#303030</item>
-    </style>
+    <item name="colorControlActivated">#303030</item>
+    <item name="colorControlNormal">#303030</item>
+    <item name="android:layout_width">0dp</item>
+    <item name="android:layout_height">0dp</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:textColorHint">#303030</item>
+    <item name="colorControlHighlight">#303030</item>
+</style>
+
 
     <style name="MyEditTextStyleSearch1" parent="@style/TxtViewPrincipal">
         <item name="android:layout_margin">5dp</item>
