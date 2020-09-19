@@ -30,6 +30,7 @@ import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.data.model.EstateR
 import kotlinx.android.synthetic.main.activity_create.*
+import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -258,5 +259,16 @@ object Utils {
             bitmap, 0, 0, bitmap.width,
             bitmap.height, matrix, true
         )
+    }
+
+    fun <T : Any> handleApiError(resp: Response<T>): AppResult.Error {
+        val error = ApiErrorUtils.parseError(resp)
+        return AppResult.Error(Exception(error.message))
+    }
+
+    fun <T : Any> handleSuccess(response: Response<T>): AppResult<T> {
+        response.body()?.let {
+            return AppResult.Success(it)
+        } ?: return handleApiError(response)
     }
 }

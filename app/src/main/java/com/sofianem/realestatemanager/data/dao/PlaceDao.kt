@@ -9,9 +9,8 @@ import com.sofianem.realestatemanager.data.model.NearbyPlaces
 @Dao
 interface PlaceDao {
 
-    @Query("SELECT * FROM Places")
-    fun getPlaceAll(): LiveData<List<NearbyPlaces>>
-    @Insert
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertLoc1(np: NearbyPlaces)
     @Insert
     fun insertLoc2(np: NearbyPlaces)

@@ -13,8 +13,10 @@ class EstateApplication : Application() {
             androidLogger()
             androidContext(this@EstateApplication)
             modules(
+                apiModule,
                 viewModelModule,
                 repositoryModule,
+                networkModule,
                 DataBaseModule
             )
         }

@@ -122,11 +122,14 @@ class CreateActivity : AppCompatActivity() {
                     mNbPhoto,
                     listImage_path,
                     listimageDescription) }
-
-            mMyViewModelForPlaces.getNearbyPlace1(mCreateId, mGeoLoc)
-            mMyViewModelForPlaces.getNearbyPlace2(mCreateId, mGeoLoc)
-            mMyViewModelForPlaces.getNearbyPlace3(mCreateId, mGeoLoc)
-            mMyViewModelForPlaces.getNearbyPlace4(mCreateId, mGeoLoc)
+            mMyViewModelForPlaces.saveL1(mGeoLoc, "park", mCreateId)
+            mMyViewModelForPlaces.saveL1(mGeoLoc, "supermarket", mCreateId)
+            mMyViewModelForPlaces.saveL1(mGeoLoc, "pharmacy", mCreateId)
+            mMyViewModelForPlaces.saveL1(mGeoLoc, "primary_school", mCreateId)
+           // mMyViewModelForPlaces.getNearbyPlace1(mCreateId, mGeoLoc)
+          //  mMyViewModelForPlaces.getNearbyPlace2(mCreateId, mGeoLoc)
+          //  mMyViewModelForPlaces.getNearbyPlace3(mCreateId, mGeoLoc)
+         //   mMyViewModelForPlaces.getNearbyPlace4(mCreateId, mGeoLoc)
             mMyViewModelForImages.storeImageData(mCreateId, listImage_path, listimageDescription)
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent) } }

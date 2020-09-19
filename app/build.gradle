@@ -98,7 +98,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.7.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
     implementation 'com.appyvet:materialrangebar:1.4.8'
     implementation 'com.airbnb.android:lottie:3.4.1'
 
@@ -106,4 +106,5 @@ dependencies {
     implementation 'org.koin:koin-android:2.0.0-rc-2'
     implementation 'org.koin:koin-android-viewmodel:2.0.0-rc-2'
     implementation 'org.koin:koin-androidx-scope:2.0.0-rc-2'
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.7.1"
 }

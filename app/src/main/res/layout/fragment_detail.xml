@@ -554,7 +554,7 @@
         android:layout_height="match_parent"
         android:background="@color/colorTransparent"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:visibility="visible">
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/soldguideline1"
             android:layout_width="wrap_content"
@@ -567,25 +567,25 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.1" />
+            app:layout_constraintGuide_percent="0.05" />
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/soldguideline2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.2" />
+            app:layout_constraintGuide_percent="0.25" />
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/soldguideline3"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.2" />
+            app:layout_constraintGuide_percent="0.1" />
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/soldguideline4"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.8" />
+            app:layout_constraintGuide_percent="0.9" />
 
             <TextView
                 android:id="@+id/detail_sold_1"
@@ -593,7 +593,7 @@
                 style="@style/MyEditTextStyle3"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@drawable/round_yellow"
+                android:background="@drawable/round_yellow_trans"
                 android:gravity="center"
                 android:text="SOLD"
                 android:textSize="40sp"
@@ -616,15 +616,12 @@
                 app:layout_constraintRight_toRightOf="parent"/>
             <ImageButton
                 android:id="@+id/cancel_sold"
-                android:layout_margin="5dp"
-                android:rotation="-15"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/edit_yellow"
-                app:layout_constraintTop_toTopOf="@+id/detail_sold_1"
-                app:layout_constraintBottom_toBottomOf="@+id/detail_sold_1"
-                app:layout_constraintLeft_toRightOf="@+id/soldguideline4"
-                app:layout_constraintRight_toRightOf="parent"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/edit_grey"
+                android:background="@drawable/round_yellow"
+                app:layout_constraintTop_toBottomOf="@+id/detail_sold_1"
+                app:layout_constraintRight_toRightOf="@+id/detail_sold_1"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -109,28 +109,32 @@ class DetailFragment : Fragment(), LifecycleObserver {
 
     private fun initProxLoc() {
         mMVForPlaces.getByIdLocation("park", mId).observe(this, Observer { lnp ->
-            detail_park_txt.text = lnp[0].placeDistance.toString() + " m "
-            if (mProxPark == "Estate_park"){
-                if ( lnp[0].placeDistance < 500) {mMV.UpdateProxPark("ok", mId )}
-                else {mMV.UpdateProxPark("no", mId )}}
-        }).also {
+            if (lnp.isNotEmpty()) {
+                detail_park_txt.text = lnp[0].placeDistance.toString() + " m "
+                if (mProxPark == "Estate_park") {
+                    if (lnp[0].placeDistance < 500) { mMV.UpdateProxPark("ok", mId) }
+                    else { mMV.UpdateProxPark("no", mId )}}
+            }}).also {
             mMVForPlaces.getByIdLocation("supermarket", mId).observe(this, Observer { lnp ->
+                if (lnp.isNotEmpty()) {
                 detail_market_txt.text = lnp[0].placeDistance.toString() + " m "
                 if (mProxMarket == "Estate_market"){
                    if ( lnp[0].placeDistance < 500) {mMV.UpdateProxMarket("ok", mId )}
                    else {mMV.UpdateProxMarket("no", mId )}}
-        })}.also {
+        }})}.also {
             mMVForPlaces.getByIdLocation("primary_school", mId).observe(this, Observer { lnp ->
+                if (lnp.isNotEmpty()) {
                 detail_school_txt.text = lnp[0].placeDistance.toString()+ " m "
                 if (mProxSchool == "Estate_school"){
                     if ( lnp[0].placeDistance < 500) {mMV.UpdateProxSchool("ok", mId )}
                     else {mMV.UpdateProxSchool("no", mId )}}
-        })}.also {
+        }})}.also {
             mMVForPlaces.getByIdLocation("pharmacy", mId).observe(this, Observer { lnp ->
+                if (lnp.isNotEmpty()) {
                 detail_pharmacy_txt.text = lnp[0].placeDistance.toString()+ " m "
                 if (mProxPharmacy == "Estate_pharmacy"){
                     if ( lnp[0].placeDistance < 500) {mMV.UpdateProxPharma("ok", mId )}
-                    else {mMV.UpdateProxPharma("no", mId )}} }) }}
+                    else {mMV.UpdateProxPharma("no", mId )}} }})}}
 
 
 

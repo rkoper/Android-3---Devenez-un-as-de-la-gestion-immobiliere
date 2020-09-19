@@ -14,6 +14,7 @@ val DataBaseModule = module {
     fun provideDatabase(application: Application): AllDatabase {
         return Room.databaseBuilder(application, AllDatabase::class.java, "RealEstateManager.db")
             .fallbackToDestructiveMigration()
+            .allowMainThreadQueries()
             .build()
     }
 

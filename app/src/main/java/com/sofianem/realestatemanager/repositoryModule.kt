@@ -17,12 +17,12 @@ val repositoryModule = module {
         return EstateRepo (mEstateDao) }
     fun provideImageRepository(mImageDao : ImageDao): ImageRepo {
         return ImageRepo(mImageDao) }
-    fun providePlaceRepository(mPlaceDao : PlaceDao): PlaceRepo {
-        return PlaceRepo( mPlaceDao) }
+    fun providePlaceRepository(mService : MapService, mContext: Context,  mPlaceDao : PlaceDao): PlaceRepo {
+        return PlaceRepo( mService, mContext, mPlaceDao) }
 
 
     single { provideEstateRepository( get()) }
     single { provideImageRepository(get()) }
-    single { providePlaceRepository(get()) }
+    single { providePlaceRepository(get(), androidContext(), get()) }
 
 }

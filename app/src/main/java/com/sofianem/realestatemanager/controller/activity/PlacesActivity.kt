@@ -46,8 +46,6 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback {
 
         println( " ID - - - - - -- " + mId)
 
-        mMyViewModelForPlaces.allPlace.observe(this, androidx.lifecycle.Observer  { lnp -> mPlace = lnp
-            println( " lnp lnp lnp  - - - - - -- " + lnp)})
 
         initFButton()
         onClickHome()

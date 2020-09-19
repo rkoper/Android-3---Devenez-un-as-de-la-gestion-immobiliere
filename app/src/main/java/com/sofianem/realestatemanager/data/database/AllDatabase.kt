@@ -23,6 +23,6 @@ abstract class AllDatabase : RoomDatabase() {
 
         fun getInstance(context: Context): AllDatabase {
             if (INSTANCE == null) { synchronized(this) { INSTANCE = Room.databaseBuilder(
-                context.applicationContext, AllDatabase::class.java, "RealEstateManager.db").build() } }
+                context.applicationContext, AllDatabase::class.java, "RealEstateManager.db").allowMainThreadQueries().build() } }
             return INSTANCE as AllDatabase
         } } }
