@@ -25,6 +25,16 @@
         <item name="android:textColorHint">@color/colorBlack</item>
     </style>
 
+    <style name="spinnerDropDownItemStyle">
+        <item name="android:textAlignment">textEnd</item>
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/textadaptsizeMid</item>
+        <item name="android:textColor">@color/colorD</item>
+    </style>
+
+
+
     <style name="EditTXTCreate" parent="@style/TxtViewPrincipal">
         <item name="android:paddingStart">3dp</item>
         <item name="android:layout_width">0dp</item>

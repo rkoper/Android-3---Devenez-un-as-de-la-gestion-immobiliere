@@ -3,27 +3,22 @@ package com.sofianem.realestatemanager.controller.activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
-import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.text.format.Time
 import android.view.View
-import androidx.appcompat.app.AlertDialog
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProviders
 import com.appyvet.materialrangebar.RangeBar
 import com.google.android.gms.common.api.Status
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.sofianem.realestatemanager.R
-import com.sofianem.realestatemanager.controller.activity.CreateActivity.Companion.listPerson
-import com.sofianem.realestatemanager.controller.activity.CreateActivity.Companion.listType
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
-import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
-import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.activity_search.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
@@ -72,16 +67,18 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
     private fun searchStatus() {
         search_switch_sold.setOnCheckedChangeListener { c, _ ->
             if (c.isChecked) {
-                println("-------CHECK---1 --" + c.toString())
                 a_search_sold_dateEnd.visibility = View.VISIBLE
                 a_search_sold_dateBegin.visibility = View.VISIBLE
+                txtSoldDate1.visibility = View.VISIBLE
+                txtSoldDate2.visibility = View.VISIBLE
                 mStatus = "sold"
                 initSearch()}
 
             if (!c.isChecked) {
-                println("-------CHECK---2 --" + c.toString())
                 a_search_sold_dateEnd.visibility = View.INVISIBLE
                 a_search_sold_dateBegin.visibility = View.INVISIBLE
+                txtSoldDate1.visibility = View.INVISIBLE
+                txtSoldDate2.visibility = View.INVISIBLE
                 mStatus = "%"
                 mSoldDateBegin = 1
                 mSoldDateEnd = 88888888870000
@@ -130,51 +127,32 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
             override fun onTouchStarted(rangeBar: RangeBar?) {} }) }
 
     fun searchPerson() {
-        a_search_ed_personn.setOnClickListener {
-            val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTheme)
-            with(mBuilder) {
-                setItems(listPerson) { _, i ->
-                    a_search_ed_personn.text = listPerson[i]
-                     mPerson = listPerson[i]
-                    initSearch()}
-                val mDialog = mBuilder.create()
-                mDialog.show()
-                initSearch()
-                cancelPer.visibility = View.VISIBLE }}
+        val mSelectPersonn = resources.getStringArray(((R.array.Person)))
+        if (spPersonn != null) { spPersonn.background.setColorFilter(resources.getColor(R.color.colorD), PorterDuff.Mode.SRC_ATOP);
+            val adapter = ArrayAdapter(this, R.layout.spinner_custom, mSelectPersonn)
+            spPersonn.adapter = adapter}
 
-        cancelPer.setOnClickListener {
-            cancelPer.visibility = View.INVISIBLE
-            mPerson = "%"
-            a_search_ed_personn.text = " "
-            a_search_ed_personn.text = " Personn "
-            initSearch()} }
+        spPersonn.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, i: Int, id: Long) {
+                if (mSelectPersonn[i] == "Person") {mPerson = "%";   initSearch() }
+                else { mPerson = mSelectPersonn[i]; initSearch()} }
 
-
-
+            override fun onNothingSelected(parent: AdapterView<*>) {} } }
 
 
     private fun searchType() {
-        a_search_ed_type.setOnClickListener {
-            val mBuilder1 = AlertDialog.Builder(this, R.style.MyDialogTheme)
-            with(mBuilder1) {
-                setItems(listType) { _, i ->
-                    a_search_ed_type.text = listType[i]
-                    mType = listType[i]
-                    initSearch()
-                }
+        val mSelectType = resources.getStringArray(((R.array.Type)))
+        if (spType != null) { spType.background.setColorFilter(resources.getColor(R.color.colorD), PorterDuff.Mode.SRC_ATOP);
+            val adapter = ArrayAdapter(this, R.layout.spinner_custom, mSelectType)
+            spType.adapter = adapter}
 
-                val mDialog = mBuilder1.create()
-                mDialog.show()
-                initSearch()
-                cancelType.visibility = View.VISIBLE } }
+        spType.onItemSelectedListener = object :
+            AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, i: Int, id: Long) {
+                if (mSelectType[i] == "Type") {mType = "%";   initSearch()}
+                else { mType = mSelectType[i]; initSearch() } }
 
-
-        cancelType.setOnClickListener {
-            cancelType.visibility = View.INVISIBLE
-            mType = "%"
-            a_search_ed_type.text = " "
-            a_search_ed_type.text = "Type"
-            initSearch()}}
+            override fun onNothingSelected(parent: AdapterView<*>) {} } }
 
 
     private fun searchPrice() {
@@ -237,9 +215,9 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
 
         cancelDSB.setOnClickListener {
             println("-------C ------- DEC")
-            a_search_sold_dateBegin.text = "Date sold -"
+            a_search_sold_dateBegin.text = "Date -"
             mSoldDateBegin = 1
-            cancelDSB.visibility = View.INVISIBLE
+            cancelDSB.visibility = View.GONE
             initSearch()
         }
 
@@ -259,9 +237,9 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
         }
         cancelDSE.setOnClickListener {
             println("-------C ------- DBC")
-            a_search_sold_dateEnd.text = "Date sold +"
+            a_search_sold_dateEnd.text = "Date +"
             mSoldDateEnd = 88888888870000
-            cancelDSE.visibility = View.INVISIBLE
+            cancelDSE.visibility = View.GONE
             initSearch()
         }}
 
@@ -280,9 +258,9 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
             cancelDCB.visibility = View.VISIBLE
         }
         cancelDCB.setOnClickListener {
-            a_search_ed_dateBegin_create.text = "Date create -"
+            a_search_ed_dateBegin_create.text = "Date -"
             mCreateDateBegin = 1
-            cancelDCB.visibility = View.INVISIBLE
+            cancelDCB.visibility = View.GONE
             initSearch()
         }
 
@@ -302,9 +280,9 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
             cancelDCE.visibility = View.VISIBLE
         }
         cancelDCE.setOnClickListener {
-            a_search_ed_dateEnd_create.text = "Date create +"
+            a_search_ed_dateEnd_create.text = "Date +"
             mCreateDateEnd = 88888888870000
-            cancelDCE.visibility = View.INVISIBLE
+            cancelDCE.visibility = View.GONE
             initSearch()}
     }
 
@@ -316,7 +294,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
 
     private fun initSearch() {
 
-        testlook()
+//        testlook()
 
                mMyViewModel.getSearchAll(
                     mPerson, mType,
@@ -327,9 +305,11 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
                     mPhotoMini, mPhotoMax,
                     mSoldDateBegin, mSoldDateEnd,
                     mStatus,
-                    mPharmacy, mSchool, mMarket, mPark).observe(this, androidx.lifecycle.Observer {
-                   println(" Search Result -----2---->>>>>>" + it.toString())
-                   a_search_txt_item.text = it.size.toString()
+                    mPharmacy, mSchool, mMarket, mPark).observe(this, androidx.lifecycle.Observer {searchList ->
+                   val mSearchlist = arrayListOf<Int>()
+                   searchList.forEach { mSearchlist.add(it) }
+                   clickSearch.setOnClickListener { loadRV(mSearchlist)}
+                   a_search_txt_item.text = searchList.size.toString()
                })}
 
     private fun testlook() {
@@ -352,6 +332,10 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
         println (" -->mSchool<----" + mSchool)
         println (" -->mMarket<----" + mMarket)
         println (" -->mPark<----" + mPark)
+
+        mMyViewModel.mAllEstate.observe(this, androidx.lifecycle.Observer {
+            println(" ----Estate ------" + it.toString())
+        })
     }
 
 
@@ -361,18 +345,19 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
 
 
 
-    private fun loadRV(mListAll: ArrayList<Int>?) {
-        a_search_fb_searchicon.setOnClickListener {
-            if (mListAll.isNullOrEmpty()) {
+    private fun loadRV(mSearchlist: ArrayList<Int>) {
+        println("Siiiiiiiiiiiiize -> " + mSearchlist.size)
+            if (mSearchlist.isNullOrEmpty()) {
                 val intent = Intent(this, SearchActivity::class.java)
                 startActivity(intent) }
             else { val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra(MASTER_ID, mListAll)
-                startActivity(intent) } } }
+                intent.putExtra(MASTER_ID, mSearchlist)
+                println(" ------List Id------" + mSearchlist.toString())
+                startActivity(intent) } }
 
 
     companion object {
-        const val MASTER_ID = "id"
+        const val MASTER_ID = "master_id"
     }
 
 }

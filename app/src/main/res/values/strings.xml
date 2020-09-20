@@ -1,3 +1,20 @@
 <resources>
+    <string name="app_name">SpinnerInKotlin</string>
+    <string name="selected_item">Selected item:</string>
 
+    <string-array name="Person">
+        <item>Person</item>
+        <item>Leonardo</item>
+        <item>Michel-Ange</item>
+        <item>Raphael</item>
+        <item>Donatello</item>
+    </string-array>
+
+    <string-array name="Type">
+        <item>Type</item>
+        <item>Apartment</item>
+        <item>House</item>
+        <item>Loft</item>
+        <item>Castle</item>
+    </string-array>
 </resources>

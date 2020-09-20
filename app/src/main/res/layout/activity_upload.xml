@@ -340,7 +340,7 @@
             android:background="@color/colorB"
             android:gravity="bottom"
             android:importantForAutofill="no"
-            android:text="Date begin"
+            android:text="Creation date"
             app:layout_constraintLeft_toLeftOf="@+id/upload_in_dateB"
             app:layout_constraintRight_toRightOf="@+id/upload_in_dateB"
             app:layout_constraintBottom_toTopOf="@+id/guideline666" />

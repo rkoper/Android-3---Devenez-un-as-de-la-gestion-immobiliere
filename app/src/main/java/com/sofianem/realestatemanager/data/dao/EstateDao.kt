@@ -31,7 +31,10 @@ interface EstateDao {
     fun updateProxMarket(market: String, id: Int)
 
     @Query("SELECT * FROM Estate where Estate_id like :id")
-    fun getById(id: Int):  EstateR
+    fun getById(id: Int):  LiveData<EstateR>
+
+    @Query("SELECT * FROM Estate where Estate_id like :id")
+    fun getListById(id: Int):  EstateR
 
     @Query("SELECT * FROM Estate ORDER BY Estate_id ASC")
     fun getAll(): LiveData<List<EstateR>>

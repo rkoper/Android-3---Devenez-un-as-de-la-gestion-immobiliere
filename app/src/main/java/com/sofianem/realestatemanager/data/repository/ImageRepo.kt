@@ -15,6 +15,7 @@ open class ImageRepo (image_Dao: ImageDao) {
     val image_Dao = image_Dao
     var readAllImageLive: LiveData<List<ImageV>> = image_Dao.getImageAllLive()
 
+
     fun insertImage(mId: Int, listImage: MutableList<String?>, listImageDescription: MutableList<String?>) {
         val i = ImageV()
         GlobalScope.launch(Dispatchers.IO) {
@@ -43,6 +44,19 @@ open class ImageRepo (image_Dao: ImageDao) {
         GlobalScope.launch(Dispatchers.IO) {
             image_Dao.deleteById(i)
         }
+    }
+
+    fun getImageById(i: Int) : LiveData<ImageV>{
+        return image_Dao.getImageById(i)
+    }
+
+    fun getImageListById(mIdList: ArrayList<Int>): ArrayList<ImageV> {
+        var a :ArrayList<ImageV> = arrayListOf()
+        GlobalScope.launch(Dispatchers.IO) {
+            mIdList.forEach {
+                a.add(image_Dao.getImageListById(it))
+            }}
+        return a
     }
 }
 

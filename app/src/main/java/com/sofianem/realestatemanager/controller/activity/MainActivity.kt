@@ -24,7 +24,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
     var mIsDualPane = false
-    private var mListId: ArrayList<Int>? = arrayListOf()
+    private var mSearchlist: ArrayList<Int>? = arrayListOf()
     private val mMyViewModel by viewModel<MyViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,8 +33,9 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
 
          var fragmentDetailView = findViewById<View>(R.id.fragment_main_detail)
         mIsDualPane = !(fragmentDetailView == null || !fragmentDetailView.isVisible)
-        mListId = intent.getIntegerArrayListExtra("masterId")
-        val fragment = MainFragment.newInstance(mListId)
+        mSearchlist = intent.getIntegerArrayListExtra("master_id")
+        println(" ------List Id------" + mSearchlist.toString())
+        val fragment = MainFragment.newInstance(mSearchlist)
 
         onClickAdd()
         onClickMap()
@@ -97,13 +98,11 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
 
         else  {
             println("--------------------phone--------------")
-            mMyViewModel.mAllEstate.observe(this, Observer {
-                println(" -------- ALL DATA -----" + it.toString())
-            })
             val intent = Intent(this, DetailActivity::class.java)
             intent.putExtra(ID, id)
             startActivity(intent)
             finish()} }
 
-    companion object { const val ID = "id" }
+    companion object {
+        const val ID = "id" }
 }

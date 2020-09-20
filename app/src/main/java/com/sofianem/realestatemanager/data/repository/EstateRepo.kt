@@ -84,12 +84,10 @@ open class EstateRepo (estate_Dao: EstateDao) {
         }
     }
 
-    fun getById(mId: Int): MutableLiveData<EstateR> {
-        GlobalScope.launch(Dispatchers.IO) {
-            val list = estate_Dao.getById(mId)
-            mEstate.postValue(list) }
-        return mEstate
+    fun getById(mId: Int): LiveData<EstateR> {
+        return estate_Dao.getById(mId)
     }
+
 }
 
 

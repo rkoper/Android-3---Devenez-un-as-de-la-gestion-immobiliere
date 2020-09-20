@@ -11,13 +11,7 @@ interface PlaceDao {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertLoc1(np: NearbyPlaces)
-    @Insert
-    fun insertLoc2(np: NearbyPlaces)
-    @Insert
-    fun insertLoc3(np: NearbyPlaces)
-    @Insert
-    fun insertLoc4(np: NearbyPlaces)
+    fun saveLocation(np: NearbyPlaces)
 
     @Query("SELECT  * FROM Places where  Place_type like :type  AND Place_master_id like :master_id ORDER BY Place_distance ASC")
     fun getByIdLocation(type: String, master_id: Int): LiveData<List<NearbyPlaces>>

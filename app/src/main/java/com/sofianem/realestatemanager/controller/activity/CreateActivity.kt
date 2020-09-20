@@ -122,15 +122,12 @@ class CreateActivity : AppCompatActivity() {
                     mNbPhoto,
                     listImage_path,
                     listimageDescription) }
-            mMyViewModelForPlaces.saveL1(mGeoLoc, "park", mCreateId)
-            mMyViewModelForPlaces.saveL1(mGeoLoc, "supermarket", mCreateId)
-            mMyViewModelForPlaces.saveL1(mGeoLoc, "pharmacy", mCreateId)
-            mMyViewModelForPlaces.saveL1(mGeoLoc, "primary_school", mCreateId)
-           // mMyViewModelForPlaces.getNearbyPlace1(mCreateId, mGeoLoc)
-          //  mMyViewModelForPlaces.getNearbyPlace2(mCreateId, mGeoLoc)
-          //  mMyViewModelForPlaces.getNearbyPlace3(mCreateId, mGeoLoc)
-         //   mMyViewModelForPlaces.getNearbyPlace4(mCreateId, mGeoLoc)
+
+
+            mListTypeOfLocation.forEach { typeLocation ->  mMyViewModelForPlaces.saveLocation(mGeoLoc, typeLocation, mCreateId) }
+
             mMyViewModelForImages.storeImageData(mCreateId, listImage_path, listimageDescription)
+
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent) } }
 
@@ -152,7 +149,6 @@ class CreateActivity : AppCompatActivity() {
             with(mBuilder) {
                 setItems(listType) { dialog, i ->
                     a_create_ed_type.text = listType[i]
-
                     mType = a_create_ed_type.text.toString().trim()
                     dialog.dismiss() }
                 val mDialog = mBuilder.create()
@@ -227,7 +223,6 @@ class CreateActivity : AppCompatActivity() {
             val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTheme)
             with(mBuilder) {
                 setItems(listPerson) { dialog, i ->
-                    a_create_ed_personn.text
                     a_create_ed_personn.text = listPerson[i]
                     mPerson = a_create_ed_personn.text.toString().trim()
                     dialog.dismiss() }
@@ -342,7 +337,6 @@ class CreateActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                println("s----" + s+ "---start--"+ start+ "--before---"+ before+ "--count---"+ count)
                 if (start == 0 )
                 { mDialogViewForImageInfo.custom_dialog_ok.isVisible = false
                     mDialogViewForImageInfo.custom_dialog_not_ok.isVisible = true}
@@ -358,8 +352,7 @@ class CreateActivity : AppCompatActivity() {
             mAlertDialogForImageInfo.dismiss()
             val photoInfo: String? = mDialogViewForImageInfo.custom_dialog_txt.text.toString()
             if (photoInfo.isNullOrBlank() || imagePath.isNullOrBlank()) { println(" Error") }
-            else { mListImageDescription.add(photoInfo)
-                createRV(mListImagePath, mListImageDescription) } } }
+            else { mListImageDescription.add(photoInfo)  ;  createRV(mListImagePath, mListImageDescription) } } }
 
     private fun createRV(listimagePath: MutableList<String?>, listimageDescription: MutableList<String?>) {
         if (this.checkIsTablet()){
@@ -371,8 +364,6 @@ class CreateActivity : AppCompatActivity() {
             create_recyclerview.adapter =  CreateAdapter(listimagePath, listimageDescription, this)
             createData(mListImagePath, listimageDescription)}
     }
-
-
 
 
     private fun saveImage(myBitmap: Bitmap) {
@@ -407,6 +398,7 @@ class CreateActivity : AppCompatActivity() {
         const val DOWNLOAD_PROVIDER  =  "com.android.providers.downloads.documents"
         val listPerson = arrayOf("Leonardo", "Michel-Ange", "Raphael", "Donatello")
         val listType = arrayOf("Apartment", "House", "Loft", "Castle")
+        val mListTypeOfLocation = arrayListOf("park", "supermarket", "pharmacy", "primary_school" )
         const val OPERATION_CAPTURE_PHOTO = 1
         const val OPERATION_CHOOSE_PHOTO = 2
 

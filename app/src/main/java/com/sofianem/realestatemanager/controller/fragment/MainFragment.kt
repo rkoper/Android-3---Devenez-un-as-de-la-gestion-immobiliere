@@ -16,20 +16,42 @@ import com.sofianem.realestatemanager.data.model.ImageV
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class MainFragment : Fragment(), LifecycleObserver {
     private val mMyViewModel by viewModel<MyViewModel>()
     private val mMyViewModelForImages by viewModel<MyViewModelForImages>()
+    var mSearchlist: ArrayList<Int>? = arrayListOf()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? { return inflater.inflate(R.layout.fragment_main, container, false) }
+    ): View? {
+        mSearchlist = arguments?.getIntegerArrayList("1111")
+        println("--------------------mListId--------------" + mSearchlist )
+        return inflater.inflate(R.layout.fragment_main, container, false) }
 
     private fun setupRecyclerView() {
+        if (mSearchlist.isNullOrEmpty()) {
             mMyViewModel.mAllEstate.observeForever { dataEstate ->
-                mMyViewModelForImages.allImageLive.observe(this, Observer { dataImage ->
-                    subscriber_recyclerView.adapter = MainAdapter(dataEstate, dataImage, requireContext()) }) }
+                mMyViewModelForImages.allImageLive.observe(
+                    viewLifecycleOwner,
+                    Observer { dataImage ->
+                        subscriber_recyclerView.adapter =
+                            MainAdapter(dataEstate, dataImage, requireContext())
+                    })
+            }
+        } else {
+            val a: MutableList<EstateR> = arrayListOf()
+            val b: MutableList<ImageV> = arrayListOf()
+            mSearchlist!!.forEach { mId -> mMyViewModel.getById(mId).observe(viewLifecycleOwner, Observer {
+                a.add(it)
+                subscriber_recyclerView.adapter =
+                    MainAdapter(a, b, requireContext())
+                }) }
+               }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,9 +68,6 @@ class MainFragment : Fragment(), LifecycleObserver {
             return fragment
         }
     }
-
-
-
 }
 
 

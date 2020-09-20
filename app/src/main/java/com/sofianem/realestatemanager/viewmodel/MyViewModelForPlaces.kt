@@ -16,8 +16,8 @@ import kotlin.math.roundToInt
 
 class MyViewModelForPlaces(private val mRepositoryPlace : PlaceRepo) : ViewModel() {
 
-    fun saveL1(location: String, type: String, id: Int) {
-        mRepositoryPlace.saveL1(location, type, id) }
+    fun saveLocation(location: String, type: String, id: Int) {
+        mRepositoryPlace.saveLocation(location, type, id) }
 
     fun getByIdLocation(type: String, master_id: Int): LiveData<List<NearbyPlaces>> {
         return mRepositoryPlace.getByIdLocation(type, master_id)

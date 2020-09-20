@@ -23,7 +23,7 @@ class PlaceRepo (mService : MapService, mContext: Context,  mPlaceDao : PlaceDao
     fun getByIdLocation(type: String, master_id: Int): LiveData<List<NearbyPlaces>> =
         mPlaceDao.getByIdLocation(type, master_id)
 
-    fun saveL1(location: String, type: String, id: Int) {
+    fun saveLocation(location: String, type: String, id: Int) {
         var mResp: Response<PlacesResponse1>
         var call = mService.getNearbyPlaces1(location, type)
 
@@ -31,12 +31,9 @@ class PlaceRepo (mService : MapService, mContext: Context,  mPlaceDao : PlaceDao
             override fun onFailure(call: Call<PlacesResponse1>, t: Throwable) {}
             override fun onResponse(call: Call<PlacesResponse1>, response1: Response<PlacesResponse1>) {
                 mResp = response1
-                mResp.body()?.let {
-                        placeResponse ->
+                mResp.body()?.let { placeResponse ->
                     val placeResponseArray = placeResponse.placesList1
-                    placeResponseArray?.forEach {
-                            place ->
-
+                    placeResponseArray?.forEach { place ->
                         val curLat = Utils.currentLat(location)
                         val curLng = Utils.currentLng(location)
                         val distance = Utils.calculateDistance(curLat, curLng, place.geometry.location.lat, place.geometry.location.lng).roundToInt()
@@ -49,8 +46,7 @@ class PlaceRepo (mService : MapService, mContext: Context,  mPlaceDao : PlaceDao
                         np.placeName = place.name
                         np.placeDistance = distance
 
-                        println("placeName------>> " + place.name)
-                        mPlaceDao.insertLoc1(np)
+                        mPlaceDao.saveLocation(np)
 
                     }
                 }

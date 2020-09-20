@@ -69,5 +69,4 @@ class MyViewModel(private val mRepository : EstateRepo) : ViewModel() {
 
     fun getById(mId: Int): LiveData<EstateR> {
         return mRepository.getById( mId)}
-
 }
