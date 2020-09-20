@@ -17,7 +17,7 @@ open class EstateRepo (estate_Dao: EstateDao) {
     val estate_Dao = estate_Dao
     private var mAllDataForSearch: List<Int>? = arrayListOf()
     var readAllLive: LiveData<List<EstateR>> = estate_Dao.getAll()
-    var readAllId: List<Int> = estate_Dao.getAllId()
+    var readAllId: LiveData<List<Int>> = estate_Dao.getAllId()
     var mCreateId: Long = 99
     private val mEstate = MutableLiveData<EstateR>()
 
@@ -86,6 +86,10 @@ open class EstateRepo (estate_Dao: EstateDao) {
 
     fun getById(mId: Int): LiveData<EstateR> {
         return estate_Dao.getById(mId)
+    }
+
+    fun getGeoLocById(mId: Int): String {
+        return estate_Dao.getGeoLocById(mId)
     }
 
 }

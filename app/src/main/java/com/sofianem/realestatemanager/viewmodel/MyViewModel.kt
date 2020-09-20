@@ -16,7 +16,7 @@ class MyViewModel(private val mRepository : EstateRepo) : ViewModel() {
 
 
      val mAllEstate: LiveData<List<EstateR>> = mRepository.readAllLive
-     val mAllEstateId : List<Int> = mRepository.readAllId
+     val mAllEstateId : LiveData<List<Int>> = mRepository.readAllId
 
     fun insertTodo(type: String, city: String, price: Int, surface: Int, number_of_room: Int, description: String, adress: String, location: String,
                        status: String, date_begin: Long, date_end: Long, personn: String, mNbPhoto:Int,  imageUri: MutableList<String?>,
@@ -67,6 +67,7 @@ class MyViewModel(private val mRepository : EstateRepo) : ViewModel() {
 
     fun UpdateProxMarket(market: String, id: Int) {mRepository.updateProxMarket(market, id) }
 
-    fun getById(mId: Int): LiveData<EstateR> {
-        return mRepository.getById( mId)}
+    fun getById(mId: Int): LiveData<EstateR> { return mRepository.getById( mId)}
+
+    fun getGeoLocById(mId: Int): String { return mRepository.getGeoLocById( mId)}
 }

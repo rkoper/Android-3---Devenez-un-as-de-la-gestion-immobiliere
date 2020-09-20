@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.activity_search.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.roundToInt
 
 
 @Suppress("DEPRECATION")
@@ -120,10 +121,29 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
             override fun onError(status: Status) { Log.i("TAG", "An error occurred: $mStatus")
             } }) }
 
-    private fun checkDistance(mGeoLoc: String) {
-        println( " mGeoLoc ID ------->>>>>>>" + mGeoLoc )
-        val a = mMyViewModel.mAllEstateId
-        a.forEach { println( " ALL ID ------->>>>>>>" + a )}
+    private fun checkDistance(mGeoLocSearch: String) {
+        mMyViewModel.mAllEstateId.observe(this, androidx.lifecycle.Observer { mListID ->
+            println( " ------>>>>>> mListID <<<<<------" + mListID )
+            mListID?.forEach { mId ->
+                val   mGeoLocItem =  mMyViewModel.getGeoLocById(mId)
+
+                val mSearchLat = Utils.currentLat(mGeoLocSearch)
+                val mSearchLng = Utils.currentLng(mGeoLocSearch)
+                val mItemLat = Utils.currentLat(mGeoLocItem)
+                val mItemLng = Utils.currentLng(mGeoLocItem)
+
+                val mDistance = Utils.calculateDistance(mSearchLat, mSearchLng, mItemLat, mItemLng).roundToInt()
+
+
+
+
+
+                println( " ------>>>>>> DISTANCE <<<<<------" + " / ID / " + mId + " / "+  mDistance )
+            } // FOREACH
+
+        })
+
+
     }
 
 
