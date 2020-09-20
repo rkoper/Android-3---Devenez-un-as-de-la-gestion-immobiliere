@@ -14,8 +14,8 @@ class DistanceTest {
     val mContext = MyApplication.applicationContext()
     @Test
     fun LocationTest() {
-        val locA =  GeocoderUtil.getlocationForList(1, "7 Rue Ordener" , "Paris" , mContext)
-        val locB =  GeocoderUtil.getlocationForList(2, "19 Rue Ternaux" , "Paris" , mContext)
+        val locA =  Utils.getlocationForList( "7 Rue Ordener" , "Paris" , mContext)
+        val locB =  Utils.getlocationForList( "19 Rue Ternaux" , "Paris" , mContext)
 
         val locA1 = locA.split(",")
         val locA2 = locB.split(",")

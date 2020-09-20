@@ -40,7 +40,6 @@ import com.sofianem.realestatemanager.controller.activity.MainActivity.Companion
 import com.sofianem.realestatemanager.controller.adapter.UploadAdapter
 import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.model.ImageV
-import com.sofianem.realestatemanager.utils.GeocoderUtil
 import com.sofianem.realestatemanager.utils.MyCommunicationForImage
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
@@ -277,7 +276,8 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                     else if (it.types.contains("locality")) {
                         upload_city.text = it.name; mCity = it.name } }
                 mAdress = "$streetNumber $route"
-                mGeoLoc = GeocoderUtil.getlocationForListv2(mAdress, mCity, this@UpdateActivity) }
+              //  mGeoLoc = GeocoderUtil.getlocationForListv2(mAdress, mCity, this@UpdateActivity)
+            }
 
             override fun onError(p0: Status) {} }) }
 

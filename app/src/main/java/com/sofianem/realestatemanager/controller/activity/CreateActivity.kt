@@ -37,7 +37,6 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.adapter.CreateAdapter
 import com.sofianem.realestatemanager.data.model.NearbyPlaces
-import com.sofianem.realestatemanager.utils.GeocoderUtil
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
@@ -184,10 +183,11 @@ class CreateActivity : AppCompatActivity() {
                 a_create_ed_adress.visibility = View.VISIBLE
                 mAddress = "$streetNumber $route"
 
-                mGeoLoc = GeocoderUtil.getlocationForListv2( mAddress, mCity, this@CreateActivity)
+             //   mGeoLoc = GeocoderUtil.getlocationForListv2( mAddress, mCity, this@CreateActivity)
             }
             override fun onError(status: Status) { Log.i("TAG", "An error occurred: $mStatus")
-            } }) }
+            } })
+    }
 
     private fun loadPrice() {
         a_create_rangebar_price.setOnRangeBarChangeListener(object :

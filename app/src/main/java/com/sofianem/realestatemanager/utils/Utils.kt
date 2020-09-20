@@ -8,6 +8,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.graphics.Typeface
+import android.location.Address
+import android.location.Geocoder
 import android.media.ExifInterface
 import android.media.MediaScannerConnection
 import android.net.ConnectivityManager
@@ -190,7 +192,7 @@ object Utils {
         val searchIcon = (autocompleteFragment?.view as LinearLayout).getChildAt(0) as ImageView
         searchIcon.visibility = View.GONE
         autocompleteFragment?.setTypeFilter(TypeFilter.ADDRESS)
-        autocompleteFragment?.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS_COMPONENTS))
+        autocompleteFragment?.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS_COMPONENTS, Place.Field.LAT_LNG))
 
 
                 return autocompleteFragment
@@ -271,4 +273,18 @@ object Utils {
             return AppResult.Success(it)
         } ?: return handleApiError(response)
     }
+
+    fun getlocationForList(adress: String?, city: String?, mContext: Context): String {
+        var geocodeMatches: List<Address>? = null
+        try { geocodeMatches = Geocoder(mContext).getFromLocationName("$adress, $city", 1) }
+        catch (ioException: IOException) { }
+        return (geocodeMatches?.get(0)?.latitude.toString() + "," + geocodeMatches?.get(0)?.longitude.toString())
+    }
+
+    fun mLatLngString(mLatLng: LatLng?): String {
+        return (mLatLng?.latitude.toString() + "," + mLatLng?.longitude.toString())
+    }
+
+
+
 }
