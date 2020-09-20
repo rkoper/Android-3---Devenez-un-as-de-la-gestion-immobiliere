@@ -112,7 +112,8 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
                     else if (mAdressComp.types.contains("route")) { mStreetName = mAdressComp.name }
                     else if (mAdressComp.types.contains("locality")) { mCity = mAdressComp.name } }
 
-                a_search_ed_adress.text = "$mStreetNumber $mStreetName , $mCity"
+                a_search_ed_adress.text = "$mStreetNumber $mStreetName"
+                a_search_ed_city.text =   "$mCity"
                 a_search_ed_adress.visibility = View.VISIBLE
                 mAddress = "$mStreetNumber $mStreetName"
 
@@ -352,6 +353,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
                    searchList.forEach { mListId.add(it) }
 
                    var mSearchlist =  listsEqual(mListId, mListIdForAdress)
+                   a_search_txt_item.text = mSearchlist.size.toString()
 
                    clickSearch.setOnClickListener { loadRV(mSearchlist)}
 
@@ -360,8 +362,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
 
     fun listsEqual(mListId: ArrayList<Int>, mListIdForAdress: ArrayList<Int>): ArrayList<Int> {
         val mDifference = mListId.minus(mListIdForAdress)
-        mDifference.forEach {
-            mListId.remove(it) }
+        mDifference.forEach { mListId.remove(it) }
 
         return mListId
     }
@@ -373,6 +374,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
                 val intent = Intent(this, SearchActivity::class.java)
                 startActivity(intent) }
             else { val intent = Intent(this, MainActivity::class.java)
+                mSearchlist.sort()
                 intent.putExtra(MASTER_ID, mSearchlist)
                 println(" ------List Id------" + mSearchlist.toString())
                 startActivity(intent) } }

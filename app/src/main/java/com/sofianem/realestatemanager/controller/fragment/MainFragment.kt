@@ -46,6 +46,7 @@ class MainFragment : Fragment(), LifecycleObserver {
         } else {
             val a =  arrayListOf<EstateR>()
             val b =  arrayListOf<ImageV>()
+            mSearchlist!!.sort()
             mSearchlist!!.forEach { mId ->
                 mMyViewModel.getById(mId).observe(viewLifecycleOwner, Observer {estate ->
                     mMyViewModelForImages.getById(mId).observe(viewLifecycleOwner, Observer { img ->

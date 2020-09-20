@@ -598,27 +598,59 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-            app:layout_constraintBottom_toBottomOf="@+id/a_search_ed_adress"
-            app:layout_constraintTop_toTopOf="@+id/a_search_ed_adress"
+            app:layout_constraintBottom_toBottomOf="@+id/llAdress"
+            app:layout_constraintTop_toTopOf="@+id/llAdress"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" >
         </fragment>
 
+       <LinearLayout
+           android:id="@+id/llAdress"
+           android:layout_width="0dp"
+           android:layout_height="0dp"
+           android:orientation="vertical"
+           app:layout_constraintLeft_toLeftOf="parent"
+           app:layout_constraintRight_toRightOf="parent"
+           app:layout_constraintTop_toBottomOf="@id/guideline5"
+           app:layout_constraintBottom_toTopOf="@+id/guideline6">
         <TextView
-            android:gravity="center"
+            android:layout_weight="1"
+            android:gravity="bottom"
             style="@style/MyEditTextStyleSearch"
-            android:hint="Adress"
+            android:hint="Search 750 yd around : "
             android:textColorHint="@color/colorD"
             android:background="@color/colorB"
-            android:id="@+id/a_search_ed_adress"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/textadaptsizesmall"
             android:textColor="@color/colorD"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/guideline5"
-            app:layout_constraintBottom_toTopOf="@+id/guideline6"
             android:importantForAutofill="no" />
+           <TextView
+               android:layout_weight="1"
+               android:gravity="bottom"
+               android:visibility="invisible"
+               style="@style/MyEditTextStyleSearch"
+               android:hint="Adress"
+               android:textColorHint="@color/colorD"
+               android:background="@color/colorB"
+               android:layout_width="match_parent"
+               android:id="@+id/a_search_ed_adress"
+               android:layout_height="match_parent"
+               android:textColor="@color/colorD"
+               android:importantForAutofill="no" />
+           <TextView
+               android:layout_weight="1"
+               android:gravity="bottom"
+               style="@style/MyEditTextStyleSearch"
+               android:hint=""
+               android:textColorHint="@color/colorD"
+               android:background="@color/colorB"
+               android:id="@+id/a_search_ed_city"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:textColor="@color/colorD"
+               android:importantForAutofill="no" />
+       </LinearLayout>
 
         <CheckBox
             android:buttonTint="@color/colorD"
