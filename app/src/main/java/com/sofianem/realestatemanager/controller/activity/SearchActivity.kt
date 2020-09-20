@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.text.format.Time
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -17,8 +18,10 @@ import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.sofianem.realestatemanager.R
+import com.sofianem.realestatemanager.utils.GeocoderUtil
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
+import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.android.synthetic.main.activity_search.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
@@ -47,6 +50,10 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
     var mType: String? = "%" ; var mStatus: String = "%" ; var mPerson: String? = "%"
     // LOCATION
     var mPark: String? = "%" ; var mPharmacy: String? = "%"  ; var mSchool: String? = "%"  ; var mMarket: String? = "%"
+    // CITY
+    var mCity: String? = "%" ;
+    // LOCATION
+    var mLocation: String? = "%" ;
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,20 +93,38 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
 
 
     private fun searchAddress() {
-        if (!Places.isInitialized()) {
-            Places.initialize(applicationContext, "AIzaSyByK0jz-yxjpZFX88W8zjzTwtzMtkPYC4w") }
-        val autocompleteFragment = Utils.configureAutoCompleteFrag(supportFragmentManager, resources, this, mHintAddress)
-        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS_COMPONENTS))
-        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
-            override fun onPlaceSelected(place: Place) { a_search_ed_adress.text = place.address
-                place.addressComponents?.asList()?.forEach {
-                    if (it.types.contains("street_number")) { mStreetNumber = it.name }
-                    else if (it.types.contains("mRoute")) { mRoute = it.name } }
-                a_search_ed_adress.text = "$mStreetNumber $mRoute"
-                mAddress = "$mStreetNumber $mRoute"
-                initSearch()}
+        var mStreetNumber = ""
+        var mStreetName = ""
+        var mCity = ""
+        if (!Places.isInitialized()) { Places.initialize(applicationContext, "AIzaSyByK0jz-yxjpZFX88W8zjzTwtzMtkPYC4w") }
 
-            override fun onError(p0: Status) { println("error") } }) }
+        val autocompleteFragment = Utils.configureAutoCompleteFrag(supportFragmentManager, resources, this, "Adress")
+        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
+            override fun onPlaceSelected(place: Place) {
+                a_search_ed_adress.text = place.address
+                println( " PLACE _ LAT LNG ------->" + place.latLng)
+                place.addressComponents?.asList()?.forEach { Log.i("TAG", "AutoComplet: " + it.types + " " )
+                    if (it.types.contains("street_number")) { mStreetNumber = it.name }
+                    else if (it.types.contains("route")) { mStreetName = it.name }
+                    else if (it.types.contains("locality")) {
+                      //  a_create_ed_city.text = it.name
+                        mCity = it.name } }
+
+                a_search_ed_adress.text = "$mStreetNumber $mStreetName , $mCity"
+                a_search_ed_adress.visibility = View.VISIBLE
+                mAddress = "$mStreetNumber $mStreetName"
+
+                mLocation = GeocoderUtil.getlocationForListv2( mAddress, mCity, this@SearchActivity)
+                checkDistance(mLocation!!)
+            }
+            override fun onError(status: Status) { Log.i("TAG", "An error occurred: $mStatus")
+            } }) }
+
+    private fun checkDistance(mGeoLoc: String) {
+        println( " mGeoLoc ID ------->>>>>>>" + mGeoLoc )
+        val a = mMyViewModel.mAllEstateId
+        a.forEach { println( " ALL ID ------->>>>>>>" + a )}
+    }
 
 
     private fun searchSurface() {
@@ -337,13 +362,6 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
             println(" ----Estate ------" + it.toString())
         })
     }
-
-
-    //val intent = Intent(this, MainActivity::class.java)
-                //intent.putExtra("masterId", mListAll)
-               // startActivity(intent)
-
-
 
     private fun loadRV(mSearchlist: ArrayList<Int>) {
         println("Siiiiiiiiiiiiize -> " + mSearchlist.size)

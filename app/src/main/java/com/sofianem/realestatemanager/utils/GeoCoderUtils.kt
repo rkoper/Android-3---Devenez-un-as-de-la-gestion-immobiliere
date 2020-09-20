@@ -57,6 +57,7 @@ object GeocoderUtil {
         val geoL: String = (geoLat.toString() + "," + geoLng.toString())
         return geoL }
 
+
     fun latv2(geoL:String) : String  { val lat  = geoL.split(",".toRegex()).toTypedArray()
         return lat[0] }
 
