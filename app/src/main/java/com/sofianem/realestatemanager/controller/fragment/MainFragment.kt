@@ -44,15 +44,16 @@ class MainFragment : Fragment(), LifecycleObserver {
                     })
             }
         } else {
-            val a: MutableList<EstateR> = arrayListOf()
-            val b: MutableList<ImageV> = arrayListOf()
-            mSearchlist!!.forEach { mId -> mMyViewModel.getById(mId).observe(viewLifecycleOwner, Observer {
-                a.add(it)
-                subscriber_recyclerView.adapter =
-                    MainAdapter(a, b, requireContext())
-                }) }
-               }
-    }
+            val a =  arrayListOf<EstateR>()
+            val b =  arrayListOf<ImageV>()
+            mSearchlist!!.forEach { mId ->
+                mMyViewModel.getById(mId).observe(viewLifecycleOwner, Observer {estate ->
+                    mMyViewModelForImages.getById(mId).observe(viewLifecycleOwner, Observer { img ->
+                       if (img == null) {}
+                       else { b.add(img)}
+                        a.add(estate)
+                        subscriber_recyclerView.adapter = MainAdapter(a, b, requireContext())
+                        }) }) } } }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

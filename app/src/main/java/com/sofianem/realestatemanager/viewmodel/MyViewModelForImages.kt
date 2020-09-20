@@ -17,15 +17,10 @@ class MyViewModelForImages(private val mRepositoryImage : ImageRepo) : ViewModel
 
     fun deleteImageById(i: Int) { mRepositoryImage.DeleteImageByID(i) }
 
-    fun getImageById(i: Int) : LiveData<ImageV> { return  mRepositoryImage.getImageById(i) }
-
-  //  fun updateImageDes(ig: ImageV) = runBlocking { mRepositoryImage.UpdateImageDes(ig)}
-
     fun updateImageDes(ig: ImageV) { mRepositoryImage.UpdateImageDes(ig) }
 
-    fun getImageListById(mListSearch: ArrayList<Int>): ArrayList<ImageV> {
-        return mRepositoryImage.getImageListById(mListSearch)
-    }
+    fun getById(mId: Int): LiveData<ImageV> {
+        return mRepositoryImage.getById( mId)}
 
 
 }

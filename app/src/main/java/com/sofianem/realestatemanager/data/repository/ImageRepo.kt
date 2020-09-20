@@ -46,17 +46,8 @@ open class ImageRepo (image_Dao: ImageDao) {
         }
     }
 
-    fun getImageById(i: Int) : LiveData<ImageV>{
-        return image_Dao.getImageById(i)
-    }
-
-    fun getImageListById(mIdList: ArrayList<Int>): ArrayList<ImageV> {
-        var a :ArrayList<ImageV> = arrayListOf()
-        GlobalScope.launch(Dispatchers.IO) {
-            mIdList.forEach {
-                a.add(image_Dao.getImageListById(it))
-            }}
-        return a
+    fun getById(mId: Int): LiveData<ImageV> {
+        return image_Dao.getById(mId)
     }
 }
 
