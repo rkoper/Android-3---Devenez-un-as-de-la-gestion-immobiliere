@@ -130,7 +130,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/item_list_sold"
                 android:visibility="gone"
-                android:rotation="-12"
+                android:background="@color/colorGreyTransp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <androidx.constraintlayout.widget.Guideline
@@ -158,10 +158,11 @@
                     android:orientation="vertical"
                     card_view:layout_constraintGuide_percent="0.8" />
                 <TextView
+                    android:rotation="-20"
                     android:id="@+id/txtsold"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:background="@drawable/round_yellow_trans"
+                    android:background="@drawable/rectangle_yellow"
                     card_view:layout_constraintTop_toTopOf="@+id/item_guideline1"
                     card_view:layout_constraintLeft_toLeftOf="@+id/item_guideline3"
                     card_view:layout_constraintBottom_toBottomOf="@+id/item_guideline2"
