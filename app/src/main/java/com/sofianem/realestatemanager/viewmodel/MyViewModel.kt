@@ -70,4 +70,7 @@ class MyViewModel(private val mRepository : EstateRepo) : ViewModel() {
     fun getById(mId: Int): LiveData<EstateR> { return mRepository.getById( mId)}
 
     fun getGeoLocById(mId: Int): String { return mRepository.getGeoLocById( mId)}
+
+    fun AllEstate(): LiveData<List<EstateR>>{ return mRepository.AllEstate()}
+
 }

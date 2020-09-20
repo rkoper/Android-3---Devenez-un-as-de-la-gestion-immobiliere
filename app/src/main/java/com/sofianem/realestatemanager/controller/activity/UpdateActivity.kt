@@ -178,9 +178,11 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             est.nb_photo = mNbPhoto
 
             mMyViewModel.updateTodo(est)
+
+
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            finish()
+           finish()
         }
     }
 

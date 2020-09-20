@@ -7,6 +7,7 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import android.text.format.Time
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -102,7 +103,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
         var mCity = ""
         if (!Places.isInitialized()) { Places.initialize(applicationContext, "AIzaSyByK0jz-yxjpZFX88W8zjzTwtzMtkPYC4w") }
 
-        val autocompleteFragment = Utils.configureAutoCompleteFrag(supportFragmentManager, resources, this, "Adress")
+        val autocompleteFragment = Utils.configureAutoCompleteFragV2(supportFragmentManager, resources, this, "Adress")
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 a_search_ed_adress.text = place.address
@@ -112,8 +113,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
                     else if (mAdressComp.types.contains("route")) { mStreetName = mAdressComp.name }
                     else if (mAdressComp.types.contains("locality")) { mCity = mAdressComp.name } }
 
-                a_search_ed_adress.text = "$mStreetNumber $mStreetName"
-                a_search_ed_city.text =   "$mCity"
+                a_search_ed_adress.text = "$mStreetNumber $mStreetName, $mCity "
                 a_search_ed_adress.visibility = View.VISIBLE
                 mAddress = "$mStreetNumber $mStreetName"
 
@@ -136,7 +136,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
                 val mDistance = Utils.calculateDistance(mSearchLat, mSearchLng, mItemLat, mItemLng).roundToInt()
                 if (mDistance < 700) {mListIdForAdress.add(mId)}
 
-                println( " ------>>>>>> DISTANCE <<<<<------" + " / ID / " + mId + " / "+  mDistance )
+                println( " ------>>>>>> DISTANCE <<<<<------ / ID /  $mId  /   $mDistance ")
             } // FOREACH
             initSearch()
         })
@@ -338,27 +338,27 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
 
     private fun initSearch() {
         mMyViewModel.getSearchAll(
-                    mPerson, mType,
-                    mSurfaceMini, mSurfaceMax,
-                    mPriceMini, mPriceMax,
-                    mRoomMini, mRoomMax,
-                    mCreateDateBegin, mCreateDateEnd,
-                    mPhotoMini, mPhotoMax,
-                    mSoldDateBegin, mSoldDateEnd,
-                    mStatus,
-                    mPharmacy, mSchool, mMarket, mPark).observe(this, androidx.lifecycle.Observer {searchList ->
+            mPerson, mType,
+            mSurfaceMini, mSurfaceMax,
+            mPriceMini, mPriceMax,
+            mRoomMini, mRoomMax,
+            mCreateDateBegin, mCreateDateEnd,
+            mPhotoMini, mPhotoMax,
+            mSoldDateBegin, mSoldDateEnd,
+            mStatus,
+            mPharmacy, mSchool, mMarket, mPark).observe(this, androidx.lifecycle.Observer {searchList ->
 
 
-                   var mListId = arrayListOf<Int>()
-                   searchList.forEach { mListId.add(it) }
+            var mListId = arrayListOf<Int>()
+            searchList.forEach { mListId.add(it) }
 
-                   var mSearchlist =  listsEqual(mListId, mListIdForAdress)
-                   a_search_txt_item.text = mSearchlist.size.toString()
+            var mSearchlist =  listsEqual(mListId, mListIdForAdress)
+            a_search_txt_item.text = mSearchlist.size.toString()
 
-                   clickSearch.setOnClickListener { loadRV(mSearchlist)}
+            clickSearch.setOnClickListener { loadRV(mSearchlist)}
 
 
-               })}
+        })}
 
     fun listsEqual(mListId: ArrayList<Int>, mListIdForAdress: ArrayList<Int>): ArrayList<Int> {
         val mDifference = mListId.minus(mListIdForAdress)
@@ -370,14 +370,14 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
     private fun loadRV(mSearchlist: ArrayList<Int>) {
 
 
-            if (mSearchlist.isNullOrEmpty()) {
-                val intent = Intent(this, SearchActivity::class.java)
-                startActivity(intent) }
-            else { val intent = Intent(this, MainActivity::class.java)
-                mSearchlist.sort()
-                intent.putExtra(MASTER_ID, mSearchlist)
-                println(" ------List Id------" + mSearchlist.toString())
-                startActivity(intent) } }
+        if (mSearchlist.isNullOrEmpty()) {
+            val intent = Intent(this, SearchActivity::class.java)
+            startActivity(intent) }
+        else { val intent = Intent(this, MainActivity::class.java)
+            mSearchlist.sort()
+            intent.putExtra(MASTER_ID, mSearchlist)
+            println(" ------List Id------" + mSearchlist.toString())
+            startActivity(intent) } }
 
 
     companion object {

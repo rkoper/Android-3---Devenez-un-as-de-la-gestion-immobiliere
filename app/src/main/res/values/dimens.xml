@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="textadaptsize">14dp</dimen>
+    <dimen name="textadaptsize">15dp</dimen>
     <dimen name="textadaptsizeMid">13dp</dimen>
     <dimen name="textadaptsizesmall">12dp</dimen>
  </resources>

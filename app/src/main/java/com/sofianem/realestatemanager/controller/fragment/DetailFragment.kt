@@ -165,10 +165,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
     private fun initStatus() {
         if (mStatus == "sold") { detail_sold.isVisible = true
             detail_sold.setOnClickListener { Toast.makeText(requireContext(), "Already sold", Toast.LENGTH_LONG).show() }
-            cancel_sold.setOnClickListener {
-                val intent = Intent(activity, UpdateActivity::class.java)
-                intent.putExtra(ID, mId)
-                startActivity(intent) } } }
+        } }
 
     private fun initDate() {
         val sdf = SimpleDateFormat("dd/MM/yyyy")

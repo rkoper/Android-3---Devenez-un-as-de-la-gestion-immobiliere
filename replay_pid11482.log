@@ -1,0 +1,15 @@
+JvmtiExport can_access_local_variables 0
+JvmtiExport can_hotswap_or_post_breakpoint 0
+JvmtiExport can_post_on_exceptions 0
+# 155 ciObject found
+ciMethod java/lang/Object <init> ()V 4097 1 46341463 0 0
+ciMethod java/lang/Iterable iterator ()Ljava/util/Iterator; 0 0 1 0 -1
+ciMethod java/util/Iterator hasNext ()Z 0 0 1 0 -1
+ciMethodData java/lang/Object <init> ()V 2 46341463 orig 264 120 82 31 12 1 0 0 0 128 68 114 17 1 0 0 0 32 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 77 68 79 32 101 120 116 114 97 32 100 97 116 97 32 108 111 99 107 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 0 185 218 24 22 1 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 3 0 1 0 0 0 0 0 0 0 255 255 255 255 0 0 0 0 0 0 0 0 data 0 oops 0
+ciMethod com/sun/tools/javac/util/List nonEmpty ()Z 4097 1 1692946 0 64
+ciMethod com/sun/tools/javac/code/Scope getElements (Lcom/sun/tools/javac/util/Filter;)Ljava/lang/Iterable; 16409 1 2570 0 0
+ciMethod com/sun/tools/javac/code/Scope getElementsByName (Lcom/sun/tools/javac/util/Name;Lcom/sun/tools/javac/util/Filter;)Ljava/lang/Iterable; 164857 1 40094 0 -1
+ciMethod com/sun/tools/javac/util/Filter accepts (Ljava/lang/Object;)Z 0 0 1 0 -1
+ciMethod com/sun/tools/javac/code/Scope$CompoundScope getElements (Lcom/sun/tools/javac/util/Filter;)Ljava/lang/Iterable; 16417 1 3705 0 0
+ciMethod com/sun/tools/javac/code/Scope$CompoundScope access$200 (Lcom/sun/tools/javac/code/Scope$CompoundScope;)Lcom/sun/tools/javac/util/List; 1249 1 156 0 0
+ciMethodData com/sun/tools/javac/util/List nonEmpty ()Z 2 1692946 orig 264 120 82 31 12 1 0 0 0 120 38 133 41 1 0 0 0 88 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 77 68 79 32 101 120 116 114 97 32 100 97 116 97 32 108 111 99 107 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 0 145 152 206 0 1 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 6 0 2 0 0 0 56 0 0 0 255 255 255 255 7 0 4 0 0 0 0 0 data 7 0x0 0x70000c819bb8 0x7fa50000000f 0x7fa514a60350 0x0 0x70000c819bb8 0x7fa50000000f

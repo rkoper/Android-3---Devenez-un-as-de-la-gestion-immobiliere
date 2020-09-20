@@ -615,17 +615,7 @@
             android:text="SOLD"
             android:textSize="40sp"
             android:visibility="visible" />
-            <ImageButton
 
-                app:layout_constraintTop_toTopOf="@+id/llSold"
-                app:layout_constraintBottom_toBottomOf="@+id/llSold"
-                app:layout_constraintRight_toRightOf="@+id/llSold"
-                android:id="@+id/cancel_sold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/edit_grey"
-                android:background="@drawable/round_yellow_trans"
-                android:orientation="horizontal" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

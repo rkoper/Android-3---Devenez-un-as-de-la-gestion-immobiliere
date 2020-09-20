@@ -24,13 +24,20 @@
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.55"/>
+        app:layout_constraintGuide_percent="0.5"/>
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide4"
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8"/>
+        app:layout_constraintGuide_percent="0.66"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guide5"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.82"/>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/activity_main_floating_cal"
@@ -159,23 +166,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="@+id/guide2"/>
 
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/activity_main_floating_home"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="@+id/guide2"
-        app:layout_constraintRight_toRightOf="@+id/guide2"
-        android:layout_marginBottom="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:backgroundTint="@color/colorA"
-        android:src="@drawable/house_grey"
-        android:visibility="invisible"
-        app:tint="@color/colorD"
-        android:elevation="20dp"
-        app:maxImageSize="48dp"
-        tools:ignore="VectorDrawableCompat"
-        tools:targetApi="lollipop" />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/activity_main_floating_add"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -187,6 +177,23 @@
         android:layout_height="wrap_content"
         app:backgroundTint="@color/colorA"
         android:src="@drawable/add_yellow"
+        app:tint="@color/colorD"
+        android:elevation="20dp"
+        app:maxImageSize="48dp"
+        tools:ignore="VectorDrawableCompat"
+        tools:targetApi="lollipop" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/activity_main_floating_refresh"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/guide5"
+        app:layout_constraintRight_toRightOf="@+id/guide5"
+        android:layout_marginBottom="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:backgroundTint="@color/colorA"
+        android:src="@drawable/refresh_black"
         app:tint="@color/colorD"
         android:elevation="20dp"
         app:maxImageSize="48dp"

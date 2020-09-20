@@ -28,39 +28,33 @@ class MainFragment : Fragment(), LifecycleObserver {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View? { return inflater.inflate(R.layout.fragment_main, container, false) }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mSearchlist = arguments?.getIntegerArrayList("1111")
-        println("--------------------mListId--------------" + mSearchlist )
-        return inflater.inflate(R.layout.fragment_main, container, false) }
+        subscriber_recyclerView.layoutManager = LinearLayoutManager(activity)
+        setupRecyclerView()
+
+    }
 
     private fun setupRecyclerView() {
         if (mSearchlist.isNullOrEmpty()) {
-            mMyViewModel.mAllEstate.observeForever { dataEstate ->
-                mMyViewModelForImages.allImageLive.observe(
-                    viewLifecycleOwner,
-                    Observer { dataImage ->
-                        subscriber_recyclerView.adapter =
-                            MainAdapter(dataEstate, dataImage, requireContext())
-                    })
-            }
+            mMyViewModel.mAllEstate.observeForever { mDataEstate ->
+                mMyViewModelForImages.allImageLive.observeForever { mDataImage ->
+                    subscriber_recyclerView.adapter = MainAdapter(mDataEstate, mDataImage, requireContext()) } }
         } else {
-            val a =  arrayListOf<EstateR>()
-            val b =  arrayListOf<ImageV>()
+            val mDataEstate =  arrayListOf<EstateR>()
+            val mDataImage =  arrayListOf<ImageV>()
             mSearchlist!!.sort()
             mSearchlist!!.forEach { mId ->
                 mMyViewModel.getById(mId).observe(viewLifecycleOwner, Observer {estate ->
                     mMyViewModelForImages.getById(mId).observe(viewLifecycleOwner, Observer { img ->
-                       if (img == null) {}
-                       else { b.add(img)}
-                        a.add(estate)
-                        subscriber_recyclerView.adapter = MainAdapter(a, b, requireContext())
-                        }) }) } } }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        subscriber_recyclerView.layoutManager = LinearLayoutManager(activity)
-        setupRecyclerView()
-    }
+                        if (img == null) {}
+                        else { mDataImage.add(img)}
+                        mDataEstate.add(estate)
+                        subscriber_recyclerView.adapter = MainAdapter(mDataEstate, mDataImage, requireContext())
+                    }) }) } } }
 
     companion object {
         fun newInstance(mListId: ArrayList<Int>?): MainFragment {

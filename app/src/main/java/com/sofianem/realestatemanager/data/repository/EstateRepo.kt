@@ -92,6 +92,10 @@ open class EstateRepo (estate_Dao: EstateDao) {
         return estate_Dao.getGeoLocById(mId)
     }
 
+    fun AllEstate(): LiveData<List<EstateR>> {
+        return estate_Dao.getAllForRV()
+    }
+
 }
 
 
