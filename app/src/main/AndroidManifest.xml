@@ -16,7 +16,7 @@
     <application
        android:label="Real Estate Manager"
         android:allowBackup="true"
-        android:roundIcon="@mipmap/icon_estate"
+        android:roundIcon="@mipmap/ic_launcher_rem_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents"
         android:name=".EstateApplication"

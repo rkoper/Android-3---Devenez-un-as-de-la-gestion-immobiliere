@@ -11,7 +11,6 @@ import com.sofianem.realestatemanager.data.repository.EstateRepo
 
 class MyViewModel(private val mRepository : EstateRepo) : ViewModel() {
     lateinit var location: String
-    var mCreateId: Int = 99
 
 
 
@@ -29,7 +28,7 @@ class MyViewModel(private val mRepository : EstateRepo) : ViewModel() {
 
            mRepository.insertTodo(db)
 
-        return mCreateId.toLong()
+        return mRepository.insertTodo(db)
     }
 
     fun updateTodo(todo: EstateR) { mRepository.updateTodo(todo) }

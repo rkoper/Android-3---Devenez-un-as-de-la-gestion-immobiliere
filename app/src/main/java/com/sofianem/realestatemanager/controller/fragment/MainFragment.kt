@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.adapter.MainAdapter
@@ -16,8 +15,6 @@ import com.sofianem.realestatemanager.data.model.ImageV
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
 import kotlinx.android.synthetic.main.fragment_main.*
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -28,9 +25,13 @@ class MainFragment : Fragment(), LifecycleObserver {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? { return inflater.inflate(R.layout.fragment_main, container, false) }
+
+    ): View? {
+        println("--------------------Tablet-----5 ---------")
+        return inflater.inflate(R.layout.fragment_main, container, false) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        println("--------------------Tablet----- 4 ---------")
         super.onViewCreated(view, savedInstanceState)
         mSearchlist = arguments?.getIntegerArrayList("1111")
         subscriber_recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -39,6 +40,7 @@ class MainFragment : Fragment(), LifecycleObserver {
     }
 
     private fun setupRecyclerView() {
+        println("--------------------Tablet----- 2 ---------")
         if (mSearchlist.isNullOrEmpty()) {
             mMyViewModel.mAllEstate.observeForever { mDataEstate ->
                 mMyViewModelForImages.allImageLive.observeForever { mDataImage ->
@@ -59,6 +61,7 @@ class MainFragment : Fragment(), LifecycleObserver {
     companion object {
         fun newInstance(mListId: ArrayList<Int>?): MainFragment {
             val fragment = MainFragment()
+            println("--------------------Tablet----- 6 ---------")
             val bundle = Bundle().apply { putIntegerArrayList("1111", mListId) }
             fragment.arguments = bundle
             return fragment

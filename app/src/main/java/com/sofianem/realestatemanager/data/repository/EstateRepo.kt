@@ -28,10 +28,7 @@ open class EstateRepo (estate_Dao: EstateDao) {
     }
 
     fun insertTodo(todo: EstateR): Long {
-        GlobalScope.launch(Dispatchers.IO) {
-            estate_Dao.insert(todo)
-        }
-        return mCreateId
+        return estate_Dao.insert(todo)
     }
 
 

@@ -74,6 +74,7 @@ class CreateActivity : AppCompatActivity() {
     private var mDateEnd: Long = 8888888888
     var mCreateId: Int = 99
     var mNbPhoto:Int = 0
+    var mNewID : Long = 66666
     private val mMyViewModel by viewModel<MyViewModel>()
     private val mMyViewModelForImages by viewModel<MyViewModelForImages>()
     private val mMyViewModelForPlaces by viewModel<MyViewModelForPlaces>()
@@ -105,7 +106,7 @@ class CreateActivity : AppCompatActivity() {
             mNbPhoto = listimageDescription.size
             if (mAddress == "Adress" ||  mAddress == "-" ||  mAddress == "") {Toast.makeText(this, "Please add address...", Toast.LENGTH_SHORT).show()}
             else { Toast.makeText(this, "Saving...", Toast.LENGTH_SHORT).show()
-                mMyViewModel.insertTodo(
+                mNewID =   mMyViewModel.insertTodo(
                     mType,
                     mCity,
                     mPrice,
@@ -128,7 +129,9 @@ class CreateActivity : AppCompatActivity() {
             mMyViewModelForImages.storeImageData(mCreateId, listImage_path, listimageDescription)
 
             val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra(NEW_ID, mNewID.toInt())
             startActivity(intent) } }
+
 
     private fun loadItem() {
         loadCity()
@@ -400,6 +403,7 @@ class CreateActivity : AppCompatActivity() {
         val mListTypeOfLocation = arrayListOf("park", "supermarket", "pharmacy", "primary_school" )
         const val OPERATION_CAPTURE_PHOTO = 1
         const val OPERATION_CHOOSE_PHOTO = 2
+        const val NEW_ID = "new_ID"
 
     }
 }

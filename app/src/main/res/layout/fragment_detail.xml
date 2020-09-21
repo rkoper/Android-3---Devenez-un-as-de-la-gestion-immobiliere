@@ -472,79 +472,99 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.78" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayout1"
+            app:layout_constraintRight_toLeftOf="@+id/LinearLayout2"
+            app:layout_constraintTop_toTopOf="@+id/detail_guideline7"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/detail_pharmacy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/hospital_yellow"
-            android:backgroundTint="@color/colorD"
-            app:layout_constraintTop_toTopOf="@+id/detail_guideline7"
-            app:layout_constraintLeft_toLeftOf="@+id/im_guideline" />
+            android:backgroundTint="@color/colorD" />
         <TextView
             style="@style/EditTXTCreate"
             android:layout_marginStart="5dp"
             android:id="@+id/detail_pharmacy_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" - "
-            app:layout_constraintTop_toTopOf="@+id/detail_pharmacy"
-            app:layout_constraintBottom_toBottomOf="@+id/detail_pharmacy"
-            app:layout_constraintLeft_toRightOf="@+id/detail_pharmacy"/>
+            android:text=" - " />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/LinearLayout2"
+            app:layout_constraintTop_toTopOf="@+id/detail_guideline7"
+            app:layout_constraintLeft_toRightOf="@+id/LinearLayout1"
+            app:layout_constraintRight_toLeftOf="@+id/LinearLayout3"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/detail_school"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/school_yellow"
-            android:backgroundTint="@color/colorD"
-            app:layout_constraintTop_toTopOf="@+id/detail_guideline7"
-            app:layout_constraintLeft_toRightOf="@+id/im_guideline2" />
+            android:backgroundTint="@color/colorD" />
         <TextView
             style="@style/EditTXTCreate"
             android:layout_marginStart="5dp"
             android:id="@+id/detail_school_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" - "
-            app:layout_constraintBottom_toBottomOf="@+id/detail_pharmacy"
-            app:layout_constraintTop_toTopOf="@+id/detail_school"
-            app:layout_constraintLeft_toRightOf="@+id/detail_school"/>
+            android:text=" - " />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout3"
+            app:layout_constraintTop_toTopOf="@+id/detail_guideline7"
+            app:layout_constraintLeft_toRightOf="@+id/LinearLayout2"
+            app:layout_constraintRight_toLeftOf="@+id/LinearLayout4"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/detail_market"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/market_yellow"
-            android:backgroundTint="@color/colorD"
-            app:layout_constraintTop_toTopOf="@+id/detail_guideline7"
-            app:layout_constraintLeft_toLeftOf="@+id/im_guideline3" />
-
+            android:backgroundTint="@color/colorD" />
         <TextView
             style="@style/EditTXTCreate"
             android:layout_marginStart="5dp"
             android:id="@+id/detail_market_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" - "
-            app:layout_constraintBottom_toBottomOf="@+id/detail_pharmacy"
-            app:layout_constraintTop_toTopOf="@+id/detail_market"
-            app:layout_constraintLeft_toRightOf="@+id/detail_market"/>
+            android:text=" - " />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout4"
+            app:layout_constraintTop_toTopOf="@+id/detail_guideline7"
+            app:layout_constraintLeft_toRightOf="@+id/LinearLayout3"
+            app:layout_constraintRight_toRightOf="parent"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <ImageView
             android:id="@+id/detail_park"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/park_green"
-            android:backgroundTint="@color/colorD"
-            app:layout_constraintTop_toTopOf="@+id/detail_guideline7"
-            app:layout_constraintLeft_toLeftOf="@+id/im_guideline4" />
+            android:backgroundTint="@color/colorD" />
         <TextView
             style="@style/EditTXTCreate"
             android:layout_marginStart="5dp"
             android:id="@+id/detail_park_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" - "
-            app:layout_constraintTop_toTopOf="@+id/detail_park"
-            app:layout_constraintBottom_toBottomOf="@+id/detail_park"
-            app:layout_constraintLeft_toRightOf="@+id/detail_park"/>
+            android:text=" - " />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
