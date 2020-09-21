@@ -52,6 +52,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.math.pow
 
 
@@ -73,8 +75,8 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
     var mDescription: String = ""
     var mStatus: String = "ok"
     var mGeoLoc: String = ""
-    var mDateBegin: Long = 3
-    var mDateEnd: Long = 8888888888
+    var mDateCreate: Long = 3
+    var mDateSold: Long = 8888888888
     var mPersonn: String = ""
     var mAdress: String = ""
     var mListImageId: MutableList<Int?> = arrayListOf()
@@ -124,9 +126,22 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             if (lstEst.location != "") { mGeoLoc = lstEst.location }
 
             if (lstEst.date_begin.toInt() == 3) { upload_datebegin.text =  "     -     " }
-            else { mDateBegin = lstEst.date_begin; upload_datebegin.text = Utils.convertToLocalB(lstEst)}
+            else { mDateCreate = lstEst.date_begin; upload_datebegin.text = Utils.convertToLocalB(lstEst)}
 
-            upload_dateend.isChecked = lstEst.date_end != 8888888888
+            if (lstEst.date_end == 8888888888) { upload_dateSold.text =  "     -     "
+                cancel_sold.visibility = View.INVISIBLE
+            }
+            else {
+                val sdf = SimpleDateFormat("dd/MM/yyyy")
+                mDateSold = lstEst.date_begin
+                val mDisplayDateEnd = sdf.format(Date(mDateSold))
+                upload_dateSold.text = mDisplayDateEnd.toString()
+                cancel_sold.visibility = View.VISIBLE
+                upload_recyclerview_cache.visibility = View.VISIBLE
+
+            }
+
+         //   upload_dateend.isChecked = lstEst.date_end != 8888888888
 
             mId = lstEst.id
             upload_city.text = lstEst.city
@@ -170,8 +185,8 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             est.surface = mSurface
             est.number_of_room = mNumberOfRoom
             est.description = mDescription
-            est.date_begin = mDateBegin
-            est.date_end = mDateEnd
+            est.date_begin = mDateCreate
+            est.date_end = mDateSold
             est.personn = mPersonn
             est.adress = mAdress
             est.location = mGeoLoc
@@ -188,7 +203,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
 
 
     fun saveEntry() {
-        load_mCity(); load_room(); load_mPersonn(); load_mDateBegin(); load_mDateEnd();load_mPrice(); load_mAdress(); load_mType(); load_mSurface()
+        load_mCity(); load_room(); load_mPersonn(); load_mDateCreate(); load_mDateEnd();load_mPrice(); load_mAdress(); load_mType(); load_mSurface()
     }
 
     private fun load_mCity() {
@@ -223,12 +238,12 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                 val mDialog = mBuilder.create()
                 mDialog.show() } } }
 
-    private fun load_mDateBegin() {
+    private fun load_mDateCreate() {
         upload_datebegin.setOnClickListener {
             val dpd = DatePickerDialog.OnDateSetListener { view, y, m, d ->
                     upload_datebegin.setText(Utils.formatDate(y, m, d))
-                    mDateBegin = Utils.convertToEpoch(Utils.formatDate(y, m, d)) }
-            val now = android.text.format.Time(); now.setToNow()
+                    mDateCreate = Utils.convertToEpoch(Utils.formatDate(y, m, d)) }
+            val now = Time(); now.setToNow()
             val d = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
             d.show(); d.getButton(DatePickerDialog.BUTTON_POSITIVE)
             .setBackgroundColor(resources.getColor(R.color.colorD))
@@ -236,20 +251,28 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                 .setBackgroundColor(resources.getColor(R.color.colorD)) } }
 
     private fun load_mDateEnd() {
-        upload_dateend.setOnCheckedChangeListener { _, b ->
-            if (b) {
-                upload_recyclerview_cache.isVisible = true
-                val now = Time()
-                now.setToNow()
-                val a = now.monthDay
-                val b1 = now.month
-                val c = now.year
-                mDateEnd =  Utils.convertToEpoch(Utils.formatDate(c,b1,a))
-                mStatus = "sold" }
+        upload_dateSold.setOnClickListener {
+            val dpd = DatePickerDialog.OnDateSetListener { view, y, m, d ->
+                upload_dateSold.text = Utils.formatDate(y, m, d)
+                mDateSold = Utils.convertToEpoch(Utils.formatDate(y, m, d))
+                mStatus = "sold"
+                cancel_sold.visibility = View.VISIBLE
+                upload_recyclerview_cache.visibility = View.VISIBLE}
+            val now = Time(); now.setToNow()
+            val d = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
+            d.show()
+            d.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(resources.getColor(R.color.colorD))
+            d.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(resources.getColor(R.color.colorD))
+             }
 
-            else {   upload_recyclerview_cache.isVisible = false
-                mDateEnd = 8888888888
-                mStatus = "ok" } } }
+        cancel_sold.setOnClickListener {
+            cancel_sold.visibility = View.INVISIBLE
+            upload_recyclerview_cache.visibility = View.INVISIBLE
+            mStatus = "ok"
+            upload_dateSold.text = "-"
+            mDateSold = 8888888888 }
+
+    }
 
     private fun load_mPrice() {
         upload_rangebar_price.setOnRangeBarChangeListener(object :
@@ -272,13 +295,14 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
         autocompleteFragment?.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 upload_adress.text = place.address
+
                 place.addressComponents?.asList()?.forEach {
                     if (it.types.contains("street_number")) { streetNumber = it.name }
                     else if (it.types.contains("route")) { route = it.name }
                     else if (it.types.contains("locality")) {
                         upload_city.text = it.name; mCity = it.name } }
                 mAdress = "$streetNumber $route"
-              //  mGeoLoc = GeocoderUtil.getlocationForListv2(mAdress, mCity, this@UpdateActivity)
+                mGeoLoc = Utils.getlocationForList(mAdress, mCity, this@UpdateActivity)
             }
 
             override fun onError(p0: Status) {} }) }

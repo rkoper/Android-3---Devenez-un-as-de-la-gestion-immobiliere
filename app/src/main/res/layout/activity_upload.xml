@@ -352,15 +352,27 @@
             app:layout_constraintLeft_toLeftOf="@+id/upload_guideline8"
             app:layout_constraintTop_toBottomOf="@+id/upload_guideline41" />
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/upload_dateend"
-            android:theme="@style/ThemeOverlay.MySwitchCompat"
+        <TextView
+            android:id="@+id/upload_dateSold"
+            style="@style/MyEdittextStyle5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/upload_in_dateend"
+            android:background="@color/colorB"
+            android:gravity="bottom"
+            android:importantForAutofill="no"
+            android:text="Creation date"
             app:layout_constraintLeft_toLeftOf="@+id/upload_in_dateend"
             app:layout_constraintRight_toRightOf="@+id/upload_in_dateend"
             app:layout_constraintBottom_toTopOf="@+id/guideline666" />
+        <ImageView
+            android:padding="3dp"
+            android:id="@+id/cancel_sold"
+            android:background="@drawable/cancel_yellow_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/upload_dateSold"
+            app:layout_constraintBottom_toBottomOf="@+id/upload_dateSold"
+            app:layout_constraintLeft_toRightOf="@+id/upload_dateSold"/>
         <ImageView
             android:id="@+id/upload_in_dateend"
             android:layout_width="wrap_content"

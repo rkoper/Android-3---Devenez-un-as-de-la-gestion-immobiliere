@@ -1,12 +1,15 @@
 package com.sofianem.realestatemanager.controller.activity
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.text.format.Time
+import android.util.DisplayMetrics
 import android.util.Log
+import android.view.Display
 import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView
@@ -25,6 +28,7 @@ import kotlinx.android.synthetic.main.activity_search.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.pow
 import kotlin.math.roundToInt
 
 
@@ -59,7 +63,12 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search)
+       val a =  checkIsTablet()
+        if (a)
+        {    setContentView(R.layout.activity_search)}
+        else
+        {  setContentView(R.layout.activity_search)}
+
 
         mMyViewModel.mAllEstateId.observe(this, androidx.lifecycle.Observer {mList ->
             mList.forEach {mID -> mListIdForAdress.add(mID) } })
@@ -67,7 +76,8 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
         initSchool()
         searchPerson() ; searchRoom() ; searchType()
         searchSurface() ; searchPrice() ; searchAddress()
-        searchStatus() ; initDateCreate() ; initDateSold()
+       // searchStatus()
+        initDateCreate() ; initDateSold()
         initMarket()
         initPark()
         initPharmacy()
@@ -75,7 +85,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
         initPhoto()
         initSearch()
         onClickHome()  }
-
+/*
     private fun searchStatus() {
         search_switch_sold.setOnCheckedChangeListener { c, _ ->
             if (c.isChecked) {
@@ -96,6 +106,8 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
                 mSoldDateEnd = 88888888870000
                 initSearch()} } }
 
+ */
+
 
     private fun searchAddress() {
         var mStreetNumber = ""
@@ -103,7 +115,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
         var mCity = ""
         if (!Places.isInitialized()) { Places.initialize(applicationContext, "AIzaSyByK0jz-yxjpZFX88W8zjzTwtzMtkPYC4w") }
 
-        val autocompleteFragment = Utils.configureAutoCompleteFragV2(supportFragmentManager, resources, this, "Adress")
+        val autocompleteFragment = Utils.configureAutoCompleteFrag(supportFragmentManager, resources, this, "Adress")
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 a_search_ed_adress.text = place.address
@@ -134,7 +146,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
                 val mItemLng = Utils.currentLng(mGeoLocItem)
 
                 val mDistance = Utils.calculateDistance(mSearchLat, mSearchLng, mItemLat, mItemLng).roundToInt()
-                if (mDistance < 700) {mListIdForAdress.add(mId)}
+                if (mDistance < 750) {mListIdForAdress.add(mId)}
 
                 println( " ------>>>>>> DISTANCE <<<<<------ / ID /  $mId  /   $mDistance ")
             } // FOREACH
@@ -409,5 +421,20 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
         mMyViewModel.mAllEstate.observe(this, androidx.lifecycle.Observer {
             println(" ----Estate ------" + it.toString())
         })
+    }
+
+    private fun checkIsTablet(): Boolean {
+        val display: Display = (this as Activity).windowManager.defaultDisplay
+        val metrics = DisplayMetrics()
+        display.getMetrics(metrics)
+        val widthInches: Float = metrics.widthPixels / metrics.xdpi
+        val heightInches: Float = metrics.heightPixels / metrics.ydpi
+        val diagonalInches = Math.sqrt(
+            Math.pow(
+                widthInches.toDouble(),
+                2.0
+            ) + heightInches.toDouble().pow(2.0)
+        )
+        return diagonalInches >= 7.0
     }
 }

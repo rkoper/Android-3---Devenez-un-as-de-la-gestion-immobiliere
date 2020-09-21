@@ -31,7 +31,7 @@ class PlacesListAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: PlaceViewHolder, position: Int) {
         holder.name.text = mListName[position]
-        holder.distance.text = mListDistance[position] + " m"
+        holder.distance.text = mListDistance[position] + " yd"
 
         if (mType =="park" ) { goGreen(holder) }
         if (mType =="supermarket" ) { goRed(holder) }

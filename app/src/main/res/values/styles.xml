@@ -151,6 +151,7 @@
     </style>
     <style name="YellowCheck">
         <item name="colorAccent">#bfac40</item>
+        <item name="android:textSize">@dimen/textadaptsizesmall</item>
     </style>
 
     <style name="ThemeOverlay.MySwitchCompat" parent="">

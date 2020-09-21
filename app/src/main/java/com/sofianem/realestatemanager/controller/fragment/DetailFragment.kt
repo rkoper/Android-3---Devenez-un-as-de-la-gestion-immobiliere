@@ -110,30 +110,30 @@ class DetailFragment : Fragment(), LifecycleObserver {
     private fun initProxLoc() {
         mMVForPlaces.getByIdLocation("park", mId).observe(this, Observer { lnp ->
             if (lnp.isNotEmpty()) {
-                detail_park_txt.text = lnp[0].placeDistance.toString() + " m "
+                detail_park_txt.text = lnp[0].placeDistance.toString() + " yd "
                 if (mProxPark == "Estate_park") {
-                    if (lnp[0].placeDistance < 500) { mMV.UpdateProxPark("ok", mId) }
+                    if (lnp[0].placeDistance < 750) { mMV.UpdateProxPark("ok", mId) }
                     else { mMV.UpdateProxPark("no", mId )}}
             }}).also {
             mMVForPlaces.getByIdLocation("supermarket", mId).observe(this, Observer { lnp ->
                 if (lnp.isNotEmpty()) {
-                detail_market_txt.text = lnp[0].placeDistance.toString() + " m "
+                detail_market_txt.text = lnp[0].placeDistance.toString() + " yd "
                 if (mProxMarket == "Estate_market"){
-                   if ( lnp[0].placeDistance < 500) {mMV.UpdateProxMarket("ok", mId )}
+                   if ( lnp[0].placeDistance < 750) {mMV.UpdateProxMarket("ok", mId )}
                    else {mMV.UpdateProxMarket("no", mId )}}
         }})}.also {
             mMVForPlaces.getByIdLocation("primary_school", mId).observe(this, Observer { lnp ->
                 if (lnp.isNotEmpty()) {
-                detail_school_txt.text = lnp[0].placeDistance.toString()+ " m "
+                detail_school_txt.text = lnp[0].placeDistance.toString()+ " yd "
                 if (mProxSchool == "Estate_school"){
-                    if ( lnp[0].placeDistance < 500) {mMV.UpdateProxSchool("ok", mId )}
+                    if ( lnp[0].placeDistance < 750) {mMV.UpdateProxSchool("ok", mId )}
                     else {mMV.UpdateProxSchool("no", mId )}}
         }})}.also {
             mMVForPlaces.getByIdLocation("pharmacy", mId).observe(this, Observer { lnp ->
                 if (lnp.isNotEmpty()) {
-                detail_pharmacy_txt.text = lnp[0].placeDistance.toString()+ " m "
+                detail_pharmacy_txt.text = lnp[0].placeDistance.toString()+ " yd "
                 if (mProxPharmacy == "Estate_pharmacy"){
-                    if ( lnp[0].placeDistance < 500) {mMV.UpdateProxPharma("ok", mId )}
+                    if ( lnp[0].placeDistance < 750) {mMV.UpdateProxPharma("ok", mId )}
                     else {mMV.UpdateProxPharma("no", mId )}} }})}}
 
 
@@ -163,9 +163,11 @@ class DetailFragment : Fragment(), LifecycleObserver {
                 activity?.startActivity(intent) } } }
 
     private fun initStatus() {
-        if (mStatus == "sold") { detail_sold.isVisible = true
-            detail_sold.setOnClickListener { Toast.makeText(requireContext(), "Already sold", Toast.LENGTH_LONG).show() }
-        } }
+        println(" Status ------>>" + mStatus.toString())
+        if (mStatus == "sold") { detail_sold.visibility = View.VISIBLE
+            detail_sold.setOnClickListener { Toast.makeText(requireContext(), "Already sold", Toast.LENGTH_LONG).show() } }
+        else {detail_sold.visibility = View.GONE}
+    }
 
     private fun initDate() {
         val sdf = SimpleDateFormat("dd/MM/yyyy")

@@ -31,7 +31,6 @@ import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.data.model.EstateR
-import kotlinx.android.synthetic.main.activity_create.*
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -116,7 +115,9 @@ object Utils {
     ): Double {
         val xSquare = (x1 - x2).pow(2.0)
         val ySquare = (y1 - y2).pow(2.0)
-        return Math.sqrt(xSquare + ySquare) * 100000
+
+        val mDistanceInM = Math.sqrt(xSquare + ySquare) * 100000
+        return mDistanceInM * 1.1
     }
 
     fun formatDate(y:Int, m:Int, d:Int) : String {
@@ -196,28 +197,6 @@ object Utils {
         return autocompleteFragment
     }
 
-    fun configureAutoCompleteFragV2(
-        supportFragmentManager: FragmentManager,
-        resources:Resources,
-        mContext:Context,
-        hint:String) : AutocompleteSupportFragment{
-        var autocompleteFragment = supportFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment?
-        var fView: View? = autocompleteFragment?.view
-        var etTextInput: EditText? = fView?.findViewById(R.id.places_autocomplete_search_input)
-        etTextInput?.setBackgroundColor(resources.getColor(R.color.colorB))
-        etTextInput?.setTextColor(resources.getColor(R.color.colorD))
-        etTextInput?.setHintTextColor(resources.getColor(R.color.colorD))
-        etTextInput?.gravity = Gravity.TOP
-        etTextInput?.hint = hint
-        val font: Typeface? = ResourcesCompat.getFont(mContext, R.font.montserrat)
-        etTextInput?.setTypeface(font, Typeface.BOLD)
-        etTextInput?.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.textadaptsize))
-        val searchIcon = (autocompleteFragment?.view as LinearLayout).getChildAt(0) as ImageView
-        searchIcon.visibility = View.GONE
-        autocompleteFragment?.setTypeFilter(TypeFilter.ADDRESS)
-        autocompleteFragment?.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS_COMPONENTS, Place.Field.LAT_LNG))
-        return autocompleteFragment
-    }
 
      fun addWhiteSpace(x: String) : String{
         val n = 3

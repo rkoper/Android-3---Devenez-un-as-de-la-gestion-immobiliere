@@ -171,7 +171,6 @@ class CreateActivity : AppCompatActivity() {
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 a_create_ed_adress.text = place.address
-                println( " PLACE _ LAT LNG ------->" + place.latLng)
                 place.addressComponents?.asList()?.forEach { Log.i("TAG", "AutoComplet: " + it.types + " " )
                     if (it.types.contains("street_number")) { streetNumber = it.name }
                     else if (it.types.contains("route")) { route = it.name }
@@ -183,7 +182,7 @@ class CreateActivity : AppCompatActivity() {
                 a_create_ed_adress.visibility = View.VISIBLE
                 mAddress = "$streetNumber $route"
 
-             //   mGeoLoc = GeocoderUtil.getlocationForListv2( mAddress, mCity, this@CreateActivity)
+               mGeoLoc = Utils.getlocationForList( mAddress, mCity, this@CreateActivity)
             }
             override fun onError(status: Status) { Log.i("TAG", "An error occurred: $mStatus")
             } })
