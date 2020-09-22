@@ -3,14 +3,10 @@ package com.sofianem.realestatemanager.controller.activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.activity.MainActivity.Companion.ID
 import com.sofianem.realestatemanager.controller.fragment.DetailFragment
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
-import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
-import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.activity_detail.*
 import org.koin.android.viewmodel.ext.android.viewModel
 

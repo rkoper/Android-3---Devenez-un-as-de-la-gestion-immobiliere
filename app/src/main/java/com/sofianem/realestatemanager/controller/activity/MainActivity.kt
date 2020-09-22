@@ -1,15 +1,14 @@
 package com.sofianem.realestatemanager.controller.activity
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.view.Display
 import android.view.View
 import android.widget.RemoteViews
 import androidx.appcompat.app.AppCompatActivity
@@ -22,8 +21,9 @@ import com.sofianem.realestatemanager.controller.fragment.MainFragment
 import com.sofianem.realestatemanager.utils.MyCommunication
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
         mIsDualPane = !(fragmentDetailView == null || !fragmentDetailView.isVisible)
         mSearchlist = intent.getIntegerArrayListExtra("master_id")
         mNewID = intent.getIntExtra("new_ID", 99999)
+
         val fragment = MainFragment.newInstance(mSearchlist)
 
         if (!mSearchlist.isNullOrEmpty())
@@ -64,20 +65,12 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
 
     private fun initNotif(mNewID: Int) {
         mMyViewModel.getById(mNewID).observe(this, Observer {
-
-
-
-
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        println("mNewID ----------->>>>> " + mNewID)
-
         val intent = Intent(this,MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT)
-
         val contentView = RemoteViews(packageName,R.layout.activity_notification_view)
         contentView.setTextViewText(R.id.tv_title,"New item on Real Estate Manager")
         contentView.setTextViewText(R.id.tv_content,"@ " + it.city)
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationChannel = NotificationChannel(channelId,description,NotificationManager.IMPORTANCE_HIGH)
             notificationChannel.enableLights(true)
@@ -85,22 +78,13 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
             notificationChannel.enableVibration(true)
             notificationManager.createNotificationChannel(notificationChannel)
 
-            builder = Notification.Builder(this,channelId)
-                .setContent(contentView)
-                .setSmallIcon(R.mipmap.ic_launcher_rem_round)
-                .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher_rem_round))
-                .setContentIntent(pendingIntent)
-        }else{
+            builder = Notification.Builder(this,channelId).setContent(contentView).setSmallIcon(R.mipmap.ic_launcher_rem_round).setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher_rem_round)).setContentIntent(pendingIntent)
 
-            builder = Notification.Builder(this)
-                .setContent(contentView)
-                .setSmallIcon(R.mipmap.ic_launcher_rem_round)
-                .setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher_rem_round))
-                .setContentIntent(pendingIntent)
-        }
-        notificationManager.notify(1234,builder.build())
-        })
-        }
+
+        }else{ builder = Notification.Builder(this).setContent(contentView).setSmallIcon(R.mipmap.ic_launcher_rem_round).setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher_rem_round)).setContentIntent(pendingIntent)}
+
+            notificationManager.notify(1234,builder.build())
+        }) }
 
 
 
@@ -113,8 +97,6 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             }
-
-
 
         }
     }
@@ -146,7 +128,7 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
 
     override fun displayDetails(id: Int) {
         if (mIsDualPane) {
-            println("--------------------Tablet---------1-----")
+            println("--------------------Tablet-------------")
             cacheForDetail.isVisible = false
             val fragmentMainDetail = supportFragmentManager.findFragmentById(R.id.fragment_main_detail) as DetailFragment?
 
@@ -165,6 +147,23 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
             startActivity(intent)
             finish()} }
 
+    fun checkIsTablet(): Boolean {
+        val display: Display = (this as Activity).windowManager.defaultDisplay
+        val metrics = DisplayMetrics()
+        display.getMetrics(metrics)
+        val widthInches: Float = metrics.widthPixels / metrics.xdpi
+        val heightInches: Float = metrics.heightPixels / metrics.ydpi
+        val diagonalInches = sqrt(widthInches.toDouble().pow(2.0) + heightInches.toDouble().pow(2.0))
+        return diagonalInches >= 7.0
+    }
+
     companion object {
-        const val ID = "id" }
+        const val ID = "id"
+
+
+
+
+
+
+    }
 }
