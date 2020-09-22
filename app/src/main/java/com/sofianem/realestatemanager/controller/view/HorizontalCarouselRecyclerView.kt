@@ -114,7 +114,7 @@ class HorizontalCarouselRecyclerView(
         scaleFactor: Float,
         spreadFactor: Double
     ): Float {
-        val recyclerCenterX = (left + right) / 2
+        val recyclerCenterX = (left + right) / 4
         return (Math.pow(
             Math.E,
             -Math.pow(childCenterX - recyclerCenterX.toDouble(), 2.toDouble()) / (2 * Math.pow(

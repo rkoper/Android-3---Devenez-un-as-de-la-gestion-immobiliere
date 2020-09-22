@@ -1,13 +1,16 @@
 package com.sofianem.realestatemanager.controller.fragment
-
+import android.content.ClipData
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
+import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.Observer
@@ -15,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.activity.PlacesActivity
+import com.sofianem.realestatemanager.controller.adapter.TestAdapter
 import com.sofianem.realestatemanager.controller.adapter.DetailAdapter
 import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.model.NearbyPlaces
@@ -38,8 +42,8 @@ class DetailFragment : Fragment(), LifecycleObserver {
     private var mId: Int = 0
     private lateinit var lnp : List<NearbyPlaces>
 
-    private val mListImagePath: MutableList<String?> = ArrayList()
-    private val mListImageDescription: MutableList<String?> = ArrayList()
+     val mListImagePath: MutableList<String?> = ArrayList()
+     val mListImageDescription: MutableList<String?> = ArrayList()
     var mLocationForPlace = ""
     var mType: String = ""
     var mCity: String = ""
@@ -67,9 +71,54 @@ class DetailFragment : Fragment(), LifecycleObserver {
         savedInstanceState: Bundle?
     ): View? { return inflater.inflate(R.layout.fragment_detail, container, false) }
 
+
+     fun setupRecyclerView() {
+         item_list.initialize(itemAdapter)
+         item_list.setViewsToChangeColor(listOf(R.id.list_item_background, R.id.list_item_text))
+         getLargeListOfItems()
+     }
+
+    private val itemAdapter by lazy {
+        TestAdapter { position: Int, item: Item ->
+            Toast.makeText(requireContext(), "Pos ${position}", Toast.LENGTH_LONG).show()
+            item_list.smoothScrollToPosition(position)
+        } }
+
+
+    private fun getLargeListOfItems(){
+        var items = mutableListOf<Item>()
+        var     possibleItems = listOf<Item>()
+            mListImageDescription.clear()
+        mListImagePath.clear()
+        mMVImage.allImageLive.observe(this, Observer { listImage ->
+            if (listImage.isNullOrEmpty()) { Toast.makeText(requireContext(), "No photo", Toast.LENGTH_SHORT).show() }
+            else { listImage.forEach { img ->
+                if (img.masterId == mId) {
+                    possibleItems = listOf(Item(img.imageUri.toString(), img.imageDescription.toString()))
+                    println(" -------possibleItems--->>>>>>>>>>>" + possibleItems)
+                    items.add(possibleItems.random())
+
+
+                    }}
+                println(" -------items---->>>>>> 2 >>>>>" + items)
+                itemAdapter.setItems(items)
+
+
+            } })
+
+
+    }
+
+data class Item(
+    val title: String,
+    val titlev2: String
+)
+
+
+
+
+
     fun displayDetails(id: Int) {
-
-
        mMV.getById(id).observe(this, Observer {mEstate ->
            println( " T1 ----------> + " + mEstate )
            mId = mEstate.id
@@ -104,6 +153,8 @@ class DetailFragment : Fragment(), LifecycleObserver {
 
        }
 
+
+
     private fun initProxLoc() {
         mMVForPlaces.getByIdLocation("park", mId).observe(this, Observer { lnp ->
             if (lnp.isNotEmpty()) {
@@ -134,7 +185,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
                     else {mMV.UpdateProxPharma("no", mId )}} }})}}
 
 
-
+/*
     private fun setupRecyclerView() {
         mListImageDescription.clear()
         mListImagePath.clear()
@@ -147,6 +198,18 @@ class DetailFragment : Fragment(), LifecycleObserver {
 
         val layoutManager = GridLayoutManager(requireContext(), 3)
         detail_recyclerview.layoutManager = layoutManager }
+
+*/
+
+
+
+
+
+
+
+
+
+
 
 
     private fun initLocation() {
@@ -272,3 +335,5 @@ class DetailFragment : Fragment(), LifecycleObserver {
         const val LOCATION = "Location" }
 
 }
+
+

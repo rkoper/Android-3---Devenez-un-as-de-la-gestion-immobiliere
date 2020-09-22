@@ -346,15 +346,27 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/detail_recyclerview"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
             android:layout_marginLeft="5dp"
             android:layoutDirection="ltr"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="@+id/detail_guideline7"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detail_guideline5" />
+            app:layout_constraintTop_toBottomOf="@+id/detail_guideline5"/>
+
+        <com.sofianem.realestatemanager.controller.view.HorizontalCarouselRecyclerView
+            android:id="@+id/item_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="@+id/detail_guideline7"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_guideline5"/>
 
       <androidx.constraintlayout.widget.ConstraintLayout
           android:layout_width="0dp"
