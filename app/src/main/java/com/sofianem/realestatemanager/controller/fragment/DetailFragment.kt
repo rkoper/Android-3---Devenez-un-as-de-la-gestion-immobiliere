@@ -1,25 +1,21 @@
 package com.sofianem.realestatemanager.controller.fragment
-import android.content.ClipData
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
-import androidx.core.graphics.drawable.toDrawable
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.activity.PlacesActivity
 import com.sofianem.realestatemanager.controller.adapter.TestAdapter
-import com.sofianem.realestatemanager.controller.adapter.DetailAdapter
 import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.model.NearbyPlaces
 import com.sofianem.realestatemanager.utils.Utils
@@ -28,6 +24,7 @@ import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.fragment_detail.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -80,9 +77,18 @@ class DetailFragment : Fragment(), LifecycleObserver {
 
     private val itemAdapter by lazy {
         TestAdapter { position: Int, item: Item ->
+            /*
+            val mDialogView = LayoutInflater.from(context).inflate(R.layout.dialog_imageview_rvdetail, null)
+            mDialogView.requestFocus()
+            val builder = AlertDialog.Builder(requireContext()).setView(mDialogView)
+            val o: ImageView = mDialogView.findViewById(R.id.dialog_imageview)
+            o.setImageURI(item.mImageUri.toUri())
+            val q: TextView = mDialogView.findViewById(R.id.dialog_imageview_text)
+            q.text = item.mImageDescription
+
+             */
             Toast.makeText(requireContext(), "Pos ${position}", Toast.LENGTH_LONG).show()
-            item_list.smoothScrollToPosition(position)
-        } }
+            item_list.smoothScrollToPosition(position) } }
 
 
     private fun getLargeListOfItems(){
@@ -95,27 +101,8 @@ class DetailFragment : Fragment(), LifecycleObserver {
             else { listImage.forEach { img ->
                 if (img.masterId == mId) {
                     possibleItems = listOf(Item(img.imageUri.toString(), img.imageDescription.toString()))
-                    println(" -------possibleItems--->>>>>>>>>>>" + possibleItems)
-                    items.add(possibleItems.random())
-
-
-                    }}
-                println(" -------items---->>>>>> 2 >>>>>" + items)
-                itemAdapter.setItems(items)
-
-
-            } })
-
-
-    }
-
-data class Item(
-    val title: String,
-    val titlev2: String
-)
-
-
-
+                    items.add(possibleItems.random()) }}
+                itemAdapter.setItems(items) } })}
 
 
     fun displayDetails(id: Int) {
@@ -200,16 +187,6 @@ data class Item(
         detail_recyclerview.layoutManager = layoutManager }
 
 */
-
-
-
-
-
-
-
-
-
-
 
 
     private fun initLocation() {
@@ -334,6 +311,13 @@ data class Item(
         const val NEWID = "newId"
         const val LOCATION = "Location" }
 
+    data class Item(
+        val mImageUri: String,
+        val mImageDescription: String
+    )
+
 }
+
+
 
 

@@ -66,12 +66,12 @@ class MainAdapter(
             val myCommunicator = mContext as MyCommunication
             myCommunicator.displayDetails(mMyDataset!![position].id)
 
-            if (mTablet!!){ if(mSelected_pos==position){ mSelected_pos=-1 ; notifyDataSetChanged() }
-            mSelected_pos = position;
-            notifyDataSetChanged();
-            mSelected_pos = position } }
+            if (mTablet!!){ if(mSelected_pos==position){ mSelected_pos=-1 }
+            mSelected_pos = position
+            notifyDataSetChanged()} }
 
-            l.clear() }
+     //       l.clear()
+    }
 
 
     class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

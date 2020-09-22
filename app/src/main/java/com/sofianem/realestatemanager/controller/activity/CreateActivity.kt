@@ -36,6 +36,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.adapter.CreateAdapter
+import com.sofianem.realestatemanager.controller.view.GridItemDecoration
 import com.sofianem.realestatemanager.data.model.NearbyPlaces
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
@@ -46,6 +47,7 @@ import kotlinx.android.synthetic.main.activity_upload.*
 import kotlinx.android.synthetic.main.dialog_custom_layout.view.*
 import kotlinx.android.synthetic.main.dialog_layout.view.*
 import kotlinx.android.synthetic.main.dialog_number_picker.*
+import kotlinx.android.synthetic.main.fragment_detail.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -368,13 +370,13 @@ class CreateActivity : AppCompatActivity() {
 
     private fun createRV(listimagePath: MutableList<String?>, listimageDescription: MutableList<String?>) {
         if (this.checkIsTablet()){
-            println("       3                ======")
-            create_recyclerview.layoutManager = GridLayoutManager(applicationContext, 3)
+           create_recyclerview.layoutManager = GridLayoutManager(this,6)
+            create_recyclerview.addItemDecoration(GridItemDecoration(10, 2))
             create_recyclerview.adapter =  CreateAdapter(listimagePath, listimageDescription, this)
             createData(mListImagePath, listimageDescription) }
         else {
-            println("       3                ======")
-            create_recyclerview.layoutManager = GridLayoutManager(applicationContext, 6)
+            create_recyclerview.layoutManager = GridLayoutManager(this,2)
+            create_recyclerview.addItemDecoration(GridItemDecoration(10, 2))
             create_recyclerview.adapter =  CreateAdapter(listimagePath, listimageDescription, this)
             createData(mListImagePath, listimageDescription)}
     }

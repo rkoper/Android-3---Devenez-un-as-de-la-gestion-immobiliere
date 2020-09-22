@@ -18,8 +18,8 @@ class HorizontalCarouselRecyclerView(
     attrs: AttributeSet
 ) : RecyclerView(context, attrs) {
 
-    private val activeColor by lazy { ContextCompat.getColor(context, R.color.colorGreen) }
-    private val inactiveColor by lazy { ContextCompat.getColor(context, R.color.colorRed) }
+    private val activeColor by lazy { ContextCompat.getColor(context, R.color.colorB) }
+    private val inactiveColor by lazy { ContextCompat.getColor(context, R.color.colorD) }
     private var viewsToChangeColor: List<Int> = listOf()
 
     private var isScrolledBySystem = false
@@ -94,8 +94,7 @@ class HorizontalCarouselRecyclerView(
         matrix.setSaturation(saturationPercent)
 
         viewsToChangeColor.forEach { viewId ->
-            val viewToChangeColor = child.findViewById<View>(viewId)
-            when (viewToChangeColor) {
+            when (val viewToChangeColor = child.findViewById<View>(viewId)) {
                 is ImageView -> {
                     viewToChangeColor.colorFilter = ColorMatrixColorFilter(matrix)
                     viewToChangeColor.imageAlpha = (255 * alphaPercent).toInt()

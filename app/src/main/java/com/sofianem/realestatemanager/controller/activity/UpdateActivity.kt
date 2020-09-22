@@ -158,10 +158,10 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
 
     private fun initRV() {
         if (this.checkIsTablet()){
-        val layoutManager = GridLayoutManager(this, 3)
+        val layoutManager = GridLayoutManager(this, 6)
         upload_recyclerview.layoutManager = layoutManager }
         else
-        {val layoutManager = GridLayoutManager(this, 6)
+        {val layoutManager = GridLayoutManager(this, 3)
             upload_recyclerview.layoutManager = layoutManager} }
 
 

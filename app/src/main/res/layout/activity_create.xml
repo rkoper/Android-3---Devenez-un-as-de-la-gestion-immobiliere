@@ -52,165 +52,214 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guidelinePrice"
+            android:id="@+id/cre_guideline1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.05" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guidelineSurface"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.17" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guideline1"
+            android:id="@+id/cre_guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.11" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guideline2"
+            android:id="@+id/cre_guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.13" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cre_guideline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.22" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guideline22"
+            android:id="@+id/cre_guideline7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.24" />
+            app:layout_constraintGuide_percent="0.3" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guideline3"
+            android:id="@+id/cre_guideline8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.33" />
+            app:layout_constraintGuide_percent="0.39" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guideline4"
+            android:id="@+id/cre_guideline9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.41" />
-
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guideline5"
+            android:id="@+id/cre_guideline10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.5" />
-
+            app:layout_constraintGuide_percent="0.74" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guideline6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.55" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guideline7"
+            android:id="@+id/cre_guideline11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.75" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guideline71"
+            android:id="@+id/cre_guideline12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.74" />
+            app:layout_constraintGuide_percent="0.93" />
+
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guideline8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.15" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guideline9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.85" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guidelineA"
+            android:id="@+id/cre_guidelineV1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.07" />
-
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guidelineB"
+            android:id="@+id/cre_guidelineV2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.93" />
-
+            app:layout_constraintGuide_percent="0.15" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guidelineC"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.93" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guidelineA1"
+            android:id="@+id/cre_guidelineV3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.33" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guidelineA2"
+            android:id="@+id/cre_guidelineV4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guidelineA3"
+            android:id="@+id/cre_guidelineV5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.66" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guidelineA4"
+            android:id="@+id/cre_guidelineV6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.93" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.85" />
+   
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/create_guidelineA5"
+            android:id="@+id/cre_guidelineV8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             app:layout_constraintGuide_percent="0.93" />
+
+        <LinearLayout
+            android:background="@color/colorMix"
+        android:orientation="horizontal"
+        android:layout_width="2dp"
+        android:layout_height="0dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/cre_guideline5" />
+
+        <LinearLayout
+            android:background="@color/colorMix"
+            android:orientation="horizontal"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toLeftOf="@id/cre_guidelineV3"
+            app:layout_constraintTop_toTopOf="@id/cre_guideline6"
+            app:layout_constraintBottom_toBottomOf="@+id/cre_guideline7"/>
+
+        <LinearLayout
+            android:background="@color/colorMix"
+            android:orientation="horizontal"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toRightOf=" @id/cre_guidelineV5"
+            app:layout_constraintTop_toTopOf="@id/cre_guideline6"
+            app:layout_constraintBottom_toBottomOf="@+id/cre_guideline7"/>
+        <LinearLayout
+            android:background="@color/colorMix"
+            android:orientation="horizontal"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            app:layout_constraintLeft_toLeftOf="@id/cre_guidelineV4"
+            app:layout_constraintRight_toRightOf="@+id/cre_guidelineV4"
+            app:layout_constraintTop_toTopOf="@id/cre_guideline7"
+            app:layout_constraintBottom_toBottomOf="@+id/cre_guideline8"/>
+
+        <LinearLayout
+            android:background="@color/colorMix"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/cre_guideline5" />
+
+        <LinearLayout
+            android:background="@color/colorMix"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/cre_guideline6" />
+        <LinearLayout
+            android:background="@color/colorMix"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/cre_guideline7" />
+
+        <LinearLayout
+            android:background="@color/colorMix"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cre_guideline8"/>
+
+        <LinearLayout
+            android:background="@color/colorMix"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/cre_guideline11"/>
 
         <TextView
             android:id="@+id/a_create_tx_pric"
-            style="@style/MyEdittextStyle2"
+            style="@style/MyEditTextStyle3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
             android:text="Price"
-            app:layout_constraintLeft_toLeftOf="@+id/a_create_rangebar_price"
-            app:layout_constraintRight_toRightOf="@+id/a_create_rangebar_price"
-            app:layout_constraintBottom_toBottomOf="@+id/create_guidelinePrice" />
+            app:layout_constraintRight_toRightOf="@+id/cre_guidelineV3"
+            app:layout_constraintLeft_toLeftOf="@+id/cre_guidelineV2"
+            app:layout_constraintBottom_toBottomOf="@+id/cre_guideline1" />
+
         <com.appyvet.materialrangebar.RangeBar
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:id="@+id/a_create_rangebar_price"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/create_guidelinePrice"
-            app:layout_constraintLeft_toRightOf="@+id/create_guideline8"
-            app:layout_constraintRight_toRightOf="@+id/create_guideline9"
-            app:layout_constraintBottom_toTopOf="@id/a_create_tx_surface"
             app:mrb_connectingLineColor="@color/colorD"
             app:mrb_pinRadius="0dp"
             app:mrb_rangeBar="false"
@@ -219,11 +268,17 @@
             app:mrb_thumbSize="10dp"
             app:mrb_tickEnd="300"
             app:mrb_tickInterval="5"
-            app:mrb_tickStart="10" />
+            app:mrb_tickStart="10"
+            app:layout_constraintTop_toTopOf="@+id/cre_guideline1"
+            app:layout_constraintBottom_toBottomOf="@+id/cre_guideline2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/cre_guidelineV4" />
         <com.appyvet.materialrangebar.RangeBar
             android:id="@+id/a_create_rangebar_surface"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             app:mrb_connectingLineColor="@color/colorD"
             app:mrb_pinRadius="0dp"
             app:mrb_rangeBar="false"
@@ -233,29 +288,32 @@
             app:mrb_tickEnd="3000"
             app:mrb_tickInterval="50"
             app:mrb_tickStart="100"
-            app:layout_constraintTop_toTopOf="@+id/create_guidelineSurface"
-            app:layout_constraintLeft_toLeftOf="@+id/create_guideline8"
-            app:layout_constraintRight_toRightOf="@+id/create_guideline9"
-            app:layout_constraintBottom_toTopOf="@id/autocomplete_fragment"/>
+            app:layout_constraintTop_toTopOf="@+id/cre_guideline1"
+            app:layout_constraintBottom_toBottomOf="@+id/cre_guideline2"
+            app:layout_constraintLeft_toLeftOf="@+id/cre_guidelineV4"
+            app:layout_constraintRight_toRightOf="parent"/>
 
         <TextView
             android:id="@+id/a_create_tx_surface"
-            style="@style/MyEdittextStyle2"
-            android:layout_width="match_parent"
+            style="@style/MyEditTextStyle3"
+            android:padding="0dp"
+            android:layout_margin="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Surface"
-            app:layout_constraintTop_toTopOf="@+id/create_guideline1"
-            app:layout_constraintBottom_toBottomOf="@+id/create_guidelineSurface"
-            app:layout_constraintLeft_toLeftOf="@+id/a_create_rangebar_surface"
-            app:layout_constraintRight_toRightOf="@+id/a_create_rangebar_surface"/>
+            app:layout_constraintLeft_toLeftOf="@+id/cre_guidelineV5"
+            app:layout_constraintRight_toRightOf="@+id/cre_guidelineV6"
+            app:layout_constraintBottom_toBottomOf="@+id/cre_guideline1"/>
 
-        <fragment android:id="@+id/autocomplete_fragment"
+        <fragment
+            android:layout_margin="5dp"
+            android:id="@+id/autocomplete_fragment"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-            app:layout_constraintBottom_toTopOf="@+id/create_guideline3"
-            app:layout_constraintTop_toTopOf="@+id/create_guideline22"
+            app:layout_constraintBottom_toTopOf="@+id/cre_guideline6"
+            app:layout_constraintTop_toTopOf="@+id/cre_guideline5"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" >
 
@@ -271,8 +329,8 @@
             android:hint="Adress"
             android:importantForAutofill="no"
             android:visibility="invisible"
-            app:layout_constraintTop_toTopOf="@+id/create_guideline22"
-            app:layout_constraintBottom_toBottomOf="@+id/create_guideline3"
+            app:layout_constraintTop_toTopOf="@+id/cre_guideline5"
+            app:layout_constraintBottom_toBottomOf="@+id/cre_guideline6"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
@@ -284,9 +342,9 @@
             android:gravity="center"
             android:text="City"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/a_create_ed_personn"
-            app:layout_constraintTop_toBottomOf="@id/create_guideline3"
-            app:layout_constraintBottom_toTopOf="@+id/create_guideline4"/>
+            app:layout_constraintRight_toLeftOf="@+id/cre_guidelineV3"
+            app:layout_constraintTop_toBottomOf="@id/cre_guideline6"
+            app:layout_constraintBottom_toTopOf="@+id/cre_guideline7"/>
 
 
         <TextView
@@ -298,10 +356,10 @@
             android:gravity="center"
             android:importantForAutofill="no"
             android:text="Type"
-            app:layout_constraintLeft_toRightOf="@+id/a_create_ed_personn"
+            app:layout_constraintLeft_toRightOf="@+id/cre_guidelineV5"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/create_guideline4"
-            app:layout_constraintTop_toBottomOf="@id/create_guideline3"/>
+            app:layout_constraintBottom_toTopOf="@+id/cre_guideline7"
+            app:layout_constraintTop_toBottomOf="@id/cre_guideline6"/>
 
         <TextView
             android:id="@+id/a_create_ed_personn"
@@ -312,10 +370,10 @@
             android:gravity="center"
             android:importantForAutofill="no"
             android:text="Personn"
-            app:layout_constraintLeft_toRightOf="@id/a_create_ed_city"
-            app:layout_constraintRight_toLeftOf="@+id/a_create_ed_type"
-            app:layout_constraintBottom_toTopOf="@+id/create_guideline4"
-            app:layout_constraintTop_toBottomOf="@id/create_guideline3"/>
+            app:layout_constraintLeft_toRightOf="@id/cre_guidelineV3"
+            app:layout_constraintRight_toLeftOf="@+id/cre_guidelineV5"
+            app:layout_constraintBottom_toTopOf="@+id/cre_guideline7"
+            app:layout_constraintTop_toBottomOf="@id/cre_guideline6"/>
 
         <TextView
             android:id="@+id/a_create_ed_datebegin"
@@ -326,10 +384,10 @@
             android:gravity="center"
             android:importantForAutofill="no"
             android:text="Date begin"
-            app:layout_constraintLeft_toLeftOf="@+id/create_guidelineA"
+            app:layout_constraintLeft_toLeftOf="@+id/cre_guidelineV1"
             app:layout_constraintRight_toLeftOf="@+id/a_create_ed_room"
-            app:layout_constraintBottom_toTopOf="@+id/create_guideline5"
-            app:layout_constraintTop_toBottomOf="@id/create_guideline4"/>
+            app:layout_constraintBottom_toTopOf="@+id/cre_guideline8"
+            app:layout_constraintTop_toBottomOf="@id/cre_guideline7"/>
 
 
         <TextView
@@ -342,18 +400,17 @@
             android:importantForAutofill="no"
             android:text="Nb Room"
             app:layout_constraintLeft_toRightOf="@+id/a_create_ed_datebegin"
-            app:layout_constraintRight_toRightOf="@+id/create_guidelineB"
-            app:layout_constraintBottom_toTopOf="@+id/create_guideline5"
-            app:layout_constraintTop_toBottomOf="@id/create_guideline4"/>
+            app:layout_constraintRight_toRightOf="@+id/cre_guidelineV8"
+            app:layout_constraintBottom_toTopOf="@+id/cre_guideline8"
+            app:layout_constraintTop_toBottomOf="@id/cre_guideline7"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/create_recyclerview"
             android:layout_width="0dp"
-            android:layout_margin="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/create_guideline6"
-            app:layout_constraintBottom_toBottomOf="@+id/create_guideline7"
+            app:layout_constraintTop_toBottomOf="@+id/cre_guideline9"
+            app:layout_constraintBottom_toBottomOf="@+id/cre_guideline11"
             android:layout_height="0dp"
             android:orientation="horizontal"/>
 
@@ -361,10 +418,10 @@
             android:id="@+id/a_create_description"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/create_guideline7"
-            app:layout_constraintLeft_toLeftOf="@id/create_guidelineA"
-            app:layout_constraintRight_toRightOf="@+id/create_guidelineB"
-            app:layout_constraintBottom_toBottomOf="@+id/create_guidelineC"
+            app:layout_constraintTop_toBottomOf="@+id/cre_guideline11"
+            app:layout_constraintLeft_toLeftOf="@id/cre_guidelineV1"
+            app:layout_constraintRight_toRightOf="@+id/cre_guidelineV8"
+            app:layout_constraintBottom_toBottomOf="@+id/cre_guideline12"
             android:elevation="5dp"
             android:gravity="start"
             android:hint="Description"
@@ -390,7 +447,7 @@
             app:tint="@color/colorD"
             tools:targetApi="lollipop"
             app:elevation="5dp"
-            app:layout_constraintBottom_toBottomOf="@+id/create_guideline7"
+            app:layout_constraintBottom_toBottomOf="@+id/cre_guideline11"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 

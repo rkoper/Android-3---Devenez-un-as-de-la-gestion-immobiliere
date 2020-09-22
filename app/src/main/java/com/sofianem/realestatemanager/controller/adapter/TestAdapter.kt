@@ -21,22 +21,15 @@ class TestAdapter(val itemClick: (position:Int,item: DetailFragment.Item) -> Uni
         override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
             holder.bind(items[position])
             holder.itemView.setOnClickListener {
-                itemClick(position,items[position])
-            }
-        }
+                itemClick(position,items[position]) } }
 
         override fun getItemCount() = items.size
 
         fun setItems(newItems: List<DetailFragment.Item>) {
             items = newItems
-            notifyDataSetChanged()
-        }
-    }
+            notifyDataSetChanged() } }
 
     class ItemViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(item: DetailFragment.Item) {
-            view.list_item_text.text = "${item.titlev2}"
-            view.list_item_icon.setImageURI(item.title.toUri())
-
-        }
-    }
+            view.list_item_text.text = item.mImageDescription
+            view.list_item_icon.setImageURI(item.mImageUri.toUri()) } }
