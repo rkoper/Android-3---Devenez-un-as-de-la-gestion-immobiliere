@@ -1,14 +1,9 @@
-package com.sofianem.realestatemanager.data.repository
+package com.sofianem.realestatemanager.repository
 
-import android.app.Application
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.sofianem.realestatemanager.data.dao.EstateDao
-import com.sofianem.realestatemanager.data.dataBase.AllDatabase
 import com.sofianem.realestatemanager.data.model.EstateR
-import com.sofianem.realestatemanager.data.model.ImageV
-import com.sofianem.realestatemanager.data.model.NearbyPlaces
 import kotlinx.coroutines.*
 
 open class EstateRepo (estate_Dao: EstateDao) {

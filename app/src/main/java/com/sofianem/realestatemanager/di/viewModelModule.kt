@@ -1,4 +1,4 @@
-package com.sofianem.realestatemanager
+package com.sofianem.realestatemanager.di
 
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages

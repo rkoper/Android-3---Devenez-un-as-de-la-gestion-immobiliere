@@ -1,7 +1,8 @@
-package com.sofianem.realestatemanager
+package com.sofianem.realestatemanager.di
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.sofianem.realestatemanager.R
 
 
 class AfterNotificationActivity : AppCompatActivity() {

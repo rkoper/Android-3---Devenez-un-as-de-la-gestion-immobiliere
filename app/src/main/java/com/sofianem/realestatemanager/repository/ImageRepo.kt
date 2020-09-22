@@ -1,15 +1,11 @@
-package com.sofianem.realestatemanager.data.repository
+package com.sofianem.realestatemanager.repository
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import com.sofianem.realestatemanager.data.dao.ImageDao
-import com.sofianem.realestatemanager.data.dataBase.AllDatabase
-import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.model.ImageV
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 open class ImageRepo (image_Dao: ImageDao) {
     val image_Dao = image_Dao

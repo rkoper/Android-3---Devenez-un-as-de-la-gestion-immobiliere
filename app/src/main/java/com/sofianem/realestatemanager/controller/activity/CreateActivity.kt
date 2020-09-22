@@ -100,13 +100,16 @@ class CreateActivity : AppCompatActivity() {
 
 
     private fun createData(listImage_path: MutableList<String?>, listimageDescription: MutableList<String?>) {
+
         activity_saveData_floating.setOnClickListener {
             mDescription = a_create_description.text.toString()
             mStatus = "ok"
             mNbPhoto = listimageDescription.size
             if (mAddress == "Adress" ||  mAddress == "-" ||  mAddress == "") {Toast.makeText(this, "Please add address...", Toast.LENGTH_SHORT).show()}
             else { Toast.makeText(this, "Saving...", Toast.LENGTH_SHORT).show()
-                mNewID =   mMyViewModel.insertTodo(
+                println(" ----- create 1 -------->>>>>>")
+                mNewID =
+                    mMyViewModel.insertTodo(
                     mType,
                     mCity,
                     mPrice,
@@ -121,16 +124,23 @@ class CreateActivity : AppCompatActivity() {
                     mPerson,
                     mNbPhoto,
                     listImage_path,
-                    listimageDescription) }
+                    listimageDescription)
 
 
-            mListTypeOfLocation.forEach { typeLocation ->  mMyViewModelForPlaces.saveLocation(mGeoLoc, typeLocation, mCreateId) }
 
-            mMyViewModelForImages.storeImageData(mCreateId, listImage_path, listimageDescription)
 
-            val intent = Intent(this, MainActivity::class.java)
-            intent.putExtra(NEW_ID, mNewID.toInt())
-            startActivity(intent) } }
+                mListTypeOfLocation.forEach { typeLocation ->  mMyViewModelForPlaces.saveLocation(mGeoLoc, typeLocation, mCreateId) }
+
+                mMyViewModelForImages.storeImageData(mCreateId, listImage_path, listimageDescription)
+
+
+
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra(NEW_ID, mNewID.toInt())
+                startActivity(intent) } }
+
+
+            }
 
 
     private fun loadItem() {
@@ -358,11 +368,13 @@ class CreateActivity : AppCompatActivity() {
 
     private fun createRV(listimagePath: MutableList<String?>, listimageDescription: MutableList<String?>) {
         if (this.checkIsTablet()){
+            println("       3                ======")
             create_recyclerview.layoutManager = GridLayoutManager(applicationContext, 3)
             create_recyclerview.adapter =  CreateAdapter(listimagePath, listimageDescription, this)
             createData(mListImagePath, listimageDescription) }
-        else
-        { create_recyclerview.layoutManager = GridLayoutManager(applicationContext, 6)
+        else {
+            println("       3                ======")
+            create_recyclerview.layoutManager = GridLayoutManager(applicationContext, 6)
             create_recyclerview.adapter =  CreateAdapter(listimagePath, listimageDescription, this)
             createData(mListImagePath, listimageDescription)}
     }
@@ -397,6 +409,7 @@ class CreateActivity : AppCompatActivity() {
         const val PATH_PROVIDER   = "com.SofianeM.RealEstateManager.fileprovider"
         const val GET_CONTENT  = "android.intent.action.GET_CONTENT"
         const val MEDIA_PROVIDER  =   "com.android.providers.media.documents"
+        const val DOWNLOAD_PROVIDER_SD  =  "com.android.providers.downloads.documents.raw.storage.emulated.0.Download"
         const val DOWNLOAD_PROVIDER  =  "com.android.providers.downloads.documents"
         val listPerson = arrayOf("Leonardo", "Michel-Ange", "Raphael", "Donatello")
         val listType = arrayOf("Apartment", "House", "Loft", "Castle")

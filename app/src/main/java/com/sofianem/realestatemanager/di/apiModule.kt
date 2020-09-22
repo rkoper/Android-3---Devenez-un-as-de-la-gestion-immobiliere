@@ -1,4 +1,4 @@
-package com.sofianem.realestatemanager
+package com.sofianem.realestatemanager.di
 
 import com.sofianem.realestatemanager.services.MapService
 import org.koin.dsl.module

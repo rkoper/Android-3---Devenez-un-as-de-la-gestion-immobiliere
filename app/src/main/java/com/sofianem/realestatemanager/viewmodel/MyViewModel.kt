@@ -1,12 +1,9 @@
 package com.sofianem.realestatemanager.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.sofianem.realestatemanager.data.model.EstateR
-import com.sofianem.realestatemanager.data.model.NearbyPlaces
-import com.sofianem.realestatemanager.data.repository.EstateRepo
+import com.sofianem.realestatemanager.repository.EstateRepo
 
 
 class MyViewModel(private val mRepository : EstateRepo) : ViewModel() {
@@ -20,13 +17,14 @@ class MyViewModel(private val mRepository : EstateRepo) : ViewModel() {
     fun insertTodo(type: String, city: String, price: Int, surface: Int, number_of_room: Int, description: String, adress: String, location: String,
                        status: String, date_begin: Long, date_end: Long, personn: String, mNbPhoto:Int,  imageUri: MutableList<String?>,
                        imageDescription: MutableList<String?>): Long {
+        println(" ----- create 4 -------->>>>>>")
         val db = EstateR()
         db.type = type ; db.price = price ; db.city = city; db.surface = surface ; db.number_of_room = number_of_room
         db.description = description ; db.adress = adress ; db.location = location ; db.status = status
         db.date_begin = date_begin ; db.date_end = date_end ; db.personn = personn ; db.nb_photo = mNbPhoto
         db.ImageUri = imageUri ; db.ImageDescription = imageDescription
 
-           mRepository.insertTodo(db)
+      //     mRepository.insertTodo(db)
 
         return mRepository.insertTodo(db)
     }

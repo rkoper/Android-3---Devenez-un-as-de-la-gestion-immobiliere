@@ -47,6 +47,8 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
         mSearchlist = intent.getIntegerArrayListExtra("master_id")
         mNewID = intent.getIntExtra("new_ID", 99999)
 
+        println(" ----- create 2 -------->>>>>>")
+
         val fragment = MainFragment.newInstance(mSearchlist)
 
         if (!mSearchlist.isNullOrEmpty())
@@ -146,16 +148,6 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
             intent.putExtra(ID, id)
             startActivity(intent)
             finish()} }
-
-    fun checkIsTablet(): Boolean {
-        val display: Display = (this as Activity).windowManager.defaultDisplay
-        val metrics = DisplayMetrics()
-        display.getMetrics(metrics)
-        val widthInches: Float = metrics.widthPixels / metrics.xdpi
-        val heightInches: Float = metrics.heightPixels / metrics.ydpi
-        val diagonalInches = sqrt(widthInches.toDouble().pow(2.0) + heightInches.toDouble().pow(2.0))
-        return diagonalInches >= 7.0
-    }
 
     companion object {
         const val ID = "id"

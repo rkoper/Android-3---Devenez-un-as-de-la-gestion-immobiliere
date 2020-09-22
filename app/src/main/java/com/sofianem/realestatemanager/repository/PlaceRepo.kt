@@ -1,4 +1,4 @@
-package com.sofianem.realestatemanager.data.repository
+package com.sofianem.realestatemanager.repository
 
 import android.content.Context
 import androidx.lifecycle.LiveData
@@ -7,7 +7,6 @@ import com.sofianem.realestatemanager.data.model.NearbyPlaces
 import com.sofianem.realestatemanager.data.model.PlacesResponse1
 import com.sofianem.realestatemanager.services.MapService
 import com.sofianem.realestatemanager.utils.Utils
-import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

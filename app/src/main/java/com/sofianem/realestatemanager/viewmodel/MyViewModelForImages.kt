@@ -2,9 +2,8 @@ package com.sofianem.realestatemanager.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.model.ImageV
-import com.sofianem.realestatemanager.data.repository.ImageRepo
+import com.sofianem.realestatemanager.repository.ImageRepo
 
 class MyViewModelForImages(private val mRepositoryImage : ImageRepo) : ViewModel() {
     val allImageLive: LiveData<List<ImageV>> = mRepositoryImage.readAllImageLive

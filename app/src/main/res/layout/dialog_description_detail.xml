@@ -9,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@color/colorTransparent"
-        android:layout_width="400dp"
+        android:layout_width="match_parent"
         android:layout_height="400dp"
         android:gravity="center">
 
@@ -46,9 +46,8 @@
         android:id="@+id/dialog_imageview_text"
         android:text = "Description"
         android:gravity="center"
-        android:textSize="15sp"
+        android:textSize="@dimen/textadaptsizeBig"
         android:padding="3dp"
-        android:textStyle="bold"
         android:textColor="@color/colorD"
         android:background="@color/colorB"
         android:layout_width="0dp"

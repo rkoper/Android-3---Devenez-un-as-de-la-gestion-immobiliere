@@ -1,4 +1,4 @@
-package com.sofianem.realestatemanager
+package com.sofianem.realestatemanager.di
 
 import android.app.Application
 import androidx.room.Room

@@ -2,17 +2,7 @@ package com.sofianem.realestatemanager.viewmodel
 
 import androidx.lifecycle.*
 import com.sofianem.realestatemanager.data.model.*
-import com.sofianem.realestatemanager.data.repository.PlaceRepo
-import com.sofianem.realestatemanager.services.MapService
-import com.sofianem.realestatemanager.utils.Utils
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.math.roundToInt
+import com.sofianem.realestatemanager.repository.PlaceRepo
 
 class MyViewModelForPlaces(private val mRepositoryPlace : PlaceRepo) : ViewModel() {
 

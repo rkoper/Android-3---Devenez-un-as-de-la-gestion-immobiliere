@@ -30,21 +30,22 @@ class MainFragment : Fragment(), LifecycleObserver {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        println(" ----- create 2 -------->>>>>>")
         return inflater.inflate(R.layout.fragment_main, container, false) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        println(" ----- create 3 -------->>>>>>")
         mSearchlist = arguments?.getIntegerArrayList("1111")
         mTablet = arguments?.getBoolean("2222")
-        println("      mTablet     2    " +  mTablet)
         subscriber_recyclerView.layoutManager = LinearLayoutManager(activity)
         setupRecyclerView()
     }
 
     private fun setupRecyclerView() {
         mTablet = checkIsTablet()
-        println("      mTablet     3   " +  mTablet)
         if (mSearchlist.isNullOrEmpty()) {
+
             mMyViewModel.mAllEstate.observeForever { mDataEstate ->
                 mMyViewModelForImages.allImageLive.observeForever { mDataImage ->
                     subscriber_recyclerView.adapter = MainAdapter(mDataEstate, mDataImage, requireContext(),mTablet ) } }
