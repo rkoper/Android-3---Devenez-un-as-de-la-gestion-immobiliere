@@ -75,7 +75,6 @@ class DetailFragment : Fragment(), LifecycleObserver {
 
      fun setupRecyclerView() {
          item_list.initialize(itemAdapter)
-        // item_list.setViewsToChangeColor(listOf(R.id.list_item_background, R.id.list_item_text))
          getLargeListOfItems()
      }
 
@@ -89,7 +88,6 @@ class DetailFragment : Fragment(), LifecycleObserver {
             d.dialog_imageview.setImageURI(item.mImageUri.toUri())
             d.dialog_imageview_text.text = item.mImageDescription
             d.show()
-          //  item_list.smoothScrollToPosition(position)
         } }
 
 

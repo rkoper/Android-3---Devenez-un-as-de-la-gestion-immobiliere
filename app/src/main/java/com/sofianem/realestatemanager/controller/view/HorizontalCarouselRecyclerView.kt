@@ -10,40 +10,10 @@ class HorizontalCarouselRecyclerView(
     attrs: AttributeSet
 ) : RecyclerView(context, attrs) {
 
-    private var isScrolledBySystem = false
 
     fun <T : ViewHolder> initialize(newAdapter: Adapter<T>) {
-        layoutManager = LinearLayoutManager(context, HORIZONTAL, true)
+        layoutManager = LinearLayoutManager(context, HORIZONTAL, false)
         adapter = newAdapter
-    }
-
-
-
-    override fun onScrollStateChanged(state: Int) {
-        super.onScrollStateChanged(state)
-        post {
-            if (state == SCROLL_STATE_IDLE) {
-                var count = adapter?.itemCount ?: childCount
-
-                val scrollPerChild = computeHorizontalScrollRange() / count
-
-                var currentScroll = computeHorizontalScrollOffset() / scrollPerChild
-
-                val scrollOffset=computeHorizontalScrollOffset() % scrollPerChild
-
-                if(scrollOffset>=scrollPerChild){
-                    currentScroll++
-                }
-                if (!isScrolledBySystem) {
-                    smoothScrollToPosition(currentScroll)
-                    isScrolledBySystem = !isScrolledBySystem
-                }
-            }else if(state== SCROLL_STATE_DRAGGING){
-                isScrolledBySystem=false
-            }
-        }
-
-
     }
 
 }

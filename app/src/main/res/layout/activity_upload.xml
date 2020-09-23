@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
     android:background="@color/colorD"
     android:orientation="vertical"
     tools:context=".controller.activity.MainActivity">
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.04" />
+            app:layout_constraintGuide_percent="0.05" />
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/up_guideline2"
             android:layout_width="wrap_content"
@@ -123,6 +123,37 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.85" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/up_guidelineV4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.65" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/up_guidelineRB1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/up_guidelineRB2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/up_guidelineRB3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.6" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/up_guidelineRB4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
 
 
         <LinearLayout
@@ -199,7 +230,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/price_grey"
             app:layout_constraintBottom_toBottomOf="@+id/up_guideline1"
-            app:layout_constraintRight_toLeftOf="@+id/up_guidelineV1"/>
+            app:layout_constraintLeft_toRightOf="@+id/up_guidelineV1"/>
         <TextView
             android:text="Price"
             android:id="@+id/upload_tx_pric"
@@ -212,8 +243,6 @@
             app:layout_constraintLeft_toRightOf="@+id/upload_im_price" />
 
         <com.appyvet.materialrangebar.RangeBar
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="20dp"
             android:id="@+id/upload_rangebar_price"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -228,23 +257,21 @@
             app:mrb_tickStart="10"
             app:layout_constraintTop_toTopOf="@+id/up_guideline1"
             app:layout_constraintBottom_toBottomOf="@+id/up_guideline2"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="@id/up_guidelineV2"/>
+            app:layout_constraintLeft_toLeftOf="@id/up_guidelineRB1"
+            app:layout_constraintRight_toRightOf="@id/up_guidelineRB2"/>
         <ImageView
             android:id="@+id/upload_in_surface"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/surface_grey"
-            app:layout_constraintRight_toRightOf="@+id/up_guidelineV2"
-            app:layout_constraintBottom_toBottomOf="@+id/up_guideline1"
-            app:layout_constraintLeft_toLeftOf="@+id/up_guidelineV3"/>
+            app:layout_constraintLeft_toRightOf="@+id/up_guidelineV4"
+            app:layout_constraintBottom_toBottomOf="@+id/up_guideline1" />
 
 
         <TextView
             app:layout_constraintTop_toTopOf="@+id/upload_in_surface"
-            app:layout_constraintBottom_toBottomOf="@+id/up_guideline1"
-            app:layout_constraintLeft_toLeftOf="@+id/up_guidelineV3"
-            app:layout_constraintRight_toRightOf="@+id/up_guidelineV3"
+            app:layout_constraintBottom_toBottomOf="@+id/upload_in_surface"
+            app:layout_constraintLeft_toRightOf="@+id/upload_in_surface"
             android:id="@+id/upload_tx_surface"
             style="@style/MyEdittextStyle5"
             android:layout_width="wrap_content"
@@ -253,8 +280,6 @@
             android:text="Surface" />
 
         <com.appyvet.materialrangebar.RangeBar
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="20dp"
             android:id="@+id/upload_rangebar_surface"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -269,8 +294,8 @@
             app:mrb_tickStart="10"
             app:layout_constraintTop_toTopOf="@+id/up_guideline1"
             app:layout_constraintBottom_toBottomOf="@+id/up_guideline2"
-            app:layout_constraintLeft_toLeftOf="@id/up_guidelineV2"
-            app:layout_constraintRight_toRightOf="parent" />
+            app:layout_constraintLeft_toLeftOf="@id/up_guidelineRB3"
+            app:layout_constraintRight_toRightOf="@id/up_guidelineRB4" />
 
 
         <fragment android:id="@+id/autocomplete_fragment"

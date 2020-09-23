@@ -40,7 +40,9 @@ class MainAdapter(
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         println("      mTablet          " + mTablet)
-        if (mTablet!!) { if (mSelected_pos == position) { holder.tvTest.visibility = View.VISIBLE }
+        if (mTablet!!) { if (mSelected_pos == position) {
+            holder.tvTest.visibility = View.VISIBLE }
+
             else { holder.tvTest.visibility = View.INVISIBLE } }
 
         if (mMyDataset!![position].status == "sold")
