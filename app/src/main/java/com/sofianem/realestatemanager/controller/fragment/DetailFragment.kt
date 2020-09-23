@@ -1,9 +1,13 @@
 package com.sofianem.realestatemanager.controller.fragment
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -22,9 +26,9 @@ import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
+import kotlinx.android.synthetic.main.dialog_imageview_rvdetail.*
 import kotlinx.android.synthetic.main.fragment_detail.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -71,38 +75,36 @@ class DetailFragment : Fragment(), LifecycleObserver {
 
      fun setupRecyclerView() {
          item_list.initialize(itemAdapter)
-         item_list.setViewsToChangeColor(listOf(R.id.list_item_background, R.id.list_item_text))
+        // item_list.setViewsToChangeColor(listOf(R.id.list_item_background, R.id.list_item_text))
          getLargeListOfItems()
      }
 
+
     private val itemAdapter by lazy {
         TestAdapter { position: Int, item: Item ->
-            /*
-            val mDialogView = LayoutInflater.from(context).inflate(R.layout.dialog_imageview_rvdetail, null)
-            mDialogView.requestFocus()
-            val builder = AlertDialog.Builder(requireContext()).setView(mDialogView)
-            val o: ImageView = mDialogView.findViewById(R.id.dialog_imageview)
-            o.setImageURI(item.mImageUri.toUri())
-            val q: TextView = mDialogView.findViewById(R.id.dialog_imageview_text)
-            q.text = item.mImageDescription
-
-             */
-            Toast.makeText(requireContext(), "Pos ${position}", Toast.LENGTH_LONG).show()
-            item_list.smoothScrollToPosition(position) } }
+            val d = Dialog(requireContext())
+            d.requestWindowFeature(Window.FEATURE_NO_TITLE)
+             d.window.setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT));
+            d.setContentView(R.layout.dialog_imageview_rvdetail) // custom layour for dialog.
+            d.dialog_imageview.setImageURI(item.mImageUri.toUri())
+            d.dialog_imageview_text.text = item.mImageDescription
+            d.show()
+          //  item_list.smoothScrollToPosition(position)
+        } }
 
 
     private fun getLargeListOfItems(){
         var items = mutableListOf<Item>()
-        var     possibleItems = listOf<Item>()
-            mListImageDescription.clear()
+        var     possibleItems: List<Item>
+        mListImageDescription.clear()
         mListImagePath.clear()
         mMVImage.allImageLive.observe(this, Observer { listImage ->
             if (listImage.isNullOrEmpty()) { Toast.makeText(requireContext(), "No photo", Toast.LENGTH_SHORT).show() }
             else { listImage.forEach { img ->
                 if (img.masterId == mId) {
                     possibleItems = listOf(Item(img.imageUri.toString(), img.imageDescription.toString()))
-                    items.add(possibleItems.random()) }}
-                itemAdapter.setItems(items) } })}
+                    items.add(possibleItems.random()) }}}
+                itemAdapter.setItems(items) })}
 
 
     fun displayDetails(id: Int) {

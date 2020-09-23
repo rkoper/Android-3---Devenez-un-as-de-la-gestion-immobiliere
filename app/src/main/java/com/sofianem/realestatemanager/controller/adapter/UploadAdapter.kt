@@ -51,9 +51,9 @@ class UploadAdapter(
 
 
     class UploadViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-       var tvIcon: ImageButton = itemView.findViewById(id.delete_upload)
-        var tvPhoto: ImageView = itemView.findViewById(id.activity_upload_item_imageview)
-        var txtIcon: ImageButton = itemView.findViewById(id.edit_upload)
-        var tvTxt: TextView = itemView.findViewById(id.upload_item_txt) }
+       var tvIcon: ImageButton = v.findViewById(id.delete_upload)
+        var tvPhoto: ImageView = v.findViewById(id.activity_upload_item_imageview)
+        var txtIcon: ImageButton = v.findViewById(id.edit_upload)
+        var tvTxt: TextView = v.findViewById(id.upload_item_txt) }
 
 }

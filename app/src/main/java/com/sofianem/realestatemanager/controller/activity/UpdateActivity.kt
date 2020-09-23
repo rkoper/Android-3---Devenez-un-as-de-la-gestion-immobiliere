@@ -38,12 +38,14 @@ import com.sofianem.realestatemanager.controller.activity.CreateActivity.Compani
 import com.sofianem.realestatemanager.controller.activity.CreateActivity.Companion.listType
 import com.sofianem.realestatemanager.controller.activity.MainActivity.Companion.ID
 import com.sofianem.realestatemanager.controller.adapter.UploadAdapter
+import com.sofianem.realestatemanager.controller.view.GridItemDecoration
 import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.model.ImageV
 import com.sofianem.realestatemanager.utils.MyCommunicationForImage
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
+import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.android.synthetic.main.activity_upload.*
 import kotlinx.android.synthetic.main.dialog_custom_layout.view.*
 import kotlinx.android.synthetic.main.dialog_layout.view.*
@@ -156,13 +158,12 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             OnClick()
         }) }
 
-    private fun initRV() {
-        if (this.checkIsTablet()){
-        val layoutManager = GridLayoutManager(this, 6)
-        upload_recyclerview.layoutManager = layoutManager }
-        else
-        {val layoutManager = GridLayoutManager(this, 3)
-            upload_recyclerview.layoutManager = layoutManager} }
+    private fun initRV() = if (this.checkIsTablet()){
+        this.upload_recyclerview.layoutManager = GridLayoutManager(this,6)
+        this.upload_recyclerview.addItemDecoration(GridItemDecoration(10, 2))}
+    else{
+        this.upload_recyclerview.layoutManager = GridLayoutManager(this,2)
+        this.upload_recyclerview.addItemDecoration(GridItemDecoration(10, 2)) }
 
 
     private fun createRV(mID: Int) {
@@ -194,7 +195,6 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
 
             mMyViewModel.updateTodo(est)
 
-
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
            finish()
@@ -202,12 +202,9 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
     }
 
 
-    fun saveEntry() {
-        load_mCity(); load_room(); load_mPersonn(); load_mDateCreate(); load_mDateEnd();load_mPrice(); load_mAdress(); load_mType(); load_mSurface()
-    }
+    fun saveEntry() { load_mCity(); load_room(); load_mPersonn(); load_mDateCreate(); load_mDateEnd();load_mPrice(); load_mAdress(); load_mType(); load_mSurface() }
 
-    private fun load_mCity() {
-        mCity = upload_city.text.toString().trim()
+    private fun load_mCity() { mCity = upload_city.text.toString().trim()
     }
 
     private fun load_room() {

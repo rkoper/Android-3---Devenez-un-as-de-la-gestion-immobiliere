@@ -30,12 +30,10 @@ class MainFragment : Fragment(), LifecycleObserver {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        println(" ----- create 2 -------->>>>>>")
         return inflater.inflate(R.layout.fragment_main, container, false) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        println(" ----- create 3 -------->>>>>>")
         mSearchlist = arguments?.getIntegerArrayList("1111")
         mTablet = arguments?.getBoolean("2222")
         subscriber_recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -44,11 +42,11 @@ class MainFragment : Fragment(), LifecycleObserver {
 
     private fun setupRecyclerView() {
         mTablet = checkIsTablet()
+        subscriber_recyclerView.layoutManager = LinearLayoutManager(requireContext())
         if (mSearchlist.isNullOrEmpty()) {
-
-            mMyViewModel.mAllEstate.observeForever { mDataEstate ->
-                mMyViewModelForImages.allImageLive.observeForever { mDataImage ->
-                    subscriber_recyclerView.adapter = MainAdapter(mDataEstate, mDataImage, requireContext(),mTablet ) } }
+            mMyViewModel.mAllEstate.observe(viewLifecycleOwner, Observer {    mDataEstate ->
+                mMyViewModelForImages.allImageLive.observe(viewLifecycleOwner, Observer {    mDataImage ->
+                    subscriber_recyclerView.adapter = MainAdapter(mDataEstate, mDataImage, requireContext(),mTablet )})})
         } else {
             val mDataEstate =  arrayListOf<EstateR>()
             val mDataImage =  arrayListOf<ImageV>()

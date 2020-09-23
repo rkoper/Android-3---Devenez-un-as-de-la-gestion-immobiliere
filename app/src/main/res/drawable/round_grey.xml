@@ -2,17 +2,17 @@
     android:shape="rectangle">
 
     <corners
-        android:bottomRightRadius="10000dp"
-        android:bottomLeftRadius="10000dp"
-        android:topLeftRadius="1dp"
-        android:topRightRadius="1dp"
+        android:bottomRightRadius="25dp"
+        android:bottomLeftRadius="25dp"
+        android:topLeftRadius="25dp"
+        android:topRightRadius="25dp"
         android:radius="10dp" />
 
     <solid
-        android:color="#003459" />
+        android:color="#303030" />
 
     <size
-        android:width="100dp"
-        android:height="100dp" />
+        android:width="50dp"
+        android:height="50dp" />
 
 </shape>
