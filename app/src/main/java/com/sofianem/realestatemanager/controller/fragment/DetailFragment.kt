@@ -22,6 +22,8 @@ import com.sofianem.realestatemanager.controller.activity.PlacesActivity
 import com.sofianem.realestatemanager.controller.adapter.TestAdapter
 import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.model.NearbyPlaces
+import com.sofianem.realestatemanager.utils.RxBus
+import com.sofianem.realestatemanager.utils.RxEvent
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
@@ -64,13 +66,16 @@ class DetailFragment : Fragment(), LifecycleObserver {
     var mProxPharmacy: String = ""
     var mCreateId: Int = 99
     var mNbPhoto:Int = 0
+    var mIdForDetail = 1
 
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? { return inflater.inflate(R.layout.fragment_detail, container, false) }
+    ): View? {
+     //   displayDetails()
+        return inflater.inflate(R.layout.fragment_detail, container, false) }
 
 
      fun setupRecyclerView() {

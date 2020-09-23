@@ -76,7 +76,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/two"
+                    android:id="@+id/twoMain"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     card_view:layout_constraintTop_toTopOf="parent"

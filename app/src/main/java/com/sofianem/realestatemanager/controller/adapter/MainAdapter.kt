@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -41,9 +42,17 @@ class MainAdapter(
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         println("      mTablet          " + mTablet)
         if (mTablet!!) { if (mSelected_pos == position) {
-            holder.tvTest.visibility = View.VISIBLE }
+            holder.tvColor.setBackgroundResource(R.color.colorD)
+            holder.tvCity.setTextColor(ContextCompat.getColor(mContext, R.color.colorB))
+            holder.tvPrice.setTextColor(ContextCompat.getColor(mContext, R.color.colorB))
+            holder.tvType.setTextColor(ContextCompat.getColor(mContext, R.color.colorB))
+        }
 
-            else { holder.tvTest.visibility = View.INVISIBLE } }
+        else {
+            holder.tvColor.setBackgroundResource(R.color.colorB)
+            holder.tvCity.setTextColor(ContextCompat.getColor(mContext, R.color.colorD))
+            holder.tvPrice.setTextColor(ContextCompat.getColor(mContext, R.color.colorD))
+            holder.tvType.setTextColor(ContextCompat.getColor(mContext, R.color.colorD)) } }
 
         if (mMyDataset!![position].status == "sold")
         {holder.tvSold.isVisible = true}
@@ -60,7 +69,7 @@ class MainAdapter(
         mMyDatasetImage!!.forEach {
             if (mMyDataset!![position].id == it.masterId) { l.add(it.imageUri)
                 if (l.size > 1)
-                return@forEach
+                    return@forEach
                 val p = Utils.rotateImage(it.imageUri)
                 Glide.with(mContext).load(p).into(holder.tvPhoto) } }
 
@@ -68,16 +77,16 @@ class MainAdapter(
             val myCommunicator = mContext as MyCommunication
             myCommunicator.displayDetails(mMyDataset!![position].id)
 
-            if (mTablet!!){ if(mSelected_pos==position){ mSelected_pos=-1 }
-            mSelected_pos = position
-            notifyDataSetChanged()} }
-
-     //       l.clear()
+            if (mTablet!!){
+                if(mSelected_pos==position){ mSelected_pos=-1 }
+                mSelected_pos = position
+                notifyDataSetChanged()} }
     }
 
 
     class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        val tvColor :ConstraintLayout = itemView.findViewById(R.id.twoMain)
         val tvTest: LinearLayout = itemView.findViewById(R.id.testll)
         var tvType: TextView = itemView.findViewById(R.id.activity_main_item_type)
         var tvCity: TextView = itemView.findViewById(R.id.activity_main_item_city)

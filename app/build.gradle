@@ -108,6 +108,6 @@ dependencies {
     implementation 'org.koin:koin-androidx-scope:2.0.0-rc-2'
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.7.1"
 
-    implementation 'com.github.jama5262:CarouselView:1.1.0'
+    implementation 'org.greenrobot:eventbus:3.2.0'
 
 }

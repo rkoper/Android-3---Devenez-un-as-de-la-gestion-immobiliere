@@ -94,6 +94,3 @@ class MainFragment : Fragment(), LifecycleObserver {
     }
 }
 
-
-
-

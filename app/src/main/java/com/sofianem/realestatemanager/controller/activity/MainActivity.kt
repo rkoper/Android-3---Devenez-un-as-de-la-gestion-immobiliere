@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-         var fragmentDetailView = findViewById<View>(R.id.fragment_main_detail)
+        var fragmentDetailView = findViewById<View>(R.id.fragment_main_detail)
         mIsDualPane = !(fragmentDetailView == null || !fragmentDetailView.isVisible)
         mSearchlist = intent.getIntegerArrayListExtra("master_id")
         mNewID = intent.getIntExtra("new_ID", 99999)
@@ -67,23 +67,23 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
 
     private fun initNotif(mNewID: Int) {
         mMyViewModel.getById(mNewID).observe(this, Observer {
-        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val intent = Intent(this,MainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT)
-        val contentView = RemoteViews(packageName,R.layout.activity_notification_view)
-        contentView.setTextViewText(R.id.tv_title,"New item on Real Estate Manager")
-        contentView.setTextViewText(R.id.tv_content,"@ " + it.city)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationChannel = NotificationChannel(channelId,description,NotificationManager.IMPORTANCE_HIGH)
-            notificationChannel.enableLights(true)
-            notificationChannel.lightColor = Color.WHITE
-            notificationChannel.enableVibration(true)
-            notificationManager.createNotificationChannel(notificationChannel)
+            notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val intent = Intent(this,MainActivity::class.java)
+            val pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT)
+            val contentView = RemoteViews(packageName,R.layout.activity_notification_view)
+            contentView.setTextViewText(R.id.tv_title,"New item on Real Estate Manager")
+            contentView.setTextViewText(R.id.tv_content,"@ " + it.city)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                notificationChannel = NotificationChannel(channelId,description,NotificationManager.IMPORTANCE_HIGH)
+                notificationChannel.enableLights(true)
+                notificationChannel.lightColor = Color.WHITE
+                notificationChannel.enableVibration(true)
+                notificationManager.createNotificationChannel(notificationChannel)
 
-            builder = Notification.Builder(this,channelId).setContent(contentView).setSmallIcon(R.mipmap.ic_launcher_rem_round).setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher_rem_round)).setContentIntent(pendingIntent)
+                builder = Notification.Builder(this,channelId).setContent(contentView).setSmallIcon(R.mipmap.ic_launcher_rem_round).setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher_rem_round)).setContentIntent(pendingIntent)
 
 
-        }else{ builder = Notification.Builder(this).setContent(contentView).setSmallIcon(R.mipmap.ic_launcher_rem_round).setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher_rem_round)).setContentIntent(pendingIntent)}
+            }else{ builder = Notification.Builder(this).setContent(contentView).setSmallIcon(R.mipmap.ic_launcher_rem_round).setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher_rem_round)).setContentIntent(pendingIntent)}
 
             notificationManager.notify(1234,builder.build())
         }) }
@@ -151,10 +151,6 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
 
     companion object {
         const val ID = "id"
-
-
-
-
 
 
     }
