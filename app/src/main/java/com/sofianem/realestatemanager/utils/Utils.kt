@@ -35,6 +35,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.pow
@@ -46,11 +47,20 @@ import kotlin.math.sqrt
  */
 object Utils {
 
-//    private val mContext = MyApplication.applicationContext()
 
+    // TEST 1
+    fun convertDollarToEuro(dollars: Int): Int { return (dollars * 0.85).roundToLong().toInt() }
 
-    fun convertDollarToEuro(dollars: Int): Int {
-        return (dollars * 0.85).roundToLong().toInt()
+    // TEST 2
+    fun getTodayDate(): String? {
+        val dateFormat: DateFormat = SimpleDateFormat("dd/MM/yyyy")
+        return dateFormat.format(Date())
+    }
+
+    fun isInternetAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 
     fun convertEuroToDollar(euros: Int): Int {
@@ -67,11 +77,7 @@ object Utils {
         return  SimpleDateFormat("dd/MM/yyyy").parse(currentDate).time
     }
 
-    fun isInternetAvailable(context: Context): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetworkInfo = connectivityManager.activeNetworkInfo
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected
-    }
+
 
     fun formatLatLng(latlngString: String): LatLng {
         val mL = latlngString.split(",".toRegex()).toTypedArray()
@@ -113,17 +119,7 @@ object Utils {
         return mDistanceInM * 1.1
     }
 
-    fun formatDate(y:Int, m:Int, d:Int) : String {
-        val s = m + 1
-        if  (s < 10 && d >10 ) {return "$d/0$s/$y"}
-        if  (d <10 && s > 10 ) {return  "0$d/$s/$y"}
-        return if (s < 10 && d <10 ) {
-            "0$d/0$s/$y"
-        } else {
-            "$d/$s/$y"
-        }
 
-    }
 
     fun convertToEpoch(date:String) : Long {
         return  SimpleDateFormat("dd/MM/yyyy").parse(date).time
@@ -264,6 +260,14 @@ object Utils {
         return (mLatLng?.latitude.toString() + "," + mLatLng?.longitude.toString())
     }
 
-
+    fun formatDate(y:Int, m:Int, d:Int) : String {
+        val s = m + 1
+        if  (s < 10 && d >10 ) {return "$d/0$s/$y"}
+        if  (d <10 && s > 10 ) {return  "0$d/$s/$y"}
+        return if (s < 10 && d <10 ) {
+            "0$d/0$s/$y"
+        } else {
+            "$d/$s/$y"
+        } }
 
 }

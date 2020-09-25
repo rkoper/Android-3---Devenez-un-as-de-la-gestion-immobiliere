@@ -13,6 +13,6 @@ class  ConvertDateTest {
     @Test
     fun addition_isCorrect() {
         val a =  Utils.formatDate(1984, 4 ,21 )
-        assertEquals("21/5/1984", a )
+        assertEquals("21/05/1984", a )
     }
 }

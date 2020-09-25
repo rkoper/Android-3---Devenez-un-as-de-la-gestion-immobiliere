@@ -13,12 +13,12 @@ import kotlin.math.roundToInt
 class  FindDistanceTest {
     @Test
     fun addition_isCorrect() {
-        val a = Utils.calculateDistance(48.890100, 2.358660, 48.89156, 2.34978).roundToInt().toString() +  " m"
-        assertEquals("900 m" , a )
+        val a = Utils.calculateDistance(48.890100, 2.358660, 48.89156, 2.34978).roundToInt().toString() +  " Sq"
+        assertEquals("990 Sq" , a )
     }
     @Test
     fun addition_isCorrectv2() {
-        val a = Utils.calculateDistance(48.89630649999999,2.3432004, 48.8914799,2.3397897999999997).roundToInt().toString() +  " m"
-        assertEquals("591 m" , a )
+        val a = Utils.calculateDistance(48.89630649999999,2.3432004, 48.8914799,2.3397897999999997).roundToInt().toString() +  " Sq"
+        assertEquals("650 Sq" , a )
     }
 }
