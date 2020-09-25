@@ -85,6 +85,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, mPermissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, mPermissions, grantResults)
         when (requestCode) {
             PERMISSION_REQUEST -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {

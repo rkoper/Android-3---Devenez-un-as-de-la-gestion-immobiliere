@@ -1,7 +1,6 @@
 package com.sofianem.realestatemanager
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.sofianem.realestatemanager.utils.GeocoderUtil
 import com.sofianem.realestatemanager.utils.MyApplication
 import com.sofianem.realestatemanager.utils.Utils
 import org.junit.Assert

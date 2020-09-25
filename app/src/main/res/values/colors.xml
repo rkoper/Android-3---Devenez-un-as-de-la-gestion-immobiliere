@@ -5,15 +5,18 @@
     <color name="colorD">#bfac40</color>
     <color name="colorTransparent">#00000000</color>
     <color name="colorBlack">#000000</color>
-    <color name="colorDbis">#635434</color>
     <color name="colorYellow">#F9AA33</color>
     <color name="colorPaleBlue">#544F34</color>
     <color name="colorBlue">#1373eb</color>
     <color name="colorGreen">#76e782</color>
     <color name="colorRed">#e9403e</color>
-    <color name="colorWhite">#ffff</color>
     <color name="colorGreyTransp">#80303030</color>
     <color name="colorMix">#605935</color>
+    <color name="colorMix2">#3D3B31</color>
+
+
+
+
 
 
 

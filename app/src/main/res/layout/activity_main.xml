@@ -8,13 +8,11 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gi100"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.98" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gi200"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -62,13 +60,11 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.9" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gi6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.95" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/gi7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -158,7 +154,7 @@
             tools:ignore="VectorDrawableCompat"
             tools:targetApi="lollipop" />
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentMain"
             android:layout_width="0dp"
             android:layout_height="0dp"

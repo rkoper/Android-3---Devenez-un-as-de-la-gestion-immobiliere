@@ -192,8 +192,8 @@ object Utils {
         etTextInput?.setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.textadaptsize))
         val searchIcon = (autocompleteFragment?.view as LinearLayout).getChildAt(0) as ImageView
         searchIcon.visibility = View.GONE
-        autocompleteFragment?.setTypeFilter(TypeFilter.ADDRESS)
-        autocompleteFragment?.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS_COMPONENTS, Place.Field.LAT_LNG))
+        autocompleteFragment.setTypeFilter(TypeFilter.ADDRESS)
+        autocompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS_COMPONENTS, Place.Field.LAT_LNG))
         return autocompleteFragment
     }
 

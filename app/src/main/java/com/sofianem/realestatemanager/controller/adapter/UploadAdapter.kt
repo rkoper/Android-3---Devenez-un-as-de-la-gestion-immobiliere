@@ -35,7 +35,7 @@ class UploadAdapter(
         if (mListDescription[position].isNullOrBlank() && mListPath[position].isNullOrBlank()  ) {
             Toast.makeText(mContext, "no photo", Toast.LENGTH_SHORT).show() }
 
-        else { holder.tvTxt.text = mListDescription[position];
+        else { holder.tvTxt.text = mListDescription[position]
             val p = Utils.rotateImage(mListPath[position])
             holder.tvPhoto.setImageBitmap(p) }
 

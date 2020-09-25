@@ -99,7 +99,6 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.41" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/cre_guideline10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -431,7 +430,9 @@
             android:textAlignment="gravity"
             android:textColorHint="@color/colorD"
             android:textColor="@color/colorD"
-            android:theme="@style/MyEditTextStyle2" />
+            android:theme="@style/MyEditTextStyle2"
+            tools:targetApi="lollipop"
+            android:importantForAutofill="no" />
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

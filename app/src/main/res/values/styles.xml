@@ -14,17 +14,6 @@
         <item name="android:textAlignment">center</item>
     </style>
 
-    <style name="TxtViewPrincipal1" parent="@style/TextAppearance.AppCompat">
-        <item name="android:textSize">@dimen/textadaptsize</item>
-        <item name="fontFamily">@font/montserrat</item>
-        <item name="android:textColor">@color/colorD</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:maxLength">30</item>
-        <item name="android:textColorHint">@color/colorBlack</item>
-    </style>
-
     <style name="spinnerDropDownItemStyle">
         <item name="android:textAlignment">textEnd</item>
         <item name="fontFamily">@font/montserrat</item>
@@ -46,17 +35,6 @@
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:background">@color/colorB</item>
-    </style>
-
-    <style name="EditTXTdetail" parent="@style/TxtViewPrincipal">
-        <item name="android:layout_marginLeft">2dp</item>
-        <item name="android:layout_marginRight">2dp</item>
-        <item name="android:background">@color/colorD</item>
-    </style>
-
-    <style name="EditTXTdetailv2" parent="@style/TxtViewPrincipal">
-        <item name="android:layout_marginLeft">2dp</item>
-        <item name="android:layout_marginRight">2dp</item>
     </style>
 
 
@@ -124,9 +102,6 @@
         <item name="colorControlHighlight">#303030</item>
     </style>
 
-    <style name="MyEditTextStyle4" parent="@style/TxtViewPrincipal">
-    </style>
-
     <style name="MyEdittextStyle5" parent="@style/TxtViewPrincipal">
         <item name="colorControlActivated">#bfac40</item>
         <item name="colorControlNormal">#bfac40</item>
@@ -154,23 +129,6 @@
         <item name="android:textSize">@dimen/textadaptsizesmall</item>
     </style>
 
-    <style name="ThemeOverlay.MySwitchCompat" parent="">
-        <item name="colorControlActivated">@color/colorD</item>
-        <item name="colorSwitchThumbNormal">@color/colorD</item>
-        <item name="android:colorBackground">@color/colorWhite</item>
-    </style>
-
-
-    <style name="Switch" parent="Theme.AppCompat.Light.NoActionBar">
-        ...
-        <!-- Active thumb color & Active track color(30% transparency) -->
-        <item name="colorControlActivated">@color/colorYellow</item>
-        <!-- Inactive thumb color -->
-        <item name="colorSwitchThumbNormal">@color/colorYellow</item>
-        <!-- Inactive track color(30% transparency) -->
-        <item name="android:colorForeground">@color/colorYellow</item>
-        ...
-    </style>
 
     <!-- Dialog for Lottie Animation -->
 

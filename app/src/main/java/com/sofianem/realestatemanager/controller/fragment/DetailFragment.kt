@@ -88,7 +88,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
         TestAdapter { position: Int, item: Item ->
             val d = Dialog(requireContext())
             d.requestWindowFeature(Window.FEATURE_NO_TITLE)
-             d.window.setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT));
+             d.window.setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT))
             d.setContentView(R.layout.dialog_imageview_rvdetail) // custom layour for dialog.
             d.dialog_imageview.setImageURI(item.mImageUri.toUri())
             d.dialog_imageview_text.text = item.mImageDescription
@@ -236,7 +236,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
             detail_description.setOnClickListener { _ ->
                 val mDialogView = LayoutInflater.from(context).inflate(R.layout.dialog_description_detail, null)
                 mDialogView.requestFocus()
-                val builder = AlertDialog.Builder(this!!.requireContext()).setView(mDialogView)
+                val builder = AlertDialog.Builder(this.requireContext()).setView(mDialogView)
                 val q: TextView = mDialogView.findViewById(R.id.dialog_imageview_text)
                 q.text = mDescription
                 builder.show()

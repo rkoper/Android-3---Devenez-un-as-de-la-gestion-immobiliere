@@ -141,21 +141,19 @@
 
 
     <TextView
-        android:id="@+id/cal_txt_calculator"
         style="@style/EditTXTCal"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="Loan Calculator "
         android:textStyle="bold"
         android:textColor="@color/colorD"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/cal_guide_A1"
         app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
         app:layout_constraintRight_toRightOf="@+id/cal_guide_11"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/cal_txt_amount"
         style="@style/MyEdittextStyle6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -180,7 +178,6 @@
 
 
     <TextView
-        android:id="@+id/cal_txt_rate"
         style="@style/MyEdittextStyle6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -244,7 +241,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
-        android:textSize="40dp"
+        android:textSize="40sp"
         android:text="Result"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/cal_txt_month"
@@ -257,7 +254,7 @@
         style="@style/EditTXTCal"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:text="/ month"
         app:layout_constraintBottom_toBottomOf="@+id/cal_guide_6"
         app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"

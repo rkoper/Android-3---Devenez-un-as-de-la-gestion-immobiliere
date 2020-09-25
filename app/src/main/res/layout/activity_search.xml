@@ -29,7 +29,6 @@
         android:orientation="vertical">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/ddguidelineX1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -150,9 +149,17 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
+        <LinearLayout
+            android:background="@color/colorMix2"
+            android:layout_width="4dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="@+id/ddguidelineX16"
+            app:layout_constraintBottom_toBottomOf="@+id/ddguidelineX5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
 
         <LinearLayout
-            android:id="@+id/a_search_fb_searchicon"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ddguidelineX2"
@@ -205,7 +212,7 @@
         <TextView
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
-            android:background="@color/colorMix"
+            android:background="@color/colorMix2"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="@+id/ddguidelineX17"
@@ -259,7 +266,7 @@
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="@+id/ddguidelineX17"
             app:layout_constraintBottom_toBottomOf="@+id/ddguidelineX16"
-            android:background="@color/colorMix"
+            android:background="@color/colorMix2"
             app:layout_constraintLeft_toLeftOf="@+id/guidelineCenter"
             app:layout_constraintRight_toRightOf="parent"
             android:text="Surface"/>
@@ -285,14 +292,13 @@
 
 
         <TextView
-            android:id="@+id/txtCreateDate1"
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
             android:hint="Create between  :"
             android:textColorHint="@color/colorD"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/colorMix"
+            android:background="@color/colorMix2"
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX12"
             app:layout_constraintTop_toBottomOf="@+id/ddguidelineX13"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -363,14 +369,13 @@
 
 
         <TextView
-            android:id="@+id/txtSoldDate1"
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
             android:hint="Sold between  :"
             android:textColorHint="@color/colorD"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/colorMix"
+            android:background="@color/colorMix2"
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX12"
             app:layout_constraintTop_toBottomOf="@+id/ddguidelineX13"
             app:layout_constraintLeft_toLeftOf="@id/guidelineCenter"
@@ -439,13 +444,12 @@
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"
             app:layout_constraintRight_toRightOf="parent"/>
         <TextView
-            android:id="@+id/txtPersonn"
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
             android:hint="Person"
             android:textColorHint="@color/colorD"
             android:layout_width="0dp"
-            android:background="@color/colorMix"
+            android:background="@color/colorMix2"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX6"
             app:layout_constraintTop_toBottomOf="@+id/ddguidelineX7"
@@ -453,13 +457,12 @@
             app:layout_constraintRight_toRightOf="@+id/guidelineCenter"
             android:importantForAutofill="no" />
         <TextView
-            android:id="@+id/TxtType"
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
             android:hint="Type"
             android:textColorHint="@color/colorD"
             android:layout_width="0dp"
-            android:background="@color/colorMix"
+            android:background="@color/colorMix2"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX6"
             app:layout_constraintTop_toBottomOf="@+id/ddguidelineX7"
@@ -485,27 +488,27 @@
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX5"
             android:importantForAutofill="no" />
         <TextView
-            android:id="@+id/txtRoom"
+            android:elevation="5dp"
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
             android:hint="Room"
             android:textColorHint="@color/colorD"
             android:layout_width="0dp"
-            android:background="@color/colorMix"
+            android:background="@color/colorMix2"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX8"
             app:layout_constraintTop_toBottomOf="@+id/ddguidelineX9"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="@+id/guidelineCenter"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            tools:targetApi="lollipop" />
         <TextView
-            android:id="@+id/txtPhoto"
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
             android:hint="Photo"
             android:textColorHint="@color/colorD"
             android:layout_width="0dp"
-            android:background="@color/colorMix"
+            android:background="@color/colorMix2"
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX8"
             app:layout_constraintTop_toBottomOf="@+id/ddguidelineX9"
@@ -626,7 +629,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:textColor="@color/colorD"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            tools:targetApi="lollipop" />
 
 
         <TextView
@@ -637,7 +641,7 @@
                     app:layout_constraintRight_toRightOf="parent"
                     style="@style/MyEditTextStyleSearch"
                     android:text="Search 750 yd around : "
-                    android:background="@color/colorMix"
+                    android:background="@color/colorMix2"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:importantForAutofill="no" />
@@ -659,7 +663,7 @@
             app:layout_constraintRight_toLeftOf="@+id/a_search_cb_park"
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX2"
 
-            />
+            tools:targetApi="lollipop" />
         <CheckBox
             android:buttonTint="@color/colorD"
             style="@style/YellowCheck"
@@ -676,7 +680,7 @@
             app:layout_constraintRight_toLeftOf="@+id/a_search_cb_market"
             app:layout_constraintLeft_toRightOf="@+id/a_search_cb_school"
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX2"
-            />
+            tools:targetApi="lollipop" />
         <CheckBox
             android:buttonTint="@color/colorD"
             style="@style/YellowCheck"
@@ -694,7 +698,7 @@
             app:layout_constraintLeft_toRightOf="@+id/a_search_cb_park"
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX2"
 
-            />
+            tools:targetApi="lollipop" />
         <CheckBox
             android:buttonTint="@color/colorD"
             style="@style/YellowCheck"
@@ -710,7 +714,7 @@
             android:text="Pharmacy"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX2"
-            />
+            tools:targetApi="lollipop" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

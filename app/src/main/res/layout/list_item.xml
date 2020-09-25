@@ -35,7 +35,6 @@
                     card_view:layout_constraintGuide_percent="0.40"  />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/one"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     card_view:layout_constraintTop_toTopOf="parent"
@@ -55,7 +54,6 @@
                         android:orientation="vertical"
                         card_view:layout_constraintGuide_percent="0.2"  />
                     <LinearLayout
-                        android:id="@+id/ll1"
                         android:paddingTop="2dp"
                         android:paddingBottom="2dp"
                         android:layout_width="0dp"
@@ -149,25 +147,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/item_guideline1"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     card_view:layout_constraintGuide_percent="0.3" />
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/item_guideline2"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     card_view:layout_constraintGuide_percent="0.7" />
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/item_guideline3"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     card_view:layout_constraintGuide_percent="0.2" />
                 <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/item_guideline4"
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"

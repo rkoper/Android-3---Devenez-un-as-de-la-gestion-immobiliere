@@ -9,14 +9,12 @@
     tools:context=".controller.activity.DetailActivity">
 
   <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/act_detail_guideline1"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
       app:layout_constraintGuide_percent="0.06" />
 
   <androidx.constraintlayout.widget.Guideline
-      android:id="@+id/act_detail_guideline2"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:orientation="vertical"
@@ -25,7 +23,7 @@
 
 
 
-  <fragment
+  <androidx.fragment.app.FragmentContainerView
       android:id="@+id/fragment_main_detail"
       android:name="com.sofianem.realestatemanager.controller.fragment.DetailFragment"
       app:layout_constraintTop_toTopOf="parent"

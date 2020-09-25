@@ -196,7 +196,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="$"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="@color/colorD"
             app:layout_constraintBottom_toTopOf="@+id/detail_tx_pric"
@@ -209,7 +209,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="€"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/detail_tx_pric"
             android:textColor="@color/colorD"
@@ -233,7 +233,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" Sq/ft"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="@color/colorD"
             app:layout_constraintLeft_toRightOf="@+id/detail_tx_surface_m2"
@@ -247,7 +247,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="M² "
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintRight_toLeftOf="@+id/detail_tx_surface_square"
             app:layout_constraintBottom_toTopOf="@+id/detail_tx_surface"
@@ -292,7 +292,6 @@
             app:layout_constraintRight_toLeftOf="@+id/detail_guideline34" />
 
         <ImageView
-            android:id="@+id/detail_ig_city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/city_yellow"
@@ -317,7 +316,6 @@
             app:layout_constraintRight_toRightOf="parent" />
 
         <ImageView
-            android:id="@+id/detail_ig_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -339,10 +337,10 @@
             android:text="Personn"
             app:layout_constraintBottom_toTopOf="@+id/detail_guideline4"
             app:layout_constraintLeft_toRightOf="@+id/detail_guideline34"
-            app:layout_constraintRight_toLeftOf="@+id/detail_guideline35"/>
+            app:layout_constraintRight_toLeftOf="@+id/detail_guideline35"
+            tools:targetApi="lollipop" />
 
         <ImageView
-            android:id="@+id/detail_ig_personn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/person_grey"
@@ -350,7 +348,8 @@
             app:layout_constraintLeft_toRightOf="@+id/detail_guideline34"
             android:layout_margin="5dp"
             app:layout_constraintRight_toLeftOf="@+id/detail_guideline35"
-            app:layout_constraintTop_toBottomOf="@+id/detail_guideline3" />
+            app:layout_constraintTop_toBottomOf="@+id/detail_guideline3"
+            tools:targetApi="lollipop" />
 
         <TextView
             android:id="@+id/detail_datebegin"
@@ -367,7 +366,6 @@
             app:layout_constraintRight_toLeftOf="@+id/detail_guideline34" />
 
         <ImageView
-            android:id="@+id/detail_ig_dateB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/calendar_grey"
@@ -391,7 +389,6 @@
             app:layout_constraintRight_toRightOf="parent" />
 
         <ImageView
-            android:id="@+id/detail_ig_dateE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -415,7 +412,6 @@
             app:layout_constraintRight_toLeftOf="@+id/detail_guideline35" />
 
         <ImageView
-            android:id="@+id/detail_ig_room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/bed_grey"
@@ -427,7 +423,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:id="@+id/ConstraintLayout_bottom"
             app:layout_constraintTop_toTopOf="@+id/detail_guideline71"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -458,7 +453,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/detail_icon_desc"
                 app:layout_constraintRight_toRightOf="@+id/middle_cl"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:targetApi="o" />
 
             <ImageView
                 android:id="@+id/detail_icon_desc"
@@ -495,33 +491,29 @@
             android:layout_height="0dp"
             android:text="Click for more information"
             android:textColor="@color/colorB"
-            android:textSize="11dp"
+            android:textSize="11sp"
             app:layout_constraintBottom_toTopOf="@+id/im_guideline5"
             app:layout_constraintTop_toTopOf="@id/detail_map"
             app:layout_constraintLeft_toLeftOf="@id/detail_map"
             app:layout_constraintRight_toRightOf="@id/detail_map" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/im_guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.15" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/im_guideline2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.35" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/im_guideline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.55" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/im_guideline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -542,11 +534,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/detail_pharmacy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/hospital_yellow"
-                android:backgroundTint="@color/colorD" />
+                android:backgroundTint="@color/colorD"
+                tools:targetApi="lollipop" />
             <TextView
                 style="@style/EditTXTCreate"
                 android:layout_marginStart="5dp"
@@ -566,11 +558,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/detail_school"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/school_yellow"
-                android:backgroundTint="@color/colorD" />
+                android:backgroundTint="@color/colorD"
+                tools:targetApi="lollipop" />
             <TextView
                 style="@style/EditTXTCreate"
                 android:layout_marginStart="5dp"
@@ -589,11 +581,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/detail_market"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/market_yellow"
-                android:backgroundTint="@color/colorD" />
+                android:backgroundTint="@color/colorD"
+                tools:targetApi="lollipop" />
             <TextView
                 style="@style/EditTXTCreate"
                 android:layout_marginStart="5dp"
@@ -612,11 +604,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/detail_park"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/park_green"
-                android:backgroundTint="@color/colorD" />
+                android:backgroundTint="@color/colorD"
+                tools:targetApi="lollipop" />
             <TextView
                 style="@style/EditTXTCreate"
                 android:layout_marginStart="5dp"
@@ -648,7 +640,6 @@
         android:orientation="horizontal"
         android:visibility="gone">
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/soldguideline1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -667,25 +658,21 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.2" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/soldguideline3"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.1" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/soldguideline4"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.9" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/soldguidelineC1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.05" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/soldguidelineC2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:orientation="horizontal"
@@ -711,7 +698,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/llSold"
             app:layout_constraintLeft_toLeftOf="@+id/llSold"
             app:layout_constraintRight_toRightOf="@+id/llSold"
-            android:id="@+id/detail_sold_1"
             android:textColor="@color/colorB"
             style="@style/MyEditTextStyle3"
             android:layout_width="match_parent"

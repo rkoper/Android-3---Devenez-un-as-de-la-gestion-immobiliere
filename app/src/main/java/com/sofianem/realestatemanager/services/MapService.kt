@@ -43,6 +43,6 @@ interface MapService {
     ): Call<PlacesResponse4>
 
 
-   companion object {}
+   companion object
 
 }

@@ -56,9 +56,10 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
     // LOCATION
     var mPark: String? = "%" ; var mPharmacy: String? = "%"  ; var mSchool: String? = "%"  ; var mMarket: String? = "%"
     // CITY
-    var mCity: String? = "%" ;
+    var mCity: String? = "%"
+
     // LOCATION
-    var mLocation: String? = "%" ;
+    var mLocation: String? = "%"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -184,7 +185,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
 
     fun searchPerson() {
         val mSelectPersonn = resources.getStringArray(((R.array.Person)))
-        if (spPersonn != null) { spPersonn.background.setColorFilter(resources.getColor(R.color.colorD), PorterDuff.Mode.SRC_ATOP);
+        if (spPersonn != null) { spPersonn.background.setColorFilter(resources.getColor(R.color.colorD), PorterDuff.Mode.SRC_ATOP)
             val adapter = ArrayAdapter(this, R.layout.spinner_custom, mSelectPersonn)
             spPersonn.adapter = adapter}
 
@@ -198,7 +199,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
 
     private fun searchType() {
         val mSelectType = resources.getStringArray(((R.array.Type)))
-        if (spType != null) { spType.background.setColorFilter(resources.getColor(R.color.colorD), PorterDuff.Mode.SRC_ATOP);
+        if (spType != null) { spType.background.setColorFilter(resources.getColor(R.color.colorD), PorterDuff.Mode.SRC_ATOP)
             val adapter = ArrayAdapter(this, R.layout.spinner_custom, mSelectType)
             spType.adapter = adapter}
 

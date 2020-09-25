@@ -34,7 +34,7 @@ object StorageUtils {
      private fun readFile(context: Context, file: File): String {
          val sb = StringBuilder()
          if (file.exists()) {
-             try { val bufferedReader = file.bufferedReader();
+             try { val bufferedReader = file.bufferedReader()
 
                  bufferedReader.useLines { lines ->
                      lines.forEach {

@@ -16,14 +16,15 @@
     <application
        android:label="Real Estate Manager"
         android:allowBackup="true"
-        android:roundIcon="@mipmap/ic_launcher_rem_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".core.EstateApplication"
         android:hardwareAccelerated="false"
         android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config"
-        tools:targetApi="q">
+        tools:targetApi="q"
+        android:fullBackupContent="@xml/backup_descriptor"
+        android:icon="@mipmap/ic_launcher_rem_round">
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyByK0jz-yxjpZFX88W8zjzTwtzMtkPYC4w" />

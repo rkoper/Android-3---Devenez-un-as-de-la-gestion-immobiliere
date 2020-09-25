@@ -113,9 +113,10 @@
         <LinearLayout
             android:background="@color/colorD"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:baselineAligned="false">
 
-            <fragment
+            <androidx.fragment.app.FragmentContainerView
                 android:layout_marginTop="1dp"
                 android:layout_marginStart="1dp"
                 android:layout_marginBottom="20dp"
@@ -126,10 +127,8 @@
                 android:layout_weight="2"
                 android:name="com.sofianem.realestatemanager.controller.fragment.MainFragment"
                 android:layout_marginLeft="7dp"
-                android:layout_marginRight="7dp" >
-
-            </fragment>
-            <fragment
+                android:layout_marginRight="7dp" />
+            <androidx.fragment.app.FragmentContainerView
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="20dp"
                 android:layout_marginEnd="1dp"

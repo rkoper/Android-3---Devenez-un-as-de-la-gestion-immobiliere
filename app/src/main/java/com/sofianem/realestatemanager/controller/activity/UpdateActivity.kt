@@ -238,7 +238,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
     private fun load_mDateCreate() {
         upload_datebegin.setOnClickListener {
             val dpd = DatePickerDialog.OnDateSetListener { view, y, m, d ->
-                    upload_datebegin.setText(Utils.formatDate(y, m, d))
+                    upload_datebegin.text = Utils.formatDate(y, m, d)
                     mDateCreate = Utils.convertToEpoch(Utils.formatDate(y, m, d)) }
             val now = Time(); now.setToNow()
             val d = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
@@ -287,22 +287,21 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
         var route = ""
         if (!Places.isInitialized()) { Places.initialize(applicationContext, "AIzaSyByK0jz-yxjpZFX88W8zjzTwtzMtkPYC4w") }
         var autocompleteFragment = Utils.configureAutoCompleteFrag(supportFragmentManager, resources, this, mAdress)
-        autocompleteFragment?.setPlaceFields(
+        autocompleteFragment.setPlaceFields(
             listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS_COMPONENTS))
-        autocompleteFragment?.setOnPlaceSelectedListener(object : PlaceSelectionListener {
+        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
                 upload_adress.text = place.address
 
                 place.addressComponents?.asList()?.forEach {
-                    if (it.types.contains("street_number")) { streetNumber = it.name }
-                    else if (it.types.contains("route")) { route = it.name }
-                    else if (it.types.contains("locality")) {
+                    if (it.types.contains("street_number")) { streetNumber = it.name } else if (it.types.contains("route")) { route = it.name } else if (it.types.contains("locality")) {
                         upload_city.text = it.name; mCity = it.name } }
                 mAdress = "$streetNumber $route"
                 mGeoLoc = Utils.getlocationForList(mAdress, mCity, this@UpdateActivity)
             }
 
-            override fun onError(p0: Status) {} }) }
+            override fun onError(p0: Status) {} })
+    }
 
 
     private fun load_mType() {
@@ -407,7 +406,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
 
             OPERATION_CHOOSE_PHOTO ->
                 if (resultCode == Activity.RESULT_OK) {
-                    var imagePath: String? = null;
+                    var imagePath: String? = null
                     val uri = data!!.data
                     if (DocumentsContract.isDocumentUri(this, uri)) {
                         val docId = DocumentsContract.getDocumentId(uri)
@@ -541,7 +540,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
         return diagonalInches >= 7.0
     }
 
-    companion object {}
+    companion object
 }
 
 
