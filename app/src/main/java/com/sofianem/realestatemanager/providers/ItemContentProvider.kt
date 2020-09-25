@@ -6,15 +6,15 @@ import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
 import android.util.Log
-import com.sofianem.realestatemanager.data.dataBase.AllDatabase
+import com.sofianem.realestatemanager.data.database.AllDatabase
 import com.sofianem.realestatemanager.data.model.EstateR
 
 class ItemContentProvider : ContentProvider() {
 
     // FOR DATA
-    val AUTHORITY = "com.sofianem.realestatemanager.providers"
-    val TABLE_NAME = EstateR::class.java.simpleName
-    var URI_ESTATE = Uri.parse("content://$AUTHORITY/$TABLE_NAME")
+    private val mAuthority = "com.sofianem.realestatemanager.providers"
+    private val mTableName = EstateR::class.java.simpleName
+    var mUriEstate: Uri = Uri.parse("content://$mAuthority/$mTableName")
 
     override fun insert(mUri: Uri?, mCValues: ContentValues?): Uri {
         if (context != null && mCValues != null){
@@ -48,5 +48,5 @@ class ItemContentProvider : ContentProvider() {
         throw IllegalArgumentException("Not allowed") }
 
     override fun getType(mUri: Uri?): String {
-        return "vnd.android.cursor.item/$AUTHORITY.$TABLE_NAME" }
+        return "vnd.android.cursor.item/$mAuthority.$mTableName" }
 }

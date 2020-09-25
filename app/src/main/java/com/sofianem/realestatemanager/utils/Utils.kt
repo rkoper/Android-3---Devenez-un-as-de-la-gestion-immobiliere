@@ -31,16 +31,15 @@ import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.data.model.EstateR
-import retrofit2.Response
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.pow
 import kotlin.math.roundToLong
+import kotlin.math.sqrt
 
 /**
  * Created by Philippe on 21/02/2018.
@@ -61,12 +60,6 @@ object Utils {
     fun convertSqTom2(sq: Int): Int {
         return (sq * 0.092).roundToLong().toInt()
     }
-
-    val todayDate: String
-        get() {
-            val dateFormat: DateFormat = SimpleDateFormat("yyyy/MM/dd")
-            return dateFormat.format(Date())
-        }
 
     fun formatDateV2(date: Date): Long{
         val sdf = SimpleDateFormat("dd/MM/yyyy")
@@ -116,7 +109,7 @@ object Utils {
         val xSquare = (x1 - x2).pow(2.0)
         val ySquare = (y1 - y2).pow(2.0)
 
-        val mDistanceInM = Math.sqrt(xSquare + ySquare) * 100000
+        val mDistanceInM = sqrt(xSquare + ySquare) * 100000
         return mDistanceInM * 1.1
     }
 
@@ -124,8 +117,11 @@ object Utils {
         val s = m + 1
         if  (s < 10 && d >10 ) {return "$d/0$s/$y"}
         if  (d <10 && s > 10 ) {return  "0$d/$s/$y"}
-        if (s < 10 && d <10 ) {return  "0$d/0$s/$y"}
-        else {return  "$d/$s/$y"}
+        return if (s < 10 && d <10 ) {
+            "0$d/0$s/$y"
+        } else {
+            "$d/$s/$y"
+        }
 
     }
 
@@ -135,19 +131,13 @@ object Utils {
 
     fun convertToLocalB(lstE : EstateR) : String {
         val sdf = SimpleDateFormat("dd/MM/yyyy")
-        val displayDateB = sdf.format(Date(lstE.date_begin))
-        return displayDateB
-    }
-    fun convertToLocalE(lstE : EstateR) : String {
-        val sdf = SimpleDateFormat("dd/MM/yyyy")
-        val displayDateE = sdf.format(Date(lstE.date_end))
-        return displayDateE
+        return sdf.format(Date(lstE.date_begin))
     }
 
-    fun CheckExternalStorage(mContext: Context) : Int{
+    fun checkExternalStorage(mContext: Context) : Int{
         return ContextCompat.checkSelfPermission(mContext, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) }
 
-    fun CheckCamera(mContext: Context) : Int{
+    fun checkCamera(mContext: Context) : Int{
         return ContextCompat.checkSelfPermission(mContext, android.Manifest.permission.CAMERA) }
 
     fun askForStorage(mActivity: Activity){
@@ -179,9 +169,9 @@ object Utils {
         resources:Resources,
         mContext:Context,
     hint:String) : AutocompleteSupportFragment{
-        var autocompleteFragment = supportFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment?
-        var fView: View? = autocompleteFragment?.view
-        var etTextInput: EditText? = fView?.findViewById(R.id.places_autocomplete_search_input)
+        val autocompleteFragment = supportFragmentManager.findFragmentById(R.id.autocomplete_fragment) as AutocompleteSupportFragment?
+        val fView: View? = autocompleteFragment?.view
+        val etTextInput: EditText? = fView?.findViewById(R.id.places_autocomplete_search_input)
         etTextInput?.setBackgroundColor(resources.getColor(R.color.colorB))
         etTextInput?.setTextColor(resources.getColor(R.color.colorD))
         etTextInput?.setHintTextColor(resources.getColor(R.color.colorD))
@@ -204,7 +194,7 @@ object Utils {
         var idx = str.length - n
         while (idx > 0) {
             str.insert(idx, " ")
-            idx = idx - n
+            idx -= n
         }
         return str.toString()
     }
@@ -232,7 +222,7 @@ object Utils {
     }
 
         fun calculateLoanAmount(rate:Float, amount:Int, term:Int): String{
-            var t1 = rate/100
+            val t1 = rate/100
             val t2 = t1/12
             val t3 = amount*t2
             val y1 = 1.plus(t2)
@@ -248,8 +238,7 @@ object Utils {
         val bitmap: Bitmap = BitmapFactory.decodeFile(path)
         var rotate = 0
         val exif = ExifInterface(path)
-        val orientation: Int = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
-        when (orientation) {
+        when (exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)) {
             ExifInterface.ORIENTATION_ROTATE_270 -> rotate = 270
             ExifInterface.ORIENTATION_ROTATE_180 -> rotate = 180
             ExifInterface.ORIENTATION_NORMAL -> rotate = 90
@@ -263,16 +252,6 @@ object Utils {
         )
     }
 
-    fun <T : Any> handleApiError(resp: Response<T>): AppResult.Error {
-        val error = ApiErrorUtils.parseError(resp)
-        return AppResult.Error(Exception(error.message))
-    }
-
-    fun <T : Any> handleSuccess(response: Response<T>): AppResult<T> {
-        response.body()?.let {
-            return AppResult.Success(it)
-        } ?: return handleApiError(response)
-    }
 
     fun getlocationForList(adress: String?, city: String?, mContext: Context): String {
         var geocodeMatches: List<Address>? = null

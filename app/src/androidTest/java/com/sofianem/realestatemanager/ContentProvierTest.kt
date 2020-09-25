@@ -3,11 +3,10 @@ package com.sofianem.realestatemanager
 import android.content.ContentResolver
 import android.content.ContentUris
 import android.content.ContentValues
-import androidx.room.Database
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.sofianem.realestatemanager.data.dataBase.AllDatabase
+import com.sofianem.realestatemanager.data.database.AllDatabase
 import com.sofianem.realestatemanager.providers.ItemContentProvider
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNotNull
@@ -22,12 +21,13 @@ class ContentProvierTest {
 
     @Before
     fun setUp(){
-        Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getInstrumentation().context,AllDatabase::class.java).allowMainThreadQueries().build()
+        Room.inMemoryDatabaseBuilder(InstrumentationRegistry.getInstrumentation().context,
+            AllDatabase::class.java).allowMainThreadQueries().build()
         mContentResolver = InstrumentationRegistry.getInstrumentation().targetContext.contentResolver }
 
     @Test
     fun emptyCase(){
-        val cursor = mContentResolver.query(ContentUris.withAppendedId(ItemContentProvider().URI_ESTATE, 99),null,null,null,null)
+        val cursor = mContentResolver.query(ContentUris.withAppendedId(ItemContentProvider().mUriEstate, 99),null,null,null,null)
        assertNotNull(cursor); assertEquals(0, cursor.count); cursor.close() }
 
 
@@ -39,10 +39,10 @@ class ContentProvierTest {
         values.put("Estate_park", "ok"); values.put("Estate_market", "ok");  values.put("Estate_school", "ok")
         values.put("Estate_status", "ok"); values.put("Estate_date_begin", 1);  values.put("Estate_date_end", 3047298191)
         values.put("Estate_personn", "Roger"); values.put("Estate_location", "48.890184, 2.358677");  values.put("Estate_nb_photo", 2)
-        mContentResolver.insert(ItemContentProvider().URI_ESTATE, values)
+        mContentResolver.insert(ItemContentProvider().mUriEstate, values)
 
         val cursor = mContentResolver.query(ContentUris.withAppendedId(
-                ItemContentProvider().URI_ESTATE, rnds.toLong()), null, null, null, null)
+                ItemContentProvider().mUriEstate, rnds.toLong()), null, null, null, null)
         assertNotNull(cursor)
         assertEquals(1, cursor.count)
         assertEquals(true, cursor.moveToFirst())

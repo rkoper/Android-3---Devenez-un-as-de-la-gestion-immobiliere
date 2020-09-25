@@ -1,6 +1,5 @@
 package com.sofianem.realestatemanager.controller.fragment
 
-import android.app.Activity
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.Display
@@ -20,13 +19,14 @@ import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import kotlin.math.pow
+import kotlin.math.sqrt
 
 
 class MainFragment : Fragment(), LifecycleObserver {
     private val mMyViewModel by viewModel<MyViewModel>()
     private val mMyViewModelForImages by viewModel<MyViewModelForImages>()
-    var mSearchlist: ArrayList<Int>? = arrayListOf()
-    var mTablet:Boolean? = false
+    private var mSearchlist: ArrayList<Int>? = arrayListOf()
+    private var mTablet:Boolean? = false
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -54,8 +54,7 @@ class MainFragment : Fragment(), LifecycleObserver {
             mSearchlist!!.forEach { mId ->
                 mMyViewModel.getById(mId).observe(viewLifecycleOwner, Observer {estate ->
                     mMyViewModelForImages.getById(mId).observe(viewLifecycleOwner, Observer { img ->
-                        if (img == null) {}
-                        else { mDataImage.add(img)}
+                        if (img != null) { mDataImage.add(img)}
                         mDataEstate.add(estate)
                         subscriber_recyclerView.adapter = MainAdapter(
                             mDataEstate,
@@ -64,17 +63,14 @@ class MainFragment : Fragment(), LifecycleObserver {
                             mTablet
                         ) }) }) } } }
 
-    fun checkIsTablet() : Boolean{
+    private fun checkIsTablet() : Boolean{
         val display: Display = requireActivity().windowManager.defaultDisplay
         val metrics = DisplayMetrics()
         display.getMetrics(metrics)
         val widthInches: Float = metrics.widthPixels / metrics.xdpi
         val heightInches: Float = metrics.heightPixels / metrics.ydpi
-        val diagonalInches = Math.sqrt(
-            Math.pow(
-                widthInches.toDouble(),
-                2.0
-            ) + heightInches.toDouble().pow(2.0)
+        val diagonalInches = sqrt(
+            widthInches.toDouble().pow(2.0) + heightInches.toDouble().pow(2.0)
         )
         return diagonalInches >= 7.0
 

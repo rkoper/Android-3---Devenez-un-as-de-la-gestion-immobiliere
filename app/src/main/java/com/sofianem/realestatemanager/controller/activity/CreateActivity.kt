@@ -8,6 +8,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -22,6 +24,7 @@ import android.util.Log
 import android.view.Display
 import android.view.LayoutInflater
 import android.view.View
+import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -37,17 +40,16 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.adapter.CreateAdapter
 import com.sofianem.realestatemanager.controller.view.GridItemDecoration
-import com.sofianem.realestatemanager.data.model.NearbyPlaces
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForPlaces
 import kotlinx.android.synthetic.main.activity_create.*
-import kotlinx.android.synthetic.main.activity_upload.*
+import kotlinx.android.synthetic.main.dialog_custom_layout.*
 import kotlinx.android.synthetic.main.dialog_custom_layout.view.*
+import kotlinx.android.synthetic.main.dialog_layout.*
 import kotlinx.android.synthetic.main.dialog_layout.view.*
 import kotlinx.android.synthetic.main.dialog_number_picker.*
-import kotlinx.android.synthetic.main.fragment_detail.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -56,15 +58,16 @@ import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.pow
+import kotlin.math.sqrt
 
 
 class CreateActivity : AppCompatActivity() {
     private var mUri: Uri? = null
     private val mListImagePath: MutableList<String?> = ArrayList()
     private val mListImageDescription: MutableList<String?> = ArrayList()
-    var mType: String = ""
+    private var mType: String = ""
     var mCity: String = ""
-    var mDescription: String = ""
+    private var mDescription: String = ""
     var mAddress: String = ""
     var mStatus: String = ""
     var mGeoLoc: String = ""
@@ -74,19 +77,23 @@ class CreateActivity : AppCompatActivity() {
     private var mNumberOfRoom: Int = 0
     private var mDateBegin: Long = 3
     private var mDateEnd: Long = 8888888888
-    var mCreateId: Int = 99
-    var mNbPhoto:Int = 0
-    var mNewID : Long = 66666
+    private var mCreateId: Int = 99
+    private var mNbPhoto:Int = 0
+    private var mNewID : Long = 66666
     private val mMyViewModel by viewModel<MyViewModel>()
     private val mMyViewModelForImages by viewModel<MyViewModelForImages>()
     private val mMyViewModelForPlaces by viewModel<MyViewModelForPlaces>()
-    private lateinit var mPlace : List<NearbyPlaces>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create)
         mMyViewModel.mAllEstate.observe(this, androidx.lifecycle.Observer {
-            if (it.isEmpty()) {mCreateId = 1 } else { mCreateId = it.last().id.plus(1) }})
+            mCreateId = if (it.isEmpty()) {
+                1
+            } else {
+                it.last().id.plus(1)
+            }
+        })
 
         loadItem()
         onClickHouse()
@@ -160,19 +167,20 @@ class CreateActivity : AppCompatActivity() {
     private fun loadType() {
         a_create_ed_type.setOnClickListener {
             val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTheme)
-            with(mBuilder) {
-                setItems(listType) { dialog, i ->
-                    a_create_ed_type.text = listType[i]
-                    mType = a_create_ed_type.text.toString().trim()
-                    dialog.dismiss() }
-                val mDialog = mBuilder.create()
-                mDialog.show() } } }
+            mBuilder.setItems(listType) { dialog, i ->
+                a_create_ed_type.text = listType[i]
+                mType = a_create_ed_type.text.toString().trim()
+                dialog.dismiss() }
+            val mDialog = mBuilder.create()
+            mDialog.show()
+        } }
 
     private fun loadSurface() {
         a_create_rangebar_surface.setOnRangeBarChangeListener(object :
             RangeBar.OnRangeBarChangeListener { override fun onTouchEnded(rangeBar: RangeBar?) {}
             override fun onRangeChangeListener(rangeBar: RangeBar?, leftPinIndex: Int, rightPinIndex: Int, leftPinValue: String?, rightPinValue: String?) {
-                a_create_tx_surface.text = "Surface : " + rightPinValue.toString() + "  Sq/ft"
+                val mDisplaySurface = "Surface : " + rightPinValue.toString() + "  Sq/ft"
+                a_create_tx_surface.text = mDisplaySurface
                 mSurface = rightPinValue!!.toInt() }
             override fun onTouchStarted(rangeBar: RangeBar?) {} }) }
 
@@ -187,13 +195,16 @@ class CreateActivity : AppCompatActivity() {
             override fun onPlaceSelected(place: Place) {
                 a_create_ed_adress.text = place.address
                 place.addressComponents?.asList()?.forEach { Log.i("TAG", "AutoComplet: " + it.types + " " )
-                    if (it.types.contains("street_number")) { streetNumber = it.name }
-                    else if (it.types.contains("route")) { route = it.name }
-                    else if (it.types.contains("locality")) {
-                        a_create_ed_city.text = it.name
-                        mCity = it.name } }
-
-                a_create_ed_adress.text = "$streetNumber $route"
+                    when {
+                        it.types.contains("street_number") -> { streetNumber = it.name }
+                        it.types.contains("route") -> { route = it.name }
+                        it.types.contains("locality") -> {
+                            a_create_ed_city.text = it.name
+                            mCity = it.name }
+                    }
+                }
+                val mDisplaceAdress = "$streetNumber $route"
+                a_create_ed_adress.text = mDisplaceAdress
                 a_create_ed_adress.visibility = View.VISIBLE
                 mAddress = "$streetNumber $route"
 
@@ -208,8 +219,8 @@ class CreateActivity : AppCompatActivity() {
             RangeBar.OnRangeBarChangeListener { override fun onTouchEnded(rangeBar: RangeBar?) {}
             override fun onRangeChangeListener(rangeBar: RangeBar?, leftPinIndex: Int, rightPinIndex: Int, leftPinValue: String?, rightPinValue: String?) {
                 val value = rightPinValue.toString() + "0000"
-                val displayValue = Utils.addWhiteSpace(value)
-                a_create_tx_pric.text = "Price : " + displayValue + " $"
+                val mDisplayPrice = "Price : " + Utils.addWhiteSpace(value) + " $"
+                a_create_tx_pric.text = mDisplayPrice
                 mPrice = value.toInt() }
             override fun onTouchStarted(rangeBar: RangeBar?) {} })
     }
@@ -235,17 +246,19 @@ class CreateActivity : AppCompatActivity() {
                 val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
                 imm?.hideSoftInputFromWindow(v.windowToken, 0) }
             val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTheme)
-            with(mBuilder) {
-                setItems(listPerson) { dialog, i ->
-                    a_create_ed_personn.text = listPerson[i]
-                    mPerson = a_create_ed_personn.text.toString().trim()
-                    dialog.dismiss() }
-                val mDialog = mBuilder.create()
-                mDialog.show() } } }
+            mBuilder.setItems(listPerson) { dialog, i ->
+                a_create_ed_personn.text = listPerson[i]
+                mPerson = a_create_ed_personn.text.toString().trim()
+                dialog.dismiss() }
+            val mDialog = mBuilder.create()
+            mDialog.show()
+        } }
 
     private fun loadRoom() {
         a_create_ed_room.setOnClickListener {
             val d = Dialog(this)
+            d.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            d.window.setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT))
             d.setContentView(R.layout.dialog_number_picker)
             d.numberPicker.maxValue = 15
             d.numberPicker.minValue = 1
@@ -261,19 +274,20 @@ class CreateActivity : AppCompatActivity() {
     private fun onClickAddPhoto() { photoUpload.setOnClickListener { selectImage() }}
 
     private fun selectImage() {
-        val mDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_layout, null)
-        val builder = AlertDialog.Builder(this)
-        builder.setView(mDialogView)
-        val mAlertDialog = builder.show()
-        mDialogView.dialog_gallery.setOnClickListener { mAlertDialog.dismiss()
-            if (Utils.CheckExternalStorage(this) != PackageManager.PERMISSION_GRANTED) { Utils.askForStorage(this) }
+        val d = Dialog(this)
+        d.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        d.window.setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT))
+        d.setContentView(R.layout.dialog_layout)
+
+        d.dialog_gallery.setOnClickListener { d.dismiss()
+            if (Utils.checkExternalStorage(this) != PackageManager.PERMISSION_GRANTED) { Utils.askForStorage(this) }
             else { openGallery() } }
 
-        mDialogView.dialog_photo.setOnClickListener { mAlertDialog.dismiss()
-            if ( Utils.CheckCamera(this) != PackageManager.PERMISSION_GRANTED) { Utils.askForCamera(this) }
+        d.dialog_photo.setOnClickListener { d.dismiss()
+            if ( Utils.checkCamera(this) != PackageManager.PERMISSION_GRANTED) { Utils.askForCamera(this) }
             else { capturePhoto() } }
 
-        mDialogView.dialog_cancel.setOnClickListener { mAlertDialog.run { dismiss() }
+        d.dialog_cancel.setOnClickListener { d.run { dismiss() }
             Toast.makeText(applicationContext, "cancelled", Toast.LENGTH_SHORT).show() } }
 
 
@@ -342,29 +356,30 @@ class CreateActivity : AppCompatActivity() {
 
     private fun createAlertDialog(imagePath: String?) {
         mListImagePath.add(imagePath)
-        val mDialogViewForImageInfo = LayoutInflater.from(this).inflate(R.layout.dialog_custom_layout, null)
-        var builderForImageInfo = AlertDialog.Builder(this)
-        builderForImageInfo.setView(mDialogViewForImageInfo)
-        val mAlertDialogForImageInfo = builderForImageInfo.show()
+        val d = Dialog(this)
+        d.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        d.window.setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT))
+        d.setContentView(R.layout.dialog_custom_layout)
+        d.show()
 
-        mDialogViewForImageInfo.custom_dialog_txt.addTextChangedListener(object : TextWatcher {
+        d.custom_dialog_txt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 if (start == 0 )
-                { mDialogViewForImageInfo.custom_dialog_ok.isVisible = false
-                    mDialogViewForImageInfo.custom_dialog_not_ok.isVisible = true}
+                { d.custom_dialog_ok.isVisible = false
+                    d.custom_dialog_not_ok.isVisible = true}
                 else {
-                    mDialogViewForImageInfo.custom_dialog_ok.isVisible = true
-                    mDialogViewForImageInfo.custom_dialog_not_ok.isVisible = false}
+                    d.custom_dialog_ok.isVisible = true
+                    d.custom_dialog_not_ok.isVisible = false}
             } })
 
-        mDialogViewForImageInfo.custom_dialog_not_ok.setOnClickListener {
+        d.custom_dialog_not_ok.setOnClickListener {
             Toast.makeText(this, " Please add description...", Toast.LENGTH_SHORT).show() }
 
-        mDialogViewForImageInfo.custom_dialog_ok.setOnClickListener {
-            mAlertDialogForImageInfo.dismiss()
-            val photoInfo: String? = mDialogViewForImageInfo.custom_dialog_txt.text.toString()
+        d.custom_dialog_ok.setOnClickListener {
+            d.dismiss()
+            val photoInfo: String? = d.custom_dialog_txt.text.toString()
             if (photoInfo.isNullOrBlank() || imagePath.isNullOrBlank()) { println(" Error") }
             else { mListImageDescription.add(photoInfo)  ;  createRV(mListImagePath, mListImageDescription) } } }
 
@@ -396,12 +411,7 @@ class CreateActivity : AppCompatActivity() {
         display.getMetrics(metrics)
         val widthInches: Float = metrics.widthPixels / metrics.xdpi
         val heightInches: Float = metrics.heightPixels / metrics.ydpi
-        val diagonalInches = Math.sqrt(
-            Math.pow(
-                widthInches.toDouble(),
-                2.0
-            ) + heightInches.toDouble().pow(2.0)
-        )
+        val diagonalInches = sqrt(widthInches.toDouble().pow(2.0) + heightInches.toDouble().pow(2.0))
         return diagonalInches >= 7.0
     }
 
@@ -411,7 +421,6 @@ class CreateActivity : AppCompatActivity() {
         const val PATH_PROVIDER   = "com.SofianeM.RealEstateManager.fileprovider"
         const val GET_CONTENT  = "android.intent.action.GET_CONTENT"
         const val MEDIA_PROVIDER  =   "com.android.providers.media.documents"
-        const val DOWNLOAD_PROVIDER_SD  =  "com.android.providers.downloads.documents.raw.storage.emulated.0.Download"
         const val DOWNLOAD_PROVIDER  =  "com.android.providers.downloads.documents"
         val listPerson = arrayOf("Leonardo", "Michel-Ange", "Raphael", "Donatello")
         val listType = arrayOf("Apartment", "House", "Loft", "Castle")

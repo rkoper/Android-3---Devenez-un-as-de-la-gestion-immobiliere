@@ -1,8 +1,10 @@
 package com.sofianem.realestatemanager.data.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
-import com.sofianem.realestatemanager.data.model.EstateR
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
 import com.sofianem.realestatemanager.data.model.ImageV
 
 
@@ -18,9 +20,6 @@ interface ImageDao {
 
     @Update
     fun updateItem(imageV: ImageV)
-
-    @Delete
-    fun deleteItem (ImageV: ImageV)
 
     @Query("DELETE FROM Image where Image_id like :mDeleteId")
     fun deleteById(mDeleteId: Int)

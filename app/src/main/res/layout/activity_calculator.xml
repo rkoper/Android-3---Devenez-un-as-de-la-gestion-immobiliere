@@ -144,7 +144,7 @@
         style="@style/EditTXTCal"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Loan Calculator "
+        android:text="@string/loan_calculator"
         android:textStyle="bold"
         android:textColor="@color/colorD"
         android:textSize="20sp"
@@ -157,7 +157,7 @@
         style="@style/MyEdittextStyle6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Loan Amount"
+        android:text="@string/loan_amount"
         app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
         app:layout_constraintRight_toRightOf="@+id/cal_guide_11"
         app:layout_constraintTop_toTopOf="@+id/cal_guide_A1" />
@@ -181,7 +181,7 @@
         style="@style/MyEdittextStyle6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Loan Rate"
+        android:text="@string/loan_rate"
         app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
         app:layout_constraintRight_toRightOf="@+id/cal_guide_11"
         app:layout_constraintTop_toTopOf="@+id/cal_guide_B1" />
@@ -204,7 +204,7 @@
         style="@style/MyEdittextStyle6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Loan Term"
+        android:text="@string/loan_term"
         app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
         app:layout_constraintRight_toRightOf="@+id/cal_guide_11"
         app:layout_constraintTop_toTopOf="@+id/cal_guide_C1" />
@@ -229,11 +229,13 @@
         android:layout_height="0dp"
         android:background="@drawable/check_yellow"
         android:paddingStart="50dp"
-        android:text="Calculate"
+        android:paddingEnd="0dp"
+        android:text="@string/calculate"
         app:layout_constraintBottom_toBottomOf="@+id/cal_guide_5"
         app:layout_constraintLeft_toLeftOf="@+id/cal_guide_12"
         app:layout_constraintRight_toRightOf="@+id/cal_guide_13"
-        app:layout_constraintTop_toTopOf="@+id/cal_guide_4" />
+        app:layout_constraintTop_toTopOf="@+id/cal_guide_4"
+        android:contentDescription="@string/ok" />
 
     <TextView
         android:id="@+id/cal_txt_result"
@@ -242,7 +244,7 @@
         android:layout_height="0dp"
         android:gravity="center"
         android:textSize="40sp"
-        android:text="Result"
+        android:text="@string/result"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/cal_txt_month"
         app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
@@ -255,7 +257,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:textSize="20sp"
-        android:text="/ month"
+        android:text="@string/month"
         app:layout_constraintBottom_toBottomOf="@+id/cal_guide_6"
         app:layout_constraintLeft_toLeftOf="@+id/cal_guide_10"
         app:layout_constraintRight_toRightOf="@+id/cal_guide_11"

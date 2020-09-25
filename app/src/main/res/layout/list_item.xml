@@ -69,7 +69,8 @@
                         android:id="@+id/activity_main_item_imageview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        tools:srcCompat="@tools:sample/avatars" />
+                        tools:srcCompat="@tools:sample/avatars"
+                        android:contentDescription="@string/image_estate" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -100,7 +101,7 @@
                         android:orientation="horizontal" />
 
                     <TextView
-                        android:text="Type"
+                        android:text="@string/type"
                         style="@style/EditTXTCreate"
                           card_view:layout_constraintLeft_toLeftOf="parent"
                         card_view:layout_constraintRight_toRightOf="parent"
@@ -112,7 +113,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:text="Location"
+                        android:text="@string/location"
                         style="@style/EditTXTCreate"
                         android:background="@color/colorTransparent"
                         card_view:layout_constraintLeft_toLeftOf="parent"
@@ -133,7 +134,7 @@
                         android:id="@+id/activity_main_item_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Price" />
+                        android:text="@string/price" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

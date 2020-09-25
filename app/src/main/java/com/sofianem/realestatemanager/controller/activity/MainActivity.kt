@@ -1,14 +1,15 @@
 package com.sofianem.realestatemanager.controller.activity
 
-import android.app.*
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.view.Display
 import android.view.View
 import android.widget.RemoteViews
 import androidx.appcompat.app.AppCompatActivity
@@ -22,18 +23,16 @@ import com.sofianem.realestatemanager.utils.MyCommunication
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import kotlin.math.pow
-import kotlin.math.sqrt
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
-    var mIsDualPane = false
+    private var mIsDualPane = false
     private var mSearchlist: ArrayList<Int>? = arrayListOf()
     private val mMyViewModel by viewModel<MyViewModel>()
-    var mNewID : Int = 999999
-    lateinit var notificationManager : NotificationManager
-    lateinit var notificationChannel : NotificationChannel
-    lateinit var builder : Notification.Builder
+    private var mNewID : Int = 999999
+    private lateinit var notificationManager : NotificationManager
+    private lateinit var notificationChannel : NotificationChannel
+    private lateinit var builder : Notification.Builder
     private val channelId = "i.apps.notifications"
     private val description = "Test notification"
 
@@ -42,7 +41,7 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var fragmentDetailView = findViewById<View>(R.id.fragment_main_detail)
+        val fragmentDetailView = findViewById<View>(R.id.fragment_main_detail)
         mIsDualPane = !(fragmentDetailView == null || !fragmentDetailView.isVisible)
         mSearchlist = intent.getIntegerArrayListExtra("master_id")
         mNewID = intent.getIntExtra("new_ID", 99999)

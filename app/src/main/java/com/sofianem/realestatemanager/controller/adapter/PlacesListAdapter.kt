@@ -10,18 +10,17 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sofianem.realestatemanager.R
-import kotlin.coroutines.coroutineContext
 
 class PlacesListAdapter(
     private val mListName: ArrayList<String>,
     private val mListDistance: ArrayList<String>,
-    val mType: String,
+    private val mType: String,
     val mContext: Context
 ) :
     RecyclerView.Adapter<PlacesListAdapter.PlaceViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaceViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(com.sofianem.realestatemanager.R.layout.list_item_detail_map, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_detail_map, parent, false)
 
         return PlaceViewHolder(view) }
 
@@ -51,9 +50,9 @@ class PlacesListAdapter(
         var name: TextView;  var distance: TextView
         var linearColor : LinearLayout
         init { placeItem.isClickable = false
-            name = placeItem.findViewById(com.sofianem.realestatemanager.R.id.nameof)
-            distance = placeItem.findViewById(com.sofianem.realestatemanager.R.id.distance)
-            linearColor = placeItem.findViewById(com.sofianem.realestatemanager.R.id.linearColor)
+            name = placeItem.findViewById(R.id.nameof)
+            distance = placeItem.findViewById(R.id.distance)
+            linearColor = placeItem.findViewById(R.id.linearColor)
         }
     }
 }

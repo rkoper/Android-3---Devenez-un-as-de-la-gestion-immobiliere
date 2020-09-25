@@ -15,4 +15,66 @@
         <item>Loft</item>
         <item>Castle</item>
     </string-array>
+
+    <string name="loan_calculator">Loan Calculator</string>
+    <string name="loan_amount">Loan Amount</string>
+    <string name="loan_rate">Loan Rate</string>
+    <string name="loan_term">Loan Term</string>
+    <string name="result">Result</string>
+    <string name="month">/ month</string>
+    <string name="price">Price</string>
+    <string name="surface">Surface</string>
+    <string name="adress">Address</string>
+    <string name="city">City</string>
+    <string name="type">Type</string>
+    <string name="personn">Personn</string>
+    <string name="date_creation">Date creation</string>
+    <string name="nb_room">Nb Room</string>
+    <string name="description">Description</string>
+    <string name="test">Test</string>
+    <string name="_1">1</string>
+    <string name="mini">mini</string>
+    <string name="max">max</string>
+    <string name="create_between">Create between :</string>
+    <string name="date">Date -</string>
+    <string name="amp"><![CDATA[&]]></string>
+    <string name="sold_between">Sold between :</string>
+    <string name="person">Person</string>
+    <string name="room">Room</string>
+    <string name="photo">Photo</string>
+    <string name="_0">0</string>
+    <string name="search_750_yd_around">Search 750 yd around :</string>
+    <string name="pharmacy">Pharmacy</string>
+    <string name="euro">€</string>
+    <string name="dollar">$</string>
+    <string name="sq_ft">Sq/ft</string>
+    <string name="m">M²</string>
+    <string name="creation_date">Creation date</string>
+    <string name="date_sale">Date sale</string>
+    <string name="click_for_more_information">Click for more information</string>
+    <string name="empty">-</string>
+    <string name="sold">SOLD</string>
+    <string name="todo">TODO</string>
+    <string name="sold_date">Sold date</string>
+    <string name="photo_info">Photo info</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="choose_method">Choose Method</string>
+    <string name="ok">OK</string>
+    <string name="location">Location</string>
+    <string name="calculate">Calculate</string>
+    <string name="save_item">Save item</string>
+    <string name="home_image">home image</string>
+    <string name="image_estate">image estate</string>
+    <string name="eye_icon">eye icon</string>
+    <string name="cancel">Cancel</string>
+    <string name="dateplus">Date +</string>
+    <string name="plus">+</string>
+    <string name="map">map</string>
+    <string name="hospital">hospital</string>
+    <string name="school">School</string>
+    <string name="market">Market</string>
+    <string name="park">Park</string>
+    <string name="delete">delete</string>
+    <string name="upload">upload</string>
+
 </resources>

@@ -2,10 +2,11 @@ package com.sofianem.realestatemanager.data.dao
 
 import android.database.Cursor
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import androidx.room.Update
 import com.sofianem.realestatemanager.data.model.EstateR
-import com.sofianem.realestatemanager.data.model.NearbyPlaces
 
 
 @Dao

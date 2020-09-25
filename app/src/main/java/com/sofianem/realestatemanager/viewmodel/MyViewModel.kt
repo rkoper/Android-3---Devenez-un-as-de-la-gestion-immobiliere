@@ -56,18 +56,17 @@ class MyViewModel(private val mRepository : EstateRepo) : ViewModel() {
         pharmacy,school,market,park)
     }
 
-    fun UpdateProxPharma(pharmacy: String, id: Int) { mRepository.updateProxPharma(pharmacy, id) }
+    fun updateProxPharma(pharmacy: String, id: Int) { mRepository.updateProxPharma(pharmacy, id) }
 
-    fun UpdateProxPark(park: String, id: Int) {mRepository.updateProxPark(park, id) }
+    fun updateProxPark(park: String, id: Int) {mRepository.updateProxPark(park, id) }
 
-    fun UpdateProxSchool(school: String, id: Int) {mRepository.updateProxSchool(school, id) }
+    fun updateProxSchool(school: String, id: Int) {mRepository.updateProxSchool(school, id) }
 
-    fun UpdateProxMarket(market: String, id: Int) {mRepository.updateProxMarket(market, id) }
+    fun updateProxMarket(market: String, id: Int) {mRepository.updateProxMarket(market, id) }
 
     fun getById(mId: Int): LiveData<EstateR> { return mRepository.getById( mId)}
 
     fun getGeoLocById(mId: Int): String { return mRepository.getGeoLocById( mId)}
 
-    fun AllEstate(): LiveData<List<EstateR>>{ return mRepository.AllEstate()}
 
 }

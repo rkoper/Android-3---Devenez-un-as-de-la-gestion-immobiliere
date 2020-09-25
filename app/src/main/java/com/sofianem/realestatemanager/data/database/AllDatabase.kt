@@ -1,13 +1,13 @@
-package com.sofianem.realestatemanager.data.dataBase
+package com.sofianem.realestatemanager.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.sofianem.realestatemanager.data.dao.PlaceDao
 import com.sofianem.realestatemanager.data.dao.EstateDao
-import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.dao.ImageDao
+import com.sofianem.realestatemanager.data.dao.PlaceDao
+import com.sofianem.realestatemanager.data.model.EstateR
 import com.sofianem.realestatemanager.data.model.ImageV
 import com.sofianem.realestatemanager.data.model.NearbyPlaces
 

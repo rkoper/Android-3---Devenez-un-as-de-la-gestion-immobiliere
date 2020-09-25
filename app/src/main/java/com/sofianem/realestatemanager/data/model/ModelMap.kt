@@ -10,8 +10,6 @@ data class Location(@SerializedName("lat") val lat: Double, @SerializedName("lng
 
 data class Geometry(@SerializedName("location") val location: Location)
 
-lateinit var placesList: Place
-
 data class Place(
     @SerializedName("name") val name: String,
     @SerializedName("geometry") val geometry: Geometry,
@@ -20,16 +18,4 @@ data class Place(
 
 data class PlacesResponse1(
     @SerializedName("results") val placesList1: ArrayList<Place>?
-)
-
-data class PlacesResponse2(
-    @SerializedName("results") val placesList2: ArrayList<Place>?
-)
-
-data class PlacesResponse3(
-    @SerializedName("results") val placesList3: ArrayList<Place>?
-)
-
-data class PlacesResponse4(
-    @SerializedName("results") val placesList4: ArrayList<Place>?
 )

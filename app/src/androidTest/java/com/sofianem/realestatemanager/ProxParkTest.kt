@@ -8,10 +8,10 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class proxParkTest {
-    val mContext = MyApplication.applicationContext()
+class ProxParkTest {
+    private val mContext = MyApplication.applicationContext()
     @Test
-    fun LocationTest() {
+    fun locationTest() {
         val a =  Utils.getlocationForList( "7 Rue Ordener" , "Paris" , mContext)
         Assert.assertEquals("48.890184,2.3586774", a)
     }

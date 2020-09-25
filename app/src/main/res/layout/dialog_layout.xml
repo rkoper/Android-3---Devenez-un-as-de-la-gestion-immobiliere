@@ -1,59 +1,84 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    style="@style/MyDialogTheme"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/square_grey"
-    android:orientation="vertical">
+    android:background="@color/colorTransparent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_yellow"
+        android:paddingTop="50dp"
+        android:paddingBottom="50dp"
+        android:paddingStart="90dp"
+        android:paddingEnd="90dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/cal_guide_A1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
 
     <TextView
-        style="@style/MyEditTextStyle2"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:text="Choose Method"
-        android:textSize="15sp"
-        android:gravity="center"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
-        />
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="15dp">
-    <ImageButton
+        android:id="@+id/dialogText"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-       app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/dialog_photo"
-        android:id="@+id/dialog_gallery"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/gallery_yellow"
-        android:text="Dismiss"
-        />
-    <ImageButton
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/dialog_photo"
-        android:id="@+id/dialog_cancel"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/cancel_yellow"
-        android:text="Dismiss"
-        />
-    <ImageButton
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/cal_guide_A1"
+        android:textAlignment="center"
+        android:textColor="@color/colorB"
+        style="@style/MyEditTextStyleSearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/choose_method"
+        android:textSize="@dimen/textadaptsizeBig"
+        />
+    <ImageButton
+        app:layout_constraintTop_toBottomOf="@+id/cal_guide_A1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/dialog_photo"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="40dp"
+        android:id="@+id/dialog_gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gallery_yellow"
+        android:text="@string/dismiss"
+        android:contentDescription="@string/photo" />
+    <ImageButton
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cal_guide_A1"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/dialog_photo"
-        android:layout_gravity="right"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/photo_yellow"
-        android:text="Dismiss"
-        />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/photo_grey"
+        android:text="@string/dismiss"
+        android:contentDescription="@string/photo" />
+
+        <ImageButton
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/dialog_photo"
+            app:layout_constraintTop_toBottomOf="@+id/cal_guide_A1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/dialog_cancel"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/cancel_grey"
+            android:text="@string/dismiss"
+            android:contentDescription="@string/cancel" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

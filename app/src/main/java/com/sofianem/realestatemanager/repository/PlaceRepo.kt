@@ -12,10 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.math.roundToInt
 
-class PlaceRepo (mService : MapService, mContext: Context,  mPlaceDao : PlaceDao) {
-    val mService = mService
-    val mContext = mContext
-    private val mPlaceDao = mPlaceDao
+class PlaceRepo (private val mService : MapService, val mContext: Context, val mPlaceDao : PlaceDao) {
     var np = NearbyPlaces()
 
 
@@ -24,7 +21,7 @@ class PlaceRepo (mService : MapService, mContext: Context,  mPlaceDao : PlaceDao
 
     fun saveLocation(location: String, type: String, id: Int) {
         var mResp: Response<PlacesResponse1>
-        var call = mService.getNearbyPlaces1(location, type)
+        val call = mService.getNearbyPlaces1(location, type)
 
         call.enqueue(object : Callback<PlacesResponse1> {
             override fun onFailure(call: Call<PlacesResponse1>, t: Throwable) {}

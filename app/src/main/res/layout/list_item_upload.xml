@@ -39,7 +39,8 @@
         card_view:layout_constraintTop_toTopOf="@+id/guideline5"
         card_view:layout_constraintBottom_toTopOf="@+id/upload_item_txt"
         android:layout_height="0dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:contentDescription="@string/image_estate" />
 
 
     <TextView
@@ -50,7 +51,7 @@
         android:layout_height="0dp"
         android:background="@color/colorB"
         android:gravity="center"
-        android:text="Test"
+        android:text="@string/test"
         android:textColor="@color/colorD"
         android:textSize="@dimen/textadaptsizeMid"
         android:textStyle="bold"
@@ -62,7 +63,7 @@
         card_view:layout_constraintLeft_toLeftOf="parent" />
     <ImageButton
         android:background="@drawable/roundsize1"
-        android:src="@drawable/cancel_grey"
+        android:src="@drawable/cancel_yellow"
         android:backgroundTint="@color/colorB"
         android:layout_margin="5dp"
         android:id="@+id/delete_upload"
@@ -70,19 +71,21 @@
         android:layout_height="wrap_content"
         card_view:layout_constraintTop_toTopOf="parent"
         card_view:layout_constraintRight_toRightOf="parent"
-        tools:targetApi="lollipop" />
+        tools:targetApi="lollipop"
+        android:contentDescription="@string/delete" />
 
     <ImageButton
         android:background="@drawable/roundsize1"
         android:backgroundTint="@color/colorB"
         android:src="@drawable/edit_yellow"
         android:id="@+id/edit_upload"
-        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         card_view:layout_constraintBottom_toBottomOf="parent"
         card_view:layout_constraintRight_toRightOf="parent"
-        tools:targetApi="lollipop" />
+        tools:targetApi="lollipop"
+        android:contentDescription="@string/upload" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

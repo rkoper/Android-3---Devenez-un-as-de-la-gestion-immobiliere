@@ -7,14 +7,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.sofianem.realestatemanager.utils.Utils
 
 
 class CreateAdapter(
     private var mListOfNewImage: MutableList<String?>,
-    var mListimageDescription: MutableList<String?>,
+    private var mListimageDescription: MutableList<String?>,
     var mContext: Context
 ) : RecyclerView.Adapter<CreateAdapter.CreateViewHolder>() {
 

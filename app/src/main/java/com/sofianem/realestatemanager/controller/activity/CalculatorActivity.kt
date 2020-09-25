@@ -24,17 +24,18 @@ class CalculatorActivity : AppCompatActivity() {
             RangeBar.OnRangeBarChangeListener {
             override fun onTouchEnded(rangeBar: RangeBar?) {}
             override fun onRangeChangeListener(rangeBar: RangeBar?, leftPinIndex: Int, rightPinIndex: Int, leftPinValue: String?, rightPinValue: String?) {
-                val value = rightPinValue.toString() + "0000"
-                val displayValue = Utils.addWhiteSpace(value)
-                cal_ed_amount.text = displayValue + " $"
-                amount = value.toInt() }
+                val mValue = rightPinValue.toString() + "0000"
+                val mDisplayPrice = Utils.addWhiteSpace(mValue) + " $"
+                cal_ed_amount.text = mDisplayPrice
+                amount = mValue.toInt() }
             override fun onTouchStarted(rangeBar: RangeBar?) {} })
 
         cal_rangebar_rate.setOnRangeBarChangeListener(object :
             RangeBar.OnRangeBarChangeListener {
             override fun onTouchEnded(rangeBar: RangeBar?) {}
             override fun onRangeChangeListener(rangeBar: RangeBar?, leftPinIndex: Int, rightPinIndex: Int, leftPinValue: String?, rightPinValue: String?) {
-                cal_ed_rate.text =  rightPinValue.toString() + " % "
+                val mDisplaySurface = rightPinValue.toString() + " % "
+                cal_ed_rate.text =  mDisplaySurface
                 rate = rightPinValue!!.toFloat() }
             override fun onTouchStarted(rangeBar: RangeBar?) {} })
 
@@ -42,7 +43,8 @@ class CalculatorActivity : AppCompatActivity() {
             RangeBar.OnRangeBarChangeListener {
             override fun onTouchEnded(rangeBar: RangeBar?) {}
             override fun onRangeChangeListener(rangeBar: RangeBar?, leftPinIndex: Int, rightPinIndex: Int, leftPinValue: String?, rightPinValue: String?) {
-                cal_ed_term.text = rightPinValue.toString() + " months "
+                val mDisplayMonth = rightPinValue.toString() + " months "
+                cal_ed_term.text = mDisplayMonth
                 term = rightPinValue!!.toInt() }
             override fun onTouchStarted(rangeBar: RangeBar?) {} })
 
@@ -54,8 +56,8 @@ class CalculatorActivity : AppCompatActivity() {
         cal_txt_button.setOnClickListener {
             cal_txt_result.isVisible = true
             cal_txt_month.isVisible = true
-            val resultDisplay =  Utils.calculateLoanAmount(rate, amount, term)
-            cal_txt_result.text = "$resultDisplay $" } }
+            val mResultDisplay =  Utils.calculateLoanAmount(rate, amount, term) + " $"
+            cal_txt_result.text = mResultDisplay}}
 
 
     private fun onClickHome() {

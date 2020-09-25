@@ -14,9 +14,9 @@ class MyViewModelForImages(private val mRepositoryImage : ImageRepo) : ViewModel
     fun upadeSingleImageData(mId: Int, stringImage: String?, stringeDescription: String?) {
         mRepositoryImage.insertItem(mId, stringImage,stringeDescription )}
 
-    fun deleteImageById(i: Int) { mRepositoryImage.DeleteImageByID(i) }
+    fun deleteImageById(i: Int) { mRepositoryImage.deleteImageByID(i) }
 
-    fun updateImageDes(ig: ImageV) { mRepositoryImage.UpdateImageDes(ig) }
+    fun updateImageDes(ig: ImageV) { mRepositoryImage.updateImageDes(ig) }
 
     fun getById(mId: Int): LiveData<ImageV> {
         return mRepositoryImage.getById( mId)}

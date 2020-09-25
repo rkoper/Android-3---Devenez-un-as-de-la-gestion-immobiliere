@@ -7,8 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-open class ImageRepo (image_Dao: ImageDao) {
-    val image_Dao = image_Dao
+open class ImageRepo (private val image_Dao: ImageDao) {
     var readAllImageLive: LiveData<List<ImageV>> = image_Dao.getImageAllLive()
 
 
@@ -30,13 +29,13 @@ open class ImageRepo (image_Dao: ImageDao) {
         i.masterId = mId
         image_Dao.insertItem(i) } }
 
-    fun UpdateImageDes(ig: ImageV) {
+    fun updateImageDes(ig: ImageV) {
         GlobalScope.launch(Dispatchers.IO) {
             image_Dao.updateItem(ig)
         }
     }
 
-    fun DeleteImageByID(i: Int) {
+    fun deleteImageByID(i: Int) {
         GlobalScope.launch(Dispatchers.IO) {
             image_Dao.deleteById(i)
         }

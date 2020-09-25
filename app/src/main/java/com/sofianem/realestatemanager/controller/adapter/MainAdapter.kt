@@ -1,13 +1,10 @@
 package com.sofianem.realestatemanager.controller.adapter
 
-import android.app.PendingIntent.getActivity
 import android.content.Context
-import android.view.Display
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -28,8 +25,8 @@ class MainAdapter(
     private var  mTablet: Boolean?) : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
 
-    var l:ArrayList<String?> = arrayListOf()
-    var mSelected_pos = -1
+    private var l:ArrayList<String?> = arrayListOf()
+    private var mSelectedPos = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
@@ -40,8 +37,8 @@ class MainAdapter(
 
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        println("      mTablet          " + mTablet)
-        if (mTablet!!) { if (mSelected_pos == position) {
+        println("      mTablet          $mTablet")
+        if (mTablet!!) { if (mSelectedPos == position) {
             holder.tvColor.setBackgroundResource(R.color.colorD)
             holder.tvCity.setTextColor(ContextCompat.getColor(mContext, R.color.colorB))
             holder.tvPrice.setTextColor(ContextCompat.getColor(mContext, R.color.colorB))
@@ -60,9 +57,11 @@ class MainAdapter(
         if (mMyDataset!![position].type == "Type") {holder.tvType.text = "-"}
         else{ holder.tvType.text = mMyDataset!![position].type}
 
-        if (mMyDataset!![position].price.equals( 0) ) {holder.tvPrice.text = "-"}
+        if (mMyDataset!![position].price == 0) {holder.tvPrice.text = "-"}
         else{ val mPrice = Utils.addWhiteSpace(mMyDataset!![position].price.toString())
-            holder.tvPrice.text = mPrice + " $" }
+            val mDisplayPrice = "$mPrice $"
+            holder.tvPrice.text = mDisplayPrice
+        }
 
         holder.tvCity.text = mMyDataset!![position].city
 
@@ -78,8 +77,8 @@ class MainAdapter(
             myCommunicator.displayDetails(mMyDataset!![position].id)
 
             if (mTablet!!){
-                if(mSelected_pos==position){ mSelected_pos=-1 }
-                mSelected_pos = position
+                if(mSelectedPos==position){ mSelectedPos=-1 }
+                mSelectedPos = position
                 notifyDataSetChanged()} }
     }
 
@@ -87,12 +86,11 @@ class MainAdapter(
     class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val tvColor :ConstraintLayout = itemView.findViewById(R.id.twoMain)
-        val tvTest: LinearLayout = itemView.findViewById(R.id.testll)
         var tvType: TextView = itemView.findViewById(R.id.activity_main_item_type)
         var tvCity: TextView = itemView.findViewById(R.id.activity_main_item_city)
         var tvPrice: TextView = itemView.findViewById(R.id.activity_main_item_price)
         var tvPhoto: ImageView = itemView.findViewById(R.id.activity_main_item_imageview)
-        var tvSold = itemView.findViewById<ConstraintLayout>(R.id.item_list_sold)}
+        var tvSold: ConstraintLayout = itemView.findViewById(R.id.item_list_sold)}
 
 
 }

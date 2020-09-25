@@ -10,7 +10,6 @@ import android.text.format.Time
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.Display
-import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -30,15 +29,17 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.pow
 import kotlin.math.roundToInt
+import kotlin.math.sqrt
 
 
 @Suppress("DEPRECATION")
 class SearchActivity : AppCompatActivity(), LifecycleOwner  {
     private val mMyViewModel by viewModel<MyViewModel>()
-    val mListIdForAdress: ArrayList<Int> = ArrayList()
-    var mListAll = arrayListOf<Int>()
+    private val mListIdForAdress: ArrayList<Int> = ArrayList()
+
     //ADDRESS
-    var mAddress: String? = ""; var mHintAddress = "" ; var mStreetNumber = "" ; var mRoute = ""
+    var mAddress: String? = ""
+
     // PRICE
     var mPriceMini = -1  ; var mPriceMax = 999999999
     // SURFACE
@@ -48,15 +49,13 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
     // NB PHOTO
     var mPhotoMini: Int = -1  ; var mPhotoMax: Int = 99
     // DATE CREATE
-    var mCreateDateBegin: Long = 1  ; var mCreateDateEnd: Long = 88888888870000
+    private var mCreateDateBegin: Long = 1  ; private var mCreateDateEnd: Long = 88888888870000
     // DATE END
-    var mSoldDateBegin: Long = 1  ; var mSoldDateEnd: Long = 88888888870000
+    private var mSoldDateBegin: Long = 1  ; private var mSoldDateEnd: Long = 88888888870000
     // ALL
     var mType: String? = "%" ; var mStatus: String = "%" ; var mPerson: String? = "%"
     // LOCATION
-    var mPark: String? = "%" ; var mPharmacy: String? = "%"  ; var mSchool: String? = "%"  ; var mMarket: String? = "%"
-    // CITY
-    var mCity: String? = "%"
+    private var mPark: String? = "%" ; private var mPharmacy: String? = "%"  ; private var mSchool: String? = "%"  ; private var mMarket: String? = "%"
 
     // LOCATION
     var mLocation: String? = "%"
@@ -122,11 +121,15 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
                 a_search_ed_adress.text = place.address
                 place.addressComponents?.asList()?.forEach { mAdressComp ->
                     Log.i("TAG", "AutoComplet: " + mAdressComp.types + " " )
-                    if (mAdressComp.types.contains("street_number")) { mStreetNumber = mAdressComp.name }
-                    else if (mAdressComp.types.contains("route")) { mStreetName = mAdressComp.name }
-                    else if (mAdressComp.types.contains("locality")) { mCity = mAdressComp.name } }
+                    when {
+                        mAdressComp.types.contains("street_number") -> { mStreetNumber = mAdressComp.name }
+                        mAdressComp.types.contains("route") -> { mStreetName = mAdressComp.name }
+                        mAdressComp.types.contains("locality") -> { mCity = mAdressComp.name }
+                    }
+                }
 
-                a_search_ed_adress.text = "$mStreetNumber $mStreetName, $mCity "
+                val mDisplayAdress = "$mStreetNumber $mStreetName, $mCity "
+                a_search_ed_adress.text = mDisplayAdress
                 a_search_ed_adress.visibility = View.VISIBLE
                 mAddress = "$mStreetNumber $mStreetName"
 
@@ -163,7 +166,10 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
         a_search_rangebar_surface.setOnRangeBarChangeListener(object : RangeBar.OnRangeBarChangeListener {
             override fun onTouchEnded(rangeBar: RangeBar?) {}
             override fun onRangeChangeListener(rangeBar: RangeBar?, leftPinIndex: Int, rightPinIndex: Int, leftPinValue: String, rightPinValue: String) {
-                a_search_tx_minisurface.text = leftPinValue + "  Sq/ft"; a_search_tx_maxsurface.text = rightPinValue + "  Sq/ft"
+             val mDisplayMiniSurface ="$leftPinValue  Sq/ft"
+                val mDisplayMaxSurface = "$rightPinValue  Sq/ft"
+                a_search_tx_minisurface.text = mDisplayMiniSurface
+                a_search_tx_maxsurface.text = mDisplayMaxSurface
                 mSurfaceMini = leftPinValue.toInt() ; mSurfaceMax = rightPinValue.toInt()
                 initSearch()}
 
@@ -183,7 +189,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
 
             override fun onTouchStarted(rangeBar: RangeBar?) {} }) }
 
-    fun searchPerson() {
+    private fun searchPerson() {
         val mSelectPersonn = resources.getStringArray(((R.array.Person)))
         if (spPersonn != null) { spPersonn.background.setColorFilter(resources.getColor(R.color.colorD), PorterDuff.Mode.SRC_ATOP)
             val adapter = ArrayAdapter(this, R.layout.spinner_custom, mSelectPersonn)
@@ -220,7 +226,11 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
             override fun onRangeChangeListener(rangeBar: RangeBar?, leftPinIndex: Int, rightPinIndex: Int, leftPinValue: String?, rightPinValue: String?) {
                 val valueLeft = leftPinValue.toString() + "0000"  ; val displayValueLeft = Utils.addWhiteSpace(valueLeft)
                 val valueRight = rightPinValue.toString() + "0000"  ; val displayValueRight = Utils.addWhiteSpace(valueRight)
-                a_search_tx_pricemini.text = displayValueLeft + "  $" ; a_search_tx_pricemax.text = displayValueRight + "  $"
+                val mDisplayMiniPrice = "$displayValueLeft  $"
+                val mDisplayMaxPrice =  "$displayValueRight  $"
+
+                a_search_tx_pricemini.text = mDisplayMiniPrice
+                a_search_tx_pricemax.text = mDisplayMaxPrice
                 mPriceMini = valueLeft.toInt() ; mPriceMax = valueRight.toInt()
                 if (mPriceMini == 100000 && mPriceMax == 3000000)
                 {  mPriceMini = -1 ; mPriceMax = 999999999 }
@@ -272,7 +282,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
 
         cancelDSB.setOnClickListener {
             println("-------C ------- DEC")
-            a_search_sold_dateBegin.text = "Date -"
+            a_search_sold_dateBegin.text = getString(R.string.date)
             mSoldDateBegin = 1
             cancelDSB.visibility = View.GONE
             initSearch()
@@ -294,7 +304,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
         }
         cancelDSE.setOnClickListener {
             println("-------C ------- DBC")
-            a_search_sold_dateEnd.text = "Date +"
+            a_search_sold_dateEnd.text = getString(R.string.dateplus)
             mSoldDateEnd = 88888888870000
             cancelDSE.visibility = View.GONE
             initSearch()
@@ -315,7 +325,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
             cancelDCB.visibility = View.VISIBLE
         }
         cancelDCB.setOnClickListener {
-            a_search_ed_dateBegin_create.text = "Date -"
+            a_search_ed_dateBegin_create.text = getString(R.string.date)
             mCreateDateBegin = 1
             cancelDCB.visibility = View.GONE
             initSearch()
@@ -337,7 +347,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
             cancelDCE.visibility = View.VISIBLE
         }
         cancelDCE.setOnClickListener {
-            a_search_ed_dateEnd_create.text = "Date +"
+            a_search_ed_dateEnd_create.text = getString(R.string.dateplus)
             mCreateDateEnd = 88888888870000
             cancelDCE.visibility = View.GONE
             initSearch()}
@@ -362,10 +372,10 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
             mPharmacy, mSchool, mMarket, mPark).observe(this, androidx.lifecycle.Observer {searchList ->
 
 
-            var mListId = arrayListOf<Int>()
+            val mListId = arrayListOf<Int>()
             searchList.forEach { mListId.add(it) }
 
-            var mSearchlist =  listsEqual(mListId, mListIdForAdress)
+            val mSearchlist =  listsEqual(mListId, mListIdForAdress)
             a_search_txt_item.text = mSearchlist.size.toString()
 
             clickSearch.setOnClickListener { loadRV(mSearchlist)}
@@ -373,7 +383,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
 
         })}
 
-    fun listsEqual(mListId: ArrayList<Int>, mListIdForAdress: ArrayList<Int>): ArrayList<Int> {
+    private fun listsEqual(mListId: ArrayList<Int>, mListIdForAdress: ArrayList<Int>): ArrayList<Int> {
         val mDifference = mListId.minus(mListIdForAdress)
         mDifference.forEach { mListId.remove(it) }
 
@@ -389,7 +399,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
         else { val intent = Intent(this, MainActivity::class.java)
             mSearchlist.sort()
             intent.putExtra(MASTER_ID, mSearchlist)
-            println(" ------List Id------" + mSearchlist.toString())
+            println(" ------List Id------$mSearchlist")
             startActivity(intent) } }
 
 
@@ -398,43 +408,14 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
     }
 
 
-    private fun testlook() {
-        println (" -->mPerson<----" + mPerson)
-        println (" -->mType <----" + mType)
-        println (" -->mSurfac - <----" + mSurfaceMini)
-        println (" -->mSurfac + <----" + mSurfaceMax)
-        println (" -->mPriceM - <----" + mPriceMini)
-        println (" -->mPriceM + <----" + mPriceMax)
-        println (" -->mRoomMi - <----" + mRoomMini)
-        println (" -->mRoomMa + <----" + mRoomMax)
-        println (" -->mCreate - <----" + mCreateDateBegin)
-        println (" -->mCreate + <----" + mCreateDateEnd)
-        println (" -->mPhotoM - <----" + mPhotoMini)
-        println (" -->mPhotoM + <----" + mPhotoMax)
-        println (" -->mSoldDa - <----" + mSoldDateBegin)
-        println (" -->mSoldDa + <----" + mSoldDateEnd)
-        println (" -->mStatus<----" + mStatus)
-        println (" -->mPharma<----" + mPharmacy)
-        println (" -->mSchool<----" + mSchool)
-        println (" -->mMarket<----" + mMarket)
-        println (" -->mPark<----" + mPark)
-
-        mMyViewModel.mAllEstate.observe(this, androidx.lifecycle.Observer {
-            println(" ----Estate ------" + it.toString())
-        })
-    }
-
     private fun checkIsTablet(): Boolean {
         val display: Display = (this as Activity).windowManager.defaultDisplay
         val metrics = DisplayMetrics()
         display.getMetrics(metrics)
         val widthInches: Float = metrics.widthPixels / metrics.xdpi
         val heightInches: Float = metrics.heightPixels / metrics.ydpi
-        val diagonalInches = Math.sqrt(
-            Math.pow(
-                widthInches.toDouble(),
-                2.0
-            ) + heightInches.toDouble().pow(2.0)
+        val diagonalInches = sqrt(
+            widthInches.toDouble().pow(2.0) + heightInches.toDouble().pow(2.0)
         )
         return diagonalInches >= 7.0
     }

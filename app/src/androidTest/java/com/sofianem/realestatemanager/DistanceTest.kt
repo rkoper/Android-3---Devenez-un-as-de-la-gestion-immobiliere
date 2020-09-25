@@ -10,9 +10,9 @@ import kotlin.math.roundToInt
 
 @RunWith(AndroidJUnit4::class)
 class DistanceTest {
-    val mContext = MyApplication.applicationContext()
+    private val mContext = MyApplication.applicationContext()
     @Test
-    fun LocationTest() {
+    fun locationTest() {
         val locA =  Utils.getlocationForList( "7 Rue Ordener" , "Paris" , mContext)
         val locB =  Utils.getlocationForList( "19 Rue Ternaux" , "Paris" , mContext)
 

@@ -36,7 +36,8 @@
         android:id="@+id/dialog_imageview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:srcCompat="@tools:sample/avatars"/>
+        tools:srcCompat="@tools:sample/avatars"
+        android:contentDescription="@string/image_estate" />
 
     <TextView
         android:layout_marginBottom="15dp"
@@ -44,7 +45,7 @@
         app:layout_constraintLeft_toLeftOf="@+id/guideUp1"
         app:layout_constraintRight_toRightOf="@+id/guideUp2"
         android:id="@+id/dialog_imageview_text"
-        android:text = "12345"
+        android:text = "@string/test"
         android:gravity="center"
         android:textSize="18sp"
         android:textStyle="bold"

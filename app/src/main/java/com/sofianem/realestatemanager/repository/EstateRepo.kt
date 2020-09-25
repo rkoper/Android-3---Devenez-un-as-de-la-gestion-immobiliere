@@ -1,20 +1,17 @@
 package com.sofianem.realestatemanager.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.sofianem.realestatemanager.data.dao.EstateDao
 import com.sofianem.realestatemanager.data.model.EstateR
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-open class EstateRepo (estate_Dao: EstateDao) {
+open class EstateRepo (private val estate_Dao: EstateDao) {
 
 
-    val estate_Dao = estate_Dao
-    private var mAllDataForSearch: List<Int>? = arrayListOf()
     var readAllLive: LiveData<List<EstateR>> = estate_Dao.getAll()
     var readAllId: LiveData<List<Int>> = estate_Dao.getAllId()
-    var mCreateId: Long = 99
-    private val mEstate = MutableLiveData<EstateR>()
 
     fun updateTodo(todo: EstateR) {
         GlobalScope.launch(Dispatchers.IO) {
@@ -84,9 +81,6 @@ open class EstateRepo (estate_Dao: EstateDao) {
         return estate_Dao.getGeoLocById(mId)
     }
 
-    fun AllEstate(): LiveData<List<EstateR>> {
-        return estate_Dao.getAllForRV()
-    }
 
 }
 

@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.sofianem.realestatemanager.data.dao.EstateDao
 import com.sofianem.realestatemanager.data.dao.ImageDao
 import com.sofianem.realestatemanager.data.dao.PlaceDao
-import com.sofianem.realestatemanager.data.dataBase.AllDatabase
+import com.sofianem.realestatemanager.data.database.AllDatabase
 import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module
 

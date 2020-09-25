@@ -9,15 +9,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.sofianem.realestatemanager.R.*
+import com.sofianem.realestatemanager.R.id
+import com.sofianem.realestatemanager.R.layout
 import com.sofianem.realestatemanager.utils.MyCommunicationForImage
 import com.sofianem.realestatemanager.utils.Utils
 
 
 class UploadAdapter(
-    var mListPath: MutableList<String?>,
-    var mListDescription: MutableList<String?>,
-    var mListId: MutableList<Int?>,
+    private var mListPath: MutableList<String?>,
+    private var mListDescription: MutableList<String?>,
+    private var mListId: MutableList<Int?>,
     var mContext: Context
 ) : RecyclerView.Adapter<UploadAdapter.UploadViewHolder>() {
     private val mMyCommunicator = mContext as MyCommunicationForImage

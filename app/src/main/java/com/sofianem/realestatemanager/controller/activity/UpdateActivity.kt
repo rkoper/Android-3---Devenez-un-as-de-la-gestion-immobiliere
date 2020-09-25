@@ -8,6 +8,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -21,6 +23,7 @@ import android.util.DisplayMetrics
 import android.view.Display
 import android.view.LayoutInflater
 import android.view.View
+import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -45,9 +48,10 @@ import com.sofianem.realestatemanager.utils.MyCommunicationForImage
 import com.sofianem.realestatemanager.utils.Utils
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import com.sofianem.realestatemanager.viewmodel.MyViewModelForImages
-import kotlinx.android.synthetic.main.activity_create.*
 import kotlinx.android.synthetic.main.activity_upload.*
+import kotlinx.android.synthetic.main.dialog_custom_layout.*
 import kotlinx.android.synthetic.main.dialog_custom_layout.view.*
+import kotlinx.android.synthetic.main.dialog_layout.*
 import kotlinx.android.synthetic.main.dialog_layout.view.*
 import kotlinx.android.synthetic.main.dialog_number_picker.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -57,6 +61,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.pow
+import kotlin.math.sqrt
 
 
 @Suppress("DEPRECATION")
@@ -64,33 +69,33 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
     private val mMyViewModel by viewModel<MyViewModel>()
     private val mMyViewModelForImages by viewModel<MyViewModelForImages>()
     private var mUri: Uri? = null
-    private val OPERATION_CAPTURE_PHOTO = 1
-    private val OPERATION_CHOOSE_PHOTO = 2
+    private val mOpeCapturePhoto = 1
+    private val mOpeChoosePhoto = 2
     private var imagePath: String? = ""
     lateinit var view: View
     var mId = 0
-    var mType: String = ""
+    private var mType: String = ""
     var mCity: String = ""
     var mPrice: Int = 0
     var mSurface: Int = 0
-    var mNumberOfRoom: Int = 0
-    var mDescription: String = ""
-    var mStatus: String = "ok"
+    private var mNumberOfRoom: Int = 0
+    private var mDescription: String = ""
+    private var mStatus: String = "ok"
     var mGeoLoc: String = ""
-    var mDateCreate: Long = 3
-    var mDateSold: Long = 8888888888
-    var mPersonn: String = ""
+    private var mDateCreate: Long = 3
+    private var mDateSold: Long = 8888888888
+    private var mPersonn: String = ""
     var mAdress: String = ""
-    var mListImageId: MutableList<Int?> = arrayListOf()
-    var mListImagePath: MutableList<String?> = arrayListOf()
-    var mListImagemDescription: MutableList<String?> = arrayListOf()
-    var mID: Int = 0
-    var mNbPhoto:Int = 0
+    private var mListImageId: MutableList<Int?> = arrayListOf()
+    private var mListImagePath: MutableList<String?> = arrayListOf()
+    private var mListImagemDescription: MutableList<String?> = arrayListOf()
+    private var mID: Int = 0
+    private var mNbPhoto:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload)
-        var iid = intent.getIntExtra(ID, 1)
+        val iid = intent.getIntExtra(ID, 1)
         mID = iid -1
         retrieveData(mID)
         initRV()
@@ -105,19 +110,24 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
 
     private fun retrieveData(id: Int) {
         mMyViewModel.mAllEstate.observe(this, androidx.lifecycle.Observer { list ->
-            var lstEst = list[id]
+            val lstEst = list[id]
 
             if (lstEst.type == "") { upload_type.text =  "     -     " }
             else { upload_type.text = lstEst.type; mType = lstEst.type }
 
             if (lstEst.price == 0) { upload_tx_pric.text =  "     -     " }
-            else { upload_tx_pric.text = lstEst.price.toString() + "  $"; mPrice = lstEst.price }
+            else {
+                val mDisplayPrice = lstEst.price.toString() + "  $"
+                upload_tx_pric.text = mDisplayPrice; mPrice = lstEst.price }
 
             if (lstEst.surface == 0) { upload_tx_surface.text =  "     -     " }
-            else { upload_tx_surface.text = lstEst.surface.toString() + "  Sq/ft"; mSurface = lstEst.surface }
+            else {
+                val mDisplaySurface = lstEst.surface.toString() + "  Sq/ft"
+                    upload_tx_surface.text = mDisplaySurface  ; mSurface = lstEst.surface }
 
             if (lstEst.number_of_room == 0) { upload_room.text = "     -     "}
-            else { upload_room.text = lstEst.number_of_room.toString(); mNumberOfRoom = lstEst.number_of_room }
+            else {
+                upload_room.text = lstEst.number_of_room.toString(); mNumberOfRoom = lstEst.number_of_room }
 
             if (lstEst.description == "") { upload_description.setText( "     -     ") }
             else { upload_description.setText(lstEst.description); mDescription = lstEst.description }
@@ -155,7 +165,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             upload_tx_surface.setOnClickListener { upload_tx_surface.visibility = View.VISIBLE }
 
             uploadData(lstEst)
-            OnClick()
+            onClick()
         }) }
 
     private fun initRV() = if (this.checkIsTablet()){
@@ -167,8 +177,8 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
 
 
     private fun createRV(mID: Int) {
-        if (mID != null) { mMyViewModelForImages.allImageLive.observe(this, androidx.lifecycle.Observer { it ->
-                it.forEach { value -> if (mID == value.masterId) {
+        if (mID != null) { mMyViewModelForImages.allImageLive.observe(this, androidx.lifecycle.Observer {
+            it.forEach { value -> if (mID == value.masterId) {
                         mListImageId.add(value.imageId)
                         mListImagePath.add(value.imageUri)
                         mListImagemDescription.add(value.imageDescription) } }
@@ -202,14 +212,16 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
     }
 
 
-    fun saveEntry() { load_mCity(); load_room(); load_mPersonn(); load_mDateCreate(); load_mDateEnd();load_mPrice(); load_mAdress(); load_mType(); load_mSurface() }
+    private fun saveEntry() { loadCity(); loadRoom(); loadPersonn(); loadDateCreate(); loadDateSold();loadPrice(); loadAdress(); loadType(); loadSurface() }
 
-    private fun load_mCity() { mCity = upload_city.text.toString().trim()
+    private fun loadCity() { mCity = upload_city.text.toString().trim()
     }
 
-    private fun load_room() {
+    private fun loadRoom() {
         upload_room.setOnClickListener {
             val d = Dialog(this)
+            d.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            d.window.setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT))
             d.setContentView(R.layout.dialog_number_picker)
             d.numberPicker.maxValue = 15
             d.numberPicker.minValue = 1
@@ -220,7 +232,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                 d.dismiss() }
             d.show() } }
 
-    private fun load_mPersonn() {
+    private fun loadPersonn() {
         upload_personn.setOnClickListener {
             val view = this.currentFocus
             view?.let { v ->
@@ -235,7 +247,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                 val mDialog = mBuilder.create()
                 mDialog.show() } } }
 
-    private fun load_mDateCreate() {
+    private fun loadDateCreate() {
         upload_datebegin.setOnClickListener {
             val dpd = DatePickerDialog.OnDateSetListener { view, y, m, d ->
                     upload_datebegin.text = Utils.formatDate(y, m, d)
@@ -247,7 +259,7 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             d.getButton(DatePickerDialog.BUTTON_NEGATIVE)
                 .setBackgroundColor(resources.getColor(R.color.colorD)) } }
 
-    private fun load_mDateEnd() {
+    private fun loadDateSold() {
         upload_dateSold.setOnClickListener {
             val dpd = DatePickerDialog.OnDateSetListener { view, y, m, d ->
                 upload_dateSold.text = Utils.formatDate(y, m, d)
@@ -271,22 +283,23 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
 
     }
 
-    private fun load_mPrice() {
+    private fun loadPrice() {
         upload_rangebar_price.setOnRangeBarChangeListener(object :
             RangeBar.OnRangeBarChangeListener {
             override fun onTouchEnded(rangeBar: RangeBar?) {}
             override fun onRangeChangeListener(
                 rangeBar: RangeBar?, leftPinIndex: Int, rightPinIndex: Int, leftPinValue: String?, rightPinValue: String?) {
                 val value = rightPinValue.toString() + "0000"
-                val displayValue = Utils.addWhiteSpace(value)
-                upload_tx_pric.text = displayValue + "  $"; mPrice = value.toInt() }
+                val mDisplayPrice = Utils.addWhiteSpace(value) + " $"
+                upload_tx_pric.text = mDisplayPrice
+                mPrice = value.toInt() }
             override fun onTouchStarted(rangeBar: RangeBar?) {} }) }
 
-    private fun load_mAdress() {
+    private fun loadAdress() {
         var streetNumber = ""
         var route = ""
         if (!Places.isInitialized()) { Places.initialize(applicationContext, "AIzaSyByK0jz-yxjpZFX88W8zjzTwtzMtkPYC4w") }
-        var autocompleteFragment = Utils.configureAutoCompleteFrag(supportFragmentManager, resources, this, mAdress)
+        val autocompleteFragment = Utils.configureAutoCompleteFrag(supportFragmentManager, resources, this, mAdress)
         autocompleteFragment.setPlaceFields(
             listOf(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS_COMPONENTS))
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
@@ -294,8 +307,13 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                 upload_adress.text = place.address
 
                 place.addressComponents?.asList()?.forEach {
-                    if (it.types.contains("street_number")) { streetNumber = it.name } else if (it.types.contains("route")) { route = it.name } else if (it.types.contains("locality")) {
-                        upload_city.text = it.name; mCity = it.name } }
+                    when {
+                        it.types.contains("street_number") -> { streetNumber = it.name }
+                        it.types.contains("route") -> { route = it.name }
+                        it.types.contains("locality") -> {
+                            upload_city.text = it.name; mCity = it.name }
+                    }
+                }
                 mAdress = "$streetNumber $route"
                 mGeoLoc = Utils.getlocationForList(mAdress, mCity, this@UpdateActivity)
             }
@@ -304,53 +322,57 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
     }
 
 
-    private fun load_mType() {
+    private fun loadType() {
         upload_type.setOnClickListener {
             val mBuilder = AlertDialog.Builder(this, R.style.MyDialogTheme)
-            with(mBuilder) {
-                setItems(listType) { dialog, i ->
-                    upload_type.text = listType[i]; mType = listType[i]; dialog.dismiss() }
-                val mDialog = mBuilder.create()
-                mDialog.show() } } }
+            mBuilder.setItems(listType) { dialog, i ->
+                upload_type.text = listType[i]; mType = listType[i]; dialog.dismiss() }
+            val mDialog = mBuilder.create()
+            mDialog.show()
+        } }
 
-    private fun load_mSurface() {
+    private fun loadSurface() {
         upload_rangebar_surface.setOnRangeBarChangeListener(object :
             RangeBar.OnRangeBarChangeListener {
             override fun onTouchEnded(rangeBar: RangeBar?) {}
             override fun onRangeChangeListener(
                 rangeBar: RangeBar?, leftPinIndex: Int, rightPinIndex: Int, leftPinValue: String?, rightPinValue: String?) {
-                upload_tx_surface.text = rightPinValue.toString() + "  Sq/ft"; mSurface =
-                    rightPinValue!!.toInt() }
+                val mDisplaySurface = rightPinValue.toString() + "  Sq/ft"
+                upload_tx_surface.text = mDisplaySurface
+                mSurface = rightPinValue!!.toInt() }
 
             override fun onTouchStarted(rangeBar: RangeBar?) {} }) }
 
-    fun OnClick() {
+    private fun onClick() {
         activity_upload_addPhoto_floating.setOnClickListener { selectImage() }
     }
 
     private fun selectImage() {
-        val mDialogView = LayoutInflater.from(this).inflate(R.layout.dialog_layout, null)
-        val builder = AlertDialog.Builder(this)
-        builder.setView(mDialogView)
-        val mAlertDialog = builder.show()
-        mDialogView.dialog_gallery.setOnClickListener { v ->
-            mAlertDialog.dismiss()
-            val checkExtStorage = Utils.CheckExternalStorage(this)
+        val d = Dialog(this)
+        d.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        d.window.setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT))
+        d.setContentView(R.layout.dialog_layout)
+        d.dialog_gallery.setOnClickListener {
+            d.dismiss()
+            val checkExtStorage = Utils.checkExternalStorage(this)
             if (checkExtStorage != PackageManager.PERMISSION_GRANTED) {
                 Utils.askForStorage(this) }
             else { openGallery() }
         }
 
-        mDialogView.dialog_photo.setOnClickListener { v ->
-            mAlertDialog.dismiss()
-            val checkCamera = Utils.CheckCamera(this)
+        d.dialog_photo.setOnClickListener { v ->
+            d.dismiss()
+            val checkCamera = Utils.checkCamera(this)
             if (checkCamera != PackageManager.PERMISSION_GRANTED) { Utils.askForCamera(this) }
             else { capturePhoto() }
         }
 
-        mDialogView.dialog_cancel.setOnClickListener {
-            mAlertDialog.dismiss()
-            Toast.makeText(applicationContext, "cancelled", Toast.LENGTH_SHORT).show() } }
+        d.dialog_cancel.setOnClickListener {
+            d.dismiss()
+            Toast.makeText(applicationContext, "cancelled", Toast.LENGTH_SHORT).show() }
+
+    d.show()}
+
 
 
     private fun capturePhoto() {
@@ -362,13 +384,13 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
         } else { Uri.fromFile(capturedImage) }
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri)
-        startActivityForResult(intent, OPERATION_CAPTURE_PHOTO)
+        startActivityForResult(intent, mOpeCapturePhoto)
     }
 
     private fun openGallery() {
         val intent = Intent(CreateActivity.GET_CONTENT)
         intent.type = "image/*"
-        startActivityForResult(intent, OPERATION_CHOOSE_PHOTO)
+        startActivityForResult(intent, mOpeChoosePhoto)
     }
 
 
@@ -397,14 +419,14 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            OPERATION_CAPTURE_PHOTO ->
+            mOpeCapturePhoto ->
                 if (resultCode == Activity.RESULT_OK) {
                     val bitmap =
                         BitmapFactory.decodeStream(contentResolver.openInputStream(mUri))
                     saveImage(bitmap)
                 }
 
-            OPERATION_CHOOSE_PHOTO ->
+            mOpeChoosePhoto ->
                 if (resultCode == Activity.RESULT_OK) {
                     var imagePath: String? = null
                     val uri = data!!.data
@@ -444,32 +466,34 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
     }
 
     private fun createAlertDialog(imagePath: String?) {
-        val mDialogViewForImageInfo = LayoutInflater.from(this).inflate(R.layout.dialog_custom_layout, null)
-        var builderForImageInfo = AlertDialog.Builder(this)
-        builderForImageInfo.setView(mDialogViewForImageInfo)
-        val mAlertDialogForImageInfo = builderForImageInfo.show()
-        mDialogViewForImageInfo.custom_dialog_txt.addTextChangedListener(object : TextWatcher {
+
+        val d = Dialog(this)
+        d.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        d.window.setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT))
+        d.setContentView(R.layout.dialog_custom_layout)
+       d.show()
+        d.custom_dialog_txt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable) {}
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                println("s----" + s+ "---start--"+ start+ "--before---"+ before+ "--count---"+ count)
+                println("s----$s---start--$start--before---$before--count---$count")
                 if (start == 0 )
-                { mDialogViewForImageInfo.custom_dialog_ok.isVisible = false
-                    mDialogViewForImageInfo.custom_dialog_not_ok.isVisible = true}
+                { d.custom_dialog_ok.isVisible = false
+                    d.custom_dialog_not_ok.isVisible = true}
                 else {
-                mDialogViewForImageInfo.custom_dialog_ok.isVisible = true
-                mDialogViewForImageInfo.custom_dialog_not_ok.isVisible = false}
+                d.custom_dialog_ok.isVisible = true
+                d.custom_dialog_not_ok.isVisible = false}
             } })
 
-        mDialogViewForImageInfo.custom_dialog_not_ok.setOnClickListener {
+        d.custom_dialog_not_ok.setOnClickListener {
             Toast.makeText(this, " Please add mDescription...", Toast.LENGTH_SHORT).show() }
 
-        mDialogViewForImageInfo.custom_dialog_ok.setOnClickListener {
+        d.custom_dialog_ok.setOnClickListener {
             mListImagePath.clear()
             mListImagemDescription.clear()
             mListImageId.clear()
-            mAlertDialogForImageInfo.dismiss()
-            val mPhotoInfo: String? = mDialogViewForImageInfo.custom_dialog_txt.text.toString()
+            d.dismiss()
+            val mPhotoInfo: String? = d.custom_dialog_txt.text.toString()
             if (imagePath != "" && mPhotoInfo != "") {
                 mMyViewModelForImages.upadeSingleImageData(mId, imagePath, mPhotoInfo)
               }
@@ -485,37 +509,36 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
 
 
     override fun uploadImage(IdImage: Int) {
-        var listimg = mMyViewModelForImages.allImageLive
+        val listimg = mMyViewModelForImages.allImageLive
 
         listimg.value?.forEach { img ->
             if (IdImage == img.imageId) {
                 imagePath = img.imageUri
-                val mDialogViewForImageInfo =
-                    LayoutInflater.from(this).inflate(R.layout.dialog_custom_layout, null)
-                var builderForImageInfo = AlertDialog.Builder(this)
-                builderForImageInfo.setView(mDialogViewForImageInfo)
-                mDialogViewForImageInfo.custom_dialog_txt.setText(img.imageDescription)
-                val mAlertDialogForImageInfo = builderForImageInfo.show()
-                mDialogViewForImageInfo.custom_dialog_txt.addTextChangedListener(object : TextWatcher {
+                val d = Dialog(this)
+                d.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                d.window.setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT))
+                d.setContentView(R.layout.dialog_custom_layout)
+                d.show()
+                d.custom_dialog_txt.addTextChangedListener(object : TextWatcher {
                     override fun afterTextChanged(s: Editable) {}
                     override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) { }
                     override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) { 
                         if (start == 0 )
-                        { mDialogViewForImageInfo.custom_dialog_ok.isVisible = false
-                            mDialogViewForImageInfo.custom_dialog_not_ok.isVisible = true}
+                        { d.custom_dialog_ok.isVisible = false
+                            d.custom_dialog_not_ok.isVisible = true}
                         else {
-                            mDialogViewForImageInfo.custom_dialog_ok.isVisible = true
-                            mDialogViewForImageInfo.custom_dialog_not_ok.isVisible = false}
+                            d.custom_dialog_ok.isVisible = true
+                            d.custom_dialog_not_ok.isVisible = false}
                     } })
-                mDialogViewForImageInfo.custom_dialog_not_ok.setOnClickListener {
+                d.custom_dialog_not_ok.setOnClickListener {
                     Toast.makeText(this, " Please add mDescription...", Toast.LENGTH_SHORT).show() }
 
-                mDialogViewForImageInfo.custom_dialog_ok.setOnClickListener {
+                d.custom_dialog_ok.setOnClickListener {
                     mListImagePath.clear()
                     mListImagemDescription.clear()
                     mListImageId.clear()
-                    mAlertDialogForImageInfo.dismiss()
-                    val mPhotoInfo: String? = mDialogViewForImageInfo.custom_dialog_txt.text.toString()
+                    d.dismiss()
+                    val mPhotoInfo: String? = d.custom_dialog_txt.text.toString()
                     if (imagePath != "" && mPhotoInfo != "") {
                        val imgV = ImageV()
                         imgV.imageDescription = mPhotoInfo
@@ -531,11 +554,8 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
         display.getMetrics(metrics)
         val widthInches: Float = metrics.widthPixels / metrics.xdpi
         val heightInches: Float = metrics.heightPixels / metrics.ydpi
-        val diagonalInches = Math.sqrt(
-            Math.pow(
-                widthInches.toDouble(),
-                2.0
-            ) + heightInches.toDouble().pow(2.0)
+        val diagonalInches = sqrt(
+            widthInches.toDouble().pow(2.0) + heightInches.toDouble().pow(2.0)
         )
         return diagonalInches >= 7.0
     }

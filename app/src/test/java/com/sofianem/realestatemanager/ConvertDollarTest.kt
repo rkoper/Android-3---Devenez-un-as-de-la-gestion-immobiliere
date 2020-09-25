@@ -11,7 +11,7 @@ import org.junit.Test
  */
 class  ConvertDollarTest {
     @Test
-    fun ConvertDollarTest() {
+    fun convertDollarTest() {
         val a =  Utils.convertEuroToDollar(15)
         assertEquals(18 , a )
     }

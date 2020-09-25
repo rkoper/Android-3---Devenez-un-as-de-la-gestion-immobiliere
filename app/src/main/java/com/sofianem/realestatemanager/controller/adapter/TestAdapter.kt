@@ -5,18 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.sofianem.realestatemanager.R
 import com.sofianem.realestatemanager.controller.fragment.DetailFragment
-import com.sofianem.realestatemanager.utils.Utils
-import kotlinx.android.synthetic.main.item_test.view.*
+import kotlinx.android.synthetic.main.item_list_detail.view.*
 
 class TestAdapter(val itemClick: (position:Int,item: DetailFragment.Item) -> Unit) : RecyclerView.Adapter<ItemViewHolder>() {
 
         private var items: List<DetailFragment.Item> = listOf()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder =
-            ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_test, parent, false))
+            ItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_list_detail, parent, false))
 
         override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
             holder.bind(items[position])

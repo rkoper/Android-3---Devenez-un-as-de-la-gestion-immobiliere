@@ -4,7 +4,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorD"
     android:orientation="vertical"
     tools:context=".controller.activity.SearchActivity">
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -174,14 +173,15 @@
                 android:id="@+id/clickSearch"
                 android:src="@drawable/eye_grey"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/eye_icon" />
             <TextView
                 android:layout_gravity="center"
                 style="@style/MyEditTextStyleSearch"
                 android:id="@+id/a_search_txt_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1"
+                android:text="@string/_1"
                 android:textColor="@color/colorBlack"
                 android:layout_weight="4"
                 />
@@ -219,7 +219,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/ddguidelineX16"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="@+id/guidelineCenter"
-            android:text="Price"/>
+            android:text="@string/price"/>
         <TextView
             android:id="@+id/a_search_tx_pricemini"
             android:gravity="center"
@@ -228,7 +228,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/a_search_rangebar_price"
             app:layout_constraintLeft_toLeftOf="@+id/a_search_rangebar_price"
-            android:text="mini"/>
+            android:text="@string/mini"/>
         <TextView
             android:id="@+id/a_search_tx_pricemax"
             android:gravity="center"
@@ -237,7 +237,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/a_search_rangebar_price"
             app:layout_constraintRight_toRightOf="@+id/a_search_rangebar_price"
-            android:text="max"/>
+            android:text="@string/max"/>
 
         <com.appyvet.materialrangebar.RangeBar
             app:layout_constraintTop_toTopOf="@+id/ddguidelineX16"
@@ -269,7 +269,7 @@
             android:background="@color/colorMix2"
             app:layout_constraintLeft_toLeftOf="@+id/guidelineCenter"
             app:layout_constraintRight_toRightOf="parent"
-            android:text="Surface"/>
+            android:text="@string/surface"/>
         <TextView
             android:id="@+id/a_search_tx_minisurface"
             android:gravity="center"
@@ -278,7 +278,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/a_search_rangebar_surface"
             app:layout_constraintLeft_toLeftOf="@+id/a_search_rangebar_surface"
-            android:text="mini "/>
+            android:text="@string/mini"/>
         <TextView
             android:id="@+id/a_search_tx_maxsurface"
             android:gravity="center"
@@ -287,14 +287,14 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/a_search_rangebar_surface"
             app:layout_constraintRight_toRightOf="@+id/a_search_rangebar_surface"
-            android:text="max"/>
+            android:text="@string/max"/>
 
 
 
         <TextView
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
-            android:hint="Create between  :"
+            android:hint="@string/create_between"
             android:textColorHint="@color/colorD"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -309,7 +309,7 @@
             app:layout_constraintRight_toLeftOf="@+id/cancelDCB"
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
-            android:hint="Date -"
+            android:hint="@string/date"
             android:textColorHint="@color/colorD"
             android:id="@+id/a_search_ed_dateBegin_create"
             android:layout_width="wrap_content"
@@ -327,12 +327,13 @@
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"
             android:background="@drawable/cancel_yellow_small"
             app:layout_constraintTop_toTopOf="@+id/ddguidelineX12"
-            app:layout_constraintLeft_toRightOf="@+id/a_search_ed_dateBegin_create" />
+            app:layout_constraintLeft_toRightOf="@+id/a_search_ed_dateBegin_create"
+            android:contentDescription="@string/cancel" />
         <TextView
             app:layout_constraintRight_toLeftOf="@+id/a_search_ed_dateEnd_create"
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
-            android:hint="&amp;"
+            android:hint="@string/amp"
             android:id="@+id/txtCreateDate2"
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"
             android:textColorHint="@color/colorD"
@@ -343,10 +344,10 @@
             android:importantForAutofill="no" />
         <TextView
             app:layout_constraintRight_toLeftOf="@+id/cancelDCE"
-            android:gravity="right"
+            android:gravity="end"
             android:textColorHint="@color/colorD"
             style="@style/MyEditTextStyleSearch"
-            android:hint="Date +"
+            android:hint="@string/dateplus"
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"
             android:background="@color/colorB"
             android:id="@+id/a_search_ed_dateEnd_create"
@@ -365,13 +366,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/cancel_yellow_small"
-            app:layout_constraintLeft_toRightOf="@+id/a_search_ed_dateEnd_create" />
+            app:layout_constraintLeft_toRightOf="@+id/a_search_ed_dateEnd_create"
+            android:contentDescription="@string/cancel" />
 
 
         <TextView
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
-            android:hint="Sold between  :"
+            android:hint="@string/sold_between"
             android:textColorHint="@color/colorD"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -386,7 +388,7 @@
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
             android:background="@color/colorB"
-            android:hint="Date -"
+            android:hint="@string/date"
             android:textColorHint="@color/colorD"
             android:id="@+id/a_search_sold_dateBegin"
             android:layout_width="wrap_content"
@@ -406,11 +408,12 @@
             app:layout_constraintLeft_toRightOf="@+id/a_search_sold_dateBegin"
             app:layout_constraintRight_toLeftOf="@+id/txtSoldDate2"
             app:layout_constraintTop_toTopOf="@+id/ddguidelineX12"
-            app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"            />
+            app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"
+            android:contentDescription="@string/cancel" />
         <TextView
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
-            android:hint="&amp;"
+            android:hint="@string/amp"
             android:id="@+id/txtSoldDate2"
             android:textColorHint="@color/colorD"
             android:layout_width="wrap_content"
@@ -426,7 +429,7 @@
             android:id="@+id/a_search_sold_dateEnd"
             android:textColorHint="@color/colorD"
             android:layout_width="wrap_content"
-            android:text="Date +"
+            android:text="@string/dateplus"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/ddguidelineX12"
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"
@@ -442,11 +445,12 @@
             app:layout_constraintLeft_toRightOf="@+id/a_search_sold_dateEnd"
             app:layout_constraintTop_toTopOf="@+id/ddguidelineX12"
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent"
+            android:contentDescription="@string/cancel" />
         <TextView
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
-            android:hint="Person"
+            android:hint="@string/person"
             android:textColorHint="@color/colorD"
             android:layout_width="0dp"
             android:background="@color/colorMix2"
@@ -459,7 +463,7 @@
         <TextView
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
-            android:hint="Type"
+            android:hint="@string/type"
             android:textColorHint="@color/colorD"
             android:layout_width="0dp"
             android:background="@color/colorMix2"
@@ -491,7 +495,7 @@
             android:elevation="5dp"
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
-            android:hint="Room"
+            android:hint="@string/room"
             android:textColorHint="@color/colorD"
             android:layout_width="0dp"
             android:background="@color/colorMix2"
@@ -505,7 +509,7 @@
         <TextView
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
-            android:hint="Photo"
+            android:hint="@string/photo"
             android:textColorHint="@color/colorD"
             android:layout_width="0dp"
             android:background="@color/colorMix2"
@@ -518,7 +522,7 @@
         <TextView
             android:gravity="bottom"
             style="@style/MyEditTextStyleSearch"
-            android:text="0"
+            android:text="@string/_0"
             android:background="@color/colorB"
             android:id="@+id/a_search_ed_room_mini"
             android:layout_width="wrap_content"
@@ -529,7 +533,7 @@
         <TextView
             android:gravity="bottom"
             style="@style/MyEditTextStyleSearch"
-            android:text="+"
+            android:text="@string/plus"
             android:background="@color/colorB"
             android:id="@+id/a_search_ed_room_max"
             android:layout_width="wrap_content"
@@ -561,7 +565,7 @@
         <TextView
             android:gravity="bottom"
             style="@style/MyEditTextStyleSearch"
-            android:text="0"
+            android:text="@string/_0"
             android:background="@color/colorB"
             android:id="@+id/a_search_ed_photo_mini"
             android:layout_width="wrap_content"
@@ -572,7 +576,7 @@
         <TextView
             android:gravity="bottom"
             style="@style/MyEditTextStyleSearch"
-            android:text="+"
+            android:text="@string/plus"
             android:background="@color/colorB"
             android:id="@+id/a_search_ed_photo_max"
             android:layout_width="wrap_content"
@@ -616,7 +620,7 @@
             android:layout_margin="3dp"
             android:backgroundTint="@color/colorB"
             style="@style/MyEditTextStyleSearch"
-            android:hint="Adress"
+            android:hint="@string/adress"
             android:gravity="center"
             app:layout_constraintTop_toTopOf="@+id/ddguidelineX4"
             app:layout_constraintBottom_toBottomOf="@+id/ddguidelineX3"
@@ -640,7 +644,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     style="@style/MyEditTextStyleSearch"
-                    android:text="Search 750 yd around : "
+                    android:text="@string/search_750_yd_around"
                     android:background="@color/colorMix2"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -657,7 +661,7 @@
             android:background="@color/colorB"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="School"
+            android:text="@string/school"
             app:layout_constraintTop_toTopOf="@+id/ddguidelineX3"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/a_search_cb_park"
@@ -675,7 +679,7 @@
             android:background="@color/colorB"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="Park"
+            android:text="@string/park"
             app:layout_constraintTop_toTopOf="@+id/ddguidelineX3"
             app:layout_constraintRight_toLeftOf="@+id/a_search_cb_market"
             app:layout_constraintLeft_toRightOf="@+id/a_search_cb_school"
@@ -692,7 +696,7 @@
             android:background="@color/colorB"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="Market"
+            android:text="@string/market"
             app:layout_constraintTop_toTopOf="@+id/ddguidelineX3"
             app:layout_constraintRight_toLeftOf="@+id/a_search_cb_pharmacy"
             app:layout_constraintLeft_toRightOf="@+id/a_search_cb_park"
@@ -711,7 +715,7 @@
             android:id="@+id/a_search_cb_pharmacy"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:text="Pharmacy"
+            android:text="@string/pharmacy"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX2"
             tools:targetApi="lollipop" />

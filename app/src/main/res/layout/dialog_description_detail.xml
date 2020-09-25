@@ -44,7 +44,7 @@
         app:layout_constraintRight_toRightOf="@+id/guideUp2"
         app:layout_constraintTop_toTopOf="@+id/guideUp3"
         android:id="@+id/dialog_imageview_text"
-        android:text = "Description"
+        android:text = "@string/description"
         android:gravity="center"
         android:textSize="@dimen/textadaptsizeBig"
         android:padding="3dp"

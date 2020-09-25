@@ -1,7 +1,6 @@
 package com.sofianem.realestatemanager.data.model
 
 import android.content.ContentValues
-import android.provider.BaseColumns
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
@@ -55,10 +54,6 @@ data class EstateR(
 ){
 
     companion object {
-
-        const val TABLE_NAME = "Estate"
-        const val COLUMN_ID = BaseColumns._ID
-        const val COLUMN_NAME = "name"
 
 
         fun fromContentValues(values: ContentValues?): EstateR {

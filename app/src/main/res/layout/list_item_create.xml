@@ -38,7 +38,8 @@
         card_view:layout_constraintTop_toTopOf="@+id/guideline5"
         card_view:layout_constraintBottom_toTopOf="@+id/txt_photo"
         android:layout_height="0dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/avatars"
+        android:contentDescription="@string/image_estate" />
 
     <TextView
         android:layout_marginEnd="30dp"
@@ -48,7 +49,7 @@
         android:layout_height="0dp"
         android:background="@color/colorB"
         android:gravity="center"
-        android:text="Test"
+        android:text="@string/test"
         android:textColor="@color/colorD"
         android:textSize="@dimen/textadaptsizeMid"
         android:textStyle="bold"
