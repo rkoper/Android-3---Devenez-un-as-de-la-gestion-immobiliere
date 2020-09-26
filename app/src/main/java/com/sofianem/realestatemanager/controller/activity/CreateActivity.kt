@@ -152,6 +152,9 @@ class CreateActivity : AppCompatActivity() {
             }
 
 
+
+
+
     private fun loadItem() {
         loadCity()
         loadRoom()
@@ -236,8 +239,8 @@ class CreateActivity : AppCompatActivity() {
             now.setToNow()
             val d = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
             d.show()
-            d.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(resources.getColor(R.color.colorD))
-            d.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(resources.getColor(R.color.colorD)) } }
+            d.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.colorB))
+            d.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.colorB)) } }
 
     private fun loadPerson() {
         a_create_ed_personn.setOnClickListener {
@@ -288,7 +291,8 @@ class CreateActivity : AppCompatActivity() {
             else { capturePhoto() } }
 
         d.dialog_cancel.setOnClickListener { d.run { dismiss() }
-            Toast.makeText(applicationContext, "cancelled", Toast.LENGTH_SHORT).show() } }
+            Toast.makeText(applicationContext, "cancelled", Toast.LENGTH_SHORT).show() }
+        d.show()}
 
 
     private fun capturePhoto() {

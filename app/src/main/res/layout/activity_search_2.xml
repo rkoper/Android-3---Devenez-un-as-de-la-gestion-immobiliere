@@ -227,8 +227,9 @@
             style="@style/MyEditTextStyleSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/a_search_rangebar_price"
+            app:layout_constraintTop_toTopOf="@+id/a_search_rangebar_price"
             app:layout_constraintLeft_toLeftOf="@+id/a_search_rangebar_price"
+            app:layout_constraintRight_toRightOf="@+id/a_search_rangebar_price"
             android:text="@string/mini"/>
         <TextView
             android:id="@+id/a_search_tx_pricemax"
@@ -237,6 +238,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/a_search_rangebar_price"
+            app:layout_constraintLeft_toLeftOf="@+id/a_search_rangebar_price"
             app:layout_constraintRight_toRightOf="@+id/a_search_rangebar_price"
             android:text="@string/max"/>
 
@@ -277,8 +279,9 @@
             style="@style/MyEditTextStyleSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/a_search_rangebar_surface"
+            app:layout_constraintTop_toTopOf="@+id/a_search_rangebar_surface"
             app:layout_constraintLeft_toLeftOf="@+id/a_search_rangebar_surface"
+            app:layout_constraintRight_toRightOf="@+id/a_search_rangebar_surface"
             android:text="@string/mini"/>
         <TextView
             android:id="@+id/a_search_tx_maxsurface"
@@ -287,6 +290,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/a_search_rangebar_surface"
+            app:layout_constraintLeft_toLeftOf="@+id/a_search_rangebar_surface"
             app:layout_constraintRight_toRightOf="@+id/a_search_rangebar_surface"
             android:text="@string/max"/>
 
@@ -307,7 +311,6 @@
             android:importantForAutofill="no" />
 
         <TextView
-            app:layout_constraintRight_toLeftOf="@+id/cancelDCB"
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
             android:hint="@string/date"
@@ -316,22 +319,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/ddguidelineX12"
-            app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineV1"
+            app:layout_constraintRight_toRightOf="@+id/guidelineV3"
+            app:layout_constraintBottom_toTopOf="@+id/txtCreateDate2"
             android:importantForAutofill="no" />
         <ImageButton
-            app:layout_constraintRight_toLeftOf="@+id/txtCreateDate2"
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/cancelDCB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"
             android:background="@drawable/cancel_yellow_small"
-            app:layout_constraintTop_toTopOf="@+id/ddguidelineX12"
-            app:layout_constraintLeft_toRightOf="@+id/a_search_ed_dateBegin_create"
+            app:layout_constraintTop_toTopOf="@+id/a_search_ed_dateBegin_create"
+            app:layout_constraintRight_toRightOf="@+id/guidelineV3"
             android:contentDescription="@string/cancel" />
         <TextView
-            app:layout_constraintRight_toLeftOf="@+id/a_search_ed_dateEnd_create"
             android:gravity="center"
             style="@style/MyEditTextStyleSearch"
             android:hint="@string/amp"
@@ -341,34 +342,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/ddguidelineX12"
-            app:layout_constraintLeft_toRightOf="@+id/cancelDCB"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineV1"
+            app:layout_constraintRight_toRightOf="@+id/guidelineV3"
             android:importantForAutofill="no" />
         <TextView
-            app:layout_constraintRight_toLeftOf="@+id/cancelDCE"
-            android:gravity="end"
             android:textColorHint="@color/colorD"
             style="@style/MyEditTextStyleSearch"
             android:hint="@string/dateplus"
-            app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"
             android:background="@color/colorB"
             android:id="@+id/a_search_ed_dateEnd_create"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@+id/ddguidelineX12"
-            app:layout_constraintLeft_toRightOf="@+id/txtCreateDate2"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineV1"
+            app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"
+            app:layout_constraintRight_toRightOf="@+id/guidelineV3"
             android:importantForAutofill="no" />
 
         <ImageButton
-            app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"
-            app:layout_constraintRight_toLeftOf="@+id/guidelineCenter"
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/cancelDCE"
-            app:layout_constraintTop_toTopOf="@+id/ddguidelineX12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/cancel_yellow_small"
-            app:layout_constraintLeft_toRightOf="@+id/a_search_ed_dateEnd_create"
-            android:contentDescription="@string/cancel" />
+            android:contentDescription="@string/cancel"
+            app:layout_constraintTop_toTopOf="@+id/a_search_ed_dateEnd_create"
+            app:layout_constraintRight_toRightOf="@+id/guidelineV3"/>
 
 
         <TextView
@@ -394,22 +392,19 @@
             android:id="@+id/a_search_sold_dateBegin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/guidelineCenter"
-            app:layout_constraintRight_toLeftOf="@+id/cancelDSB"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineV4"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineV2"
             app:layout_constraintTop_toTopOf="@+id/ddguidelineX12"
-            app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"
             />
 
         <ImageButton
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/cancelDSB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/cancel_yellow_small"
-            app:layout_constraintLeft_toRightOf="@+id/a_search_sold_dateBegin"
-            app:layout_constraintRight_toLeftOf="@+id/txtSoldDate2"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineV2"
             app:layout_constraintTop_toTopOf="@+id/ddguidelineX12"
-            app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"
             android:contentDescription="@string/cancel" />
         <TextView
             android:gravity="center"
@@ -421,8 +416,8 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/ddguidelineX12"
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"
-            app:layout_constraintLeft_toRightOf="@+id/cancelDSB"
-            app:layout_constraintRight_toLeftOf="@+id/a_search_sold_dateEnd"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineV4"
+            app:layout_constraintRight_toRightOf="@+id/guidelineV2"
             android:importantForAutofill="no" />
         <TextView
             android:gravity="center"
@@ -432,21 +427,18 @@
             android:layout_width="wrap_content"
             android:text="@string/dateplus"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@+id/ddguidelineX12"
-            app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"
-            app:layout_constraintLeft_toRightOf="@+id/txtSoldDate2"
-            app:layout_constraintRight_toLeftOf="@+id/cancelDSE"
+            app:layout_constraintLeft_toLeftOf="@+id/guidelineV4"
+            app:layout_constraintRight_toLeftOf="@+id/guidelineV2"
+            app:layout_constraintBottom_toBottomOf="@+id/ddguidelineX11"
             android:importantForAutofill="no" />
         <ImageButton
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/cancelDSE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/cancel_yellow_small"
-            app:layout_constraintLeft_toRightOf="@+id/a_search_sold_dateEnd"
-            app:layout_constraintTop_toTopOf="@+id/ddguidelineX12"
             app:layout_constraintBottom_toTopOf="@+id/ddguidelineX11"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toRightOf="@+id/guidelineV2"
             android:contentDescription="@string/cancel" />
         <TextView
             android:gravity="center"

@@ -175,13 +175,19 @@
         <item name="android:minDate">01/01/2020</item>
         <item name="colorControlActivated">#303030</item>
         <item name="colorControlHighlight">#303030</item>
-        <item name="android:background">#bfac40</item>
         <item name="android:backgroundStacked">#bfac40</item>
         <item name="android:colorBackground">#bfac40</item>
         <item name="android:backgroundSplit">#bfac40</item>
-        <item name="android:buttonBarStyle">@style/Widget.AppCompat.Button.Borderless</item>
+        <item name="android:background">#bfac40</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.AppCompat.Button.Borderless.Colored</item>
+    </style>
+
+    <style name="ButtonCalendar" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">#303030</item>
+
 
     </style>
+
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="windowActionBar">false</item>

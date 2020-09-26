@@ -254,10 +254,13 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
                     mDateCreate = Utils.convertToEpoch(Utils.formatDate(y, m, d)) }
             val now = Time(); now.setToNow()
             val d = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
-            d.show(); d.getButton(DatePickerDialog.BUTTON_POSITIVE)
-            .setBackgroundColor(resources.getColor(R.color.colorD))
-            d.getButton(DatePickerDialog.BUTTON_NEGATIVE)
-                .setBackgroundColor(resources.getColor(R.color.colorD)) } }
+            d.show()
+            d.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.colorB))
+            d.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.colorB))
+
+
+
+        } }
 
     private fun loadDateSold() {
         upload_dateSold.setOnClickListener {
@@ -270,8 +273,8 @@ class UpdateActivity : AppCompatActivity(), MyCommunicationForImage {
             val now = Time(); now.setToNow()
             val d = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
             d.show()
-            d.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(resources.getColor(R.color.colorD))
-            d.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(resources.getColor(R.color.colorD))
+            d.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.colorB))
+            d.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.colorB))
              }
 
         cancel_sold.setOnClickListener {

@@ -28,6 +28,9 @@ class DetailActivity : AppCompatActivity() {
     private fun onClickSearch() {
         detail_fb_search.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
+
+
+
             startActivity(intent) } }
 
 

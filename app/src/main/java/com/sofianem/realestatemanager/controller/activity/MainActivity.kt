@@ -1,15 +1,14 @@
 package com.sofianem.realestatemanager.controller.activity
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.view.Display
 import android.view.View
 import android.widget.RemoteViews
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +22,8 @@ import com.sofianem.realestatemanager.utils.MyCommunication
 import com.sofianem.realestatemanager.viewmodel.MyViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
@@ -65,13 +66,15 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
     }
 
     private fun initNotif(mNewID: Int) {
-        mMyViewModel.getById(mNewID).observe(this, Observer {
+        val mCity = mMyViewModel.getForNotif(mNewID)
+
             notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val intent = Intent(this,MainActivity::class.java)
+            println(" Go notif------>>>>>>>>>>>>>>>")
             val pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT)
             val contentView = RemoteViews(packageName,R.layout.activity_notification_view)
             contentView.setTextViewText(R.id.tv_title,"New item on Real Estate Manager")
-            contentView.setTextViewText(R.id.tv_content,"@ " + it.city)
+            contentView.setTextViewText(R.id.tv_content, "@ $mCity")
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 notificationChannel = NotificationChannel(channelId,description,NotificationManager.IMPORTANCE_HIGH)
                 notificationChannel.enableLights(true)
@@ -84,8 +87,7 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
 
             }else{ builder = Notification.Builder(this).setContent(contentView).setSmallIcon(R.mipmap.ic_launcher_rem_round).setLargeIcon(BitmapFactory.decodeResource(this.resources,R.mipmap.ic_launcher_rem_round)).setContentIntent(pendingIntent)}
 
-            notificationManager.notify(1234,builder.build())
-        }) }
+            notificationManager.notify(1234,builder.build()) }
 
 
 
@@ -149,40 +151,10 @@ class MainActivity : AppCompatActivity(), MyCommunication, LifecycleObserver {
             finish()} }
 
 
-    /*
-
-    this.textViewMain = findViewById(R.id.activity_main_activity_text_view_main);
-        // 1 -  CHANGE ID
-        this.textViewQuantity = findViewById(R.id.activity_main_activity_text_view_quantity);
-
-        this.configureTextViewMain();
-        this.configureTextViewQuantity();
-    }
-
-    private void configureTextViewMain(){
-        this.textViewMain.setTextSize(15);
-        this.textViewMain.setText("Le premier bien immobilier enregistré vaut ");
-    }
-
-    private void configureTextViewQuantity(){
-        String quantity = String.valueOf(Utils.convertDollarToEuro(100));
-        // 2 - SWITCH TO STRING
-        this.textViewQuantity.setTextSize(20);
-        this.textViewQuantity.setText(quantity);
-    }
-
-
-
-     */
-
     companion object {
         const val ID = "id"
 
         private lateinit var mTestcontext: Context
 
-        fun setContext(contxt: Context) : Context {
-            mTestcontext = contxt
-                  return mTestcontext
-        }
     }
 }

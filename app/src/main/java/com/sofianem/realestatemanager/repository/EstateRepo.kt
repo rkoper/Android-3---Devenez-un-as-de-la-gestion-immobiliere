@@ -11,6 +11,7 @@ open class EstateRepo (private val estate_Dao: EstateDao) {
 
 
     var readAllLive: LiveData<List<EstateR>> = estate_Dao.getAll()
+
     var readAllId: LiveData<List<Int>> = estate_Dao.getAllId()
 
     fun updateTodo(todo: EstateR) {
@@ -81,6 +82,9 @@ open class EstateRepo (private val estate_Dao: EstateDao) {
         return estate_Dao.getGeoLocById(mId)
     }
 
+    fun getForNotif(mId: Int): String {
+        return estate_Dao.getForNotif(mId)
+    }
 
 }
 

@@ -61,7 +61,9 @@ class DetailFragment : Fragment(), LifecycleObserver {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? { return inflater.inflate(R.layout.fragment_detail, container, false) }
+    ): View? {
+
+        return inflater.inflate(R.layout.fragment_detail, container, false) }
 
 
      private fun setupRecyclerView() {
@@ -98,7 +100,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
 
     fun displayDetails(id: Int) {
        mMV.getById(id).observe(this, Observer {mEstate ->
-           println(" T1 ----------> + $mEstate")
+           println(" T1 ------>" + id + " // "+ mEstate)
            mId = mEstate.id
            mType = mEstate.type
            mPrice = mEstate.price
@@ -109,6 +111,7 @@ class DetailFragment : Fragment(), LifecycleObserver {
            mAddress = mEstate.adress
            mPerson = mEstate.personn
            mDateBegin = mEstate.date_begin
+           mDateEnd = mEstate.date_end
            mStatus = mEstate.status
            mLocationForPlace = mEstate.location
            mProxPark = mEstate.prox_park
@@ -188,6 +191,9 @@ class DetailFragment : Fragment(), LifecycleObserver {
         if (mDateBegin.toInt() == 3) { detail_datebegin.text = "-"} else{
             val mDisplayDateBegin = sdf.format(Date(mDateBegin))
             detail_datebegin.text = mDisplayDateBegin.toString() }
+
+        println(" DATE B ------->" + mDateBegin)
+        println(" DATE END ------->" + mDateEnd)
 
         if (mDateEnd == 8888888888) { detail_dateend.text = "-" }  else {
             val mDisplayDateEnd = sdf.format(Date(mDateEnd))

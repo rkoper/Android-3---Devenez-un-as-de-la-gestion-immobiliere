@@ -9,8 +9,6 @@ import com.sofianem.realestatemanager.repository.EstateRepo
 class MyViewModel(private val mRepository : EstateRepo) : ViewModel() {
     lateinit var location: String
 
-
-
      val mAllEstate: LiveData<List<EstateR>> = mRepository.readAllLive
      val mAllEstateId : LiveData<List<Int>> = mRepository.readAllId
 
@@ -67,6 +65,10 @@ class MyViewModel(private val mRepository : EstateRepo) : ViewModel() {
     fun getById(mId: Int): LiveData<EstateR> { return mRepository.getById( mId)}
 
     fun getGeoLocById(mId: Int): String { return mRepository.getGeoLocById( mId)}
+
+    fun getForNotif(mId: Int): String { return mRepository.getForNotif( mId)}
+
+
 
 
 }

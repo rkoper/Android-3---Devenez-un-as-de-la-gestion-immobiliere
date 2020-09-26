@@ -67,7 +67,7 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
         if (a)
         {    setContentView(R.layout.activity_search)}
         else
-        {  setContentView(R.layout.activity_search)}
+        {  setContentView(R.layout.activity_search_2)}
 
 
         mMyViewModel.mAllEstateId.observe(this, androidx.lifecycle.Observer {mList ->
@@ -274,9 +274,10 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
             val now = Time()
             now.setToNow()
             val datePicker = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
+            datePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.colorB))
+            datePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.colorB))
             datePicker.show()
-            datePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(resources.getColor(R.color.colorD))
-            datePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(resources.getColor(R.color.colorD))
+
             cancelDSB.visibility = View.VISIBLE
         }
 
@@ -297,9 +298,11 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
             val now = Time()
             now.setToNow()
             val datePicker = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
+            datePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.colorB))
+            datePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.colorB))
+
             datePicker.show()
-            datePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(resources.getColor(R.color.colorD))
-            datePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(resources.getColor(R.color.colorD))
+
             cancelDSE.visibility = View.VISIBLE
         }
         cancelDSE.setOnClickListener {
@@ -318,10 +321,10 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
                 initSearch()}
             val now = Time()
             now.setToNow()
-            val datePicker2 = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
-            datePicker2.show()
-            datePicker2.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(resources.getColor(R.color.colorD))
-            datePicker2.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(resources.getColor(R.color.colorD))
+            val datePicker = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
+            datePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.colorB))
+            datePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.colorB))
+            datePicker.show()
             cancelDCB.visibility = View.VISIBLE
         }
         cancelDCB.setOnClickListener {
@@ -341,9 +344,11 @@ class SearchActivity : AppCompatActivity(), LifecycleOwner  {
             val now = Time()
             now.setToNow()
             val datePicker = DatePickerDialog(this, R.style.MyAppThemeCalendar, dpd, now.year, now.month, now.monthDay)
+            datePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(resources.getColor(R.color.colorB))
+            datePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(resources.getColor(R.color.colorB))
+
             datePicker.show()
-            datePicker.getButton(DatePickerDialog.BUTTON_POSITIVE).setBackgroundColor(resources.getColor(R.color.colorD))
-            datePicker.getButton(DatePickerDialog.BUTTON_NEGATIVE).setBackgroundColor(resources.getColor(R.color.colorD))
+
             cancelDCE.visibility = View.VISIBLE
         }
         cancelDCE.setOnClickListener {

@@ -55,7 +55,10 @@ interface EstateDao {
     @Query("SELECT Estate_location FROM Estate WHERE  Estate_id = :mId ")
     fun getGeoLocById(mId:Int): String
 
-    @Query("SELECT * FROM Estate ORDER BY Estate_id ASC")
-    fun getAllForRV(): LiveData<List<EstateR>>
+    @Query("SELECT Estate_city FROM Estate WHERE  Estate_id = :mId ")
+    fun getForNotif(mId:Int): String
+
+
+
 
 }
